@@ -38,7 +38,7 @@ class: title-slide
 
 First part
 - [Install or update R](r-install)
-- [What is R](r-story)
+- [What is R](parts)
 - [RStudio and identify the parts](R-parts)
 - [Data types](data-types)
 - [Errors](errors)
@@ -261,22 +261,19 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroTo
 ```
 
 
----
-
 
 ---
+
+name:parts
 
 class: title-slide, middle, right
-background-image: url(https://images.unsplash.com/photo-1538766017398-415434a31a5b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)
+background-image: url(https://images.unsplash.com/photo-1609668528780-e364738d8ba5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1021&q=80)
 background-size: cover
 
-# Some history
+# Parts of R
 
 
 ---
-
-
-name: R-story
 
 ## 2. What is R?
 
@@ -365,7 +362,6 @@ knitr::include_graphics("https://images.unsplash.com/photo-1605445622210-2dd2586
 ]
 
 ---
-name: R-parts
 
 ## 2.4. Using RStudio.
 ### Parts
@@ -715,8 +711,8 @@ class: title-slide
 
 ---
 
-class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1538766017398-415434a31a5b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)
+class: title-slide, inverse, bottom, inverse
+background-image: url(https://images.unsplash.com/photo-1529448005898-b19fc13465b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80)
 background-size: cover
 
 ## Summary
@@ -740,28 +736,22 @@ Next part:
 ---
 
 name: packages
-class: title-slide, inverse, bottom
+class: title-slide, middle, right, inverse
 background-image: url(https://images.unsplash.com/photo-1586864387789-628af9feed72?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80)
 background-size: cover
 
 # 3. Packages
 
-.right[
-Foto de [Unsplash](https://unsplash.com)
-]
-
 ---
 
 name: packages
-class: title-slide, inverse, bottom
+class: title-slide, inverse, right, middle
 background-image: url(https://images.unsplash.com/photo-1587115428043-6f57635bd224?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80)
 background-size: cover
 
 name: read-files
 
 # 4. Read files
-
----
 
 ---
 
@@ -779,7 +769,7 @@ name: rmd
 
 ---
 
-class: title-slide, inverse, bottom
+class: title-slide, bottom
 background-image: url(https://images.unsplash.com/photo-1592781959802-0ccb435205a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGxldHRlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60)
 background-size: cover
 
@@ -789,11 +779,12 @@ background-size: cover
 .right[
 ### Contact
 
-This materials are free of use <br> yo can download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/Curso_CIAD/) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/)
+This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/Curso_CIAD/) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/)
 ]
 
 <h1>
 .right[
 
-[`r fa("home", fill = '#f2cc8f')`</h1>volver](https://www.miriam-lerma.com/materiales.html)
+[`r fa("home", fill = '#f2cc8f')`</h1>home](https://www.miriam-lerma.com/materiales.html)
 ]
+
