@@ -39,17 +39,14 @@ First part
 
 Second part
 
-- What are packages
+- [Packages](packages)
+- [Read files](read-files)
 
-Install some packages
+Third part
 
-- Read files
+- [Short intro to Rmarkdown](rmd)
 
-Practice read_csv, read_excel, download data from movebank
 
-- Short intro to Rmarkdown
-
-Open a file and click on the parts
 
 ---
 
@@ -70,7 +67,7 @@ Open a file and click on the parts
 
 class: title-slide, inverse
 
-# A reminder
+### A reminder
 
 &lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Approximate.png?raw=true" height="200" /&gt;
 
@@ -107,27 +104,36 @@ name: R-install
 
 # 1. Install R
 
+First time installing R
+
 To install R and Rstudio you can visit the page [posit](https://posit.co/download/rstudio-desktop/)
 
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_01Posit.png?raw=true" height="100" /&gt;
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_01Posit.png?raw=true" height="400" /&gt;
 
 ---
 
-## Install R 
+### First time installing R
 
-There you will find two links, start with installing R
+Once you click download and install R, you will find several links.
 
-Depending on your computer, you need to select the one that fits you better
+If you are the first time installing you should choose the first one.
 
 &lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_03UpdateR.png?raw=true" height="300" /&gt;
 
-
-
 ---
 
-## Install R
+## Update R
 
-If you already had R and want to see if you need to update you can use:
+If you already have R and R-Studio
+
+Check which version you are using:
+
+
+```r
+sessionInfo()
+```
+
+To see if you need to update you can use:
 
 
 ```r
@@ -136,17 +142,12 @@ library(installr)
 updateR()
 ```
 
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_02UpdateR.png?raw=true" height="300" /&gt;
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_02UpdateR.png?raw=true" height="250" /&gt;
 
-Alternatively you can use the function:
-
-```r
-sessionInfo()
-```
 
 ---
 
-## Install R
+## Update R
 
 If you opt to update R, it would send you to the R installation page.
 
@@ -156,23 +157,25 @@ You will likely select &gt;3.4
 
 ---
 
-## Install R
+## Update R
 
-When you want to update R in R studio, it most likely will suggest that you use your R console
+It would suggest that you go to the console.
+
+Look for R and open the console
 
 &lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_06UpdateR.png?raw=true" height="300" /&gt;
 
 ---
 
-## Install R
+## Update R
 
-Your R console must be on your installed programs
+Write again updateR()
 
 &lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_07UpdateR.png?raw=true" height="300" /&gt;
 
 ---
 
-## Install R
+## Update R
 
 Give it some time
 
@@ -180,9 +183,9 @@ Give it some time
 
 ---
 
-## Install R
+## Update R
 
-If you already had R packages installed in your previous version, you might not want to install one by one again.
+If you already had R packages installed in your previous version, you might not want to install each package one by one again.
 
 Therefore, I would recommend to select YES.
 
@@ -190,31 +193,38 @@ Therefore, I would recommend to select YES.
 
 ---
 
-## Install R
+## Update R
 
-As to March 2023 this was the newest version of R.
+By March 2023 4.2.3 was the newest version of R.
 
 &lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_10UpdateR.png?raw=true" height="100" /&gt;
 
 
 Did you notice the difference?
 
---- 
+---
 
-## R-Studio
+## Update R-Studio
 
-If you alredy have Rstudi and want to see if you need to update you can go to:
+If you alredy have Rstudo and want to see if you need to update you can go to:
 
 Help&gt;Check for updates
 
 &lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_04UpdateRStudio.png?raw=true" height="300" /&gt;
+
+
+---
+
+## Update R-Studio
+
+If you have an outdate version of R, this would show:
 
 &lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_05UpdateRStudio.png?raw=true" height="300" /&gt;
 
 
 ---
 
-## Install R-Studio
+## Update R-Studio
 
 If you have the latest version of RStudio this would show:
 
@@ -231,6 +241,7 @@ background-image: url(https://images.unsplash.com/photo-1538766017398-415434a31a
 background-size: cover
 
 # Some history
+
 
 ---
 
@@ -343,12 +354,6 @@ File &gt; New File &gt; Rscript
 
 ### Testing the console
 
-
-.pull-left[
-&lt;img src="https://bookdown.org/ndphillips/YaRrr/images/RStudio_Screenshot_Labels.png" height="100" /&gt;
-]
-
-.pull-right[
 - Write in the console
 
 ```r
@@ -360,7 +365,6 @@ File &gt; New File &gt; Rscript
 ```r
 3*4
 ```
-
 
 --
 
@@ -624,12 +628,11 @@ Foto de [Unsplash](https://unsplash.com)
 
 ---
 
-## 2.4 Using R
-### Type of errors
+## 2.4. Type of errors
 
 Errors are part of life.  
 
-R very often is trying to tell us how to solver the error.
+R very often is trying to tell us how to solve the error.
 
 - For example:
 
@@ -645,8 +648,7 @@ Other messages that might be red or orange are:
 
 ---
 
-## 2.4 Using R
-### The most common errors
+## 2.4. The most common errors
 
 Whats going on here
 
@@ -696,9 +698,7 @@ Remove the # and find the error.
 
 ---
 
-## 2.4. Using R
-
-### Debugging bingo
+## 2.4. Debugging bingo
 
 &lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/DebuggingBingo.jpg?raw=true" height="400" /&gt;
 
@@ -706,8 +706,7 @@ Source: Dr. Ji Son
 
 ---
 
-## 2.4. Using R
-### Errors
+## 2.4. Object name consistency
 
 Many errors are going to be marked by a red x in the **code editor**.
 
@@ -756,20 +755,73 @@ background-size: cover
 
 ## Summary
 
+.pull-left[
 Until here:
 - [What is R](r-story)
 - [RStudio and identify the parts](R-parts)
 - [Data types](data-types)
 - [Errors](errors)
+]
 
+.pull-right[
 Next part:
 - Packages
 - Directories
-- Read data
+- Read data]
+
+
+
+---
+
+name: packages
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1586864387789-628af9feed72?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=870&amp;q=80)
+background-size: cover
+
+# 3. Packages
+
+.right[
+Foto de [Unsplash](https://unsplash.com)
+]
+
+---
+
+name: packages
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1587115428043-6f57635bd224?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=870&amp;q=80)
+background-size: cover
+
+name: read-files
+
+# 4. Read files
+
+---
+
+---
+
+name: packages
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1551127481-43279ba6dec4?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=870&amp;q=80)
+background-size: cover
+
+name: rmd
+
+# 5. Rmarkdown
+
+---
+
+
+---
+
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1592781959802-0ccb435205a9?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGxldHRlcnxlbnwwfHwwfHw%3D&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=60)
+background-size: cover
+
+
 
 
 .right[
-### Contacto
+### Contact
 
 This materials are free of use &lt;br&gt; yo can download the presentation here: [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg>github](https://github.com/MiriamLL/Curso_CIAD/) and  [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg>webpage](https://www.miriam-lerma.com/)
 ]
