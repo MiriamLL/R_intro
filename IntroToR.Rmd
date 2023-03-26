@@ -34,13 +34,16 @@ library(fontawesome)
 
 class: title-slide
 
-## 1. Intro
+## Index
 
-- Install R
+First part
+- [Install or update R](r-install)
+- [What is R](r-story)
+- [RStudio and identify the parts](R-parts)
+- [Data types](data-types)
+- [Errors](errors)
 
-- What is R, RStudio and identify the parts
-
-Open R, run some variables
+Second part
 
 - What are packages
 
@@ -67,22 +70,36 @@ Open a file and click on the parts
 - Be able to load and download data
 - Feel confortable using R  
 
+
+
 ---
 
 class: title-slide, inverse
 
-# References
+# A reminder
 
-- [`r fa("book-open", fill = "#f2cc8f")` R4DS](https://r4ds.had.co.nz/)  
+```{r, echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Approximate.png?raw=true")
+```
+
+---
+
+class: title-slide, inverse
+
+### References
+
+- R for Data Science  
+[`r fa("book-open", fill = "#f2cc8f")` R4DS](https://r4ds.had.co.nz/)  
 
 - From Zero to Shero by RLadies   
-[`r fa("github-alt", fill = "#f2cc8f")` Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg)  
+[`r fa("github-alt", fill = "#f2cc8f")` Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg) 
 
 
 - Images by  
 [`r fa("camera-retro", fill = "#f2cc8f")` Portada de Unsplash por Jan Tinneberg](https://unsplash.com/@craft_ear)  
 [`r fa("camera-retro", fill = "#f2cc8f")` Unsplash](https://unsplash.com/)  
 [`r fa("twitter", fill = "#f2cc8f")` Allison horst](https://twitter.com/allison_horst?lang=es)  
+
 
 ---
 
@@ -94,7 +111,163 @@ background-size: cover
 
 ---
 
-## 1.1 What is R?
+name: R-install
+
+# 1. Install R
+
+To install R and Rstudio you can visit the page [posit](https://posit.co/download/rstudio-desktop/)
+
+```{r echo=FALSE, out.height=100}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_01Posit.png?raw=true")
+```
+
+---
+
+## Install R 
+
+There you will find two links, start with installing R
+
+Depending on your computer, you need to select the one that fits you better
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_03UpdateR.png?raw=true")
+```
+
+
+
+---
+
+## Install R
+
+If you already had R and want to see if you need to update you can use:
+
+```{r, eval=FALSE}
+install.packages("installr")
+library(installr)
+updateR()
+```
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_02UpdateR.png?raw=true")
+```
+
+Alternatively you can use the function:
+```{r,eval=FALSE}
+sessionInfo()
+```
+
+---
+
+## Install R
+
+If you opt to update R, it would send you to the R installation page.
+
+You will likely select >3.4
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_03UpdateR.png?raw=true")
+```
+
+---
+
+## Install R
+
+When you want to update R in R studio, it most likely will suggest that you use your R console
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_06UpdateR.png?raw=true")
+```
+
+---
+
+## Install R
+
+Your R console must be on your installed programs
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_07UpdateR.png?raw=true")
+```
+
+---
+
+## Install R
+
+Give it some time
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_08UpdateR.png?raw=true")
+```
+
+---
+
+## Install R
+
+If you already had R packages installed in your previous version, you might not want to install one by one again.
+
+Therefore, I would recommend to select YES.
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_09UpdateR.png?raw=true")
+```
+
+---
+
+## Install R
+
+As to March 2023 this was the newest version of R.
+
+```{r echo=FALSE, out.height=100}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_10UpdateR.png?raw=true")
+```
+
+
+Did you notice the difference?
+
+--- 
+
+## R-Studio
+
+If you alredy have Rstudi and want to see if you need to update you can go to:
+
+Help>Check for updates
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_04UpdateRStudio.png?raw=true")
+```
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_05UpdateRStudio.png?raw=true")
+```
+
+
+---
+
+## Install R-Studio
+
+If you have the latest version of RStudio this would show:
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_11UpdateR.png?raw=true")
+```
+
+
+---
+
+
+---
+
+class: title-slide, middle, right
+background-image: url(https://images.unsplash.com/photo-1538766017398-415434a31a5b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)
+background-size: cover
+
+# Some history
+
+---
+
+
+name: R-story
+
+## 2. What is R?
 
 .center[
 ```{r echo=FALSE, out.height=50, out.width=50}
@@ -116,7 +289,7 @@ Sylvia Tippmann/Source: Elsevier Scopus database
 
 ---
 
-## 1.2 Why to use R?
+## 2.2 Why to use R?
 ### Advantages
 
 - Its free
@@ -144,7 +317,7 @@ This also helps to save time!
 
 ---
 
-## 1.2. Why to use R? 
+## 2.2. Why to use R? 
 
 ### Disadvantages
 
@@ -157,7 +330,7 @@ knitr::include_graphics("https://pbs.twimg.com/media/EK8s79kUEAU3cAT?format=jpg&
 
 ---
 
-## 1.3. Using R
+## 2.3. Using R
 
 ### R vs RStudio.
 
@@ -181,8 +354,9 @@ knitr::include_graphics("https://images.unsplash.com/photo-1605445622210-2dd2586
 ]
 
 ---
+name: R-parts
 
-## 1.4. Using RStudio.
+## 2.4. Using RStudio.
 ### Parts
 
 ```{r echo=FALSE, out.height=450}
@@ -194,7 +368,7 @@ Source: [YaRrr](https://bookdown.org/ndphillips/YaRrr/the-four-rstudio-windows.h
 
 ---
 
-## 1.4 Usar R
+## 2.4 Using R
 
 First time opening RStudio looks like this:
 
@@ -209,7 +383,7 @@ File > New File > Rscript
 
 ---
 
-## 1.4 Using RStudio
+## 2.4 Using RStudio
 
 ### Testing the console
 
@@ -220,7 +394,7 @@ knitr::include_graphics("https://bookdown.org/ndphillips/YaRrr/images/RStudio_Sc
 ```
 ]
 
-.pull- right[
+.pull-right[
 - Write in the console
 ```{r, comment="", eval=FALSE}
 3*4
@@ -249,31 +423,33 @@ What happend in the **environment**?
 
 ---
 
-## 1.4 Usar R
-### Clases de datos
+name: data-types
 
-Los datos pueden ser:
-- Numéricos
+## 2.4 Using R
+### Data types
+
+Some data types:
+- Numeric
 ```{r, comment=""}
 class(1.4)
 ```
 
-- Caracteres
+- Characters
 ```{r, comment=""}
 class("Miriam")
 ```
 
 ---
 
-## 1.4 Usar R
-### Clases de datos
+## 2.4 Using R
+### Data types
 
-Que pasa si escribo con comillas un numero?
+Why if we use quotes ""?
 ```{r, comment=""}
 class("1")
 ```
 
-- Lógicos
+- Logical
 ```{r}
 3 == 4
 ```
@@ -282,21 +458,24 @@ class("1")
 3 < 5
 ```
 
-Hay muchas otras clases de datos que vamos a ver cuando sean relevantes.  
-Factores cuando estemos haciendo análisis estadísticos por ejemplo.
+There are many others, that would be relevant later on.
+
+Source: [Data structures by the Carpentries](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/)
 
 ---
 
-## 1.4 Usar R
-### Mi primer data frame
+## 2.4 Using R
+### My first data frame
 
-Asignar nombres
+Asign symbol
 ```{r, eval=FALSE}
 <-
 ```
-Este símbolo es super importante y lo vamos a usar mucho, lo ideal es que lo ubiquen en su teclado.  
 
-- Discusiones sobre usar asignación o signo de igual: [Discución en stackoverflow](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r), [R inferno](https://www.burns-stat.com/pages/Tutor/R_inferno.pdf), [Otros](https://www.roelpeters.be/the-difference-between-arrow-and-equals-assignment-in-r/)   
+This symbol is frequently use, and is important that you find it in your keyboard as soon as possible. 
+ 
+
+- Why is not the same as =. See here: [Assignment operators](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r), [R inferno](https://www.burns-stat.com/pages/Tutor/R_inferno.pdf), [Why they are not the same](https://www.roelpeters.be/the-difference-between-arrow-and-equals-assignment-in-r/)   
 
 .center[
 ```{r echo=FALSE, out.height=200}
@@ -305,108 +484,111 @@ knitr::include_graphics('https://www.roelpeters.be/wp-content/uploads/2020/05/AP
 ]
 
 ---
-## 1.4 Usar R
+## 2.4 Using R
 
-Usar la asignacion.  
+Lets use the arrow symbol.  
 ```{r}
-Alumnos<-c("Alvaro","Gabriela","Carolina","Angel","Denisse","Juan","Lisset",
-                 "Majo","Irma","Pamela","Paulina")
-class(Alumnos)
+Names<-c("Miriam","Jette","Kai","Nele","Jana","Kristin","Karena","Nico","Philipp","Mads")
+class(Names)
 ```
 
 ```{r}
-Alumnos<-as.data.frame(Alumnos)
-class(Alumnos)
+Names<-as.data.frame(Names)
+class(Names)
 ```
 
-Vean su **environment** pueden darle doble clic y verlo en forma de tabla.
+Now in the **environment** click twice and look at your data frame.
 
 ---
 
-## 1.4 Usar R
-### Mi primer data frame
+## 2.4 Using R
+### Use my first data frame
 
-Asignar filas o revisar filas.
+Asign vectors to a column or check a column contents
+
+The symbol $ is in R 
 ```{r, eval=FALSE}
 $
 ```
 
-Pero y si quiero agregar el apellido en otra columna?
+Lets create a new column
 ```{r}
-Alumnos$Apellido<-c("G","A","T","D","L","S","H",NA,"M","L","R")
+Names$LastName<-c("G","A","T","D","L","S","H",NA,"M","L")
 ```
 
 ```{r, comment=""}
-(Alumnos)
+head(Names,5)
 ```
 
 ---
 
-## 1.4 Usar R
-### Forzar clases
+## 2.4 Using R
+### Force column type
 
 ```{r}
-MiNumero<-'1'
+my_number<-'1'
 ```
 
 ```{r}
-class(MiNumero)
+class(my_number)
 ```
 
 ```{r}
-MiNumero<-as.numeric(MiNumero)
+my_number<-as.numeric(my_number)
 ```
 
 ```{r}
-class(MiNumero)
-```
-
----
-
-## 1.4 Usar R
-### Forzar clases
-
-Otros que puedan necesitar
-```{r}
-DiaHora<-'2015-06-12 05:00:00'
-```
-
-```{r}
-class(DiaHora)
-```
-
-```{r}
-DiaHora <- as.POSIXct(strptime(DiaHora, "%d/%m/%Y %H:%M:%S "), "GMT")
-```
-
-"POSIXct" "POSIXt" es como R identifica que son días y horas.
-```{r}
-class(DiaHora)
+class(my_number)
 ```
 
 ---
 
-## 1.4 Usar R
-### Editor de código
+## 2.4 Using R
+### Force classes
 
-Para crear notas en el **editor de código** ponemos el **#** (numeral, hashtag, gatito)
+Our favorite class
 ```{r}
-#Acuerdate que no apuntaste el apellido de Majo y tienes NAs
+my_timestamp<-'2015-06-12 05:00:00'
 ```
-R sabe que debe ignorar el comentario cuando tiene #, pero los comentarios nos sirven a nosotros.
 
-Es importante ponerle el numeral, si quieren pueden probar que pasa si se lo quitan. 
+```{r}
+class(my_timestamp)
+```
 
-Una **buena practica** es escribir lo que queríamos hacer, ya sea para que alguien mas sepa que quisimos hacer o para acordarnos que queríamos hacer nosotros.
+```{r}
+my_timestamp <- as.POSIXct(strptime(my_timestamp, "%d/%m/%Y %H:%M:%S "), "GMT")
+```
 
-Van a guardar el script de hoy y lo abren en una semana y me dicen si se acuerdan exactamente de que querían hacer.
+```{r}
+class(my_timestamp)
+```
+
+Timestamp should be a "POSIXct" "POSIXt" for R to understand the are date and time
 
 ---
+
+## 2.4 Using R
+### Code editor
+
+To add text in the **editor** we use the symbol **#** (hashtag)
+
+```{r}
+#Here you created a data frame with names, but there is NA
+```
+
+R will ignore the text that has a # but these are very important for us to make annotations.
+
+It is a **good practice** to write comments. Either for us to share the script, or for you to remember what you were doing.
+
+This is specially important if you get corrections, or if you want to repeat the analyses. 
+
+---
+name:errors
 class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/photo-1555861496-0666c8981751?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)
 background-size: cover
 
-# Errores
+# Errors
 
 .right[
 Foto de [Unsplash](https://unsplash.com)
@@ -414,38 +596,40 @@ Foto de [Unsplash](https://unsplash.com)
 
 ---
 
-## 1.4 Usar R
-### Tipos de errores
+## 2.4 Using R
+### Type of errors
 
-No se tomen los errores de manera personal, es como R se comunica con ustedes y son muuuuuuuy comunes.  
+Errors are part of life.  
 
-Ademas tomemoslo como algo bueno que nos informe si nos equivocamos y una oportunidad para aprender algo.
+R very often is trying to tell us how to solver the error.
 
-- Si sale error, en practica no corre lo que le pidieron.
+- For example:
 ```{r, eval=FALSE}
 3 = 4
 ```
-Error in 3 = 4 : lado izquierdo de la asignación inválida (do_set)
+Error in 3 = 4 :left-hand side to assignment (do_set)
 
 
-Otros mensajes que salen en rojo y son comunes (y no son errores) son:
-- Warnings, nos advierten pero si corre lo que le pusimos.
-- Messages, es para darnos mas información de lo que hicimos.
+Other messages that might be red or orange are:
+- Warnings, I will do it, but Im not responsible of what you are doing.
+- Messages, hey I just want to let you know this happend.
 
 ---
 
-## 1.4 Usar R
-### Errores más comunes
+## 2.4 Using R
+### The most common errors
 
-Quiten el # y traten de correr estos códigos.
+Whats going on here
 
-```{r}
+Remove the # and find the error.
+
+```{r,eval=FALSE}
 #c("Miriam","Bety","Angel","Denise""Pamela")
 ```
 
 --
 
-- Falta una coma
+- Missing a comma
 
 --
 
@@ -455,7 +639,7 @@ Quiten el # y traten de correr estos códigos.
 
 --
 
-- Sobra una coma
+- Too many commas
 
 --
 
@@ -465,7 +649,7 @@ Quiten el # y traten de correr estos códigos.
 
 --
 
-- Falta un paréntesis
+- Missing a parenthesis
 
 --
 
@@ -475,47 +659,62 @@ Quiten el # y traten de correr estos códigos.
 
 --
 
-- Falta una comilla
+- Missing a quote (")
 
 ---
 
-## 1.4 Usar R
-### Errores
+## 2.4. Using R
 
-Muchos errores nos los marca con una tachita en un circulito rojo en el **editor de código**.
+### Debugging bingo
+
+```{r, echo=FALSE, out.height=400}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/DebuggingBingo.jpg?raw=true")
+```
+
+Source: Dr. Ji Son
+
+---
+
+## 2.4. Using R
+### Errors
+
+Many errors are going to be marked by a red x in the **code editor**.
 
 --
 
-Pero que tal este?
+But many till not.
+
+What is wrong with these?
 ```{r}
-#Alumno
+#name
 ```
 --
 
-- Esta mal escrito, nuestro objeto es **Alumnos** por lo que le falta una **s** al final.
+-  If our goal is to use of data frame from the environment it needs to be written exactly the same **Names**.
 
 --
 
-Es importante que nombremos los objetos con nombres que nos hagan sentido.  
+To reduce this source of error, is important to be consitent on how we name the objects.
 
-- R no acepta que los nombres comiencen con un numero (Eg."1Alumnos").  
-- Pero si pueden terminar con un numero (Eg."Alumnos1").  
+Some considerations are:
 
-- Yo uso mayúsculas para nombrar mis objetos.  
-Hay quienes usan _ (Ej. "Los_Alumnos").  
-Hay quienes usan . (Ej. "Los.alumnos").  
+- R will not take objects that start with a number (Eg."1Names").  
+- But doesnt have a problem is the name is at the end of the name (Eg."NAmes1").  
 
-- Para ayudar a nuestra memoria, hay que ser consistentes.  
+- To be consistent you could use _ and . to name your objects.  
+E.g. _ ("my_names").  
+E.g. . ("my.names").  
+
 
 ---
 
 class: title-slide
 
-# Su turno `r fa("pencil-alt", fill = '#264653')`
+# Your turn `r fa("pencil-alt", fill = '#264653')`
 
-- Abran RStudio <br>
-- Escriban en la consola y denle enter<br>
-- Abran un script y realizen una suma<br>
+- Open RStudio <br>
+- Write something in the console<br>
+- Create a data frame with characters<br>
 
 ---
 
@@ -523,26 +722,24 @@ class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/photo-1538766017398-415434a31a5b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)
 background-size: cover
 
-## Recapitulando
+## Summary
 
-Esta clase:
-- Que es R?
-- Partes de RStudio
-- Clases de objetos
+Until here:
+- [What is R](r-story)
+- [RStudio and identify the parts](R-parts)
+- [Data types](data-types)
+- [Errors](errors)
 
-Siguiente clase:
-- Instalar y cargar paquetes
-- Directorios
-- Cargar csv y excel
+Next part:
+- Packages
+- Directories
+- Read data
 
 
 .right[
 ### Contacto
 
-Para dudas, comentarios y sugerencias:  <br>
-Escríbeme a miriamjlerma@gmail.com
-
-Este material esta accesible <br> y se encuentra en: mi [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/Curso_CIAD/) y mi [`r fa("external-link-alt", fill = "#f2cc8f")`página](https://www.miriam-lerma.com/)
+This materials are free of use <br> yo can download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/Curso_CIAD/) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/)
 ]
 
 <h1>

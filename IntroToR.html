@@ -28,13 +28,16 @@ April 2023
 
 class: title-slide
 
-## 1. Intro
+## Index
 
-- Install R
+First part
+- [Install or update R](r-install)
+- [What is R](r-story)
+- [RStudio and identify the parts](R-parts)
+- [Data types](data-types)
+- [Errors](errors)
 
-- What is R, RStudio and identify the parts
-
-Open R, run some variables
+Second part
 
 - What are packages
 
@@ -61,22 +64,34 @@ Open a file and click on the parts
 - Be able to load and download data
 - Feel confortable using R  
 
+
+
 ---
 
 class: title-slide, inverse
 
-# References
+# A reminder
 
-- [<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M249.6 471.5c10.8 3.8 22.4-4.1 22.4-15.5V78.6c0-4.2-1.6-8.4-5-11C247.4 52 202.4 32 144 32C87.5 32 35.1 48.6 9 59.9c-5.6 2.4-9 8-9 14V454.1c0 11.9 12.8 20.2 24.1 16.5C55.6 460.1 105.5 448 144 448c33.9 0 79 14 105.6 23.5zm76.8 0C353 462 398.1 448 432 448c38.5 0 88.4 12.1 119.9 22.6c11.3 3.8 24.1-4.6 24.1-16.5V73.9c0-6.1-3.4-11.6-9-14C540.9 48.6 488.5 32 432 32c-58.4 0-103.4 20-123 35.6c-3.3 2.6-5 6.8-5 11V456c0 11.4 11.7 19.3 22.4 15.5z"/></svg> R4DS](https://r4ds.had.co.nz/)  
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Approximate.png?raw=true" height="200" /&gt;
+
+---
+
+class: title-slide, inverse
+
+### References
+
+- R for Data Science  
+[<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M249.6 471.5c10.8 3.8 22.4-4.1 22.4-15.5V78.6c0-4.2-1.6-8.4-5-11C247.4 52 202.4 32 144 32C87.5 32 35.1 48.6 9 59.9c-5.6 2.4-9 8-9 14V454.1c0 11.9 12.8 20.2 24.1 16.5C55.6 460.1 105.5 448 144 448c33.9 0 79 14 105.6 23.5zm76.8 0C353 462 398.1 448 432 448c38.5 0 88.4 12.1 119.9 22.6c11.3 3.8 24.1-4.6 24.1-16.5V73.9c0-6.1-3.4-11.6-9-14C540.9 48.6 488.5 32 432 32c-58.4 0-103.4 20-123 35.6c-3.3 2.6-5 6.8-5 11V456c0 11.4 11.7 19.3 22.4 15.5z"/></svg> R4DS](https://r4ds.had.co.nz/)  
 
 - From Zero to Shero by RLadies   
-[<svg aria-hidden="true" role="img" viewBox="0 0 480 512" style="height:1em;width:0.94em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg> Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg)  
+[<svg aria-hidden="true" role="img" viewBox="0 0 480 512" style="height:1em;width:0.94em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg> Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg) 
 
 
 - Images by  
 [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M220.6 121.2L271.1 96 448 96v96H333.2c-21.9-15.1-48.5-24-77.2-24s-55.2 8.9-77.2 24H64V128H192c9.9 0 19.7-2.3 28.6-6.8zM0 128V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H271.1c-9.9 0-19.7 2.3-28.6 6.8L192 64H160V48c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16l0 16C28.7 64 0 92.7 0 128zM344 304c0 48.6-39.4 88-88 88s-88-39.4-88-88s39.4-88 88-88s88 39.4 88 88z"/></svg> Portada de Unsplash por Jan Tinneberg](https://unsplash.com/@craft_ear)  
 [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M220.6 121.2L271.1 96 448 96v96H333.2c-21.9-15.1-48.5-24-77.2-24s-55.2 8.9-77.2 24H64V128H192c9.9 0 19.7-2.3 28.6-6.8zM0 128V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H271.1c-9.9 0-19.7 2.3-28.6 6.8L192 64H160V48c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16l0 16C28.7 64 0 92.7 0 128zM344 304c0 48.6-39.4 88-88 88s-88-39.4-88-88s39.4-88 88-88s88 39.4 88 88z"/></svg> Unsplash](https://unsplash.com/)  
 [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg> Allison horst](https://twitter.com/allison_horst?lang=es)  
+
 
 ---
 
@@ -88,7 +103,141 @@ background-size: cover
 
 ---
 
-## 1.1 What is R?
+name: R-install
+
+# 1. Install R
+
+To install R and Rstudio you can visit the page [posit](https://posit.co/download/rstudio-desktop/)
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_01Posit.png?raw=true" height="100" /&gt;
+
+---
+
+## Install R 
+
+There you will find two links, start with installing R
+
+Depending on your computer, you need to select the one that fits you better
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_03UpdateR.png?raw=true" height="300" /&gt;
+
+
+
+---
+
+## Install R
+
+If you already had R and want to see if you need to update you can use:
+
+
+```r
+install.packages("installr")
+library(installr)
+updateR()
+```
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_02UpdateR.png?raw=true" height="300" /&gt;
+
+Alternatively you can use the function:
+
+```r
+sessionInfo()
+```
+
+---
+
+## Install R
+
+If you opt to update R, it would send you to the R installation page.
+
+You will likely select &gt;3.4
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_03UpdateR.png?raw=true" height="200" /&gt;
+
+---
+
+## Install R
+
+When you want to update R in R studio, it most likely will suggest that you use your R console
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_06UpdateR.png?raw=true" height="300" /&gt;
+
+---
+
+## Install R
+
+Your R console must be on your installed programs
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_07UpdateR.png?raw=true" height="300" /&gt;
+
+---
+
+## Install R
+
+Give it some time
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_08UpdateR.png?raw=true" height="300" /&gt;
+
+---
+
+## Install R
+
+If you already had R packages installed in your previous version, you might not want to install one by one again.
+
+Therefore, I would recommend to select YES.
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_09UpdateR.png?raw=true" height="300" /&gt;
+
+---
+
+## Install R
+
+As to March 2023 this was the newest version of R.
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_10UpdateR.png?raw=true" height="100" /&gt;
+
+
+Did you notice the difference?
+
+--- 
+
+## R-Studio
+
+If you alredy have Rstudi and want to see if you need to update you can go to:
+
+Help&gt;Check for updates
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_04UpdateRStudio.png?raw=true" height="300" /&gt;
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_05UpdateRStudio.png?raw=true" height="300" /&gt;
+
+
+---
+
+## Install R-Studio
+
+If you have the latest version of RStudio this would show:
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_11UpdateR.png?raw=true" height="300" /&gt;
+
+
+---
+
+
+---
+
+class: title-slide, middle, right
+background-image: url(https://images.unsplash.com/photo-1538766017398-415434a31a5b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80)
+background-size: cover
+
+# Some history
+
+---
+
+
+name: R-story
+
+## 2. What is R?
 
 .center[
 &lt;img src="https://www.r-project.org/logo/Rlogo.svg" width="50" height="50" /&gt;
@@ -106,7 +255,7 @@ Sylvia Tippmann/Source: Elsevier Scopus database
 
 ---
 
-## 1.2 Why to use R?
+## 2.2 Why to use R?
 ### Advantages
 
 - Its free
@@ -134,7 +283,7 @@ This also helps to save time!
 
 ---
 
-## 1.2. Why to use R? 
+## 2.2. Why to use R? 
 
 ### Disadvantages
 
@@ -145,7 +294,7 @@ This also helps to save time!
 
 ---
 
-## 1.3. Using R
+## 2.3. Using R
 
 ### R vs RStudio.
 
@@ -165,8 +314,9 @@ RStudio is the wheel
 ]
 
 ---
+name: R-parts
 
-## 1.4. Using RStudio.
+## 2.4. Using RStudio.
 ### Parts
 
 &lt;img src="https://bookdown.org/ndphillips/YaRrr/images/RStudio_Screenshot_Labels.png" height="450" /&gt;
@@ -176,7 +326,7 @@ Source: [YaRrr](https://bookdown.org/ndphillips/YaRrr/the-four-rstudio-windows.h
 
 ---
 
-## 1.4 Usar R
+## 2.4 Using R
 
 First time opening RStudio looks like this:
 
@@ -189,7 +339,7 @@ File &gt; New File &gt; Rscript
 
 ---
 
-## 1.4 Using RStudio
+## 2.4 Using RStudio
 
 ### Testing the console
 
@@ -230,11 +380,13 @@ What happend in the **environment**?
 
 ---
 
-## 1.4 Usar R
-### Clases de datos
+name: data-types
 
-Los datos pueden ser:
-- Numéricos
+## 2.4 Using R
+### Data types
+
+Some data types:
+- Numeric
 
 ```r
 class(1.4)
@@ -244,7 +396,7 @@ class(1.4)
 [1] "numeric"
 ```
 
-- Caracteres
+- Characters
 
 ```r
 class("Miriam")
@@ -256,10 +408,10 @@ class("Miriam")
 
 ---
 
-## 1.4 Usar R
-### Clases de datos
+## 2.4 Using R
+### Data types
 
-Que pasa si escribo con comillas un numero?
+Why if we use quotes ""?
 
 ```r
 class("1")
@@ -269,7 +421,7 @@ class("1")
 [1] "character"
 ```
 
-- Lógicos
+- Logical
 
 ```r
 3 == 4
@@ -288,36 +440,38 @@ class("1")
 ## [1] TRUE
 ```
 
-Hay muchas otras clases de datos que vamos a ver cuando sean relevantes.  
-Factores cuando estemos haciendo análisis estadísticos por ejemplo.
+There are many others, that would be relevant later on.
+
+Source: [Data structures by the Carpentries](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/)
 
 ---
 
-## 1.4 Usar R
-### Mi primer data frame
+## 2.4 Using R
+### My first data frame
 
-Asignar nombres
+Asign symbol
 
 ```r
 &lt;-
 ```
-Este símbolo es super importante y lo vamos a usar mucho, lo ideal es que lo ubiquen en su teclado.  
 
-- Discusiones sobre usar asignación o signo de igual: [Discución en stackoverflow](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r), [R inferno](https://www.burns-stat.com/pages/Tutor/R_inferno.pdf), [Otros](https://www.roelpeters.be/the-difference-between-arrow-and-equals-assignment-in-r/)   
+This symbol is frequently use, and is important that you find it in your keyboard as soon as possible. 
+ 
+
+- Why is not the same as =. See here: [Assignment operators](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r), [R inferno](https://www.burns-stat.com/pages/Tutor/R_inferno.pdf), [Why they are not the same](https://www.roelpeters.be/the-difference-between-arrow-and-equals-assignment-in-r/)   
 
 .center[
 &lt;img src="https://www.roelpeters.be/wp-content/uploads/2020/05/APL_KEYBOARD_ARROW_ASSIGNMENT-768x470.jpg" height="200" /&gt;
 ]
 
 ---
-## 1.4 Usar R
+## 2.4 Using R
 
-Usar la asignacion.  
+Lets use the arrow symbol.  
 
 ```r
-Alumnos&lt;-c("Alvaro","Gabriela","Carolina","Angel","Denisse","Juan","Lisset",
-                 "Majo","Irma","Pamela","Paulina")
-class(Alumnos)
+Names&lt;-c("Miriam","Jette","Kai","Nele","Jana","Kristin","Karena","Nico","Philipp","Mads")
+class(Names)
 ```
 
 ```
@@ -326,66 +480,62 @@ class(Alumnos)
 
 
 ```r
-Alumnos&lt;-as.data.frame(Alumnos)
-class(Alumnos)
+Names&lt;-as.data.frame(Names)
+class(Names)
 ```
 
 ```
 ## [1] "data.frame"
 ```
 
-Vean su **environment** pueden darle doble clic y verlo en forma de tabla.
+Now in the **environment** click twice and look at your data frame.
 
 ---
 
-## 1.4 Usar R
-### Mi primer data frame
+## 2.4 Using R
+### Use my first data frame
 
-Asignar filas o revisar filas.
+Asign vectors to a column or check a column contents
+
+The symbol $ is in R 
 
 ```r
 $
 ```
 
-Pero y si quiero agregar el apellido en otra columna?
+Lets create a new column
 
 ```r
-Alumnos$Apellido&lt;-c("G","A","T","D","L","S","H",NA,"M","L","R")
+Names$LastName&lt;-c("G","A","T","D","L","S","H",NA,"M","L")
 ```
 
 
 ```r
-(Alumnos)
+head(Names,5)
 ```
 
 ```
-    Alumnos Apellido
-1    Alvaro        G
-2  Gabriela        A
-3  Carolina        T
-4     Angel        D
-5   Denisse        L
-6      Juan        S
-7    Lisset        H
-8      Majo     &lt;NA&gt;
-9      Irma        M
-10   Pamela        L
-11  Paulina        R
+   Names LastName
+1 Miriam        G
+2  Jette        A
+3    Kai        T
+4   Nele        D
+5   Jana        L
 ```
 
 ---
 
-## 1.4 Usar R
-### Forzar clases
+## 2.4 Using R
+### Force column type
 
 
 ```r
-MiNumero&lt;-'1'
+my_number&lt;-'1'
 ```
 
 
 ```r
-class(MiNumero)
+class(my_number)
 ```
 
 ```
@@ -394,12 +544,12 @@ class(MiNumero)
 
 
 ```r
-MiNumero&lt;-as.numeric(MiNumero)
+my_number&lt;-as.numeric(my_number)
 ```
 
 
 ```r
-class(MiNumero)
+class(my_number)
 ```
 
 ```
@@ -408,18 +558,18 @@ class(MiNumero)
 
 ---
 
-## 1.4 Usar R
-### Forzar clases
+## 2.4 Using R
+### Force classes
 
-Otros que puedan necesitar
+Our favorite class
 
 ```r
-DiaHora&lt;-'2015-06-12 05:00:00'
+my_timestamp&lt;-'2015-06-12 05:00:00'
 ```
 
 
 ```r
-class(DiaHora)
+class(my_timestamp)
 ```
 
 ```
@@ -428,43 +578,45 @@ class(DiaHora)
 
 
 ```r
-DiaHora &lt;- as.POSIXct(strptime(DiaHora, "%d/%m/%Y %H:%M:%S "), "GMT")
+my_timestamp &lt;- as.POSIXct(strptime(my_timestamp, "%d/%m/%Y %H:%M:%S "), "GMT")
 ```
 
-"POSIXct" "POSIXt" es como R identifica que son días y horas.
 
 ```r
-class(DiaHora)
+class(my_timestamp)
 ```
 
 ```
 ## [1] "POSIXct" "POSIXt"
 ```
 
+Timestamp should be a "POSIXct" "POSIXt" for R to understand the are date and time
+
 ---
 
-## 1.4 Usar R
-### Editor de código
+## 2.4 Using R
+### Code editor
 
-Para crear notas en el **editor de código** ponemos el **#** (numeral, hashtag, gatito)
+To add text in the **editor** we use the symbol **#** (hashtag)
+
 
 ```r
-#Acuerdate que no apuntaste el apellido de Majo y tienes NAs
+#Here you created a data frame with names, but there is NA
 ```
-R sabe que debe ignorar el comentario cuando tiene #, pero los comentarios nos sirven a nosotros.
 
-Es importante ponerle el numeral, si quieren pueden probar que pasa si se lo quitan. 
+R will ignore the text that has a # but these are very important for us to make annotations.
 
-Una **buena practica** es escribir lo que queríamos hacer, ya sea para que alguien mas sepa que quisimos hacer o para acordarnos que queríamos hacer nosotros.
+It is a **good practice** to write comments. Either for us to share the script, or for you to remember what you were doing.
 
-Van a guardar el script de hoy y lo abren en una semana y me dicen si se acuerdan exactamente de que querían hacer.
+This is specially important if you get corrections, or if you want to repeat the analyses. 
 
 ---
+name:errors
 class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/photo-1555861496-0666c8981751?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80)
 background-size: cover
 
-# Errores
+# Errors
 
 .right[
 Foto de [Unsplash](https://unsplash.com)
@@ -472,31 +624,33 @@ Foto de [Unsplash](https://unsplash.com)
 
 ---
 
-## 1.4 Usar R
-### Tipos de errores
+## 2.4 Using R
+### Type of errors
 
-No se tomen los errores de manera personal, es como R se comunica con ustedes y son muuuuuuuy comunes.  
+Errors are part of life.  
 
-Ademas tomemoslo como algo bueno que nos informe si nos equivocamos y una oportunidad para aprender algo.
+R very often is trying to tell us how to solver the error.
 
-- Si sale error, en practica no corre lo que le pidieron.
+- For example:
 
 ```r
 3 = 4
 ```
-Error in 3 = 4 : lado izquierdo de la asignación inválida (do_set)
+Error in 3 = 4 :left-hand side to assignment (do_set)
 
 
-Otros mensajes que salen en rojo y son comunes (y no son errores) son:
-- Warnings, nos advierten pero si corre lo que le pusimos.
-- Messages, es para darnos mas información de lo que hicimos.
+Other messages that might be red or orange are:
+- Warnings, I will do it, but Im not responsible of what you are doing.
+- Messages, hey I just want to let you know this happend.
 
 ---
 
-## 1.4 Usar R
-### Errores más comunes
+## 2.4 Using R
+### The most common errors
 
-Quiten el # y traten de correr estos códigos.
+Whats going on here
+
+Remove the # and find the error.
 
 
 ```r
@@ -505,7 +659,7 @@ Quiten el # y traten de correr estos códigos.
 
 --
 
-- Falta una coma
+- Missing a comma
 
 --
 
@@ -516,7 +670,7 @@ Quiten el # y traten de correr estos códigos.
 
 --
 
-- Sobra una coma
+- Too many commas
 
 --
 
@@ -527,7 +681,7 @@ Quiten el # y traten de correr estos códigos.
 
 --
 
-- Falta un paréntesis
+- Missing a parenthesis
 
 --
 
@@ -538,48 +692,61 @@ Quiten el # y traten de correr estos códigos.
 
 --
 
-- Falta una comilla
+- Missing a quote (")
 
 ---
 
-## 1.4 Usar R
-### Errores
+## 2.4. Using R
 
-Muchos errores nos los marca con una tachita en un circulito rojo en el **editor de código**.
+### Debugging bingo
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/DebuggingBingo.jpg?raw=true" height="400" /&gt;
+
+Source: Dr. Ji Son
+
+---
+
+## 2.4. Using R
+### Errors
+
+Many errors are going to be marked by a red x in the **code editor**.
 
 --
 
-Pero que tal este?
+But many till not.
+
+What is wrong with these?
 
 ```r
-#Alumno
+#name
 ```
 --
 
-- Esta mal escrito, nuestro objeto es **Alumnos** por lo que le falta una **s** al final.
+-  If our goal is to use of data frame from the environment it needs to be written exactly the same **Names**.
 
 --
 
-Es importante que nombremos los objetos con nombres que nos hagan sentido.  
+To reduce this source of error, is important to be consitent on how we name the objects.
 
-- R no acepta que los nombres comiencen con un numero (Eg."1Alumnos").  
-- Pero si pueden terminar con un numero (Eg."Alumnos1").  
+Some considerations are:
 
-- Yo uso mayúsculas para nombrar mis objetos.  
-Hay quienes usan _ (Ej. "Los_Alumnos").  
-Hay quienes usan . (Ej. "Los.alumnos").  
+- R will not take objects that start with a number (Eg."1Names").  
+- But doesnt have a problem is the name is at the end of the name (Eg."NAmes1").  
 
-- Para ayudar a nuestra memoria, hay que ser consistentes.  
+- To be consistent you could use _ and . to name your objects.  
+E.g. _ ("my_names").  
+E.g. . ("my.names").  
+
 
 ---
 
 class: title-slide
 
-# Su turno <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#264653;overflow:visible;position:relative;"><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
+# Your turn <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#264653;overflow:visible;position:relative;"><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
 
-- Abran RStudio &lt;br&gt;
-- Escriban en la consola y denle enter&lt;br&gt;
-- Abran un script y realizen una suma&lt;br&gt;
+- Open RStudio &lt;br&gt;
+- Write something in the console&lt;br&gt;
+- Create a data frame with characters&lt;br&gt;
 
 ---
 
@@ -587,26 +754,24 @@ class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/photo-1538766017398-415434a31a5b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80)
 background-size: cover
 
-## Recapitulando
+## Summary
 
-Esta clase:
-- Que es R?
-- Partes de RStudio
-- Clases de objetos
+Until here:
+- [What is R](r-story)
+- [RStudio and identify the parts](R-parts)
+- [Data types](data-types)
+- [Errors](errors)
 
-Siguiente clase:
-- Instalar y cargar paquetes
-- Directorios
-- Cargar csv y excel
+Next part:
+- Packages
+- Directories
+- Read data
 
 
 .right[
 ### Contacto
 
-Para dudas, comentarios y sugerencias:  &lt;br&gt;
-Escríbeme a miriamjlerma@gmail.com
-
-Este material esta accesible &lt;br&gt; y se encuentra en: mi [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg>github](https://github.com/MiriamLL/Curso_CIAD/) y mi [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg>página](https://www.miriam-lerma.com/)
+This materials are free of use &lt;br&gt; yo can download the presentation here: [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg>github](https://github.com/MiriamLL/Curso_CIAD/) and  [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg>webpage](https://www.miriam-lerma.com/)
 ]
 
 &lt;h1&gt;
