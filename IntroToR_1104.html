@@ -23,10 +23,9 @@ April 2023
 
 ---
 
+class: title-slide, inverse
 
 
-
-class: title-slide
 
 # Index
 
@@ -50,20 +49,29 @@ Third part
 
 ---
 
+class: title-slide, inverse
+
 # Today
 
 .pull-left[
 
-## Your profile
+Your profile
 - Interest in learning R (or other ways to use it).  
 
 
-## Goals of today
+Goals of today
 
 - Identify the parts of RStudio
 - Be able to load and download data
 - Feel comfortable using R
 - Hopefully we will cover all the topics
+
+Pauses and questions
+
+- There will be several pauses
+- You can stop me to ask questions or
+- Questions can be made [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg> at this link too]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
 ]
 
 
@@ -71,8 +79,11 @@ Third part
 
 .pull-right[
 
-- There will be several pauses
-- Questions can be made [here]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 &lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/001Approximate.png?raw=true" height="200" /&gt;
 
@@ -86,6 +97,9 @@ class: title-slide, inverse
 
 - R for Data Science  
 [<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"/></svg> R4DS](https://r4ds.had.co.nz/)  
+
+- Data Carpentry  
+[<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"/></svg> Carpentries](https://datacarpentry.org/genomics-r-intro/00-introduction/index.html)
 
 - From Zero to Shero by RLadies   
 [<svg aria-hidden="true" role="img" viewBox="0 0 480 512" style="height:1em;width:0.94em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg> Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg) 
@@ -112,9 +126,9 @@ name: install-r
 
 First time installing R
 
-To install R and Rstudio you can visit the page [posit](https://posit.co/download/rstudio-desktop/)
+To install R and Rstudio you can visit the page [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg> posit](https://posit.co/download/rstudio-desktop/)
 
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/002Posit.png?raw=true" height="400" /&gt;
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/002Posit.png?raw=true" height="300" /&gt;
 
 ---
 
@@ -122,9 +136,9 @@ To install R and Rstudio you can visit the page [posit](https://posit.co/downloa
 
 Once you click download and install R, you will find several links.
 
-If you are the first time installing you should choose the first one.
+If you are the first time installing you likely need to choose the first link.
 
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/003UpdateR.png?raw=true" height="300" /&gt;
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/003LoadR.png?raw=true" height="300" /&gt;
 
 ---
 
@@ -132,7 +146,7 @@ If you are the first time installing you should choose the first one.
 
 If you already have R and R-Studio
 
-Check which version you are using:
+Check which version of R you are using:
 
 
 ```r
@@ -148,44 +162,38 @@ library(installr)
 updateR()
 ```
 
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/Clase01_02UpdateR.png?raw=true" height="250" /&gt;
+&lt;br&gt;
 
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/003UpdateR.png?raw=true" height="150" /&gt;
 
----
-
-## Update R
-
-If you opt to update R, it would send you to the R installation page.
-
-You will likely select &gt;3.4
-
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/004UpdateR.png?raw=true" height="200" /&gt;
+**Do you need an update?**
 
 ---
 
 ## Update R
 
-It would suggest that you go to the console.
+If you opt to update R, one way to do it is going to the [installation page](https://www.r-project.org/)
 
-Look for R and open the console
+You will likely select &gt;4.3 (in 2023)
 
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/005UpdateR.png?raw=true" height="300" /&gt;
-
----
-
-## Update R
-
-Write again updateR()
-
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/006UpdateR.png?raw=true" height="300" /&gt;
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/004UpdateR.png?raw=true" height="300" /&gt;
 
 ---
 
 ## Update R
+
+If you decide to update your R, its better to do it in the Rgui and not R-Studio
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/005UpdateR.png?raw=true" height="200" /&gt;
+
+Once in the Rgui, write updateR()
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/006UpdateR.png?raw=true" height="200" /&gt;
+
 
 Give it some time
 
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/007UpdateR.png?raw=true" height="300" /&gt;
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/007UpdateR.png?raw=true" height="200" /&gt;
 
 ---
 
@@ -195,11 +203,8 @@ If you already had R packages installed in your previous version, you might not 
 
 Therefore, I would recommend to select YES.
 
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/008UpdateR.png?raw=true" height="300" /&gt;
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/008UpdateR.png?raw=true" height="100" /&gt;
 
----
-
-## Update R
 
 By March 2023 4.2.3 was the newest version of R.
 
@@ -212,7 +217,9 @@ Did you notice the difference?
 
 ## Update R-Studio
 
-If you alredy have Rstudo and want to see if you need to update you can go to:
+One thing is updating R and another one to update R-Studio
+
+If you already have Rstudio and want to see if you need to update you can go to:
 
 Help&gt;Check for updates
 
@@ -807,7 +814,7 @@ install.packages("cowsay")
 install.packages("here")
 ```
 
-🕤 Tidyverse is a compilation of packages, this one might take some time.
+⏱ Tidyverse is a compilation of packages, this one might take some time.
 
 ```r
 install.packages("tidyverse")
