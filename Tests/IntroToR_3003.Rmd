@@ -1044,7 +1044,7 @@ loginStored <- movebankLogin(username="MiriamLerma", password="********")
 my_study<-'FTZ UCN Kelp Gull Chile'
 ```
 
-```{r}
+```{r, eval=FALSE}
 MyGull<-getMovebankLocationData(study=my_study, 
                                individual_local_identifier="KEGU-noband01-Coquimbo",
                                timestamp_start="202212010000000",
@@ -1055,7 +1055,7 @@ MyGull<-getMovebankLocationData(study=my_study,
 
 It might give you a warning, but for now that is not important.
 
-```{r}
+```{r, eval=FALSE}
 range(MyGull$timestamp)
 ```
 
