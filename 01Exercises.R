@@ -1,5 +1,4 @@
-# First object
-## Using R
+# Using R --------------------------------------------------------------------
 Result<-3*4
 
 class(1.4)
@@ -25,8 +24,23 @@ class(my_timestamp)
 my_timestamp <- as.POSIXct(strptime(my_timestamp, "%d/%m/%Y %H:%M:%S "), "GMT")
 class(my_timestamp)
 
-# Find the error
+# Find the error  --------------------------------------------------------------------
 #c("Miriam","Bety","Angel","Denise""Pamela")
 #c("Alvaro","Gabriela","Juan",,"Lisset")
 #c("Majo","Irma","Paulina"
 #c("Majo","Irma,"Paulina")
+
+# Packages  --------------------------------------------------------------------
+install.packages("cowsay")
+install.packages("here")
+install.packages("tidyverse")
+say(what = "Now you can download packages!", by = "cat")
+
+library("cowsay")
+say(what = "Now you can download packages!", by = "cat")
+
+# Directory  --------------------------------------------------------------------
+library(here)
+
+# Load data  --------------------------------------------------------------------
+penguins1<-read_csv("Downloads/penguins1.csv")
