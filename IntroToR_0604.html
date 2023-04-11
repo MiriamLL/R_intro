@@ -44,7 +44,7 @@ Second part
 
 Third part
 
-- [Short intro to Rmarkdown](rmd)
+- [Intro to Rmarkdown](rmd)
 
 
 
@@ -376,7 +376,7 @@ Result&lt;-3*4
 ```
 
 What happend in the **environment**?
-]
+
 
 ---
 
@@ -708,7 +708,7 @@ Many errors are going to be marked by a red x in the **code editor**.
 
 --
 
-But many till not.
+But many will not.
 
 What is wrong with these?
 
@@ -726,11 +726,11 @@ To reduce this source of error, is important to be consitent on how we name the 
 Some considerations are:
 
 - R will not take objects that start with a number (Eg."1Names").  
-- But doesnt have a problem is the name is at the end of the name (Eg."NAmes1").  
+- But doesnt have a problem is the name is at the end of the name (Eg."Names1").  
 
-- To be consistent you could use _ and . to name your objects.  
-E.g. _ ("my_names").  
-E.g. . ("my.names").  
+- To be consistent you could use symbols.  
+E.g. ("my_names").  
+E.g. ("my.names").  
 
 
 ---
@@ -749,7 +749,7 @@ class: title-slide, inverse, bottom, inverse
 background-image: url(https://images.unsplash.com/photo-1529448005898-b19fc13465b7?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=387&amp;q=80)
 background-size: cover
 
-## Summary
+## Pause
 
 .pull-left[
 Until here:
@@ -761,10 +761,9 @@ Until here:
 
 .pull-right[
 Next part:
-- Packages
-- Directories
-- Read data]
-
+- [Packages](packages)
+- [Directories](directories)
+- [Read data](read_files)
 
 
 ---
@@ -778,22 +777,10 @@ background-size: cover
 
 ---
 
-## 3.1. Intro
-A typical R project looks like this:
-
-&lt;img src="https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/data-science.svg" height="300" /&gt;
-.right[
-Fuente: [R4DS](https://r4ds-en-espaniol.netlify.app/)
-]
-
-Today we will get to the first part: **load our data**. 
-
----
-
-## 3.2. Paquetes
+## 3.1. Paquetes
 
 - They are a collection of functions
-- They are installed one time, but need to be loaded every time you need them.
+- They need to be installed one time, but need to be loaded every time you need them.
 (you buy the tool box one time but need to bring it to use it)
 
 - To install a package: install.packages("").  
@@ -814,7 +801,7 @@ install.packages("cowsay")
 install.packages("here")
 ```
 
-🕘 Tidyverse is a compilation of packages, this one might take some time.
+🕰 Tidyverse is a compilation of packages, this one might take some time.
 
 ```r
 install.packages("tidyverse")
@@ -835,7 +822,7 @@ say(what = "Now you can download packages!", by = "cat")
 
 --
 nothing happend?
-Remember to load the library first.
+We should load the library first.
 
 --
 
@@ -878,7 +865,7 @@ By hand: Click on the **workspace** &gt; Files &gt; Blue symbol &gt; Set As Work
 
 &lt;img src="https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/rstudio-console.svg" height="300" /&gt;
 
-However, doing so everytime that we enter R might be unefficient. Therefore, make it automatically would be faster. 
+However, doing so everytime that we enter R might be time consuming. Therefore, I recommend making it automatically. 
 
 ---
 
@@ -927,6 +914,30 @@ Advantages:
 
 ---
 
+class: title-slide, inverse, bottom, inverse
+background-image: url(https://images.unsplash.com/photo-1529448005898-b19fc13465b7?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=387&amp;q=80)
+background-size: cover
+
+## Pause
+
+.pull-left[
+Until here:
+- [What is R](r-story)
+- [RStudio and identify the parts](R-parts)
+- [Data types](data-types)
+- [Errors](errors)
+- [Packages](packages)
+- [Directories](directories)
+]
+
+.pull-right[
+Next part:
+- [Read data](read_files)
+- [Rmd](rmd)
+
+
+---
+
 name: read-files
 class: title-slide, inverse, right, middle
 background-image: url(https://images.unsplash.com/photo-1587115428043-6f57635bd224?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=870&amp;q=80)
@@ -935,6 +946,17 @@ background-size: cover
 # 4. Read files
 
 ---
+## 4.1. Intro
+
+A typical R project looks like this:
+
+&lt;img src="https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/data-science.svg" height="300" /&gt;
+.right[
+Fuente: [R4DS](https://r4ds-en-espaniol.netlify.app/)
+]
+
+Today we will get to the first part: **load our data**. 
+
 
 ## 4.1. Load data
 
@@ -987,7 +1009,7 @@ head(Pingus_csv)
 
 ---
 
-## 4.2.CSV Format
+## 4.2. csv format
 
 Now try opening **Pingus_2.csv**  
 This file instead of being separated by comas, its separated by colons
@@ -1112,6 +1134,8 @@ Look at the console now.
 
 ---
 
+## 4.6 movebank
+
 It is more convenient to store your login information, but you have to be careful to not share the script with your login information.
 
 
@@ -1143,9 +1167,10 @@ range(MyGull$timestamp)
 
 ---
 
-## 4.7. Packages with data
+## 4.7. packages with data
 
-An example is [Pamerpenguins](https://allisonhorst.github.io/palmerpenguins/)
+An example is [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
+
 
 ```r
 install.packages("palmerpenguins")
@@ -1177,13 +1202,17 @@ head(Pingus)
 
 ---
 
-## 4.7. Packages containing data
+## 4.7. packages containing data
 
 However, there are many others.
 
 And they are not limited to data frames.
 
-Install the package GermanNorthSea
+---
+
+## 4.7. packages containing shapefiles
+
+For example, the package GermanNorthSea
 
 ```r
 # install.packages("devtools")
@@ -1219,9 +1248,11 @@ ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
 ---
 
 
-## 4.8. Join documents
+## 4.8. many files
 
-There is also a way to join many differnet files (In this example we will join many excel files .xlsx)
+There is also a way to load may files the same time  
+
+Example many excel files .xlsx
 
 However, to do this, the name and number of columns should be the same!
 
@@ -1248,19 +1279,26 @@ Load penguin data
 
 ---
 
-class: title-slide
-background-image: url(https://images.unsplash.com/photo-1533279443086-d1c19a186416?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1489&amp;q=80)
+class: title-slide, inverse, bottom, inverse
+background-image: url(https://images.unsplash.com/photo-1529448005898-b19fc13465b7?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=387&amp;q=80)
 background-size: cover
 
-## Summarizing
+## Pause
 
-We can:
-- Install and load packages
-- Directories
-- Load cv
+.pull-left[
+Until here:
+- [What is R](r-story)
+- [RStudio and identify the parts](R-parts)
+- [Data types](data-types)
+- [Errors](errors)
+]
 
-Next:
-- Basics in R markdown
+.pull-right[
+Next part:
+- [Packages](packages)
+- [Directories](directories)
+- [Read data](read_files)
+
 
 ---
 
@@ -1356,7 +1394,7 @@ It usually ask for a file name, you can use 'Test_Rmd'
 
 Se vera algo así:  
 
-&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG" height="400" /&gt;
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG" height="300" /&gt;
 
 ---
 name: texto
@@ -1407,7 +1445,7 @@ This is because we need to tell which language are we using
 - We can run the code using the green arrow that looks like a <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f77f00;overflow:visible;position:relative;"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>, or using the button **Run** in the upper part of the code editor, or using **ctrl+enter**.
 - The results in Rmd appears in the code editor document, not in the console.
 
-&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG" height="400" /&gt;
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG" height="300" /&gt;
 
 ---
 
@@ -1451,7 +1489,7 @@ If you chnge the output, different type of reports will be generated.
 **Common mistakes**  
 When you **knit** or render your report, there is something incompatible with Pandoc (or LateX)
 
-&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/YAML.JPG" height="400" /&gt;
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/YAML.JPG" height="300" /&gt;
 
 ---
 
@@ -1511,7 +1549,7 @@ Main title use one hashtag #.&lt;br&gt;
 
 ---
 
-## 5.5. Rmd titles
+# 5.5. Rmd titles
 
 You can use the titles to navigate
 
@@ -1535,7 +1573,7 @@ Advantages and disadvantages for each one:
 
 ---
 
-## 5.6. Rmd outputs  
+# 5.6. Rmd outputs  
 
 To change the output, you need to change it in the YAML, or chick on the arrow <svg aria-hidden="true" role="img" viewBox="0 0 320 512" style="height:1em;width:0.62em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f77f00;overflow:visible;position:relative;"><path d="M182.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-9.2-9.2-11.9-22.9-6.9-34.9s16.6-19.8 29.6-19.8H288c12.9 0 24.6 7.8 29.6 19.8s2.2 25.7-6.9 34.9l-128 128z"/></svg> in the knit button and chose your format.  
 

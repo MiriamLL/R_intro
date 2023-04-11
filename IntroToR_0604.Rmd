@@ -1058,6 +1058,8 @@ Look at the console now.
 
 ---
 
+## 4.6 movebank
+
 It is more convenient to store your login information, but you have to be careful to not share the script with your login information.
 
 ```{r, eval=FALSE}
@@ -1085,9 +1087,10 @@ range(MyGull$timestamp)
 
 ---
 
-## 4.7. Packages with data
+## 4.7. packages with data
 
-An example is [Pamerpenguins](https://allisonhorst.github.io/palmerpenguins/)
+An example is [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
+
 ```{r, eval=FALSE}
 install.packages("palmerpenguins")
 ```
@@ -1103,13 +1106,17 @@ head(Pingus)
 
 ---
 
-## 4.7. Packages containing data
+## 4.7. packages containing data
 
 However, there are many others.
 
 And they are not limited to data frames.
 
-Install the package GermanNorthSea
+---
+
+## 4.7. packages containing shapefiles
+
+For example, the package GermanNorthSea
 ```{r, eval=FALSE, message=FALSE}
 # install.packages("devtools")
 devtools::install_github("MiriamLL/GermanNorthSea")
@@ -1139,9 +1146,11 @@ ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
 ---
 
 
-## 4.8. Join documents
+## 4.8. many files
 
-There is also a way to join many differnet files (In this example we will join many excel files .xlsx)
+There is also a way to load may files the same time  
+
+Example many excel files .xlsx
 
 However, to do this, the name and number of columns should be the same!
 
@@ -1167,8 +1176,6 @@ Load penguin data
 
 ---
 
----
-
 class: title-slide, inverse, bottom, inverse
 background-image: url(https://images.unsplash.com/photo-1529448005898-b19fc13465b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80)
 background-size: cover
@@ -1189,22 +1196,6 @@ Next part:
 - [Directories](directories)
 - [Read data](read_files)
 
-
----
-
-class: title-slide
-background-image: url(https://images.unsplash.com/photo-1533279443086-d1c19a186416?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80)
-background-size: cover
-
-## Summarizing
-
-We can:
-- Install and load packages
-- Directories
-- Load cv
-
-Next:
-- Basics in R markdown
 
 ---
 
@@ -1297,7 +1288,7 @@ It usually ask for a file name, you can use 'Test_Rmd'
 
 Se vera algo así:  
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG')
 ```
 
@@ -1352,7 +1343,7 @@ This is because we need to tell which language are we using
 - We can run the code using the green arrow that looks like a `r fa("play", fill = ColorLink)`, or using the button **Run** in the upper part of the code editor, or using **ctrl+enter**.
 - The results in Rmd appears in the code editor document, not in the console.
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG')
 ```
 
@@ -1402,7 +1393,7 @@ If you chnge the output, different type of reports will be generated.
 **Common mistakes**  
 When you **knit** or render your report, there is something incompatible with Pandoc (or LateX)
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/YAML.JPG')
 ```
 
@@ -1467,7 +1458,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/m
 
 ---
 
-## 5.5. Rmd titles
+# 5.5. Rmd titles
 
 You can use the titles to navigate
 
@@ -1493,7 +1484,7 @@ Advantages and disadvantages for each one:
 
 ---
 
-## 5.6. Rmd outputs  
+# 5.6. Rmd outputs  
 
 To change the output, you need to change it in the YAML, or chick on the arrow `r fa("sort-down", fill = ColorLink)` in the knit button and chose your format.  
 
