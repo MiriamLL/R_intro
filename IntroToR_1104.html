@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Welcome to R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Miriam Lerma" />
+    <script src="IntroToR_1104_files/header-attrs-2.20/header-attrs.js"></script>
+    <link rel="stylesheet" href="RZero-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: title-slide, middle, right
+background-image: url(https://images.unsplash.com/photo-1538766017398-415434a31a5b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80)
+background-size: cover
+
+### Welcome to R
+# 
+
+### **Miriam Lerma**&lt;br&gt;
+April 2023
+
+---
+
+
+
+
+class: title-slide
+
+# Index
+
+First part
+- [Install or update R](install-r)
+- [What is R](parts)
+- [RStudio and identify the parts](R-parts)
+- [Data types](data-types)
+- [Errors](errors)
+
+Second part
+
+- [Packages](packages)
+- [Read files](read-files)
+
+Third part
+
+- [Intro to Rmarkdown](rmd)
+
+
+
+---
+
+# Today
+
+.pull-left[
+
+## Your profile
+- Interest in learning R (or other ways to use it).  
+
+
+## Goals of today
+
+- Identify the parts of RStudio
+- Be able to load and download data
+- Feel comfortable using R
+- Hopefully we will cover all the topics
+]
+
+
+--
+
+.pull-right[
+
+- There will be several pauses
+- Questions can be made [here]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/001Approximate.png?raw=true" height="200" /&gt;
+
+]
+
+---
+
+class: title-slide, inverse
+
+# References
+
+- R for Data Science  
+[<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"/></svg> R4DS](https://r4ds.had.co.nz/)  
+
+- From Zero to Shero by RLadies   
+[<svg aria-hidden="true" role="img" viewBox="0 0 480 512" style="height:1em;width:0.94em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg> Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg) 
+
+
+- Images from  
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M48 32C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48H48zm0 32h106c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H38c-3.3 0-6-2.7-6-6V80c0-8.8 7.2-16 16-16zm426 96H38c-3.3 0-6-2.7-6-6v-36c0-3.3 2.7-6 6-6h138l30.2-45.3c1.1-1.7 3-2.7 5-2.7H464c8.8 0 16 7.2 16 16v74c0 3.3-2.7 6-6 6zM256 424c-66.2 0-120-53.8-120-120s53.8-120 120-120 120 53.8 120 120-53.8 120-120 120zm0-208c-48.5 0-88 39.5-88 88s39.5 88 88 88 88-39.5 88-88-39.5-88-88-88zm-48 104c-8.8 0-16-7.2-16-16 0-35.3 28.7-64 64-64 8.8 0 16 7.2 16 16s-7.2 16-16 16c-17.6 0-32 14.4-32 32 0 8.8-7.2 16-16 16z"/></svg> Unsplash](https://unsplash.com/)  
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg> Allison horst](https://twitter.com/allison_horst?lang=es)  
+
+
+---
+
+class: title-slide, middle, right
+background-image: url(https://images.unsplash.com/photo-1538766017398-415434a31a5b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80)
+background-size: cover
+
+# Lets begging!
+
+---
+
+name: install-r
+
+# 1. Install R
+
+First time installing R
+
+To install R and Rstudio you can visit the page [posit](https://posit.co/download/rstudio-desktop/)
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/002Posit.png?raw=true" height="400" /&gt;
+
+---
+
+## First time installing R
+
+Once you click download and install R, you will find several links.
+
+If you are the first time installing you should choose the first one.
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/003UpdateR.png?raw=true" height="300" /&gt;
+
+---
+
+## Update R
+
+If you already have R and R-Studio
+
+Check which version you are using:
+
+
+```r
+sessionInfo()
+```
+
+To see if you need to update you can use:
+
+
+```r
+install.packages("installr")
+library(installr)
+updateR()
+```
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/Clase01_02UpdateR.png?raw=true" height="250" /&gt;
+
+
+---
+
+## Update R
+
+If you opt to update R, it would send you to the R installation page.
+
+You will likely select &gt;3.4
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/004UpdateR.png?raw=true" height="200" /&gt;
+
+---
+
+## Update R
+
+It would suggest that you go to the console.
+
+Look for R and open the console
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/005UpdateR.png?raw=true" height="300" /&gt;
+
+---
+
+## Update R
+
+Write again updateR()
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/006UpdateR.png?raw=true" height="300" /&gt;
+
+---
+
+## Update R
+
+Give it some time
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/007UpdateR.png?raw=true" height="300" /&gt;
+
+---
+
+## Update R
+
+If you already had R packages installed in your previous version, you might not want to install each package one by one again.
+
+Therefore, I would recommend to select YES.
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/008UpdateR.png?raw=true" height="300" /&gt;
+
+---
+
+## Update R
+
+By March 2023 4.2.3 was the newest version of R.
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/009UpdateR.png?raw=true" height="100" /&gt;
+
+
+Did you notice the difference?
+
+---
+
+## Update R-Studio
+
+If you alredy have Rstudo and want to see if you need to update you can go to:
+
+Help&gt;Check for updates
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/010UpdateRStudio.png?raw=true" height="300" /&gt;
+
+
+---
+
+## Update R-Studio
+
+If you have an outdate version of R, this would show:
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/011UpdateRStudio.png?raw=true" height="300" /&gt;
+
+
+---
+
+## Update R-Studio
+
+If you have the latest version of RStudio this would show:
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/012UpdateR.png?raw=true" height="300" /&gt;
+
+
+
+---
+
+name:parts
+
+class: title-slide, middle, right
+background-image: url(https://images.unsplash.com/photo-1609668528780-e364738d8ba5?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1021&amp;q=80)
+background-size: cover
+
+# Parts of R
+
+
+---
+
+## 2. What is R?
+
+.center[
+&lt;img src="https://www.r-project.org/logo/Rlogo.svg" width="50" height="50" /&gt;
+]
+
+ R is a programming language developed for statistical analyses.
+
+Developed by the Ross Ihaka and Robert Gentleman (New Zealand) in 1996.
+ 
+.center[
+&lt;img src="https://www.nature.com/news/polopoly_fs/7.22632.1418912921!/image/TB2.jpg_gen/derivatives/fullsize/TB2.jpg" height="300" /&gt;
+  
+Sylvia Tippmann/Source: Elsevier Scopus database
+]
+
+---
+
+## 2.2 Why to use R?
+### Advantages
+
+- Its free
+
+--
+
+- A lot of tools thanks to different packages
+
+--
+
+- Flexible data visualization
+
+--
+
+For science, is reproducible.
+
+- You can save all the steps you follow.
+- Instead of clicking on buttons the instructions can be save in sequence.  
+This also helps to save time!
+
+
+--
+
+- Also, makes it verifiable
+
+---
+
+## 2.2. Why to use R? 
+
+### Disadvantages
+
+- Has a learning curve
+- It is like learning a new language
+
+&lt;img src="https://pbs.twimg.com/media/EK8s79kUEAU3cAT?format=jpg&amp;name=small" height="400" /&gt;
+
+---
+
+## 2.3. Using R
+
+### R vs RStudio.
+
+What are the differences between R and RStudio?  
+
+**R** es un the programing language.  
+**RStudio** is an IDE:  Integrated Development Environment.  
+
+.pull-left[
+R is the motor  
+&lt;img src="https://images.unsplash.com/photo-1578586524259-489a03948798?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=751&amp;q=80" height="200" /&gt;
+]
+
+.pull-right[
+RStudio is the wheel 
+&lt;img src="https://images.unsplash.com/photo-1605445622210-2dd2586bccea?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8ZHJpdmluZyUyMHdoZWVsfGVufDB8fDB8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60" height="200" /&gt;
+]
+
+---
+
+## 2.4. Using RStudio.
+### Parts
+
+&lt;img src="https://bookdown.org/ndphillips/YaRrr/images/RStudio_Screenshot_Labels.png" height="450" /&gt;
+
+
+Source: [YaRrr](https://bookdown.org/ndphillips/YaRrr/the-four-rstudio-windows.html)
+
+---
+
+## 2.4 Using R
+
+First time opening RStudio looks like this:
+
+&lt;img src="https://bio723-class.github.io/Bio723-book/figures/fig-rstudio-panes-labeled.png" height="300" /&gt;
+
+To have a code editor:
+
+Open:  
+File &gt; New File &gt; Rscript
+
+---
+
+## 2.4 Using RStudio
+
+### Testing the console
+
+- Write in the console
+
+```r
+3*4
+```
+
+- Write in the editor
+
+```r
+3*4
+```
+
+--
+
+In the editor: ctrl + enter
+
+--
+
+- Now write in the editor, dont forget to click ctrl+enter
+
+
+```r
+Result&lt;-3*4
+```
+
+What happend in the **environment**?
+
+
+---
+
+name: data-types
+
+## 2.4 Using R
+### Data types
+
+Some data types:
+- Numeric
+
+```r
+class(1.4)
+```
+
+```
+[1] "numeric"
+```
+
+- Characters
+
+```r
+class("Miriam")
+```
+
+```
+[1] "character"
+```
+
+---
+
+## 2.4 Using R
+### Data types
+
+Why if we use quotes ""?
+
+```r
+class("1")
+```
+
+```
+[1] "character"
+```
+
+- Logical
+
+```r
+3 == 4
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+3 &lt; 5
+```
+
+```
+## [1] TRUE
+```
+
+There are many others, that would be relevant later on.
+
+Source: [Data structures by the Carpentries](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/)
+
+---
+
+## 2.4 Using R
+### My first data frame
+
+Asign symbol
+
+```r
+&lt;-
+```
+
+This symbol is frequently use, and is important that you find it in your keyboard as soon as possible. 
+ 
+
+- Why is not the same as =. See here: [Assignment operators](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r), [R inferno](https://www.burns-stat.com/pages/Tutor/R_inferno.pdf), [Why they are not the same](https://www.roelpeters.be/the-difference-between-arrow-and-equals-assignment-in-r/)   
+
+.center[
+&lt;img src="https://www.roelpeters.be/wp-content/uploads/2020/05/APL_KEYBOARD_ARROW_ASSIGNMENT-768x470.jpg" height="200" /&gt;
+]
+
+---
+## 2.4 Using R
+
+Lets use the arrow symbol.  
+
+```r
+Names&lt;-c("Miriam","Jette","Kai","Nele","Jana","Kristin","Karena","Nico","Philipp","Mads")
+class(Names)
+```
+
+```
+## [1] "character"
+```
+
+
+```r
+Names&lt;-as.data.frame(Names)
+class(Names)
+```
+
+```
+## [1] "data.frame"
+```
+
+Now in the **environment** click twice and look at your data frame.
+
+---
+
+## 2.4 Using R
+### Use my first data frame
+
+Asign vectors to a column or check a column contents
+
+The symbol $ is in R 
+
+```r
+$
+```
+
+Lets create a new column
+
+```r
+Names$LastName&lt;-c("G","A","T","D","L","S","H",NA,"M","L")
+```
+
+
+```r
+head(Names,5)
+```
+
+```
+   Names LastName
+1 Miriam        G
+2  Jette        A
+3    Kai        T
+4   Nele        D
+5   Jana        L
+```
+
+---
+
+## 2.4 Using R
+### Force column type
+
+
+```r
+my_number&lt;-'1'
+```
+
+
+```r
+class(my_number)
+```
+
+```
+## [1] "character"
+```
+
+
+```r
+my_number&lt;-as.numeric(my_number)
+```
+
+
+```r
+class(my_number)
+```
+
+```
+## [1] "numeric"
+```
+
+---
+
+## 2.4 Using R
+### Force classes
+
+Our favorite class
+
+```r
+my_timestamp&lt;-'2015-06-12 05:00:00'
+```
+
+
+```r
+class(my_timestamp)
+```
+
+```
+## [1] "character"
+```
+
+
+```r
+my_timestamp &lt;- as.POSIXct(strptime(my_timestamp, "%d/%m/%Y %H:%M:%S "), "GMT")
+```
+
+
+```r
+class(my_timestamp)
+```
+
+```
+## [1] "POSIXct" "POSIXt"
+```
+
+Timestamp should be a "POSIXct" "POSIXt" for R to understand the are date and time
+
+---
+
+## 2.4 Using R
+### Code editor
+
+To add text in the **editor** we use the symbol **#** (hashtag)
+
+
+```r
+#Here you created a data frame with names, but there is NA
+```
+
+R will ignore the text that has a # but these are very important for us to make annotations.
+
+It is a **good practice** to write comments. Either for us to share the script, or for you to remember what you were doing.
+
+This is specially important if you get corrections, or if you want to repeat the analyses. 
+
+---
+name:errors
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1555861496-0666c8981751?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80)
+background-size: cover
+
+# Errors
+
+.right[
+Foto de [Unsplash](https://unsplash.com)
+]
+
+---
+
+## 2.4. Type of errors
+
+Errors are part of life.  
+
+R very often is trying to tell us how to solve the error.
+
+- For example:
+
+```r
+3 = 4
+```
+Error in 3 = 4 :left-hand side to assignment (do_set)
+
+
+Other messages that might be red or orange are:
+- Warnings, I will do it, but Im not responsible of what you are doing.
+- Messages, hey I just want to let you know this happend.
+
+---
+
+## 2.4. The most common errors
+
+Whats going on here
+
+Remove the # and find the error.
+
+
+```r
+#c("Miriam","Bety","Angel","Denise""Pamela")
+```
+
+--
+
+- Missing a comma
+
+--
+
+
+```r
+#c("Alvaro","Gabriela","Juan",,"Lisset")
+```
+
+--
+
+- Too many commas
+
+--
+
+
+```r
+#c("Majo","Irma","Paulina"
+```
+
+--
+
+- Missing a parenthesis
+
+--
+
+
+```r
+#c("Majo","Irma,"Paulina")
+```
+
+--
+
+- Missing a quote (")
+
+---
+
+## 2.4. Debugging bingo
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/DebuggingBingo.jpg?raw=true" height="400" /&gt;
+
+Source: Dr. Ji Son
+
+---
+
+## 2.4. Object name consistency
+
+Many errors are going to be marked by a red x in the **code editor**.
+
+--
+
+But many will not.
+
+What is wrong with these?
+
+```r
+#name
+```
+--
+
+-  If our goal is to use of data frame from the environment it needs to be written exactly the same **Names**.
+
+--
+
+To reduce this source of error, is important to be consitent on how we name the objects.
+
+Some considerations are:
+
+- R will not take objects that start with a number (Eg."1Names").  
+- But doesnt have a problem is the name is at the end of the name (Eg."Names1").  
+
+- To be consistent you could use symbols.  
+E.g. ("my_names").  
+E.g. ("my.names").  
+
+
+---
+
+class: title-slide
+
+# Your turn <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#264653;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
+
+- Open RStudio &lt;br&gt;
+- Write something in the console&lt;br&gt;
+- Create a data frame with characters&lt;br&gt;
+
+---
+
+class: title-slide, inverse, bottom, inverse
+background-image: url(https://images.unsplash.com/photo-1529448005898-b19fc13465b7?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=387&amp;q=80)
+background-size: cover
+
+## Pause
+
+.pull-left[
+Until here:
+- [What is R](r-story)
+- [RStudio and identify the parts](R-parts)
+- [Data types](data-types)
+- [Errors](errors)
+]
+
+.pull-right[
+Next part:
+- [Packages](packages)
+- [Directories](directories)
+- [Read data](read_files)
+
+
+---
+
+name: packages
+class: title-slide, middle, right, inverse
+background-image: url(https://images.unsplash.com/photo-1586864387789-628af9feed72?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=870&amp;q=80)
+background-size: cover
+
+# 3. Packages
+
+---
+
+## 3.1. Paquetes
+
+- They are a collection of functions
+- They need to be installed one time, but need to be loaded every time you need them.
+(you buy the tool box one time but need to bring it to use it)
+
+- To install a package: install.packages("").  
+To load a package: library("").  
+
+Another analogy is that install.packages() is downloading an app, and library() is like opening the app everytime you want to use it.
+
+--
+
+In the *console* write:
+
+```r
+install.packages("cowsay")
+```
+
+
+```r
+install.packages("here")
+```
+
+🕧 Tidyverse is a compilation of packages, this one might take some time.
+
+```r
+install.packages("tidyverse")
+```
+Note: It probably will give us a warning, remember that a warning might be just information. In this case is telling us what the package contains.
+
+Another option to install packages is clicking at the **workspace**
+Packages&gt;Install&gt;Give the name.
+
+---
+
+## 3.2. Packages
+
+
+```r
+say(what = "Now you can download packages!", by = "cat")
+```
+
+--
+nothing happend?
+We should load the library first.
+
+--
+
+
+```r
+library("cowsay")
+```
+
+```
+Warning: package 'cowsay' was built under R version 4.2.3
+```
+
+```r
+say(what = "Now you can download packages!", by = "cat")
+```
+
+```
+
+ -------------- 
+Now you can download packages! 
+ --------------
+    \
+      \
+        \
+            |\___/|
+          ==) ^Y^ (==
+            \  ^  /
+             )=*=(
+            /     \
+            |     |
+           /| | | |\
+           \| | |_|/\
+      jgs  //_// ___/
+               \_)
+  
+```
+
+
+---
+
+
+## 3.3. Directories
+
+Where are my files?.  
+
+By hand: Click on the **workspace** &gt; Files &gt; Blue symbol &gt; Set As Working directory
+
+&lt;img src="https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/rstudio-console.svg" height="300" /&gt;
+
+However, doing so everytime that we enter R might be time consuming. Therefore, I recommend making it automatically. 
+
+---
+
+## 3.3. Directories
+Where I am working?
+
+Option 1
+
+```r
+getwd()
+```
+
+
+```r
+setwd("paste your directory name here")
+```
+
+Note, that you will need to copy and paste the directory and if you share your script or are working in another computer, everyone will have different directories. 
+
+---
+
+## 3.3. Directories
+
+Where I am?
+
+
+```r
+install.packages('here')
+```
+
+
+```r
+library(here)
+```
+
+
+```r
+here()
+```
+
+Advantages:
+- Here will use the folder where we saved the script
+- You can share your script and your collaborators dont need to copy and paste their directory
+- If the folder name is changed or the folder is change from place it would still work
+
+
+---
+
+class: title-slide, inverse, bottom, inverse
+background-image: url(https://images.unsplash.com/photo-1529448005898-b19fc13465b7?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=387&amp;q=80)
+background-size: cover
+
+## Pause
+
+.pull-left[
+Until here:
+- [What is R](r-story)
+- [RStudio and identify the parts](R-parts)
+- [Data types](data-types)
+- [Errors](errors)
+- [Packages](packages)
+- [Directories](directories)
+]
+
+.pull-right[
+Next part:
+- [Read data](read_files)
+- [Rmd](rmd)
+
+
+---
+
+name: read-files
+class: title-slide, inverse, right, middle
+background-image: url(https://images.unsplash.com/photo-1587115428043-6f57635bd224?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=870&amp;q=80)
+background-size: cover
+
+# 4. Read files
+
+---
+## 4.1. Intro
+
+A typical R project looks like this:
+
+&lt;img src="https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/data-science.svg" height="300" /&gt;
+.right[
+Fuente: [R4DS](https://r4ds-en-espaniol.netlify.app/)
+]
+
+Today we will get to the first part: **load our data**. 
+
+
+## 4.1. Load data
+
+For this part, we will use functions from the package tidyverse.
+
+Do you already have it installed?
+
+
+```r
+library("tidyverse")
+```
+
+
+Also, I will share with you some files
+
+- Pingus_1.csv
+- Pingus_2.csv
+
+
+---
+
+## 4.1. By hand
+
+You can upload data by hand in your workspace
+
+In the **environment** there is a part that says **import data set**
+
+Select the file **Pingus_1.csv**
+
+--
+
+Another option is to go to the **workspace** 
+Files&gt; Click on the file and **import data set**
+
+ 
+--
+
+Finally, we can do all in the console or script by using:
+
+
+```r
+Pingus_csv&lt;-read_csv(here("Pingus_1.csv"))
+```
+
+
+```r
+head(Pingus_csv)
+```
+
+
+---
+
+## 4.2. csv format
+
+Now try opening **Pingus_2.csv**  
+This file instead of being separated by comas, its separated by colons
+Therefore, instead of using **read_csv** we will need to use **read_csv2**
+
+To illustrate this issue, try loading the data using **read_csv**.
+
+
+```r
+Pingus_csv2&lt;-read_csv(here("Pingus_2.csv"))
+```
+
+
+```r
+head(Pingus_csv2)
+```
+
+Likely it looks very messy...
+
+--
+
+
+Lets try now with **read_csv2**";"
+
+```r
+Pingus_csv2&lt;-read_csv2(here("Pingus_2.csv"))
+```
+
+
+```r
+head(Pingus_csv2)
+```
+
+---
+
+## 4.3.  Other formats
+
+Click on the file **Pingus_3.txt**.  
+This one is separated by tabs.  
+read_tsv is for reading tab separated values.  
+
+
+```r
+Pingus_txt&lt;-read_tsv(here("Pingus_3.txt"))
+```
+
+
+```r
+head(Pingus_txt)
+```
+
+---
+
+## 4.4. Excel format
+
+For loading excel data, there is a special package called **readxl**
+
+
+```r
+library("readxl")
+```
+
+
+```r
+Pingus_excel&lt;- read_excel(here("Pingus_4.xlsx"))
+```
+
+
+```r
+head(Pingus_excel)
+```
+
+There are many other options, let me know if you want to see an example.
+
+---
+
+## 4.5. From an url
+
+Urls (Uniform Resource Locators) or links can also be source of data.
+
+Some examples of webpage that provide data to practice are:  
+- [TidyTuesday](https://github.com/rfordatascience/tidytuesday)  
+
+Let use data from plastic. This data is from 26 January 2021.
+
+
+```r
+plastics &lt;- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-26/plastics.csv')
+```
+
+Look at the first 5 rows of the data
+
+
+```r
+head(plastics,5)
+```
+
+---
+
+## 4.6. movebank
+
+There is a package called **move** that can be use to access data stored in movebank.
+[move](https://cran.r-project.org/web/packages/move/vignettes/browseMovebank.html)
+
+To install:
+
+```r
+install.packages('move')
+```
+
+
+```r
+library(move)
+```
+
+
+```r
+movebankLogin()
+```
+
+Look at the console now.
+
+---
+
+## 4.6 movebank
+
+It is more convenient to store your login information, but you have to be careful to not share the script with your login information.
+
+
+```r
+loginStored &lt;- movebankLogin(username="MiriamLerma", password="********")
+```
+
+
+```r
+my_study&lt;-'FTZ UCN Kelp Gull Chile'
+```
+
+
+```r
+MyGull&lt;-getMovebankLocationData(study=my_study, 
+                               individual_local_identifier="KEGU-noband01-Coquimbo",
+                               timestamp_start="202212010000000",
+                               timestamp_end="20221205000000000",
+                               sensorID="GPS")
+```
+
+
+It might give you a warning, but for now that is not important.
+
+
+```r
+range(MyGull$timestamp)
+```
+
+---
+
+## 4.7. packages with data
+
+An example is [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
+
+
+```r
+install.packages("palmerpenguins")
+```
+
+
+```r
+library(palmerpenguins)
+```
+
+```
+## Warning: package 'palmerpenguins' was built under R version 4.2.3
+```
+
+```r
+Pingus&lt;-penguins
+```
+
+
+```r
+head(Pingus)
+```
+
+```
+## # A tibble: 6 × 8
+##   species island    bill_length_mm bill_depth_mm flipper_l…¹ body_…² sex    year
+##   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;       &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+## 1 Adelie  Torgersen           39.1          18.7         181    3750 male   2007
+## 2 Adelie  Torgersen           39.5          17.4         186    3800 fema…  2007
+## 3 Adelie  Torgersen           40.3          18           195    3250 fema…  2007
+## 4 Adelie  Torgersen           NA            NA            NA      NA &lt;NA&gt;   2007
+## 5 Adelie  Torgersen           36.7          19.3         193    3450 fema…  2007
+## 6 Adelie  Torgersen           39.3          20.6         190    3650 male   2007
+## # … with abbreviated variable names ¹​flipper_length_mm, ²​body_mass_g
+```
+
+---
+
+## 4.7. packages containing data
+
+However, there are many others.
+
+And they are not limited to data frames.
+
+---
+
+## 4.7. packages containing shapefiles
+
+For example, the package GermanNorthSea
+
+```r
+# install.packages("devtools")
+devtools::install_github("MiriamLL/GermanNorthSea")
+```
+
+Now the package sf
+
+```r
+#install.packages('sf')
+library(sf)
+library(ggplot2)
+library(GermanNorthSea)
+```
+
+Load and plot some data
+
+
+```r
+German_land&lt;-GermanNorthSea::German_land
+```
+
+
+```r
+ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
+  coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000),
+                    label_axes = list(top = "E", left = "N", bottom = 'E', right='N'))
+```
+
+![](IntroToR_1104_files/figure-html/unnamed-chunk-94-1.png)&lt;!-- --&gt;
+
+
+---
+
+
+## 4.8. many files
+
+There is also a way to load may files the same time  
+
+Example many excel files .xlsx
+
+However, to do this, the name and number of columns should be the same!
+
+
+```r
+MainFolder&lt;-here()
+FilesTracking &lt;- list.files(MainFolder,pattern="*.xlsx",full.names=TRUE)
+ListTracking &lt;- lapply(FilesTracking,read_excel)
+ListTracking #Te muestra todos los documentos de la carpeta
+AllTracks &lt;- do.call("rbind",ListTracking)
+```
+
+---
+
+class: inverse
+
+# 4.9. Practice <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
+
+Load penguin data  
+ Using read_csv &lt;br&gt;
+ Using read_csv2 &lt;br&gt;
+ Using read_tsv &lt;br&gt;
+ Using read_excel &lt;br&gt;
+
+---
+
+class: title-slide, inverse, bottom, inverse
+background-image: url(https://images.unsplash.com/photo-1529448005898-b19fc13465b7?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=387&amp;q=80)
+background-size: cover
+
+## Pause
+
+.pull-left[
+Until here:
+- [What is R](r-story)
+- [RStudio and identify the parts](R-parts)
+- [Data types](data-types)
+- [Errors](errors)
+]
+
+.pull-right[
+Next part:
+- [Packages](packages)
+- [Directories](directories)
+- [Read data](read_files)
+
+
+---
+
+name: rmd
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1551127481-43279ba6dec4?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=870&amp;q=80)
+background-size: cover
+
+
+# 5. Rmarkdown
+
+---
+
+## 5.1. RMarkdown 
+
+Rmarkdown is very convenient because it let us export what we do in R to html or word documents.
+
+We can even make slides... &lt;br&gt;
+.right[...like this one.]
+
+--
+
+There are **plenty** of options on Rmd. I will just point out a few.
+
+---
+
+## 5.2. Rmd
+
+Markdown is plain text...  
+.right[...just as we write in a note block.]
+
+However, the advantages of using Rmd is that you can include a lot of text and thus you can write your **thesis, papers, webpage, books and presentations** without leaving RStudio.
+
+--
+
+Moreover, you can include:  
+- code and results that are automatically generated.
+
+---
+
+## 5.2. Rmd
+
+What Rmd does, is that it "translates" what has been written using **PanDoc**.  
+
+.center[
+&lt;img src="https://d33wubrfki0l68.cloudfront.net/61d189fd9cdf955058415d3e1b28dd60e1bd7c9b/b739c/lesson-images/rmarkdownflow.png" width="600" /&gt;
+]
+
+---
+
+
+## 5.2. Rmd
+
+We can generate an **output**, that can be read even if you dont have R install.
+
+Just like this presentation.
+
+--
+
+Also, you can get your results without showing the code and without having to copy and paste the results in other program like word.
+
+An example:     
+
+_Here I load my data and check the number of observations_  
+
+```r
+library(datos)
+```
+
+```
+## Warning: package 'datos' was built under R version 4.2.3
+```
+
+```r
+Pingus&lt;-pinguinos
+nrow(Pingus) 
+```
+
+```
+## [1] 344
+```
+
+---
+
+## 5.2. R vs Rmd
+
+**Considerations:  **  
+Rmd behaves differently than R 
+- Rmarkdown works better in a clean environment.  
+- All the variables need to be inside your file.
+- This actually assures that your workflow is **reproducible**
+
+---
+
+## 5.3. Start an Rmd
+
+
+File&gt;NewFile&gt;RMarkdown &lt;br&gt;
+It usually ask for a file name, you can use 'Test_Rmd'
+
+Se vera algo así:  
+
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG" height="300" /&gt;
+
+---
+name: texto
+
+## 5.3. Rmd parts
+
+Rmd has:
+- yaml
+- output  
+- chunks 
+- knit  
+
+---
+
+## 5.3. Rmd parts
+
+### Text
+
+You can write plain text in the white area
+
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG" height="400" /&gt;
+
+If you are doing this at the same time, delete the content in the Rmd file except for the YAML.
+
+---
+
+## 5.3. Rmd parts
+
+### Text
+
+You can write in: 
+- *italics* using one astherics before and one after the word.  
+- **bold** using two astheriscs.  
+- ***italics and bold*** using three astheriscs.   
+
+More options: [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f77f00;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>Text in Rmd](https://rmarkdown.rstudio.com/lesson-8.html)
+
+---
+
+## 5.3. Rmd parts
+
+### Chunk
+
+The parts that are in grey are chunks.  
+- The code is written inside three ` at the begginig and at the end and the r between {}
+This is because we need to tell which language are we using
+
+- We can run the code using the green arrow that looks like a <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f77f00;overflow:visible;position:relative;"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/></svg>, or using the button **Run** in the upper part of the code editor, or using **ctrl+enter**.
+- The results in Rmd appears in the code editor document, not in the console.
+
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG" height="300" /&gt;
+
+---
+
+## 5.3.Rmd parts
+
+### Chunks
+
+We can add new code chunks using **Ctrl+Alt+I** , the **back ticks** or in the green square with a C in the upper part of the code editor **+**. 
+
+
+The R code needs to be inside the chunks (the shadowed grey parts) to run.
+
+**Common mistakes are**:
+- Not closing the parenthesis **{}**
+- Not having the three ` inverted 
+- Add code outside the codechunks
+
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG" height="400" /&gt;
+
+---
+
+## 5.3. Rmd parts
+
+### YAML
+
+YAML means _“YAML Yet Ain’t Markup Language”._ 
+
+By default it will show: title, author, date, **output**.  
+
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/YAML.JPG" height="400" /&gt;
+
+---
+
+## 5.3. Rmd parts
+
+### YAML
+
+When you change the YAML, the information that appears in your report will change&lt;br&gt;
+If you chnge the output, different type of reports will be generated.
+
+**Common mistakes**  
+When you **knit** or render your report, there is something incompatible with Pandoc (or LateX)
+
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/YAML.JPG" height="300" /&gt;
+
+---
+
+## 5.3. Rmd parts
+
+### Knitr
+
+There is a botton that says **knit** with a knitting blue ball.
+This bottons generates the report.
+
+**Note**: every time we knit the changes are saved on our document.
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/knitr.jpg" height="400" /&gt;
+
+---
+
+## 5.4. Practice
+
+1. Open RStudio
+2. Open a Rmd file (File&gt;NewFile&gt;Rmd)
+3. Give a name to the file and write your name 
+4. Delete everything except for the YAML (or you can also leave it to see what it generates)
+5. Add a code chunk
+6. Add text
+
+Remember that you can use the green play button to generate the code and **Ctrl+Alt+I** to create a new code chunk.
+
+
+---
+
+## 5.4. Practice
+
+For the text:
+Add:
+'Load penguin data'
+
+In the code part:
+
+```r
+library(datos)
+Pingus&lt;-pinguinos
+nrow(Pingus) #sample size
+```
+
+Click in knit. You will likely see changes in the terminal.
+Wait for your html to be render <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f77f00;overflow:visible;position:relative;"><path d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"/></svg>
+
+---
+
+# 5.5. Rmd titles
+
+Main title use one hashtag #.&lt;br&gt;
+- First level #.&lt;br&gt;
+- Second level ##.&lt;br&gt;
+- Third level ###.&lt;br&gt;
+
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG" height="350" /&gt;
+
+---
+
+# 5.5. Rmd titles
+
+You can use the titles to navigate
+
+Search for the square with lines (say outline) or click on  **Crtl+Shft+O**.  
+Now you could navigate using titles
+
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/Navegar.JPG" height="400" /&gt;
+
+---
+name: outputs
+
+# 5.6. Rmd outputs  
+
+The documents can be exported to word, pdf and html.  
+
+Advantages and disadvantages for each one:  
+
+- **word**: easier to share and many journals ask for documents in this format  
+- **pdf**: easier to share but not easy to edit  
+- **html**: you can include a lot of type of contents ⭐, but might look unfamiliar   
+
+---
+
+# 5.6. Rmd outputs  
+
+To change the output, you need to change it in the YAML, or chick on the arrow <svg aria-hidden="true" role="img" viewBox="0 0 320 512" style="height:1em;width:0.62em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f77f00;overflow:visible;position:relative;"><path d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"/></svg> in the knit button and chose your format.  
+
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/Outputs.JPG" height="400" /&gt;
+
+To modify the word format [see here](https://rfortherestofus.com/2020/07/word-reference-documents-rmarkdown/)
+
+
+---
+
+# 5.7. Practice
+
+- Add titles and navigate
+- Change name and date in the YAML
+- Create three different formats: pdf, word and html
+
+**Note**&lt;br&gt;
+Maybe you need to install tinytex&lt;br&gt;
+
+```r
+tinytex::install_tinytex()
+```
+
+- [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f77f00;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>What is tiny text?](https://yihui.org/tinytex/)
+
+
+Remember to add the hashtag to each section, for space between titles use two spaces or &lt; br &gt;
+
+
+---
+
+class: title-slide, bottom
+background-image: url(https://images.unsplash.com/photo-1592781959802-0ccb435205a9?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGxldHRlcnxlbnwwfHwwfHw%3D&amp;auto=format&amp;fit=crop&amp;w=300&amp;q=60)
+background-size: cover
+
+
+
+
+.right[
+### Contact
+
+This materials are free of use &lt;br&gt; Download the presentation here: [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>github](https://github.com/MiriamLL/Curso_CIAD/) and  [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>webpage](https://www.miriam-lerma.com/)
+]
+
+&lt;h1&gt;
+.right[
+
+[<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg>&lt;/h1&gt;home](https://www.miriam-lerma.com/materiales.html)
+]
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

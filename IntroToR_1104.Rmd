@@ -36,10 +36,10 @@ ColorLink<-"#f77f00"
 
 class: title-slide
 
-## Index
+# Index
 
 First part
-- [Install or update R](r-install)
+- [Install or update R](install-r)
 - [What is R](parts)
 - [RStudio and identify the parts](R-parts)
 - [Data types](data-types)
@@ -58,34 +58,42 @@ Third part
 
 ---
 
-### Your profile 
+# Today
 
+.pull-left[
+
+## Your profile
 - Interest in learning R (or other ways to use it).  
 
 
-### Goals of today
+## Goals of today
 
 - Identify the parts of RStudio
 - Be able to load and download data
-- Feel confortable using R  
+- Feel comfortable using R
+- Hopefully we will cover all the topics
+]
 
 
+--
 
----
+.pull-right[
 
-class: title-slide, inverse
-
-### A reminder
+- There will be several pauses
+- Questions can be made [here]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
 
 ```{r, echo=FALSE, out.height=200}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Approximate.png?raw=true")
+ImageFolder<-'https://github.com/MiriamLL/R_intro/blob/master/Images/'
+knitr::include_graphics(paste0(ImageFolder,"001Approximate.png?raw=true"))
 ```
+
+]
 
 ---
 
 class: title-slide, inverse
 
-### References
+# References
 
 - R for Data Science  
 [`r fa("book-open", fill = "#f2cc8f")` R4DS](https://r4ds.had.co.nz/)  
@@ -94,8 +102,7 @@ class: title-slide, inverse
 [`r fa("github-alt", fill = "#f2cc8f")` Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg) 
 
 
-- Images by  
-[`r fa("camera-retro", fill = "#f2cc8f")` Portada de Unsplash por Jan Tinneberg](https://unsplash.com/@craft_ear)  
+- Images from  
 [`r fa("camera-retro", fill = "#f2cc8f")` Unsplash](https://unsplash.com/)  
 [`r fa("twitter", fill = "#f2cc8f")` Allison horst](https://twitter.com/allison_horst?lang=es)  
 
@@ -110,7 +117,7 @@ background-size: cover
 
 ---
 
-name: R-install
+name: install-r
 
 # 1. Install R
 
@@ -119,19 +126,19 @@ First time installing R
 To install R and Rstudio you can visit the page [posit](https://posit.co/download/rstudio-desktop/)
 
 ```{r echo=FALSE, out.height=400}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_01Posit.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"002Posit.png?raw=true"))
 ```
 
 ---
 
-### First time installing R
+## First time installing R
 
 Once you click download and install R, you will find several links.
 
 If you are the first time installing you should choose the first one.
 
 ```{r echo=FALSE, out.height=300}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_03UpdateR.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"003UpdateR.png?raw=true"))
 ```
 
 ---
@@ -155,7 +162,7 @@ updateR()
 ```
 
 ```{r echo=FALSE, out.height=250}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_02UpdateR.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"Clase01_02UpdateR.png?raw=true"))
 ```
 
 
@@ -168,7 +175,7 @@ If you opt to update R, it would send you to the R installation page.
 You will likely select >3.4
 
 ```{r echo=FALSE, out.height=200}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_03UpdateR.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"004UpdateR.png?raw=true"))
 ```
 
 ---
@@ -180,7 +187,7 @@ It would suggest that you go to the console.
 Look for R and open the console
 
 ```{r echo=FALSE, out.height=300}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_06UpdateR.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"005UpdateR.png?raw=true"))
 ```
 
 ---
@@ -190,7 +197,7 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroTo
 Write again updateR()
 
 ```{r echo=FALSE, out.height=300}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_07UpdateR.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"006UpdateR.png?raw=true"))
 ```
 
 ---
@@ -200,7 +207,7 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroTo
 Give it some time
 
 ```{r echo=FALSE, out.height=300}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_08UpdateR.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"007UpdateR.png?raw=true"))
 ```
 
 ---
@@ -212,7 +219,7 @@ If you already had R packages installed in your previous version, you might not 
 Therefore, I would recommend to select YES.
 
 ```{r echo=FALSE, out.height=300}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_09UpdateR.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"008UpdateR.png?raw=true"))
 ```
 
 ---
@@ -222,7 +229,7 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroTo
 By March 2023 4.2.3 was the newest version of R.
 
 ```{r echo=FALSE, out.height=100}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_10UpdateR.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"009UpdateR.png?raw=true"))
 ```
 
 
@@ -237,7 +244,7 @@ If you alredy have Rstudo and want to see if you need to update you can go to:
 Help>Check for updates
 
 ```{r echo=FALSE, out.height=300}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_04UpdateRStudio.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"010UpdateRStudio.png?raw=true"))
 ```
 
 
@@ -248,7 +255,7 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroTo
 If you have an outdate version of R, this would show:
 
 ```{r echo=FALSE, out.height=300}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_05UpdateRStudio.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"011UpdateRStudio.png?raw=true"))
 ```
 
 
@@ -259,7 +266,7 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroTo
 If you have the latest version of RStudio this would show:
 
 ```{r echo=FALSE, out.height=300}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/IntroToR_files/Clase01_11UpdateR.png?raw=true")
+knitr::include_graphics(paste0(ImageFolder,"012UpdateR.png?raw=true"))
 ```
 
 
