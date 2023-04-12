@@ -30,6 +30,7 @@ class: title-slide, inverse
 ```{r, echo=FALSE, include = FALSE}
 #Paquetes
 library(xaringanExtra)
+library(kableExtra)
 library(fontawesome)
 library(emo)
 ```
@@ -173,11 +174,10 @@ library(installr)
 updateR()
 ```
 
-<br>
 
 **Do you need an update?**
   
-```{r echo=FALSE, out.height=150}
+```{r echo=FALSE, out.height=120}
 knitr::include_graphics(paste0(ImageFolder,"003UpdateR.png?raw=true"))
 ```
 
@@ -205,9 +205,10 @@ Open Rgui
 ```{r echo=FALSE, out.height=150}
 knitr::include_graphics(paste0(ImageFolder,"005UpdateR.png?raw=true"))
 ```
+
 Once in the Rgui, write updateR()
 
-```{r echo=FALSE, out.height=200}
+```{r echo=FALSE, out.height=180}
 knitr::include_graphics(paste0(ImageFolder,"006UpdateR.png?raw=true"))
 ```
 ]
@@ -285,7 +286,7 @@ class: title-slide, bottom
 background-image: url(https://images.unsplash.com/photo-1517056338492-cb43f18f72a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
-## Parts of R
+#  `r text_spec("Parts of R", background = "#003049", color = "#e5e5e5", bold = T)`
 
 ---
 
@@ -699,7 +700,7 @@ Remove the # and find the error.
 
 ## 2.9. Debugging bingo
 
-```{r echo=FALSE, out.height=500}
+```{r echo=FALSE, out.height=450}
 knitr::include_graphics(paste0(ImageFolder,"023DebuggingBingo.jpg?raw=true"))
 ```
 
@@ -743,7 +744,6 @@ class: title-slide
 
 # Pause
 
-
 - Open RStudio `r fa("pencil-alt", fill = "#f2cc8f")`<br>
 - Write something in the console<br>
 - Create a data frame with characters and numbers<br>
@@ -774,7 +774,7 @@ class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/reserve/oIpwxeeSPy1cnwYpqJ1w_Dufer%20Collateral%20test.jpg?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1015&q=80)
 background-size: cover
 
-# 3. Packages
+# `r text_spec("Packages", background = "#003049", color = "#e5e5e5", bold = T)`
 
 ---
 
@@ -789,7 +789,7 @@ To install packages using the **workspace**
 
 Go to Packages>Install and write tha name of the package
 
-```{r echo=FALSE, out.height=350}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics(paste0(ImageFolder,"020Rparts.png?raw=true"))
 ```
 
@@ -928,7 +928,7 @@ class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/photo-1533279443086-d1c19a186416?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80)
 background-size: cover
 
-# 4. Read files
+# `r text_spec("Read files", background = "#003049", color = "#e5e5e5", bold = T)`
 
 ---
 
@@ -1198,9 +1198,8 @@ ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
 
 class: inverse
 
-Pause
+# Pause
 
-**Exercises**  
 Load penguin data  `r fa("pencil-alt", fill = '#FFFFFF')`  
 - Using read_csv <br>
 - Using read_csv2 <br>
@@ -1222,8 +1221,8 @@ Until here:
 
 .pull-right[
 Next part:
-- [#Read data](read_files)
-- [#Rmd](rmd)
+- [Read data](#read_files)
+- [Rmd](#rmd)
 - [Contact/Home](#out)
 ]
 
@@ -1236,7 +1235,7 @@ background-image: url(https://images.unsplash.com/photo-1478641300939-0ec5188d38
 background-size: cover
 
 
-# 5. Rmarkdown
+# `r text_spec("R markdown", background = "#003049", color = "#e5e5e5", bold = T)`
 
 ---
 
@@ -1316,7 +1315,7 @@ Rmd behaves differently than R
 
 File>NewFile>RMarkdown <br>
 
-```{r echo=FALSE, out.height=500}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics(paste0(ImageFolder,"040Rmd.png?raw=true"))
 ```
 
@@ -1330,7 +1329,7 @@ Rmd has:
 - plain text
 - knit
 
-```{r echo=FALSE, out.height=500}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics(paste0(ImageFolder,"041Rmd.png?raw=true"))
 ```
 
@@ -1346,7 +1345,7 @@ You can write in:
 - **bold** using two astheriscs.  
 - ***italics and bold*** using three astheriscs.  
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics(paste0(ImageFolder,"042RmdPlainText.png?raw=true"))
 ```
 
@@ -1358,19 +1357,19 @@ More options: [`r fa("external-link-alt", fill = '#e9c46a')`Text in Rmd](https:/
 ## 5.7. Rmd chunk
 
 The parts that are in grey are chunks.  
-- The code is written inside three ` at the begginig and at the end and the r between {}
+- The code is written inside three inverted commas at the start and at the end and the r between {}
 This is because we need to tell which language are we using
 
 - We can run the code using the green arrow that looks like a `r fa("play", fill = '#588157')`, using the button **Run** in the upper part of the code editor, or using **ctrl+enter**.
 - The results in Rmd appears in the code editor document, not in the console.
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics(paste0(ImageFolder,"042RmdChunk.png?raw=true"))
 ```
 
 ---
 
-## 5.7. Rmd chunks
+## 5.7. Rmd chunk
 
 We can add new code chunks using **Ctrl+Alt+I** , the **back ticks** or in the green square with a C in the upper part of the code editor **+**. 
 
@@ -1379,10 +1378,10 @@ The R code needs to be inside the chunks (the shadowed grey parts) to run.
 
 **Common mistakes are**:
 - Not closing the parenthesis **{}**
-- Not having the three ` inverted 
+- Not having the three inverted commas
 - Add code outside the codechunks
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics(paste0(ImageFolder,"042RmdChunk.png?raw=true"))
 ```
 
@@ -1394,9 +1393,10 @@ YAML means _“YAML Yet Ain’t Markup Language”._
 
 By default it will show: title, author, date, **output**.  
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics(paste0(ImageFolder,"042RmdYaml.png?raw=true"))
 ```
+
 
 ---
 
@@ -1408,7 +1408,7 @@ If you chnge the output, different type of reports will be generated.
 **Common mistakes**  
 When you **knit** or render your report, there is something incompatible with Pandoc (or LateX)
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics(paste0(ImageFolder,"042RmdYaml.png?raw=true"))
 ```
 
@@ -1419,7 +1419,7 @@ knitr::include_graphics(paste0(ImageFolder,"042RmdYaml.png?raw=true"))
 There is a botton that says **knit** with a knitting blue ball.
 This bottons generates the report.
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics(paste0(ImageFolder,"042RmdKnit.png?raw=true"))
 ```
 
@@ -1430,28 +1430,28 @@ knitr::include_graphics(paste0(ImageFolder,"042RmdKnit.png?raw=true"))
 
 ## 5.10. Rmd titles
 
+.pull-left[
 You can use the titles to navigate.
 
 Search for the square with lines (say outline) or click on  **Crtl+Shft+O**.  
 
-This file is very short, but this can be very useful in large documents.
+This can be very useful in large documents.
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=30}
 knitr::include_graphics(paste0(ImageFolder,"043Outline.png?raw=true"))
 ```
+]
 
----
-
-## 5.10. Rmd titles
-
+.pull-right[
 Main title use one hashtag #.<br>
 - First level #.<br>
 - Second level ##.<br>
 - Third level ###.<br>
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=100}
 knitr::include_graphics(paste0(ImageFolder,"044Outline.png?raw=true"))
 ```
+]
 
 ---
 name: outputs
@@ -1472,7 +1472,7 @@ Advantages and disadvantages for each one:
 
 To change the output, you need to change it in the YAML, or chick on the arrow `r fa("sort-down", fill = '#2a9d8f')` in the knit button and chose your format.  
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=150}
 knitr::include_graphics(paste0(ImageFolder,"045Outputs.png?raw=true"))
 ```
 
@@ -1481,7 +1481,7 @@ To modify the word format [see here](https://rfortherestofus.com/2020/07/word-re
 ---
 class: inverse
 
-## Pause
+# Pause
 
 - Open RStudio `r fa("pencil-alt", fill = '#FFFFFF')` 
 - Open a Rmd file (File>NewFile>Rmd)
