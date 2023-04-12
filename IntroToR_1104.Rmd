@@ -24,7 +24,7 @@ background-size: cover
 `r rmarkdown::metadata$date`
 
 ---
-
+name: index
 class: title-slide, inverse
 
 ```{r, echo=FALSE, include = FALSE}
@@ -750,6 +750,7 @@ class: title-slide
 
 .pull-left[
 Until here:
+- [Index](#index)
 - [What is R](#r-story)
 - [RStudio and identify the parts](#r-parts)
 - [Data types](#data-types)
@@ -904,6 +905,7 @@ Make comments or suggestions [here `r fa("external-link-alt", fill = "#f2cc8f")`
 
 .pull-left[
 Until here:
+- [Index](#index)
 - [What is R](r-story)
 - [RStudio and identify the parts](r-parts)
 - [Data types](data-types)
@@ -1211,6 +1213,7 @@ There are many other options of files. Suggestions? [here `r fa("external-link-a
 
 .pull-left[
 Until here:
+- [Index](#index)
 - [What is R](#r-story)
 - [RStudio and identify the parts](#r-parts)
 - [Data types](#data-types)
@@ -1512,8 +1515,8 @@ class:inverse
 background-image: url(https://images.unsplash.com/photo-1557075877-3e112375a834?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
-# Back to:
-
+# Back to
+- [Index](#index)
 - [What is R](#r-story)
 - [RStudio and identify the parts](#r-parts)
 - [Data types](#data-types)
@@ -1531,10 +1534,11 @@ Make comments or suggestions [here `r fa("external-link-alt", fill = "#f2cc8f")`
 This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-04-18-intro-to-r/)
 ]
 
-<h1>
 .right[
 
-[`r fa("home", fill = '#f2cc8f')`home](https://www.miriam-lerma.com/teaching.html)
+[`r fa("home", fill = '#f2cc8f')`Home](https://www.miriam-lerma.com/teaching.html)
+
+[`r fa("play", fill = '#f2cc8f')` Index ](https://miriamll.github.io/R_intro/IntroToR_1104.html#2)
 
 ]
 
