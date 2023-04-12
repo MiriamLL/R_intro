@@ -32,28 +32,20 @@ class: title-slide, inverse
 library(xaringanExtra)
 library(fontawesome)
 library(emo)
-ColorLink<-"#f77f00"
 ```
 
 # Index
 
-First part
-- [Install or update R](install-r)
-- [What is R](parts)
-- [RStudio and identify the parts](R-parts)
-- [Data types](data-types)
-- [Errors](errors)
 
-Second part
-
-- [Packages](packages)
-- [Read files](read-files)
-
-Third part
-
-- [Intro to Rmarkdown](rmd)
-
-
+- [Install or update R](#install-r)
+- [What is R](#parts)
+- [RStudio and identify the parts](#r-parts)
+- [Data types](#data-types)
+- [Errors](#errors)
+- [Packages](#packages)
+- [Read files](#read-files)
+- [Intro to Rmarkdown](#rmd)
+- [Contact/Home](#out)
 
 ---
 
@@ -120,12 +112,12 @@ class: title-slide, inverse
 [`r fa("camera-retro", fill = "#f2cc8f")` Unsplash](https://unsplash.com/)  
 [`r fa("twitter", fill = "#f2cc8f")` Allison horst](https://twitter.com/allison_horst?lang=es)  
 
-- Other resources
+- Other resources  
 [YaRrr](https://bookdown.org/ndphillips/YaRrr/the-four-rstudio-windows.html)<br>
 [Data structure](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/)<br>
 [Assignment operators](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r)<br>[R inferno](https://www.burns-stat.com/pages/Tutor/R_inferno.pdf)<br>
 [Why they are not the same](https://www.roelpeters.be/the-difference-between-arrow-and-equals-assignment-in-r/)<br>
-Some examples of webpage that provide data to practice are:[TidyTuesday](https://github.com/rfordatascience/tidytuesday)  
+[TidyTuesday](https://github.com/rfordatascience/tidytuesday)  
 
 ---
 
@@ -210,8 +202,7 @@ If you decide to update your R, its better to do it in the Rgui and not R-Studio
 
 .pull-left[
 Open Rgui
-
-```{r echo=FALSE, out.height=200}
+```{r echo=FALSE, out.height=150}
 knitr::include_graphics(paste0(ImageFolder,"005UpdateR.png?raw=true"))
 ```
 Once in the Rgui, write updateR()
@@ -271,13 +262,13 @@ knitr::include_graphics(paste0(ImageFolder,"010UpdateRStudio.png?raw=true"))
 ```
 ]
 .pull-right[
-If you have an outdated version of R, this would show:
+Outdated
 
 ```{r echo=FALSE, out.height=100}
 knitr::include_graphics(paste0(ImageFolder,"011UpdateRStudio.png?raw=true"))
 ```
 
-Otherwise, it would show that no update is needed.
+Up to date
 
 ```{r echo=FALSE, out.height=100}
 knitr::include_graphics(paste0(ImageFolder,"012UpdateR.png?raw=true"))
@@ -518,7 +509,7 @@ Assign symbol
 This symbol is frequently use, and is important that you find it in your keyboard as soon as possible. 
  
 
-- The equal **=**  might behave differently than the assign symbol 
+- The equal **=**  might behave differently than the assign symbol <br>
 See here: [Assignment operators](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r), [R inferno](https://www.burns-stat.com/pages/Tutor/R_inferno.pdf), [Why they are not the same](https://www.roelpeters.be/the-difference-between-arrow-and-equals-assignment-in-r/)   
 
 .center[
@@ -755,29 +746,32 @@ class: title-slide
 
 - Open RStudio `r fa("pencil-alt", fill = "#f2cc8f")`<br>
 - Write something in the console<br>
-- Create a data frame with characters<br>
+- Create a data frame with characters and numbers<br>
 
 .pull-left[
 Until here:
-- [What is R](r-story)
-- [RStudio and identify the parts](R-parts)
-- [Data types](data-types)
-- [Errors](errors)
+- [What is R](#r-story)
+- [RStudio and identify the parts](#r-parts)
+- [Data types](#data-types)
+- [Errors](#errors)
 ]
 
 
 .pull-right[
 Next part:
-- [Packages](packages)
-- [Directories](directories)
-- [Read data](read_files)
+- [Packages](#packages)
+- [Directories](#directories)
+- [Read data](#read_files)
+- [Contact/Home](#out)
+
 ]
+
 
 ---
 
 name: packages
 class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1617123623686-2b7b339785da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80)
+background-image: url(https://images.unsplash.com/reserve/oIpwxeeSPy1cnwYpqJ1w_Dufer%20Collateral%20test.jpg?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1015&q=80)
 background-size: cover
 
 # 3. Packages
@@ -789,52 +783,55 @@ background-size: cover
 - Packages are a collection of functions
 - Packages are installed one time, but need to be loaded every time you need them.
 
-- To install a package: install.packages("").  
-To load a package: library("").  
+An analogy is that install.packages() is downloading an app, and library() is like opening the app every time you want to use it.
 
-Another analogy is that install.packages() is downloading an app, and library() is like opening the app every time you want to use it.
+To install packages using the **workspace**
 
---
+Go to Packages>Install and write tha name of the package
 
-In the **console** run:
-```{r, eval=FALSE}
-install.packages("cowsay")
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics(paste0(ImageFolder,"020Rparts.png?raw=true"))
 ```
-
-```{r, eval=FALSE}
-install.packages("here")
-```
-
-`r emo::ji("clock")` Tidyverse is a compilation of packages, this one might take some time.
-```{r, eval=FALSE}
-install.packages("tidyverse")
-```
-Note: It probably will give us a warning, remember that a warning might be just information. In this case is telling us what the package contains.
-
-Another option to install packages is clicking at the **workspace**
-Packages>Install>Give the name.
 
 ---
 
 ## 3.1. Packages
 
-.pull-left[
+- To install in the **console** write: install.packages("").  
+To load a package: library("").  
+
+Some packages that we will use: 
+
+```{r, eval=FALSE}
+install.packages("cowsay")
+install.packages("here")
+install.packages("tidyverse")
+```
+
+`r emo::ji("clock")` Tidyverse is a compilation of packages, this one might take some time.
+
+Note: It probably will give us a warning, remember that a warning might be just information. In this case is telling us what the package contains.
+
+---
+
+## 3.1. Packages
+
+
 ```{r, eval=FALSE}
 say(what = "Now you can download packages!", by = "cat")
 ```
 
---
 nothing happend?
 We should load the library first.
-]
---
 
-.pull-right[
+---
+
+## 3.1. Packages
+
 ```{r, comment="", warning=FALSE}
 library("cowsay")
 say(what = "Now you can download packages!", by = "cat")
 ```
-]
 
 ---
 
@@ -843,7 +840,7 @@ say(what = "Now you can download packages!", by = "cat")
 
 Where are my files?.  
 
-By hand: Click on the **workspace** > Files > Blue symbol > Set As Working directory
+By hand: Click on the **workspace** > Files > More > Set As Working directory
 
 ```{r echo=FALSE, out.height=350}
 knitr::include_graphics(paste0(ImageFolder,"019Rparts.png?raw=true"))
@@ -908,7 +905,7 @@ Make comments or suggestions [here `r fa("external-link-alt", fill = "#f2cc8f")`
 .pull-left[
 Until here:
 - [What is R](r-story)
-- [RStudio and identify the parts](R-parts)
+- [RStudio and identify the parts](r-parts)
 - [Data types](data-types)
 - [Errors](errors)
 - [Packages](packages)
@@ -920,6 +917,7 @@ Until here:
 Next part:
 - [Read data](read_files)
 - [Rmd](rmd)
+- [Contact/Home](#out)
 ]
 
 
@@ -927,7 +925,7 @@ Next part:
 
 name: read-files
 class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1668852222395-11d9154ade25?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80)
+background-image: url(https://images.unsplash.com/photo-1533279443086-d1c19a186416?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80)
 background-size: cover
 
 # 4. Read files
@@ -990,7 +988,7 @@ knitr::include_graphics(paste0(ImageFolder,"019Rparts.png?raw=true"))
 
 ## 4.2. csv format
 
-Instead of clicks, we can do write in the console or script:
+Instead of clicks, we can write in the console or script:
 
 ```{r, eval=FALSE}
 penguins1<-read_csv("Downloads/penguins1.csv")
@@ -1164,7 +1162,7 @@ Moreover, packages with data are not limited to data frames.
 
 For example, the package GermanNorthSea contains shapefiles
 
-(Showing just for illustration purposes)
+With 6 lines of code you can plot a map (Showing just for illustration purposes)
 
 .pull-left[
 ```{r, eval=FALSE, message=FALSE}
@@ -1200,7 +1198,7 @@ ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
 
 class: inverse
 
-# 4.8. Pause
+Pause
 
 **Exercises**  
 Load penguin data  `r fa("pencil-alt", fill = '#FFFFFF')`  
@@ -1209,23 +1207,24 @@ Load penguin data  `r fa("pencil-alt", fill = '#FFFFFF')`
 - Using read_tsv <br>
 - Using read_excel <br>
 
-There are many other options of files, let me know if you want to see an example [here `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+There are many other options of files. Suggestions? [here `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
 
 
 .pull-left[
 Until here:
-- [What is R](r-story)
-- [RStudio and identify the parts](R-parts)
-- [Data types](data-types)
-- [Errors](errors)
-- [Packages](packages)
-- [Directories](directories)
+- [What is R](#r-story)
+- [RStudio and identify the parts](#r-parts)
+- [Data types](#data-types)
+- [Errors](#errors)
+- [Packages](#packages)
+- [Directories](#directories)
 ]
 
 .pull-right[
 Next part:
-- [Read data](read_files)
-- [Rmd](rmd)
+- [#Read data](read_files)
+- [#Rmd](rmd)
+- [Contact/Home](#out)
 ]
 
 
@@ -1308,7 +1307,7 @@ nrow(penguins7)
 Rmd behaves differently than R 
 - Rmarkdown works better in a clean environment.  
 - All the variables need to be inside your file.
-- This actually assures that your workflow is **reproducible**
+- This actually assures that your workflow is **reproducible**.
 
 ---
 
@@ -1316,23 +1315,25 @@ Rmd behaves differently than R
 
 
 File>NewFile>RMarkdown <br>
-It usually ask for a file name, you can use 'Test_Rmd'
 
-
-```{r echo=FALSE, out.height=300}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG')
+```{r echo=FALSE, out.height=500}
+knitr::include_graphics(paste0(ImageFolder,"040Rmd.png?raw=true"))
 ```
 
 ---
-name: texto
 
 ## 5.5. Rmd parts
 
 Rmd has:
-- yaml
-- output  
+- yaml (including the output)
 - chunks 
-- knit  
+- plain text
+- knit
+
+```{r echo=FALSE, out.height=500}
+knitr::include_graphics(paste0(ImageFolder,"041Rmd.png?raw=true"))
+```
+
 
 ---
 
@@ -1340,22 +1341,17 @@ Rmd has:
 
 You can write plain text in the white area
 
-```{r, echo=FALSE, out.height=400}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG')
-```
-
-If you are doing this at the same time, delete the content in the Rmd file except for the YAML.
-
----
-
-## 5.6. Rmd text
-
 You can write in: 
 - *italics* using one astherics before and one after the word.  
 - **bold** using two astheriscs.  
-- ***italics and bold*** using three astheriscs.   
+- ***italics and bold*** using three astheriscs.  
 
-More options: [`r fa("external-link-alt", fill = ColorLink)`Text in Rmd](https://rmarkdown.rstudio.com/lesson-8.html)
+```{r echo=FALSE, out.height=400}
+knitr::include_graphics(paste0(ImageFolder,"042RmdPlainText.png?raw=true"))
+```
+
+
+More options: [`r fa("external-link-alt", fill = '#e9c46a')`Text in Rmd](https://rmarkdown.rstudio.com/lesson-8.html)
 
 ---
 
@@ -1365,11 +1361,11 @@ The parts that are in grey are chunks.
 - The code is written inside three ` at the begginig and at the end and the r between {}
 This is because we need to tell which language are we using
 
-- We can run the code using the green arrow that looks like a `r fa("play", fill = ColorLink)`, or using the button **Run** in the upper part of the code editor, or using **ctrl+enter**.
+- We can run the code using the green arrow that looks like a `r fa("play", fill = '#588157')`, using the button **Run** in the upper part of the code editor, or using **ctrl+enter**.
 - The results in Rmd appears in the code editor document, not in the console.
 
-```{r echo=FALSE, out.height=300}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG')
+```{r echo=FALSE, out.height=400}
+knitr::include_graphics(paste0(ImageFolder,"042RmdChunk.png?raw=true"))
 ```
 
 ---
@@ -1387,7 +1383,7 @@ The R code needs to be inside the chunks (the shadowed grey parts) to run.
 - Add code outside the codechunks
 
 ```{r echo=FALSE, out.height=400}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG')
+knitr::include_graphics(paste0(ImageFolder,"042RmdChunk.png?raw=true"))
 ```
 
 ---
@@ -1399,7 +1395,7 @@ YAML means _“YAML Yet Ain’t Markup Language”._
 By default it will show: title, author, date, **output**.  
 
 ```{r echo=FALSE, out.height=400}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/YAML.JPG')
+knitr::include_graphics(paste0(ImageFolder,"042RmdYaml.png?raw=true"))
 ```
 
 ---
@@ -1412,8 +1408,8 @@ If you chnge the output, different type of reports will be generated.
 **Common mistakes**  
 When you **knit** or render your report, there is something incompatible with Pandoc (or LateX)
 
-```{r echo=FALSE, out.height=300}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/YAML.JPG')
+```{r echo=FALSE, out.height=400}
+knitr::include_graphics(paste0(ImageFolder,"042RmdYaml.png?raw=true"))
 ```
 
 ---
@@ -1423,9 +1419,25 @@ knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/m
 There is a botton that says **knit** with a knitting blue ball.
 This bottons generates the report.
 
-**Note**: every time we knit the changes are saved on our document.
 ```{r echo=FALSE, out.height=400}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/knitr.jpg')
+knitr::include_graphics(paste0(ImageFolder,"042RmdKnit.png?raw=true"))
+```
+
+**Note**: every time we knit the changes are saved on our document.
+
+
+---
+
+## 5.10. Rmd titles
+
+You can use the titles to navigate.
+
+Search for the square with lines (say outline) or click on  **Crtl+Shft+O**.  
+
+This file is very short, but this can be very useful in large documents.
+
+```{r echo=FALSE, out.height=400}
+knitr::include_graphics(paste0(ImageFolder,"043Outline.png?raw=true"))
 ```
 
 ---
@@ -1437,21 +1449,8 @@ Main title use one hashtag #.<br>
 - Second level ##.<br>
 - Third level ###.<br>
 
-```{r echo=FALSE, out.height=350}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG')
-```
-
----
-
-## 5.10. Rmd titles
-
-You can use the titles to navigate
-
-Search for the square with lines (say outline) or click on  **Crtl+Shft+O**.  
-Now you could navigate using titles
-
 ```{r echo=FALSE, out.height=400}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/Navegar.JPG')
+knitr::include_graphics(paste0(ImageFolder,"044Outline.png?raw=true"))
 ```
 
 ---
@@ -1471,48 +1470,32 @@ Advantages and disadvantages for each one:
 
 ## 5.11. Rmd outputs  
 
-To change the output, you need to change it in the YAML, or chick on the arrow `r fa("sort-down", fill = ColorLink)` in the knit button and chose your format.  
+To change the output, you need to change it in the YAML, or chick on the arrow `r fa("sort-down", fill = '#2a9d8f')` in the knit button and chose your format.  
 
 ```{r echo=FALSE, out.height=400}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/Outputs.JPG')
+knitr::include_graphics(paste0(ImageFolder,"045Outputs.png?raw=true"))
 ```
 
 To modify the word format [see here](https://rfortherestofus.com/2020/07/word-reference-documents-rmarkdown/)
 
-
+---
+class: inverse
 
 ## Pause
 
-# Exercices
+- Open RStudio `r fa("pencil-alt", fill = '#FFFFFF')` 
+- Open a Rmd file (File>NewFile>Rmd)
+- Create three different formats: pdf, word and html
+- Delete everything except for the YAML (change YAML to your info)
+- Add a code chunk
+- Add text
 
-1. Open RStudio
-2. Open a Rmd file (File>NewFile>Rmd)
-3. Give a name to the file and write your name 
-4. Delete everything except for the YAML (or you can also leave it to see what it generates)
-5. Add a code chunk
-6. Add text
-
-Remember that you can use the green play button to generate the code and **Ctrl+Alt+I** to create a new code chunk.
-
-
-For the text:
-Add:
-'Load penguin data'
-
-In the code part:
+Example of code chunk
 ```{r, eval=FALSE}
-library(datos)
-Pingus<-pinguinos
-nrow(Pingus) #sample size
+library(palmerpenguins)
+nrow(penguins) #sample size
 ```
 
-Click in knit. You will likely see changes in the terminal.
-Wait for your html to be render `r fa("clock", fill = ColorLink)`
-
-
-- Add titles and navigate
-- Change name and date in the YAML
-- Create three different formats: pdf, word and html
 
 **Note**<br>
 Maybe you need to install tinytex<br>
@@ -1520,30 +1503,38 @@ Maybe you need to install tinytex<br>
 tinytex::install_tinytex()
 ```
 
-- [`r fa("external-link-alt", fill = ColorLink)`What is tiny text?](https://yihui.org/tinytex/)
-
-
-Remember to add the hashtag to each section, for space between titles use two spaces or < br >
-
+- [`r fa("external-link-alt", fill = '#e9c46a')`What is tiny text?](https://yihui.org/tinytex/)
 
 ---
 
-class: title-slide, bottom
-background-image: url(https://images.unsplash.com/photo-1592781959802-0ccb435205a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGxldHRlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=60)
+name: out
+class:inverse
+background-image: url(https://images.unsplash.com/photo-1557075877-3e112375a834?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
+# Back to:
 
+- [What is R](#r-story)
+- [RStudio and identify the parts](#r-parts)
+- [Data types](#data-types)
+- [Errors](#errors)
+- [Packages](#packages)
+- [Directories](#directories)
+- [Read data](#read_files)
+- [Rmd](#rmd)
 
+Make comments or suggestions [here `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
 
 .right[
 ### Contact
 
-This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/Curso_CIAD/) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/)
+This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-04-18-intro-to-r/)
 ]
 
 <h1>
 .right[
 
-[`r fa("home", fill = '#f2cc8f')`</h1>home](https://www.miriam-lerma.com/materiales.html)
+[`r fa("home", fill = '#f2cc8f')`home](https://www.miriam-lerma.com/teaching.html)
+
 ]
 
