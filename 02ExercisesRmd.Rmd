@@ -1,0 +1,15 @@
+---
+title: 'ExercisesRmd'
+output: html_document
+date: '2023-04-11'
+---
+
+# Load data
+
+Here I loaded data
+
+```{r, warning=FALSE}
+library(palmerpenguins)
+penguins7<-penguins
+nrow(penguins7) 
+```

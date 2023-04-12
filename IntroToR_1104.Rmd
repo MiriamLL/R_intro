@@ -121,11 +121,11 @@ class: title-slide, inverse
 [`r fa("twitter", fill = "#f2cc8f")` Allison horst](https://twitter.com/allison_horst?lang=es)  
 
 - Other resources
-[YaRrr](https://bookdown.org/ndphillips/YaRrr/the-four-rstudio-windows.html)  
--[Data structure](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/)  
-[Assignment operators](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r)  
-[R inferno](https://www.burns-stat.com/pages/Tutor/R_inferno.pdf) 
-[Why they are not the same](https://www.roelpeters.be/the-difference-between-arrow-and-equals-assignment-in-r/) 
+[YaRrr](https://bookdown.org/ndphillips/YaRrr/the-four-rstudio-windows.html)<br>
+[Data structure](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/)<br>
+[Assignment operators](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r)<br>[R inferno](https://www.burns-stat.com/pages/Tutor/R_inferno.pdf)<br>
+[Why they are not the same](https://www.roelpeters.be/the-difference-between-arrow-and-equals-assignment-in-r/)<br>
+Some examples of webpage that provide data to practice are:[TidyTuesday](https://github.com/rfordatascience/tidytuesday)  
 
 ---
 
@@ -294,7 +294,7 @@ class: title-slide, bottom
 background-image: url(https://images.unsplash.com/photo-1517056338492-cb43f18f72a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
-# Parts of R
+## Parts of R
 
 ---
 
@@ -523,7 +523,7 @@ See here: [Assignment operators](https://stackoverflow.com/questions/1741820/wha
 
 .center[
 ```{r echo=FALSE, out.height=200}
-knitr::include_graphics(paste0(ImageFolder,"024Assign.jpg"))
+knitr::include_graphics(paste0(ImageFolder,"024Assign.jpg?raw=true"))
 ```
 ]
 
@@ -903,6 +903,8 @@ class: title-slide
 - Install and load packages<br>
 - Check your directory<br>
 
+Make comments or suggestions [here `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
 .pull-left[
 Until here:
 - [What is R](r-story)
@@ -936,12 +938,12 @@ background-size: cover
 
 A typical R project looks like this:
 
-```{r echo=FALSE, out.height=500}
+```{r echo=FALSE, out.height=250}
 knitr::include_graphics(paste0(ImageFolder,"031Program.png?raw=true"))
 ```
 
 .right[
-Fuente: [R4DS](https://r4ds.had.co.nz/introduction.html)
+Source: [R4DS](https://r4ds.had.co.nz/introduction.html)
 ]
 
 ---
@@ -949,7 +951,7 @@ Fuente: [R4DS](https://r4ds.had.co.nz/introduction.html)
 
 ## 4.1. Read files
 
-For this part, we will use functions from the package tidyverse.
+To load data, we will use functions from the package tidyverse.
 
 Do you already have it installed?
 
@@ -958,11 +960,12 @@ library("tidyverse")
 ```
 
 
-Also, I will share with you some files
+Also, download files [here](https://github.com/MiriamLL/R_intro/tree/master/Downloads).
 
 - penguins1.csv
 - penguins2.csv
-
+- penguins3.txt
+- penguins4.xlsx
 
 ---
 
@@ -979,50 +982,55 @@ Select the file **penguins1.csv**
 Another option is to go to the **workspace** 
 Files> Click on the file and **import data set**
 
- 
---
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics(paste0(ImageFolder,"019Rparts.png?raw=true"))
+```
 
-Finally, we can do all in the console or script by using:
+---
+
+## 4.2. csv format
+
+Instead of clicks, we can do write in the console or script:
 
 ```{r, eval=FALSE}
 penguins1<-read_csv("Downloads/penguins1.csv")
 ```
 
 ```{r, eval=FALSE}
-head(Pingus_csv)
+head(penguins1)
 ```
-
 
 ---
 
 ## 4.2. csv format
 
-Now try opening **Pingus_2.csv**  
-This file instead of being separated by comas, its separated by colons
+Now try opening **penguins2.csv**  
+
+This file instead of being separated by comas, its separated by colons ";"
+
 Therefore, instead of using **read_csv** we will need to use **read_csv2**
 
 To illustrate this issue, try loading the data using **read_csv**.
 
 ```{r, eval=FALSE}
-Pingus_csv2<-read_csv(here("Pingus_2.csv"))
+penguins2<-read_csv("Downloads/penguins2.csv")
 ```
 
 ```{r, eval=FALSE}
-head(Pingus_csv2)
+head(penguins2)
 ```
 
-Likely it looks very messy...
 
 --
 
+Lets try now with **read_csv2**
 
-Lets try now with **read_csv2**";"
 ```{r, eval=FALSE}
-Pingus_csv2<-read_csv2(here("Pingus_2.csv"))
+penguins2<-read_csv2("Downloads/penguins2.csv")
 ```
 
 ```{r, eval=FALSE}
-head(Pingus_csv2)
+head(penguins2)
 ```
 
 ---
@@ -1030,15 +1038,17 @@ head(Pingus_csv2)
 ## 4.3.  Other formats
 
 Click on the file **Pingus_3.txt**.  
+
 This one is separated by tabs.  
+
 read_tsv is for reading tab separated values.  
 
 ```{r, eval=FALSE}
-Pingus_txt<-read_tsv(here("Pingus_3.txt"))
+penguins3<-read_tsv("Downloads/penguins3.txt")
 ```
 
 ```{r, eval=FALSE}
-head(Pingus_txt)
+head(penguins3)
 ```
 
 ---
@@ -1052,14 +1062,13 @@ library("readxl")
 ```
 
 ```{r, eval=FALSE}
-Pingus_excel<- read_excel(here("Pingus_4.xlsx"))
+penguins4<- read_excel("Downloads/penguins4.xlsx")
 ```
 
 ```{r, eval=FALSE}
-head(Pingus_excel)
+head(penguins4)
 ```
 
-There are many other options, let me know if you want to see an example.
 
 ---
 
@@ -1067,27 +1076,21 @@ There are many other options, let me know if you want to see an example.
 
 Urls (Uniform Resource Locators) or links can also be source of data.
 
-Some examples of webpage that provide data to practice are:  
-- [TidyTuesday](https://github.com/rfordatascience/tidytuesday)  
-
-Let use data from plastic. This data is from 26 January 2021.
-
 ```{r, message=FALSE, warning=FALSE}
-plastics <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-26/plastics.csv')
+penguins5<- read_csv('https://github.com/MiriamLL/R_intro/blob/master/Downloads/penguins1.csv')
 ```
 
 Look at the first 5 rows of the data
 
 ```{r, eval=FALSE}
-head(plastics,5)
+head(penguins,5)
 ```
 
 ---
 
 ## 4.6. movebank
 
-There is a package called **move** that can be use to access data stored in movebank.
-[move](https://cran.r-project.org/web/packages/move/vignettes/browseMovebank.html)
+There is a package called [move](https://cran.r-project.org/web/packages/move/vignettes/browseMovebank.html) that can be use to access data stored in movebank.
 
 To install:
 ```{r, eval=FALSE}
@@ -1102,7 +1105,7 @@ library(move)
 movebankLogin()
 ```
 
-Look at the console now.
+Add your login, if you have one, at the console.
 
 ---
 
@@ -1129,42 +1132,41 @@ MyGull<-getMovebankLocationData(study=my_study,
 
 It might give you a warning, but for now that is not important.
 
+---
+
+## 4.7. packages with data
+
+Data can also be stored in packages.  
+For example [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
+
 ```{r, eval=FALSE}
-range(MyGull$timestamp)
+install.packages("palmerpenguins")
+```
+
+```{r, warning=FALSE}
+library(palmerpenguins)
+penguin6<-penguins
+```
+
+```{r, eval=FALSE}
+head(penguin6)
 ```
 
 ---
 
 ## 4.7. packages with data
 
-An example is [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
-
-```{r, eval=FALSE}
-install.packages("palmerpenguins")
-```
-
-```{r}
-library(palmerpenguins)
-Pingus<-penguins
-```
-
-```{r}
-head(Pingus)
-```
+Moreover, packages with data are not limited to data frames.
 
 ---
 
-## 4.7. packages containing data
+## 4.7. packages with data
 
-However, there are many others.
+For example, the package GermanNorthSea contains shapefiles
 
-And they are not limited to data frames.
+(Showing just for illustration purposes)
 
----
-
-## 4.7. packages containing shapefiles
-
-For example, the package GermanNorthSea
+.pull-left[
 ```{r, eval=FALSE, message=FALSE}
 # install.packages("devtools")
 devtools::install_github("MiriamLL/GermanNorthSea")
@@ -1183,52 +1185,32 @@ Load and plot some data
 ```{r}
 German_land<-GermanNorthSea::German_land
 ```
+]
 
+.pull-right[
 ```{r, fig.height=5}
 ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
   coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000),
                     label_axes = list(top = "E", left = "N", bottom = 'E', right='N'))
 ```
-
-
----
-
-
-## 4.8. many files
-
-There is also a way to load may files the same time  
-
-Example many excel files .xlsx
-
-However, to do this, the name and number of columns should be the same!
-
-```{r, eval=FALSE}
-MainFolder<-here()
-FilesTracking <- list.files(MainFolder,pattern="*.xlsx",full.names=TRUE)
-ListTracking <- lapply(FilesTracking,read_excel)
-ListTracking #Te muestra todos los documentos de la carpeta
-AllTracks <- do.call("rbind",ListTracking)
-```
+]
 
 ---
+
 
 class: inverse
 
-# 4.9. Practice `r fa("pencil-alt", fill = '#FFFFFF')`
+# 4.8. Pause
 
-Load penguin data  
- Using read_csv <br>
- Using read_csv2 <br>
- Using read_tsv <br>
- Using read_excel <br>
+**Exercises**  
+Load penguin data  `r fa("pencil-alt", fill = '#FFFFFF')`  
+- Using read_csv <br>
+- Using read_csv2 <br>
+- Using read_tsv <br>
+- Using read_excel <br>
 
----
+There are many other options of files, let me know if you want to see an example [here `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
 
-class: title-slide, inverse, bottom, inverse
-background-image: url(https://images.unsplash.com/photo-1529448005898-b19fc13465b7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80)
-background-size: cover
-
-## Pause
 
 .pull-left[
 Until here:
@@ -1236,20 +1218,22 @@ Until here:
 - [RStudio and identify the parts](R-parts)
 - [Data types](data-types)
 - [Errors](errors)
+- [Packages](packages)
+- [Directories](directories)
 ]
 
 .pull-right[
 Next part:
-- [Packages](packages)
-- [Directories](directories)
 - [Read data](read_files)
+- [Rmd](rmd)
+]
 
 
 ---
 
 name: rmd
 class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1551127481-43279ba6dec4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80)
+background-image: url(https://images.unsplash.com/photo-1478641300939-0ec5188d3802?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80)
 background-size: cover
 
 
@@ -1310,10 +1294,10 @@ Also, you can get your results without showing the code and without having to co
 An example:     
 
 _Here I load my data and check the number of observations_  
-```{r}
-library(datos)
-Pingus<-pinguinos
-nrow(Pingus) 
+```{r, warning=FALSE}
+library(palmerpenguins)
+penguins7<-penguins
+nrow(penguins7) 
 ```
 
 ---
@@ -1328,13 +1312,12 @@ Rmd behaves differently than R
 
 ---
 
-## 5.3. Start an Rmd
+## 5.4. Start an Rmd
 
 
 File>NewFile>RMarkdown <br>
 It usually ask for a file name, you can use 'Test_Rmd'
 
-Se vera algo así:  
 
 ```{r echo=FALSE, out.height=300}
 knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG')
@@ -1343,7 +1326,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/m
 ---
 name: texto
 
-## 5.3. Rmd parts
+## 5.5. Rmd parts
 
 Rmd has:
 - yaml
@@ -1353,9 +1336,7 @@ Rmd has:
 
 ---
 
-## 5.3. Rmd parts
-
-### Text
+## 5.6. Rmd text
 
 You can write plain text in the white area
 
@@ -1367,9 +1348,7 @@ If you are doing this at the same time, delete the content in the Rmd file excep
 
 ---
 
-## 5.3. Rmd parts
-
-### Text
+## 5.6. Rmd text
 
 You can write in: 
 - *italics* using one astherics before and one after the word.  
@@ -1380,9 +1359,7 @@ More options: [`r fa("external-link-alt", fill = ColorLink)`Text in Rmd](https:/
 
 ---
 
-## 5.3. Rmd parts
-
-### Chunk
+## 5.7. Rmd chunk
 
 The parts that are in grey are chunks.  
 - The code is written inside three ` at the begginig and at the end and the r between {}
@@ -1397,9 +1374,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/m
 
 ---
 
-## 5.3.Rmd parts
-
-### Chunks
+## 5.7. Rmd chunks
 
 We can add new code chunks using **Ctrl+Alt+I** , the **back ticks** or in the green square with a C in the upper part of the code editor **+**. 
 
@@ -1417,9 +1392,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/m
 
 ---
 
-## 5.3. Rmd parts
-
-### YAML
+## 5.8. YAML
 
 YAML means _“YAML Yet Ain’t Markup Language”._ 
 
@@ -1431,9 +1404,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/m
 
 ---
 
-## 5.3. Rmd parts
-
-### YAML
+## 5.8. YAML
 
 When you change the YAML, the information that appears in your report will change<br>
 If you chnge the output, different type of reports will be generated.
@@ -1447,9 +1418,7 @@ knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/m
 
 ---
 
-## 5.3. Rmd parts
-
-### Knitr
+## 5.9. Knitr
 
 There is a botton that says **knit** with a knitting blue ball.
 This bottons generates the report.
@@ -1461,7 +1430,60 @@ knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/m
 
 ---
 
-## 5.4. Practice
+## 5.10. Rmd titles
+
+Main title use one hashtag #.<br>
+- First level #.<br>
+- Second level ##.<br>
+- Third level ###.<br>
+
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG')
+```
+
+---
+
+## 5.10. Rmd titles
+
+You can use the titles to navigate
+
+Search for the square with lines (say outline) or click on  **Crtl+Shft+O**.  
+Now you could navigate using titles
+
+```{r echo=FALSE, out.height=400}
+knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/Navegar.JPG')
+```
+
+---
+name: outputs
+
+## 5.11. Rmd outputs  
+
+The documents can be exported to word, pdf and html.  
+
+Advantages and disadvantages for each one:  
+
+- **word**: easier to share and many journals ask for documents in this format  
+- **pdf**: easier to share but not easy to edit  
+- **html**: you can include a lot of type of contents `r emo::ji("star")`, but might look unfamiliar   
+
+---
+
+## 5.11. Rmd outputs  
+
+To change the output, you need to change it in the YAML, or chick on the arrow `r fa("sort-down", fill = ColorLink)` in the knit button and chose your format.  
+
+```{r echo=FALSE, out.height=400}
+knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/Outputs.JPG')
+```
+
+To modify the word format [see here](https://rfortherestofus.com/2020/07/word-reference-documents-rmarkdown/)
+
+
+
+## Pause
+
+# Exercices
 
 1. Open RStudio
 2. Open a Rmd file (File>NewFile>Rmd)
@@ -1472,10 +1494,6 @@ knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/m
 
 Remember that you can use the green play button to generate the code and **Ctrl+Alt+I** to create a new code chunk.
 
-
----
-
-## 5.4. Practice
 
 For the text:
 Add:
@@ -1491,61 +1509,6 @@ nrow(Pingus) #sample size
 Click in knit. You will likely see changes in the terminal.
 Wait for your html to be render `r fa("clock", fill = ColorLink)`
 
----
-
-# 5.5. Rmd titles
-
-Main title use one hashtag #.<br>
-- First level #.<br>
-- Second level ##.<br>
-- Third level ###.<br>
-
-```{r echo=FALSE, out.height=350}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/RmdNew.JPG')
-```
-
----
-
-# 5.5. Rmd titles
-
-You can use the titles to navigate
-
-Search for the square with lines (say outline) or click on  **Crtl+Shft+O**.  
-Now you could navigate using titles
-
-```{r echo=FALSE, out.height=400}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/Navegar.JPG')
-```
-
----
-name: outputs
-
-# 5.6. Rmd outputs  
-
-The documents can be exported to word, pdf and html.  
-
-Advantages and disadvantages for each one:  
-
-- **word**: easier to share and many journals ask for documents in this format  
-- **pdf**: easier to share but not easy to edit  
-- **html**: you can include a lot of type of contents `r emo::ji("star")`, but might look unfamiliar   
-
----
-
-# 5.6. Rmd outputs  
-
-To change the output, you need to change it in the YAML, or chick on the arrow `r fa("sort-down", fill = ColorLink)` in the knit button and chose your format.  
-
-```{r echo=FALSE, out.height=400}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/Outputs.JPG')
-```
-
-To modify the word format [see here](https://rfortherestofus.com/2020/07/word-reference-documents-rmarkdown/)
-
-
----
-
-# 5.7. Practice
 
 - Add titles and navigate
 - Change name and date in the YAML

@@ -44,3 +44,17 @@ library(here)
 
 # Load data  --------------------------------------------------------------------
 penguins1<-read_csv("Downloads/penguins1.csv")
+penguins2<-read_csv("Downloads/penguins2.csv")
+head(penguins2)
+penguins2<-read_csv2("Downloads/penguins2.csv")
+head(penguins2)
+penguins3<-read_tsv("Downloads/penguins3.txt")
+library("readxl")
+penguins4<- read_excel("Downloads/penguins4.xlsx")
+penguins5<- read_csv('https://github.com/MiriamLL/R_intro/blob/master/Downloads/penguins1.csv')
+
+install.packages("palmerpenguins")
+library(palmerpenguins)
+penguin6<-penguins
+head(penguin6)
+
