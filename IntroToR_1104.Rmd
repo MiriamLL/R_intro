@@ -356,20 +356,15 @@ What are the differences between R and RStudio?
 **R** is the programming language.  
 **RStudio** is an IDE:  Integrated Development Environment.  
 
-.pull-left[
-R is the motor  
+R is the engine and RStudio is the steering wheel  
 <br>
-```{r echo=FALSE, out.height=250}
-knitr::include_graphics("https://images.unsplash.com/photo-1663581254798-987e1f876ea2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80")
-```
-]
 
-.pull-right[
-RStudio is the stirring wheel  
-<br>
-```{r echo=FALSE, out.height=250}
-knitr::include_graphics("https://images.unsplash.com/photo-1667057227564-790470f7a855?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3RpcnJpbmclMjB3aGVlbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60")
+.center[
+
+```{r echo=FALSE, out.height=400}
+knitr::include_graphics(paste0(ImageFolder,"018Car.png?raw=true"))
 ```
+
 ]
 
 ---
@@ -1037,7 +1032,7 @@ head(penguins2)
 
 ## 4.3.  Other formats
 
-Click on the file **Pingus_3.txt**.  
+Click on the file **penguin3.txt**.  
 
 This one is separated by tabs.  
 
@@ -1220,11 +1215,11 @@ Until here:
 - [Errors](#errors)
 - [Packages](#packages)
 - [Directories](#directories)
+- [Read data](#read_files)
 ]
 
 .pull-right[
 Next part:
-- [Read data](#read_files)
 - [Rmd](#rmd)
 - [Contact/Home](#out)
 ]
