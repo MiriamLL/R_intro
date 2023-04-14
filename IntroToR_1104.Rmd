@@ -46,7 +46,7 @@ library(emo)
 - [Packages](#packages)
 - [Read files](#read-files)
 - [Intro to Rmarkdown](#rmd)
-- [Contact/Home](#out)
+- [Contact](#out)
 
 ---
 
@@ -361,7 +361,7 @@ R is the engine and RStudio is the steering wheel
 
 .center[
 
-```{r echo=FALSE, out.height=400}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics(paste0(ImageFolder,"018Car.png?raw=true"))
 ```
 
@@ -758,7 +758,7 @@ Next part:
 - [Packages](#packages)
 - [Directories](#directories)
 - [Read data](#read_files)
-- [Contact/Home](#out)
+- [Contact](#out)
 
 ]
 
@@ -914,7 +914,7 @@ Until here:
 Next part:
 - [Read data](read_files)
 - [Rmd](rmd)
-- [Contact/Home](#out)
+- [Contact](#out)
 ]
 
 
@@ -946,21 +946,21 @@ Source: [R4DS](https://r4ds.had.co.nz/introduction.html)
 
 ## 4.1. Read files
 
-To load data, we will use functions from the package tidyverse.
-
-Do you already have it installed?
-
-```{r, message="FALSE", warning='FALSE'}
-library("tidyverse")
-```
-
-
-Also, download files [here](https://github.com/MiriamLL/R_intro/tree/master/Downloads).
+To load data, we will use functions from the package tidyverse and the files:  
 
 - penguins1.csv
 - penguins2.csv
 - penguins3.txt
-- penguins4.xlsx
+- penguins4.xlsx  
+
+[Download here](https://github.com/MiriamLL/R_intro/tree/master/Downloads)
+
+Do you already have it installed?
+
+```{r, warning = FALSE, message = FALSE}
+library("tidyverse")
+```
+
 
 ---
 
@@ -1221,7 +1221,7 @@ Until here:
 .pull-right[
 Next part:
 - [Rmd](#rmd)
-- [Contact/Home](#out)
+- [Contact](#out)
 ]
 
 
@@ -1537,3 +1537,11 @@ This materials are free of use <br> Download the presentation here: [`r fa("exte
 
 ]
 
+<br>
+
+.center[
+```{r, echo=FALSE}
+library(fontawesome)
+```
+<h3>`r fa("home", fill = "#74c69d")`[Volver ](https://www.miriam-lerma.com/teaching.html)
+]
