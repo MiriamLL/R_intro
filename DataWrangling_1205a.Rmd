@@ -1,0 +1,1747 @@
+---
+title: "Data wrangling"
+author: "Miriam Lerma"
+date: "May 2023"
+output:
+  xaringan::moon_reader:
+    css: RZero-themer.css
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      
+---
+
+class: title-slide, bottom, right
+background-image: url(https://images.unsplash.com/photo-1607346704504-359c4ed61196?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80)
+background-size: cover
+
+### `r rmarkdown::metadata$title`
+# `r rmarkdown::metadata$subtitle`
+
+### **`r rmarkdown::metadata$author`**<br>
+`r rmarkdown::metadata$date`
+
+---
+name: index
+class: title-slide, inverse
+
+```{r, echo=FALSE, include = FALSE}
+#Paquetes
+library(xaringanExtra)
+library(kableExtra)
+library(fontawesome)
+library(emo)
+```
+
+# Index
+
+- [rmarkdown](#rmd)
+- [read files](#read-files)
+- [basic operations](#basic-operationr)
+- [columns and rows](#column-rows)
+- [tidydata](#tidydata)
+- [distinct](#distinct) 
+- [count](#count)
+- [select](#select)
+- [filter](#filter) 
+- [mutate](#mutate)
+- [summarise](#sumarise) 
+- [drop_na](#drop)  
+- [join](#join) 
+- [export](#exportar) 
+- [contact](#out)
+
+---
+
+class: title-slide, inverse
+
+# Today
+
+.pull-left[
+
+**Your profile**
+- You have R and Rstudio installed  
+- You can navigate inside Rstudio
+
+**Goals of today**
+
+- Difference between R script and Rmd
+- Load data
+- Basic operations
+- Manipulate data
+- Export clean data
+
+**Pauses and questions**
+
+- Exercises and 10 minute pauses for catching up
+- You can stop me to ask questions or
+- Questions can be made [at this link too `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
+]
+
+
+--
+
+.pull-right[
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+```{r, echo=FALSE, out.height=200}
+ImageFolder<-'https://github.com/MiriamLL/R_intro/blob/master/Images/'
+knitr::include_graphics(paste0(ImageFolder,"101AllisonHorstEncouraging.png?raw=true"))
+```
+
+]
+
+---
+
+class: title-slide, inverse
+
+# References
+
+- R for Data Science  
+[`r fa("book-open", fill = "#f2cc8f")` R4DS](https://r4ds.had.co.nz/)  
+
+- Data Carpentries  
+[`r fa("book-open", fill = "#f2cc8f")` Carpentries](https://datacarpentry.org/genomics-r-intro/00-introduction/index.html)
+
+- From Zero to Shero by RLadies   
+[`r fa("github-alt", fill = "#f2cc8f")` Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg) 
+
+
+
+
+- Images from  
+[`r fa("camera-retro", fill = "#f2cc8f")` Unsplash](https://unsplash.com/)  
+[`r fa("palette", fill = "#f2cc8f")` Allison horst](https://allisonhorst.com/allison-horst)  
+
+- Other resources  
+[`r fa("github-alt", fill = "#f2cc8f")` María Paula Caldas](https://mpaulacaldas.github.io/rrrtidyverse/)  
+[`r fa("youtube", fill = "#f2cc8f")` RLadiesBuenosAires](https://www.youtube.com/watch?v=ycudMihLues&t=3605s)
+
+
+---
+
+
+name: rmd
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1478641300939-0ec5188d3802?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80)
+background-size: cover
+
+.pull-right[
+# `r text_spec("R markdown", background = "#003049", color = "#e5e5e5", bold = T)`
+]
+
+---
+
+## 1. RMarkdown 
+
+Rmarkdown is very convenient because it let us export what we do in R to html or word documents.
+
+We can even make slides... <br>
+.right[...like this one.]
+
+--
+
+There are **plenty** of options on Rmd. I will just point out a few.
+
+---
+
+## 1.2. Rmd
+
+Markdown is plain text...  
+.right[...just as we write in a note block.]
+
+However, the advantages of using Rmd is that you can include a lot of text and thus you can write your **thesis, papers, webpage, books and presentations** without leaving RStudio.
+
+--
+
+Moreover, you can include:  
+- code and results that are automatically generated.
+
+---
+
+## 1.2. Rmd
+
+What Rmd does, is that it "translates" what has been written using **PanDoc**.  
+
+.center[
+```{r echo=FALSE, out.width=600}
+knitr::include_graphics('https://d33wubrfki0l68.cloudfront.net/61d189fd9cdf955058415d3e1b28dd60e1bd7c9b/b739c/lesson-images/rmarkdownflow.png')
+```
+]
+
+---
+
+
+## 1.2. Rmd
+
+We can generate an **output**, that can be read even if you dont have R install.
+
+Just like this presentation.
+
+--
+
+Also, you can get your results without showing the code and without having to copy and paste the results in other program like word.
+
+
+- Download Rmd file [here](https://raw.githubusercontent.com/MiriamLL/R_intro/master/02ExercisesRmd.Rmd).
+
+See the example:     
+
+_Here I load my data and check the number of observations_  
+```{r, warning=FALSE}
+library(palmerpenguins)
+penguins7<-penguins
+nrow(penguins7) 
+```
+
+---
+
+## 1.2. R vs Rmd
+
+**Considerations:  **  
+Rmd behaves differently than R 
+- Rmarkdown works better in a clean environment.  
+- All the variables need to be inside your file.
+- This actually assures that your workflow is **reproducible**.
+
+---
+
+## 1.3. Start an Rmd
+
+To start a new file
+
+File>NewFile>RMarkdown <br>
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"040Rmd.png?raw=true"))
+```
+
+---
+
+## 1.4. Rmd parts
+
+Rmd has four main parts:
+- yaml (including the output)
+- chunks 
+- plain text
+- knit
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"041Rmd.png?raw=true"))
+```
+
+
+---
+
+## 1.5. Rmd text
+
+You can write plain text in the white area
+
+You can use: 
+- **bold** using two astheriscs.  
+- *italics* using one astherics before and one after the word.  
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"042RmdPlainText.png?raw=true"))
+```
+
+
+More options: [`r fa("external-link-alt", fill = '#e9c46a')`Text in Rmd](https://rmarkdown.rstudio.com/lesson-8.html)
+
+---
+
+## 1.6. Rmd chunk
+
+The parts that are in grey are chunks.  
+- The code is written inside three inverted commas at the start and at the end and the r between {}
+This is because we need to tell which language are we using
+
+- We can run the code using the green arrow that looks like a `r fa("play", fill = '#588157')`, using the button **Run** in the upper part of the code editor, or using **ctrl+enter**.
+- The results in Rmd appears in the code editor document, not in the console.
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"042RmdChunk.png?raw=true"))
+```
+
+---
+
+## 1.7. Rmd chunk
+
+We can add new code chunks using **Ctrl+Alt+I** , the **back ticks** or in the green square with a C in the upper part of the code editor **+**. 
+
+
+The R code needs to be inside the chunks (the shadowed grey parts) to run.
+
+**Common mistakes are**:
+- Not closing the parenthesis **{}**
+- Not having the three inverted commas
+- Add code outside the codechunks
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"042RmdChunk.png?raw=true"))
+```
+
+---
+
+## 1.8. YAML
+
+YAML means _“YAML Yet Ain’t Markup Language”._ 
+
+By default it will show: title, author, date, **output**.  
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"042RmdYaml.png?raw=true"))
+```
+
+
+---
+
+## 1.8. YAML
+
+When you change the YAML, the information that appears in your report will change<br>
+If you chnge the output, different type of reports will be generated.
+
+**Common mistakes**  
+When you **knit** or render your report, there is something incompatible with Pandoc (or LateX)
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"042RmdYaml.png?raw=true"))
+```
+
+---
+
+## 1.9. Knitr
+
+There is a botton that says **knit** with a knitting blue ball.
+This bottons generates the report.
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"042RmdKnit.png?raw=true"))
+```
+
+**Note**: every time we knit the changes are saved on our document.
+
+
+---
+
+## 1.10. Rmd titles
+
+.pull-left[
+You can use the titles to navigate.
+
+Search for the square with lines (say outline) or click on  **Crtl+Shft+O**.  
+
+This can be very useful in large documents.
+
+```{r echo=FALSE, out.height=30}
+knitr::include_graphics(paste0(ImageFolder,"043Outline.png?raw=true"))
+```
+]
+
+.pull-right[
+Main title use one hashtag #.<br>
+- First level #.<br>
+- Second level ##.<br>
+- Third level ###.<br>
+
+```{r echo=FALSE, out.height=100}
+knitr::include_graphics(paste0(ImageFolder,"044Outline.png?raw=true"))
+```
+]
+
+---
+name: outputs
+
+## 1.11. Rmd outputs  
+
+The documents can be exported to word, pdf and html.  
+
+Advantages and disadvantages for each one:  
+
+- **word**: easier to share and many journals ask for documents in this format  
+- **pdf**: easier to share but not easy to edit  
+- **html**: you can include a lot of type of contents `r emo::ji("star")`, but might look unfamiliar   
+
+---
+
+## 1.11. Rmd outputs  
+
+To change the output, you need to change it in the YAML, or chick on the arrow `r fa("sort-down", fill = '#2a9d8f')` in the knit button and chose your format.  
+
+```{r echo=FALSE, out.height=150}
+knitr::include_graphics(paste0(ImageFolder,"045Outputs.png?raw=true"))
+```
+
+To modify the word format [see here](https://rfortherestofus.com/2020/07/word-reference-documents-rmarkdown/)
+
+---
+class: inverse
+
+# Pause
+
+- Open RStudio `r fa("pencil-alt", fill = '#FFFFFF')` 
+- Open a Rmd file (File>NewFile>Rmd)
+- Create three different formats: pdf, word and html
+- Delete everything except for the YAML (change YAML to your info)
+- Add a code chunk
+- Add text
+
+Example of code chunk
+```{r, eval=FALSE}
+library(palmerpenguins)
+nrow(penguins) #sample size
+```
+
+
+**Note**<br>
+Maybe you need to install tinytex<br>
+```{r, eval=FALSE}
+tinytex::install_tinytex()
+```
+
+- [`r fa("external-link-alt", fill = '#e9c46a')`What is tiny text?](https://yihui.org/tinytex/)
+
+---
+
+name: read-files
+class: title-slide, bottom
+background-image: url(https://images.unsplash.com/photo-1533279443086-d1c19a186416?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80)
+background-size: cover
+
+.pull-right[
+#  `r text_spec("Load data", background = "#003049", color = "#e5e5e5", bold = T)`
+]
+
+---
+
+## 2. Import
+
+A typical R project looks like this:
+
+```{r echo=FALSE, out.height=250}
+knitr::include_graphics(paste0(ImageFolder,"031Program.png?raw=true"))
+```
+
+.right[
+Source: [R4DS](https://r4ds.had.co.nz/introduction.html)
+]
+
+---
+
+
+## 2.1. Read files
+
+To load data, we will use functions from the package tidyverse and the files:  
+
+- penguins1.csv
+- penguins2.csv
+- penguins3.txt
+- penguins4.xlsx  
+
+[Download here](https://github.com/MiriamLL/R_intro/tree/master/Downloads)
+
+Do you already have it installed?
+
+```{r, warning = FALSE, message = FALSE}
+library("tidyverse")
+```
+
+
+---
+
+## 2.2. By hand
+
+You can upload data by hand in your workspace
+
+In the **environment** there is a part that says **Import Dataset**
+
+Select the file **penguins1.csv**
+
+--
+
+Another option is to go to the **workspace** 
+Files> Click on the file and **import data set**
+
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics(paste0(ImageFolder,"019Rparts.png?raw=true"))
+```
+
+---
+
+## 2.3. csv format
+
+Instead of clicks, we can write in the console or script:
+
+```{r, eval=FALSE}
+penguins1<-read_csv("Downloads/penguins1.csv")
+```
+
+```{r, eval=FALSE}
+head(penguins1)
+```
+
+---
+
+## 2.4. csv format
+
+Now try opening **penguins2.csv**  
+
+This file instead of being separated by comas, its separated by colons ";"
+
+Therefore, instead of using **read_csv** we will need to use **read_csv2**
+
+To illustrate this issue, try loading the data using **read_csv**.
+
+```{r, eval=FALSE}
+penguins2<-read_csv("Downloads/penguins2.csv")
+```
+
+```{r, eval=FALSE}
+head(penguins2)
+```
+
+
+--
+
+Lets try now with **read_csv2**
+
+```{r, eval=FALSE}
+penguins2<-read_csv2("Downloads/penguins2.csv")
+```
+
+```{r, eval=FALSE}
+head(penguins2)
+```
+
+---
+
+## 2.5.  Other formats
+
+Click on the file **penguin3.txt**.  
+
+This one is separated by tabs.  
+
+read_tsv is for reading tab separated values.  
+
+```{r, eval=FALSE}
+penguins3<-read_tsv("Downloads/penguins3.txt")
+```
+
+```{r, eval=FALSE}
+head(penguins3)
+```
+
+---
+
+## 2.6. Excel format
+
+For loading excel data, there is a special package called **readxl**
+
+```{r, eval=FALSE}
+library("readxl")
+```
+
+```{r, eval=FALSE}
+penguins4<- read_excel("Downloads/penguins4.xlsx")
+```
+
+```{r, eval=FALSE}
+head(penguins4)
+```
+
+
+---
+
+## 2.7. From an url
+
+Urls (Uniform Resource Locators) or links can also be source of data.
+
+```{r, message=FALSE, warning=FALSE}
+penguins5<- read_csv('https://github.com/MiriamLL/R_intro/blob/master/Downloads/penguins1.csv')
+```
+
+Look at the first 5 rows of the data
+
+```{r, eval=FALSE}
+head(penguins,5)
+```
+
+---
+
+## 2.8. movebank
+
+There is a package called [move](https://cran.r-project.org/web/packages/move/vignettes/browseMovebank.html) that can be use to access data stored in movebank.
+
+To install:
+```{r, eval=FALSE}
+install.packages('move')
+```
+
+```{r, eval=FALSE}
+library(move)
+```
+
+```{r,eval=FALSE}
+movebankLogin()
+```
+
+Add your login, if you have one, at the console.
+
+---
+
+## 2.9. movebank
+
+It is more convenient to store your login information, but you have to be careful to not share the script with your login information.
+
+```{r, eval=FALSE}
+loginStored <- movebankLogin(username="MiriamLerma", password="********")
+```
+
+```{r,eval=TRUE}
+my_study<-'FTZ UCN Kelp Gull Chile'
+```
+
+```{r, eval=FALSE}
+MyGull<-getMovebankLocationData(study=my_study, 
+                               individual_local_identifier="KEGU-noband01-Coquimbo",
+                               timestamp_start="202212010000000",
+                               timestamp_end="20221205000000000",
+                               sensorID="GPS")
+```
+
+
+It might give you a warning, but for now that is not important.
+
+---
+
+## 2.10. packages with data
+
+Data can also be stored in packages.  
+For example [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
+
+```{r, eval=FALSE}
+install.packages("palmerpenguins")
+```
+
+```{r, warning=FALSE}
+library(palmerpenguins)
+penguin6<-penguins
+```
+
+```{r, eval=FALSE}
+head(penguin6)
+```
+
+---
+
+## 2.11. packages with data
+
+Moreover, packages with data are not limited to data frames.
+
+---
+
+## 2.12. packages with data
+
+For example, the package GermanNorthSea contains shapefiles
+
+With 6 lines of code you can plot a map (Showing just for illustration purposes)
+
+.pull-left[
+```{r, eval=FALSE, message=FALSE}
+# install.packages("devtools")
+devtools::install_github("MiriamLL/GermanNorthSea")
+```
+
+Now the package sf
+```{r, message=FALSE,eval=FALSE}
+#install.packages('sf')
+library(sf)
+library(ggplot2)
+library(GermanNorthSea)
+```
+
+Load and plot some data
+
+```{r}
+German_land<-GermanNorthSea::German_land
+```
+]
+
+.pull-right[
+```{r, fig.height=5}
+ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
+  coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000),
+                    label_axes = list(top = "E", left = "N", bottom = 'E', right='N'))
+```
+]
+
+---
+
+
+class: inverse
+
+# Pause
+
+. pull-left[
+Load penguin data  `r fa("pencil-alt", fill = '#FFFFFF')`  
+- Using read_csv <br>
+- Using read_csv2 <br>
+- Using read_tsv <br>
+- Using read_excel <br>
+
+There are many other options of files. Suggestions? [here `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+]
+
+.pull-right[
+Until here:
+- [index](#index)
+- [rmarkdown](#rmd)
+- [read files](#read-files)
+
+Next part:
+
+- [basic operations](#basic-operationr)
+- [bolumns and Rows](#column-rows)
+- [tidydata](#tidydata)
+- [count](#count)
+- [distinct](#distinct) 
+- [select](#select)
+- [filter](#filter) 
+- [mutate](#mutate)
+- [summarise](#sumarise) 
+- [drop_na](#drop)  
+- [join](#join) 
+- [export](#exportar) 
+- [contact](#out)
+
+]
+
+
+---
+
+
+name: basic-operations
+class: title-slide, bottom
+background-image: url(https://images.unsplash.com/photo-1564939558297-fc396f18e5c7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80)
+background-size: cover
+
+.pull-right[
+#  `r text_spec("Operations", background = "#003049", color = "#e5e5e5", bold = T)`
+]
+
+---
+
+## 3. Basic operations
+
+Add
+```{r}
+15+6
+```
+
+Substract
+```{r}
+4-6
+```
+
+---
+
+## 3. Basic operations
+
+Divide
+```{r}
+1700/8
+```
+
+Multiply
+```{r}
+20*20
+```
+
+---
+
+## 3.1. Using objects
+
+.center[
+<h3> ¿ 🍕 = 😃  ?</h3>
+]
+
+How many people are here today?
+```{r}
+People<-4+5+1
+Pizza<-5*8
+```
+
+How many pieces each one gets?
+```{r}
+Pizza/People
+```
+
+
+
+---
+
+## 3.2. Using objects
+
+Mean
+```{r}
+Temperature<-c(34,45,67,20)
+mean(Temperature)
+```
+
+Median
+```{r}
+median(Temperature)
+```
+
+Standard deviation
+```{r}
+sd(Temperature)
+```
+
+---
+
+## 3.2. Using objects
+
+Range
+```{r}
+range(Temperature)
+```
+
+Minimum
+```{r}
+min(Temperature)
+```
+
+Maximum
+```{r}
+max(Temperature)
+```
+
+---
+
+## 3.3. Look for help
+
+```{r}
+mean(1,3,6,9,12)
+```
+Why 1? That can be
+
+Ask for help using **?**
+```{r, eval=FALSE}
+?mean
+```
+The instructions will appear in the **workspace**, in the **Help** section
+
+
+See in the examples, they all have a c from ***concatenate***
+
+```{r, comment=""}
+mean(c(1,3,6,9,12))
+```
+Now is working!
+
+---
+
+## 3.3. Look for help
+
+One of the strenghts of R is that is widely used and there is a lot of webpages to search for help.
+
+Be patience, check if you make a typo and if not copy and paste the error. 
+
+Reliable sources: 
+- [stackoverflow](https://stackoverflow.com/)
+
+- mastodon (before was twitter but the r community move to this platform)  
+Hashtags: #rstats 
+
+---
+
+class: inverse
+
+# Pause
+
+.pull-left[
+Practice `r fa("pencil-alt", fill = '#FFFFFF')`
+
+- 🐱 Each one of my cats eats 1.3 cans of food, how many cans should I buy?  
+
+```{r, eval=FALSE}
+Cats<-3
+Cans<-2
+Cats*Cans
+```
+
+- 🐶 I also have 3 dogs and they eat 0.5 kg food per day. How many kilos should I buy for 15 days?
+
+```{r, eval=FALSE}
+#Dogs<-
+#Dogfood<-
+#Days<-
+#(Dog*Dogfood)*Days
+```
+
+]
+
+.pull-right[
+Until here:
+- [index](#index)
+- [rmarkdown](#rmd)
+- [read files](#read-files)
+- [basic operations](#basic-operationr)
+
+Next part:
+- [columns and Rows](#column-rows)
+- [tidydata](#tidydata)
+- [count](#count)
+- [select](#select)
+- [filter](#filter) 
+- [mutate](#mutate)
+- [summarise](#sumarise) 
+- [unique](#unique) 
+- [drop_na](#drop)  
+- [join](#join) 
+- [export](#exportar) 
+- [contact](#out)
+
+]
+
+---
+
+name: column-rows
+class: title-slide, bottom
+background-image: url(https://images.unsplash.com/photo-1516382799247-87df95d790b7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1353&q=80)
+background-size: cover
+
+.pull-right[
+#  `r text_spec("Data frames", background = "#003049", color = "#e5e5e5", bold = T)`
+]
+
+
+
+---
+
+## 4.1. Inspect data frames
+
+Load data
+```{r, eval=FALSE}
+library(palmerpenguins)
+```
+
+```{r, eval=FALSE}
+penguins<-penguins
+```
+
+Check first 5 rows
+```{r, eval=FALSE}
+head(penguins,5)
+```
+
+Check last 5 rows
+```{r, eval=FALSE}
+tail(penguins,5)
+```
+
+---
+
+## 4.3. Rows
+
+When you want to inspect specific rows, rows number is writen at the **first** position.
+```{r, eval=FALSE}
+(penguins[1,])
+```
+
+Check first 3 rows. <br>
+The **:** is as "from A to B".
+```{r, eval=FALSE}
+(penguins[1:3,])
+```
+
+---
+
+## 4.4. Columns
+
+The columns go on the **second** position.  
+```{r, eval=FALSE}
+head(penguins[,1])
+```
+
+Another way to do it is with the $ and the column name.  
+```{r, eval=FALSE}
+head(penguins$species)
+```
+
+---
+
+## 4.5. Column and row
+
+Look for a specific value [**row**, **column**]
+```{r}
+(penguins[1,1])
+```
+
+```{r}
+(penguins[3,2])
+```
+
+
+---
+
+name: tidydata
+class: title-slide, bottom
+background-image: url(https://images.unsplash.com/photo-1648655093453-1571ad6940b9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
+background-size: cover
+
+.pull-right[
+#  `r text_spec("Tidy data", background = "#003049", color = "#e5e5e5", bold = T)`
+]
+
+---
+
+## 5.1. Tidy data
+
+**Data wrangling** is usually the longest and slowest process and you can expect to do this several times.
+
+Tidy data is the a data structure to facilitate the analyses.
+
+There are three interrelated rules which make a dataset tidy:
+
+- Each variable must have its own column.
+- Each observation must have its own row.
+- Each value must have its own cell.
+
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png")
+```
+
+---
+
+## 5.2. Recomendations
+
+- To reduce the time organizing your data, is important to think earlier how are you going to collect and store your data. `r emo::ji("clock")`
+
+
+**Why to use tidydata? **
+- Many commands will assume that your data is organized.  
+- Is the expected format for statistical analyses.  
+- Its easier to plot organized data.  
+- Sharing the data will allow other people to understand our information.  
+
+
+
+---
+
+class: inverse
+
+# Pause
+
+Practice `r fa("pencil-alt", fill = '#FFFFFF')`
+
+.pull-left[
+
+Load penguin data
+
+- Data from three penguins species at three colonies.  
+- Data of body mass, bill length and flipper length.  
+- Calculate the range of the body mass of the penguins. 
+- Calculate the mean of the body mass of the penguins. 
+
+]
+
+.pull-right[
+
+Note that **na.rm allows you to ignore NAs**
+
+```{r, eval=FALSE}
+range(penguins$body_mass_g,
+      na.rm=TRUE) #<<
+```
+
+```{r, eval=FALSE}
+mean(penguins$body_mass_g,
+     na.rm=TRUE)
+```
+]
+
+```{r echo=FALSE, out.height=100}
+knitr::include_graphics('https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/lter_penguins.png')
+```
+
+---
+
+name: #tidyverse
+class: title-slide, bottom
+background-image: url(https://images.unsplash.com/photo-1527402858-36f052d83df4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80)
+background-size: cover
+
+.pull-right[
+#  `r text_spec("Tidyverse", background = "#003049", color = "#e5e5e5", bold = T)`
+]
+
+---
+
+## 6. Tidyverse 
+
+There are many ways to organize and wrangle your data.
+
+Here we will cover those from the **tidyverse**.
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+
+Tidyverse include many packages, a lot of them are specific for inspect and **wrangle** your data. 
+
+.center[
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics('https://tidyverse.tidyverse.org/articles/tidyverse-logo.png')
+```
+]
+
+---
+
+## 6.1. Pipe
+
+A **pipe** is an argument we will use very often.  
+The **pipe** allows to chain several functions.
+
+In your keyboard: strg+alt+M
+```{r, eval=FALSE}
+%>% 
+```
+
+---
+
+name: count
+
+## 6.2. count()
+
+This functions lets you quickly count the unique values of one or more variables
+
+Load library
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+Sample size?
+```{r, eval=FALSE}
+penguins %>% 
+  count()
+```
+
+Sample size per species?
+```{r, eval=FALSE}
+penguins %>% 
+  count(species)
+```
+
+Per island and per species?
+```{r, eval=FALSE}
+penguins %>% 
+  count(island,species)
+```
+
+---
+
+name: distinct
+
+## 6.3. unique() or distinct()
+Allows you to see unique values or factors.
+
+Using base R
+```{r, eval=FALSE}
+unique(penguins$species)
+```
+
+Using tidyverse
+```{r, eval=FALSE}
+penguins %>% 
+  distinct(species) #<<
+```
+
+---
+name: select
+
+## 6.4. select()
+
+Select (and optionally rename) variables in a data frame
+
+Tidyverse selections implement a dialect of R where operators make it easy to select variables:
+: for selecting a range of consecutive variables.
+! for taking the complement of a set of variables.
+& and | for selecting the intersection or the union of two sets of variables.
+c() for combining selections
+
+Select one column
+```{r, eval=FALSE}
+penguins %>% 
+  select(species) 
+```
+
+Remove one column using the **-** 
+```{r, eval=FALSE}
+penguins %>% 
+  select(-sex) 
+```
+
+Select all columns expect this one using **!** 
+```{r, eval=FALSE}
+penguins %>% 
+  select(!sex) 
+```
+
+Select columns in between using **:** 
+```{r,eval=FALSE}
+penguins %>% 
+  select(bill_length_mm:body_mass_g) 
+```
+
+Select columns based on characters (strings).
+
+Using the final letter of the string
+```{r,eval=FALSE}
+penguins %>% 
+  select(ends_with("mm"))
+```
+
+
+Using the first letters of the string
+```{r,eval=FALSE}
+penguins %>% 
+  select(starts_with("bill"))
+```
+
+---
+name: filter
+
+## 6.5. filter()
+
+The filter() function is used to subset a data frame, retaining all rows that satisfy your conditions.
+
+There are many functions and operators, some useful expressions are:
+
+- The symbol **==** means 'same as'  
+- The symbol **!=** means 'not the same as'  
+- The symbol **>** means 'larger than'
+- The symbol **<** means 'smaller than'
+- The symbol **>=** means 'larger or same as'
+- The symbol **<=** means 'smaller or same as'
+- The symbol **&** means 'and'
+- The symbol **|** means 'or'
+
+---
+
+## 6.5. filter(==)
+
+- The symbol **==** means 'same as'  
+
+```{r, eval=FALSE}
+penguins %>%
+  filter(sex == 'female')
+```
+**Note** variables are without quotes and observations in quotes.  
+
+--
+
+Is there actually something different in the object at your environment?
+
+--
+
+To change the object we need to create a new data frame.
+```{r, eval=FALSE}
+female_penguins<-penguins %>%
+  filter(sex == 'female')
+```
+
+---
+
+## 6.5. filter(<=)
+- The symbol **<=** means 'smaller or same as'
+```{r, eval=FALSE}
+penguins %>%
+  filter(bill_lenght_mm <= 39.1) #<<
+```
+
+
+- The symbol **>=** means 'larger or same as'
+```{r, eval=FALSE}
+penguins %>%
+  filter(bill_length_mm >= 39.1)#<<
+```
+
+- The symbol **&** means 'and'
+```{r, eval=FALSE}
+penguins %>%
+  filter(island == 'Biscoe' & species =='Adelie')#<<
+```
+
+---
+name: mutate
+
+## 6.6. mutate()
+
+mutate() creates new columns that are functions of existing variables.
+It can also modify (if the name is the same as an existing column) and delete columns (by setting their value to NULL).
+
+```{r}
+penguins<-penguins %>% 
+  mutate(body_mass_kg = body_mass_g / 1000)#<<
+```
+
+
+---
+name: summarise
+
+## 6.7. group_by() y summarise()
+
+group_by() lets you select an specific column for grouping the factors within
+summarise() can be used to use specific operations for each factor defined in the group_by
+
+```{r}
+penguins %>% 
+  group_by(year) %>%
+  summarise(mean_bill_length=mean(bill_length_mm))
+```
+
+
+---
+name: drop
+## 6.8. drop_na 
+
+This functions allows you to ignore or remove NAs
+
+```{r, eval=FALSE}
+penguins %>% 
+  drop_na(bill_length_mm)
+```
+
+Another option is
+```{r}
+clean_penguins <- penguins %>% 
+  filter(!is.na(bill_length_mm))
+```
+
+---
+
+## 6.9. lubridate
+
+We often use date and time, so lets try with an example using this data type. 
+
+The package **lubridate** provides tools that make it easier to parse and manipulate dates.
+```{r, message=FALSE}
+library(lubridate)
+```
+
+```{r, eval = FALSE}
+ymd_hms("2010-12-13 15:30:30")
+```
+
+You can **extraer** some elements from dates and times
+```{r}
+ymd_hms("2010-12-13 15:30:30") %>% 
+  month()
+```
+
+---
+
+## 6.9. lubridate
+
+Lets try with this data frame.
+```{r}
+my_timestamps<-data.frame(timestamp=c("2010-12-13 13:30:30","2010-12-13 14:30:30","2010-12-13 15:30:30","2010-12-13 16:30:30","2010-12-13 17:30:30","2010-12-13 18:30:30","2010-12-13 19:30:30","2010-12-13 20:30:30"))
+```
+
+Lets use the mutate example with our timestamp.
+```{r, eval = FALSE}
+my_timestamps %>% 
+  mutate(
+    my_hours = hour(timestamp),
+    my_minutes = minute(timestamp),
+    my_seconds = second(timestamp)
+  )
+```
+
+---
+
+# Pause
+
+Practice `r fa("pencil-alt", fill = '#FFFFFF')`
+
+.pull-left[
+```{r, eval=FALSE}
+penguins %>% 
+  count()
+```
+
+```{r, eval=FALSE}
+penguins %>% 
+  select(especie) 
+```
+
+```{r, eval=FALSE}
+penguins %>% 
+  group_by(species,sex) %>% 
+  drop_na(body_mass_g)%>% 
+  summarise(mean_body_mass_g = mean(body_mass_g), n = n())%>% 
+  mutate(mean_body_mass_kg = mean_body_mass_g / 1000)
+```
+
+]
+
+.pull-right[
+Until here:
+- [index](#index)
+- [rmarkdown](#rmd)
+- [read files](#read-files)
+- [basic operations](#basic-operationr)
+- [bolumns and Rows](#column-rows)
+- [tidydata](#tidydata)
+- [count](#count)
+- [distinct](#distinct) 
+- [select](#select)
+- [filter](#filter) 
+- [mutate](#mutate)
+- [summarise](#sumarise) 
+- [drop_na](#drop)  
+
+Next part:
+- [join](#join) 
+- [export](#exportar) 
+- [contact](#out)
+
+]
+
+
+---
+name: join
+class: title-slide, inverse, middle, center
+background-image: url(https://images.unsplash.com/photo-1527402858-36f052d83df4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80)
+background-size: cover
+
+# Join data frames
+
+---
+
+## 7. Mutating joins
+
+Mutating joins add columns from y to x, matching observations based on the keys. There are four mutating joins: the inner join, and the three outer joins.
+
+Lets create a new data set.
+
+```{r}
+penguin_id<-c("ID01","ID02","ID03","ID04","ID05",
+      "ID06","ID07","ID08","ID09","ID10")
+penguin_body_mass<-c(1.5,2.0,3.5,4.1,2.6,3.7,8.9,2.5,6.3,1.0)
+penguin_gps_id<-c(50010,50020,50035,50001,50006,50003,50008,50002,50003,50001)
+```
+
+We might have two data sets  
+On one hand, the measurement data...
+```{r}
+penguin_measurements<-data.frame(penguin_id,penguin_body_mass)
+head(penguin_measurements)
+```
+
+--
+
+... on the other, field data.
+```{r}
+penguin_tracking <- data.frame(penguin_id,penguin_gps_id)
+head(penguin_tracking)
+```
+
+---
+
+## 7.1. left_join()
+
+To joined them we can use the function **left_join()**  
+However it is important to have a **key** to match the observations
+
+.pull-left[
+```{r}
+penguin_joined<-left_join(penguin_measurements, 
+                          penguin_tracking, 
+                          by = "penguin_id") #<<
+penguin_joined
+```
+
+]
+
+.pull-right[
+
+left_join() uses the **key** to join the data frames <br>
+
+```{r, echo=FALSE, out.height=350}
+knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/left-join.gif')
+```
+
+[Other options](https://www.garrickadenbuie.com/project/tidyexplain/)
+
+]
+
+---
+
+## 7.2. pivot_longer
+A veces los datos se toman de manera **no ordenada** en el sentido de que las observaciones estan en cada columna y no en cada fila.
+
+Esto es normal, particularmente en campo o en el laboratorio y tenemos una libreta con espacio limitado.
+
+Entonces hay que re-organizarlos.
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics('https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/tidy-9.svg')
+```
+
+---
+
+## 7.2. pivot_longer
+
+Datos inventados de 5 especies y sus riquezas en tres anios diferentes.
+```{r}
+Especies<-c('Especie1','Especie2','Especie3','Especie4','Especie5')
+Anio2010<-c(5,4,5,6,7)
+Anio2011<-c(3,2,1,9,4)
+Anio2012<-c(6,2,3,7,8)
+```
+
+Creamos un nuevo data frame usando esos datos.
+```{r}
+EspecieAnio<-data.frame(Especie=Especies,
+                        Anio2010=Anio2010,Anio2011=Anio2011,Anio2012)
+```
+
+Quedar algo así
+```{r}
+head(EspecieAnio)
+```
+
+---
+
+## 7.2. pivot_longer
+
+El argumento **pivot_longer** te permite reorganizarlas.
+```{r}
+Especies_largo <- EspecieAnio %>%
+  pivot_longer(c(Anio2010, Anio2011, Anio2012),
+    names_to = "Anio",
+    values_to = "Riqueza" )
+Especies_largo
+```
+
+---
+
+## 7.3. pivot_wider
+
+Si por alguna razón quiero tenerlos separados, puedo también extraerlos a lo ancho.
+
+```{r echo=FALSE, out.height=450}
+knitr::include_graphics('https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/tidy-8.svg')
+```
+
+---
+
+## 7.3. pivot_wider
+
+Datos inventados.
+```{r}
+Especies_ancho<-Especies_largo %>% 
+  pivot_wider(names_from = Anio, 
+              values_from = Riqueza)
+Especies_ancho
+```
+
+---
+
+name: paste
+
+## 7.4. paste or unite
+
+The argument paste or paste0 from base R allows you to paste together multiple columns
+
+```{r}
+penguins$species_island<-paste0(penguins$species,'_',penguins$island)
+```
+
+This argument allows you to paste together multiple columns into one.
+
+**Note** it will get rid of the original column, so if you dont want to eliminate the original column add **remove = FALSE.**
+
+```{r}
+penguins<-penguins %>% 
+  unite(col = species_island,
+        c("species", "island"),
+        sep = "_",
+        remove=FALSE)
+```
+
+---
+
+## 7.5. Separate
+
+This arguments allows you to separate the values from one column into two
+
+```{r, eval=FALSE}
+penguins %>% 
+  separate(col = species_island,
+           into = c("species", "islands"),
+           sep = "_")
+```
+
+**Note** it will get rid of the original column, so if you don't want to eliminate the original column add **remove = FALSE.**
+
+```{r}
+penguins<-penguins %>% 
+  separate(col = species_island,
+           into = c("especie", "isla"),
+           sep = "_",
+           remove = FALSE) #<<
+```
+
+
+---
+
+## 7.6. Rename
+
+This arguments allows to change the name of one or several columns.  
+The new name is written first and the old name comes after.
+
+An example changing the name of one column
+```{r}
+penguins %>% 
+  rename(body_mass = body_mass_g)
+```
+
+An example changing the name of several columns
+```{r}
+penguins %>% 
+  rename(body_mass=body_mass_g, 
+         sampling_year=year)
+```
+
+---
+
+## 7.7. Relocate
+
+This arguments allows you to reorganize your columns.
+```{r}
+penguins %>% 
+  relocate(sex, year)
+```
+
+--- 
+
+## 7.9. Keep learning
+
+Use the dplyr [cheatSheet](https://dplyr.tidyverse.org/).  
+Try the [exercises](https://allisonhorst.shinyapps.io/edge-of-the-tidyverse/#section-wrangling-in-dplyr) from Allison horst.    
+
+Cheatsheets >  
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/dplyrcheatsheet.jpg')
+```
+
+---
+
+class: inverse
+
+# Pause
+
+Practice `r fa("pencil-alt", fill = '#FFFFFF')`
+
+- left_join() 
+- pivot_longer()
+- pivot_wider()
+
+---
+
+name: export
+class: title-slide, middle, center
+background-image: url(https://images.unsplash.com/photo-1527402858-36f052d83df4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80)
+background-size: cover
+
+# Export
+
+---
+
+# 8. Export
+
+Similar to the read files arguments (read_csv), each one has their equivalent to write.
+- write_csv()  
+- write_csv2()  
+- write_tsv()  
+- write_delim()  
+
+---
+
+class: inverse
+
+# Practice `r fa("pencil-alt", fill = '#FFFFFF')`
+
+1- Define a folder 
+```{r, message=FALSE}
+library(here)
+ResultsFolder<-here()
+```
+
+2-  Export to csv
+```{r, eval=FALSE}
+write_csv(
+  penguins_join,
+  file =paste0(ResultsFolder,'/penguin_joined.csv'))
+```
+
+---
+
+name: out
+class:inverse
+background-image: url(https://images.unsplash.com/photo-1557075877-3e112375a834?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
+background-size: cover
+
+# Back to
+- [rmarkdown](#rmd)
+- [read files](#read-files)
+- [basic operations](#basic-operationr)
+- [columns and rows](#column-rows)
+- [tidydata](#tidydata)
+- [distinct](#distinct) 
+- [count](#count)
+- [select](#select)
+- [filter](#filter) 
+- [mutate](#mutate)
+- [summarise](#sumarise) 
+- [drop_na](#drop)  
+- [join](#join) 
+- [export](#exportar) 
+
+Make comments or suggestions [here `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
+.right[
+### Contact
+
+This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-05-12-data-wrangling/)
+]
+
+.right[
+
+[`r fa("home", fill = '#f2cc8f')`Home](https://www.miriam-lerma.com/teaching.html)
+
+[`r fa("play", fill = '#f2cc8f')` Index ](https://miriamll.github.io/R_intro/DataWrangling_1205.html#2)
+
+]
+
+<br>
+
+.center[
+```{r, echo=FALSE}
+library(fontawesome)
+```
+<h3>`r fa("home", fill = "#74c69d")`[Volver ](https://www.miriam-lerma.com/teaching.html)
+]

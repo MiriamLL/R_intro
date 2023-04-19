@@ -6,10 +6,257 @@ date: '2023-04-11'
 
 # Load data
 
-Here I loaded data
+Load package
 
-```{r, warning=FALSE}
+```{r}
 library(palmerpenguins)
-penguins7<-penguins
-nrow(penguins7) 
 ```
+
+Load data frame
+```{r}
+penguins<-penguins
+```
+
+## rows
+Check first 5 rows
+```{r}
+head(penguins,5)
+```
+
+Check last 5 rows
+```{r}
+tail(penguins,5)
+```
+
+When you want to inspect specific rows, they are in the **first** position
+```{r}
+(penguins[1,])
+```
+
+Check first 3 rows
+The **:** means "from A to B".
+```{r}
+(penguins[1:3,])
+```
+
+## columns
+The columns go on the **second** position.  
+```{r}
+head(penguins[,1])
+```
+
+Another way to do it is with the $ and the column name.  
+```{r}
+head(penguins$species)
+```
+
+## column and row
+```{r}
+(penguins[1,1])
+```
+
+```{r}
+(penguins[3,2])
+```
+
+# Tidyverse
+
+Load package
+```{r}
+library(tidyverse)
+```
+
+## count
+Sample size?
+```{r}
+penguins %>% 
+  count()
+```
+
+Sample size per species?
+```{r}
+penguins %>% 
+  count(species)
+```
+
+Per island and per species?
+```{r}
+penguins %>% 
+  count(island,species)
+```
+
+## distinct
+Using base R
+```{r}
+unique(penguins$species)
+```
+
+Using tidyverse
+```{r}
+penguins %>% 
+  distinct(species) #<<
+```
+
+## select
+Select one column
+```{r}
+penguins %>% 
+  select(species) 
+```
+
+Remove one column using the **-** 
+```{r}
+penguins %>% 
+  select(-sex) 
+```
+
+Select all columns expect this one using **!** 
+```{r}
+penguins %>% 
+  select(!sex) 
+```
+
+Select columns in between using **:** 
+```{r}
+penguins %>% 
+  select(bill_length_mm:body_mass_g) 
+```
+
+Select columns based on characters (strings).
+```{r}
+penguins %>% 
+  select(ends_with("mm"))
+```
+
+Using the first letters of the string
+```{r}
+penguins %>% 
+  select(starts_with("bill"))
+```
+
+## filter
+```{r, eval=FALSE}
+penguins %>%
+  filter(sex == 'female')
+```
+
+To change the object we need to create a new data frame.
+```{r}
+female_penguins<-penguins %>%
+  filter(sex == 'female')
+```
+
+- The symbol **<=** means 'smaller or same as'
+```{r, eval=FALSE}
+penguins %>%
+  filter(bill_lenght_mm <= 39.1) #<<
+```
+
+
+- The symbol **>=** means 'larger or same as'
+```{r, eval=FALSE}
+penguins %>%
+  filter(bill_length_mm >= 39.1)#<<
+```
+
+- The symbol **&** means 'and'
+```{r, eval=FALSE}
+penguins %>%
+  filter(island == 'Biscoe' & species =='Adelie')#<<
+```
+
+## mutate
+```{r}
+penguins<-penguins %>% 
+  mutate(body_mass_kg = body_mass_g / 1000)#<<
+```
+
+## group_by
+```{r}
+penguins %>% 
+  group_by(year) %>%
+  summarise(mean_bill_length=mean(bill_length_mm))
+```
+
+## drop_na 
+
+This functions allows you to ignore or remove NAs
+```{r, eval=FALSE}
+penguins %>% 
+  drop_na(bill_length_mm)
+```
+
+
+### fill out
+
+- Create a new data frame with different penguin species 
+```{r}
+#______ <-penguins %>%
+#  distinct(_____)
+```
+
+- Create a new object with only two columns: sex and year
+```{r}
+#_____ <-penguins %>%
+#  select(____,_____)
+```
+
+- Create a new data frame only with male data
+```{r}
+#______ <-penguins %>%
+#  filter(_____ == '______')
+```
+
+- Create a new data frame using only females that are heavier than 3800 g
+```{r}
+#______ <-penguins %>%
+#  filter(_____ == '______')%>%
+#  filter(______ >= ______)
+```
+
+- Check the results form this operation
+```{r}
+penguins_means<-penguins %>% 
+  group_by(species,sex) %>% 
+  drop_na(body_mass_g)%>% 
+  summarise(mean_body_mass_g = mean(body_mass_g), n = n())%>% 
+  mutate(mean_body_mass_kg = mean_body_mass_g / 1000)
+```
+# Tables
+
+## Join
+
+##
+
+## Rename
+
+This arguments allows to change the name of one or several columns.  
+The new name is written first and the old name comes after.
+
+An example changing the name of one column
+```{r}
+penguins %>% 
+  rename(peso = masa_corporal_g)
+```
+
+An example changing the name of several columns
+```{r}
+penguins %>% 
+  rename(body_mass=body_mass_g, 
+         sampling_year=year)
+```
+
+# Export
+
+```{r, message=FALSE}
+library(here)
+ResultsFolder<-here()
+```
+
+2-  Exporta tu tabla.
+```{r, eval=FALSE}
+write_csv(
+  penguins_join,
+  file =paste0(ResultsFolder,'/penguin_joined.csv'))
+```
+
