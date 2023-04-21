@@ -14,7 +14,7 @@ output:
 ---
 
 class: title-slide, bottom, right
-background-image: url(https://images.unsplash.com/photo-1607346704504-359c4ed61196?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80)
+background-image: url(https://images.unsplash.com/photo-1542320260-f8f651de8c12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
 ### `r rmarkdown::metadata$title`
@@ -419,7 +419,6 @@ background-size: cover
 
 ---
 
-# 1. Load data
 
 ## 4.1. Read files
 

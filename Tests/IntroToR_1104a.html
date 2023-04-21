@@ -4,7 +4,7 @@
     <title>Welcome to R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Miriam Lerma" />
-    <script src="IntroToR_1104_files/header-attrs-2.20/header-attrs.js"></script>
+    <script src="IntroToR_1104a_files/header-attrs-2.20/header-attrs.js"></script>
     <link rel="stylesheet" href="RZero-themer.css" type="text/css" />
   </head>
   <body>
@@ -37,6 +37,7 @@ class: title-slide, inverse
 - [Errors](#errors)
 - [Packages](#packages)
 - [Read files](#read-files)
+- [Intro to Rmarkdown](#rmd)
 - [Contact](#out)
 
 ---
@@ -829,7 +830,7 @@ install.packages("here")
 install.packages("tidyverse")
 ```
 
-🕜 Tidyverse is a compilation of packages, this one might take some time.
+🕖 Tidyverse is a compilation of packages, this one might take some time.
 
 Note: It probably will give us a warning, remember that a warning might be just information. In this case is telling us what the package contains.
 
@@ -964,6 +965,7 @@ Until here:
 .pull-right[
 Next part:
 - [Read data](read_files)
+- [Rmd](rmd)
 - [Contact](#out)
 ]
 
@@ -1262,7 +1264,7 @@ ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
                     label_axes = list(top = "E", left = "N", bottom = 'E', right='N'))
 ```
 
-![](IntroToR_1104_files/figure-html/unnamed-chunk-95-1.png)&lt;!-- --&gt;
+![](IntroToR_1104a_files/figure-html/unnamed-chunk-95-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1299,6 +1301,268 @@ Next part:
 - [Contact](#out)
 ]
 
+
+---
+
+name: rmd
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1478641300939-0ec5188d3802?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1172&amp;q=80)
+background-size: cover
+
+
+# &lt;span style=" font-weight: bold;    color: #e5e5e5 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #003049 !important;" &gt;R markdown&lt;/span&gt;
+
+---
+
+## 5.1. RMarkdown 
+
+Rmarkdown is very convenient because it let us export what we do in R to html or word documents.
+
+We can even make slides... &lt;br&gt;
+.right[...like this one.]
+
+--
+
+There are **plenty** of options on Rmd. I will just point out a few.
+
+---
+
+## 5.2. Rmd
+
+Markdown is plain text...  
+.right[...just as we write in a note block.]
+
+However, the advantages of using Rmd is that you can include a lot of text and thus you can write your **thesis, papers, webpage, books and presentations** without leaving RStudio.
+
+--
+
+Moreover, you can include:  
+- code and results that are automatically generated.
+
+---
+
+## 5.2. Rmd
+
+What Rmd does, is that it "translates" what has been written using **PanDoc**.  
+
+.center[
+&lt;img src="https://d33wubrfki0l68.cloudfront.net/61d189fd9cdf955058415d3e1b28dd60e1bd7c9b/b739c/lesson-images/rmarkdownflow.png" width="600" /&gt;
+]
+
+---
+
+
+## 5.2. Rmd
+
+We can generate an **output**, that can be read even if you dont have R install.
+
+Just like this presentation.
+
+--
+
+Also, you can get your results without showing the code and without having to copy and paste the results in other program like word.
+
+An example:     
+
+_Here I load my data and check the number of observations_  
+
+```r
+library(palmerpenguins)
+penguins7&lt;-penguins
+nrow(penguins7) 
+```
+
+```
+## [1] 344
+```
+
+---
+
+## 5.2. R vs Rmd
+
+**Considerations:  **  
+Rmd behaves differently than R 
+- Rmarkdown works better in a clean environment.  
+- All the variables need to be inside your file.
+- This actually assures that your workflow is **reproducible**.
+
+---
+
+## 5.4. Start an Rmd
+
+
+File&gt;NewFile&gt;RMarkdown &lt;br&gt;
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/040Rmd.png?raw=true" height="300" /&gt;
+
+---
+
+## 5.5. Rmd parts
+
+Rmd has:
+- yaml (including the output)
+- chunks 
+- plain text
+- knit
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/041Rmd.png?raw=true" height="300" /&gt;
+
+
+---
+
+## 5.6. Rmd text
+
+You can write plain text in the white area
+
+You can write in: 
+- *italics* using one astherics before and one after the word.  
+- **bold** using two astheriscs.  
+- ***italics and bold*** using three astheriscs.  
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdPlainText.png?raw=true" height="300" /&gt;
+
+
+More options: [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#e9c46a;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>Text in Rmd](https://rmarkdown.rstudio.com/lesson-8.html)
+
+---
+
+## 5.7. Rmd chunk
+
+The parts that are in grey are chunks.  
+- The code is written inside three inverted commas at the start and at the end and the r between {}
+This is because we need to tell which language are we using
+
+- We can run the code using the green arrow that looks like a <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#588157;overflow:visible;position:relative;"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/></svg>, using the button **Run** in the upper part of the code editor, or using **ctrl+enter**.
+- The results in Rmd appears in the code editor document, not in the console.
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdChunk.png?raw=true" height="300" /&gt;
+
+---
+
+## 5.7. Rmd chunk
+
+We can add new code chunks using **Ctrl+Alt+I** , the **back ticks** or in the green square with a C in the upper part of the code editor **+**. 
+
+
+The R code needs to be inside the chunks (the shadowed grey parts) to run.
+
+**Common mistakes are**:
+- Not closing the parenthesis **{}**
+- Not having the three inverted commas
+- Add code outside the codechunks
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdChunk.png?raw=true" height="300" /&gt;
+
+---
+
+## 5.8. YAML
+
+YAML means _“YAML Yet Ain’t Markup Language”._ 
+
+By default it will show: title, author, date, **output**.  
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdYaml.png?raw=true" height="300" /&gt;
+
+
+---
+
+## 5.8. YAML
+
+When you change the YAML, the information that appears in your report will change&lt;br&gt;
+If you chnge the output, different type of reports will be generated.
+
+**Common mistakes**  
+When you **knit** or render your report, there is something incompatible with Pandoc (or LateX)
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdYaml.png?raw=true" height="300" /&gt;
+
+---
+
+## 5.9. Knitr
+
+There is a botton that says **knit** with a knitting blue ball.
+This bottons generates the report.
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdKnit.png?raw=true" height="300" /&gt;
+
+**Note**: every time we knit the changes are saved on our document.
+
+
+---
+
+## 5.10. Rmd titles
+
+.pull-left[
+You can use the titles to navigate.
+
+Search for the square with lines (say outline) or click on  **Crtl+Shft+O**.  
+
+This can be very useful in large documents.
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/043Outline.png?raw=true" height="30" /&gt;
+]
+
+.pull-right[
+Main title use one hashtag #.&lt;br&gt;
+- First level #.&lt;br&gt;
+- Second level ##.&lt;br&gt;
+- Third level ###.&lt;br&gt;
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/044Outline.png?raw=true" height="100" /&gt;
+]
+
+---
+name: outputs
+
+## 5.11. Rmd outputs  
+
+The documents can be exported to word, pdf and html.  
+
+Advantages and disadvantages for each one:  
+
+- **word**: easier to share and many journals ask for documents in this format  
+- **pdf**: easier to share but not easy to edit  
+- **html**: you can include a lot of type of contents ⭐, but might look unfamiliar   
+
+---
+
+## 5.11. Rmd outputs  
+
+To change the output, you need to change it in the YAML, or chick on the arrow <svg aria-hidden="true" role="img" viewBox="0 0 320 512" style="height:1em;width:0.62em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#2a9d8f;overflow:visible;position:relative;"><path d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"/></svg> in the knit button and chose your format.  
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/045Outputs.png?raw=true" height="150" /&gt;
+
+To modify the word format [see here](https://rfortherestofus.com/2020/07/word-reference-documents-rmarkdown/)
+
+---
+class: inverse
+
+# Pause
+
+- Open RStudio <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg> 
+- Open a Rmd file (File&gt;NewFile&gt;Rmd)
+- Create three different formats: pdf, word and html
+- Delete everything except for the YAML (change YAML to your info)
+- Add a code chunk
+- Add text
+
+Example of code chunk
+
+```r
+library(palmerpenguins)
+nrow(penguins) #sample size
+```
+
+
+**Note**&lt;br&gt;
+Maybe you need to install tinytex&lt;br&gt;
+
+```r
+tinytex::install_tinytex()
+```
+
+- [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#e9c46a;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>What is tiny text?](https://yihui.org/tinytex/)
+
 ---
 
 name: out
@@ -1315,6 +1579,7 @@ background-size: cover
 - [Packages](#packages)
 - [Directories](#directories)
 - [Read data](#read_files)
+- [Rmd](#rmd)
 
 Make comments or suggestions [here <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
 

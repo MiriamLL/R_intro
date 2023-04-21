@@ -31,12 +31,12 @@ class: title-slide, inverse
 
 
 - [Install or update R](#install-r)
-- [What is R](#parts)
+- [What is R](#whats-r)
 - [RStudio and identify the parts](#r-parts)
 - [Data types](#data-types)
 - [Errors](#errors)
 - [Packages](#packages)
-- [Read files](#read-files)
+- [Directories](#directories)
 - [Contact](#out)
 
 ---
@@ -54,7 +54,6 @@ class: title-slide, inverse
 **Goals of today**
 
 - Identify the parts of RStudio
-- Be able to load and download data
 - Feel comfortable using R
 - Hopefully we will cover all the topics
 
@@ -246,15 +245,15 @@ Up to date
 
 ---
 
-name:parts
 
 class: title-slide, bottom
-background-image: url(https://images.unsplash.com/photo-1517056338492-cb43f18f72a0?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80)
+background-image: url(https://images.unsplash.com/photo-1621982363384-609164007d68?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80)
 background-size: cover
 
 #  &lt;span style=" font-weight: bold;    color: #e5e5e5 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #003049 !important;" &gt;Parts of R&lt;/span&gt;
 
 ---
+name: whats-r
 
 ## 2. What is R?
 
@@ -339,6 +338,8 @@ Open:
 File &gt; New File &gt; Rscript
 
 ---
+
+name: r-parts
 
 ## 2.4. Using RStudio.
 
@@ -761,36 +762,6 @@ E.g. ("my.names").
 
 ---
 
-class: title-slide
-
-# Pause
-
-- Open RStudio <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&lt;br&gt;
-- Write something in the console&lt;br&gt;
-- Create a data frame with characters and numbers&lt;br&gt;
-
-.pull-left[
-Until here:
-- [Index](#index)
-- [What is R](#r-story)
-- [RStudio and identify the parts](#r-parts)
-- [Data types](#data-types)
-- [Errors](#errors)
-]
-
-
-.pull-right[
-Next part:
-- [Packages](#packages)
-- [Directories](#directories)
-- [Read data](#read_files)
-- [Contact](#out)
-
-]
-
-
----
-
 name: packages
 class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/reserve/oIpwxeeSPy1cnwYpqJ1w_Dufer%20Collateral%20test.jpg?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1015&amp;q=80)
@@ -829,7 +800,7 @@ install.packages("here")
 install.packages("tidyverse")
 ```
 
-🕜 Tidyverse is a compilation of packages, this one might take some time.
+🕔 Tidyverse is a compilation of packages, this one might take some time.
 
 Note: It probably will give us a warning, remember that a warning might be just information. In this case is telling us what the package contains.
 
@@ -879,10 +850,11 @@ Now you can download packages!
 
 ---
 
+name: directories
 
 ## 3.2. Directories
 
-Where are my files?.  
+Where are my files? 
 
 By hand: Click on the **workspace** &gt; Files &gt; More &gt; Set As Working directory
 
@@ -939,368 +911,6 @@ Advantages:
 
 ---
 
-class: title-slide
-
-# Pause
-
-- Open RStudio <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&lt;br&gt;
-- Install and load packages&lt;br&gt;
-- Check your directory&lt;br&gt;
-
-Make comments or suggestions [here <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
-
-.pull-left[
-Until here:
-- [Index](#index)
-- [What is R](r-story)
-- [RStudio and identify the parts](r-parts)
-- [Data types](data-types)
-- [Errors](errors)
-- [Packages](packages)
-- [Directories](directories)
-]
-
-
-.pull-right[
-Next part:
-- [Read data](read_files)
-- [Contact](#out)
-]
-
-
----
-
-name: read-files
-class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1533279443086-d1c19a186416?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1632&amp;q=80)
-background-size: cover
-
-# &lt;span style=" font-weight: bold;    color: #e5e5e5 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #003049 !important;" &gt;Read files&lt;/span&gt;
-
----
-
-## 4.1. Read files
-
-A typical R project looks like this:
-
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/031Program.png?raw=true" height="250" /&gt;
-
-.right[
-Source: [R4DS](https://r4ds.had.co.nz/introduction.html)
-]
-
----
-
-
-## 4.1. Read files
-
-To load data, we will use functions from the package tidyverse and the files:  
-
-- penguins1.csv
-- penguins2.csv
-- penguins3.txt
-- penguins4.xlsx  
-
-[Download here](https://github.com/MiriamLL/R_intro/tree/master/Downloads)
-
-Do you already have it installed?
-
-
-```r
-library("tidyverse")
-```
-
-
----
-
-## 4.2. By hand
-
-You can upload data by hand in your workspace
-
-In the **environment** there is a part that says **Import Dataset**
-
-Select the file **penguins1.csv**
-
---
-
-Another option is to go to the **workspace** 
-Files&gt; Click on the file and **import data set**
-
-&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/019Rparts.png?raw=true" height="350" /&gt;
-
----
-
-## 4.2. csv format
-
-Instead of clicks, we can write in the console or script:
-
-
-```r
-penguins1&lt;-read_csv("Downloads/penguins1.csv")
-```
-
-
-```r
-head(penguins1)
-```
-
----
-
-## 4.2. csv format
-
-Now try opening **penguins2.csv**  
-
-This file instead of being separated by comas, its separated by colons ";"
-
-Therefore, instead of using **read_csv** we will need to use **read_csv2**
-
-To illustrate this issue, try loading the data using **read_csv**.
-
-
-```r
-penguins2&lt;-read_csv("Downloads/penguins2.csv")
-```
-
-
-```r
-head(penguins2)
-```
-
-
---
-
-Lets try now with **read_csv2**
-
-
-```r
-penguins2&lt;-read_csv2("Downloads/penguins2.csv")
-```
-
-
-```r
-head(penguins2)
-```
-
----
-
-## 4.3.  Other formats
-
-Click on the file **penguin3.txt**.  
-
-This one is separated by tabs.  
-
-read_tsv is for reading tab separated values.  
-
-
-```r
-penguins3&lt;-read_tsv("Downloads/penguins3.txt")
-```
-
-
-```r
-head(penguins3)
-```
-
----
-
-## 4.4. Excel format
-
-For loading excel data, there is a special package called **readxl**
-
-
-```r
-library("readxl")
-```
-
-
-```r
-penguins4&lt;- read_excel("Downloads/penguins4.xlsx")
-```
-
-
-```r
-head(penguins4)
-```
-
-
----
-
-## 4.5. From an url
-
-Urls (Uniform Resource Locators) or links can also be source of data.
-
-
-```r
-penguins5&lt;- read_csv('https://github.com/MiriamLL/R_intro/blob/master/Downloads/penguins1.csv')
-```
-
-Look at the first 5 rows of the data
-
-
-```r
-head(penguins,5)
-```
-
----
-
-## 4.6. movebank
-
-There is a package called [move](https://cran.r-project.org/web/packages/move/vignettes/browseMovebank.html) that can be use to access data stored in movebank.
-
-To install:
-
-```r
-install.packages('move')
-```
-
-
-```r
-library(move)
-```
-
-
-```r
-movebankLogin()
-```
-
-Add your login, if you have one, at the console.
-
----
-
-## 4.6 movebank
-
-It is more convenient to store your login information, but you have to be careful to not share the script with your login information.
-
-
-```r
-loginStored &lt;- movebankLogin(username="MiriamLerma", password="********")
-```
-
-
-```r
-my_study&lt;-'FTZ UCN Kelp Gull Chile'
-```
-
-
-```r
-MyGull&lt;-getMovebankLocationData(study=my_study, 
-                               individual_local_identifier="KEGU-noband01-Coquimbo",
-                               timestamp_start="202212010000000",
-                               timestamp_end="20221205000000000",
-                               sensorID="GPS")
-```
-
-
-It might give you a warning, but for now that is not important.
-
----
-
-## 4.7. packages with data
-
-Data can also be stored in packages.  
-For example [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
-
-
-```r
-install.packages("palmerpenguins")
-```
-
-
-```r
-library(palmerpenguins)
-penguin6&lt;-penguins
-```
-
-
-```r
-head(penguin6)
-```
-
----
-
-## 4.7. packages with data
-
-Moreover, packages with data are not limited to data frames.
-
----
-
-## 4.7. packages with data
-
-For example, the package GermanNorthSea contains shapefiles
-
-With 6 lines of code you can plot a map (Showing just for illustration purposes)
-
-.pull-left[
-
-```r
-# install.packages("devtools")
-devtools::install_github("MiriamLL/GermanNorthSea")
-```
-
-Now the package sf
-
-```r
-#install.packages('sf')
-library(sf)
-library(ggplot2)
-library(GermanNorthSea)
-```
-
-Load and plot some data
-
-
-```r
-German_land&lt;-GermanNorthSea::German_land
-```
-]
-
-.pull-right[
-
-```r
-ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
-  coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000),
-                    label_axes = list(top = "E", left = "N", bottom = 'E', right='N'))
-```
-
-![](IntroToR_1104_files/figure-html/unnamed-chunk-95-1.png)&lt;!-- --&gt;
-]
-
----
-
-
-class: inverse
-
-# Pause
-
-Load penguin data  <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>  
-- Using read_csv &lt;br&gt;
-- Using read_csv2 &lt;br&gt;
-- Using read_tsv &lt;br&gt;
-- Using read_excel &lt;br&gt;
-
-There are many other options of files. Suggestions? [here <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
-
-
-.pull-left[
-Until here:
-- [Index](#index)
-- [What is R](#r-story)
-- [RStudio and identify the parts](#r-parts)
-- [Data types](#data-types)
-- [Errors](#errors)
-- [Packages](#packages)
-- [Directories](#directories)
-- [Read data](#read_files)
-]
-
-.pull-right[
-Next part:
-- [Rmd](#rmd)
-- [Contact](#out)
-]
-
----
-
 name: out
 class:inverse
 background-image: url(https://images.unsplash.com/photo-1557075877-3e112375a834?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80)
@@ -1314,9 +924,12 @@ background-size: cover
 - [Errors](#errors)
 - [Packages](#packages)
 - [Directories](#directories)
-- [Read data](#read_files)
 
 Make comments or suggestions [here <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 .right[
 ### Contact
@@ -1334,10 +947,6 @@ This materials are free of use &lt;br&gt; Download the presentation here: [<svg 
 
 &lt;br&gt;
 
-.center[
-
-&lt;h3&gt;<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#74c69d;overflow:visible;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg>[Volver ](https://www.miriam-lerma.com/teaching.html)
-]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

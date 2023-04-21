@@ -1,0 +1,1265 @@
+---
+title: "Welcome to R"
+author: "Miriam Lerma"
+date: "April 2023"
+output:
+  xaringan::moon_reader:
+    css: RZero-themer.css
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      
+---
+
+class: title-slide, bottom, right
+background-image: url(https://images.unsplash.com/photo-1467545159547-1b93b24406ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1623&q=80)
+background-size: cover
+
+### `r rmarkdown::metadata$title`
+# `r rmarkdown::metadata$subtitle`
+
+### **`r rmarkdown::metadata$author`**<br>
+`r rmarkdown::metadata$date`
+
+---
+name: index
+class: title-slide, inverse
+
+```{r, echo=FALSE, include = FALSE}
+#Paquetes
+library(xaringanExtra)
+library(kableExtra)
+library(fontawesome)
+library(emo)
+```
+
+# Index
+
+
+- [Install or update R](#install-r)
+- [What is R](#parts)
+- [RStudio and identify the parts](#r-parts)
+- [Data types](#data-types)
+- [Errors](#errors)
+- [Packages](#packages)
+- [Read files](#read-files)
+- [Contact](#out)
+
+---
+
+class: title-slide, inverse
+
+# Today
+
+.pull-left[
+
+**Your profile**
+- Interest in learning R (or other ways to use it).  
+
+
+**Goals of today**
+
+- Identify the parts of RStudio
+- Be able to load and download data
+- Feel comfortable using R
+- Hopefully we will cover all the topics
+
+**Pauses and questions**
+
+- There will be several pauses
+- You can stop me to ask questions or
+- Questions can be made [at this link too `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
+]
+
+
+--
+
+.pull-right[
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+```{r, echo=FALSE, out.height=200}
+ImageFolder<-'https://github.com/MiriamLL/R_intro/blob/master/Images/'
+knitr::include_graphics(paste0(ImageFolder,"001Approximate.png?raw=true"))
+```
+
+]
+
+---
+
+class: title-slide, inverse
+
+# References
+
+- R for Data Science  
+[`r fa("book-open", fill = "#f2cc8f")` R4DS](https://r4ds.had.co.nz/)  
+
+- Data Carpentries  
+[`r fa("book-open", fill = "#f2cc8f")` Carpentries](https://datacarpentry.org/genomics-r-intro/00-introduction/index.html)
+
+- From Zero to Shero by RLadies   
+[`r fa("github-alt", fill = "#f2cc8f")` Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg) 
+
+
+- Images from  
+[`r fa("camera-retro", fill = "#f2cc8f")` Unsplash](https://unsplash.com/)  
+[`r fa("twitter", fill = "#f2cc8f")` Allison horst](https://twitter.com/allison_horst?lang=es)  
+
+- Other resources  
+[YaRrr](https://bookdown.org/ndphillips/YaRrr/the-four-rstudio-windows.html)<br>
+[Data structure](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/)<br>
+[Assignment operators](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r)<br>[R inferno](https://www.burns-stat.com/pages/Tutor/R_inferno.pdf)<br>
+[Why they are not the same](https://www.roelpeters.be/the-difference-between-arrow-and-equals-assignment-in-r/)<br>
+[TidyTuesday](https://github.com/rfordatascience/tidytuesday)  
+
+---
+
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1538766017398-415434a31a5b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)
+background-size: cover
+
+# Lets begging!
+
+---
+
+name: install-r
+
+# 1. Install R
+
+First time installing R
+
+To install R and Rstudio you can visit the page [posit `r fa("external-link-alt", fill = "#f2cc8f")` ](https://posit.co/download/rstudio-desktop/)
+
+```{r echo=FALSE, out.height=280}
+knitr::include_graphics(paste0(ImageFolder,"002Posit.png?raw=true"))
+```
+
+---
+
+## First time installing R
+
+Once you click download and install R, you will find several links.
+
+If you are the first time installing you likely need to choose the first link.
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"003LoadR.png?raw=true"))
+```
+
+---
+
+## Update R
+
+If you already have R and R-Studio
+
+Check which version of R you are using:
+
+```{r,eval=FALSE}
+sessionInfo()
+```
+
+To see if you need to update you can use:
+
+```{r, eval=FALSE}
+install.packages("installr")
+library(installr)
+updateR()
+```
+
+
+**Do you need an update?**
+  
+```{r echo=FALSE, out.height=120}
+knitr::include_graphics(paste0(ImageFolder,"003UpdateR.png?raw=true"))
+```
+
+
+---
+
+## Update R
+
+If you opt to update R, one way to do it is going to the [installation page `r fa("external-link-alt", fill = "#f2cc8f")`](https://www.r-project.org/)
+
+You will likely select >4.3 (in 2023)
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"004UpdateR.png?raw=true"))
+```
+
+---
+
+## Update R
+
+If you decide to update your R, its better to do it in the Rgui and not R-Studio
+
+.pull-left[
+Open Rgui
+```{r echo=FALSE, out.height=150}
+knitr::include_graphics(paste0(ImageFolder,"005UpdateR.png?raw=true"))
+```
+
+Once in the Rgui, write updateR()
+
+```{r echo=FALSE, out.height=180}
+knitr::include_graphics(paste0(ImageFolder,"006UpdateR.png?raw=true"))
+```
+]
+
+--
+
+.pull-right[
+Give it some time
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics(paste0(ImageFolder,"007UpdateR.png?raw=true"))
+```
+
+]
+
+---
+
+## Update R
+
+Select YES if you already had R packages installed in your previous version, and do not want to install each package one by one again.
+
+```{r echo=FALSE, out.height=100}
+knitr::include_graphics(paste0(ImageFolder,"008UpdateR.png?raw=true"))
+```
+
+<br>
+
+<br>
+
+By March 2023 4.2.3 was the newest version of R.
+
+```{r echo=FALSE, out.height=100}
+knitr::include_graphics(paste0(ImageFolder,"009UpdateR.png?raw=true"))
+```
+
+
+**Did you notice the difference?**
+
+---
+
+## Update R-Studio
+
+One thing is updating R and another one to update R-Studio
+
+If you already have Rstudio and want to see if you need to update you can go to:
+
+.pull-left[
+Help>Check for updates
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"010UpdateRStudio.png?raw=true"))
+```
+]
+.pull-right[
+Outdated
+
+```{r echo=FALSE, out.height=100}
+knitr::include_graphics(paste0(ImageFolder,"011UpdateRStudio.png?raw=true"))
+```
+
+Up to date
+
+```{r echo=FALSE, out.height=100}
+knitr::include_graphics(paste0(ImageFolder,"012UpdateR.png?raw=true"))
+```
+]
+
+
+
+---
+
+name:parts
+
+class: title-slide, bottom
+background-image: url(https://images.unsplash.com/photo-1517056338492-cb43f18f72a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
+background-size: cover
+
+#  `r text_spec("Parts of R", background = "#003049", color = "#e5e5e5", bold = T)`
+
+---
+
+## 2. What is R?
+
+R is a programming language developed for statistical analyses by the Ross Ihaka and Robert Gentleman (New Zealand) in 1996.
+
+.center[
+```{r echo=FALSE, out.height=50, out.width=50}
+knitr::include_graphics("https://www.r-project.org/logo/Rlogo.svg")
+```
+]
+
+--
+
+.center[
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://www.nature.com/news/polopoly_fs/7.22632.1418912921!/image/TB2.jpg_gen/derivatives/fullsize/TB2.jpg")
+```
+  
+[Sylvia Tippmann]("https://www.nature.com/articles/517109a")
+]
+
+---
+
+## 2.2 Why  R?
+
+.pull-left[
+**Advantages**
+
+- Its free
+
+- A lot of tools
+
+- Flexible data visualization
+
+**For science, is reproducible**
+
+- You can save all the steps you followed, making it verifiable 
+
+- Instead of clicking on buttons the instructions can be save in sequence, helping save time and reduce errors
+
+
+]
+
+--
+
+.pull-right[
+**Disadvantages**
+
+- Has a learning curve  
+
+- It is like learning a new language
+
+```{r, echo=FALSE, out.height=200}
+knitr::include_graphics(paste0(ImageFolder,"014LearningCurve.jpg?raw=true"))
+```
+
+]
+
+---
+
+## 2.3. R vs RStudio.
+
+What are the differences between R and RStudio?  
+
+**R** is the programming language.  
+**RStudio** is an IDE:  Integrated Development Environment.  
+
+R is the engine and RStudio is the steering wheel  
+<br>
+
+.center[
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"018Car.png?raw=true"))
+```
+
+]
+
+---
+
+## 2.4 Using R
+
+First time opening RStudio looks like this:
+
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics(paste0(ImageFolder,"019Rparts.png?raw=true"))
+```
+
+To have a code editor:
+
+Open:  
+File > New File > Rscript
+
+---
+
+## 2.4. Using RStudio.
+
+In the **source** section the code can be edited and saved.
+
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics(paste0(ImageFolder,"020Rparts.png?raw=true"))
+```
+
+---
+
+## 2.4. Using RStudio.
+
+To change the order of the panes, you can change the pane layout
+
+.pull-left[
+
+Click on the squares >  
+
+Or in Tools> Global Options
+
+select **Pane Layout**
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"021PaneLayout.png?raw=true"))
+```
+]
+
+.pull-right[
+
+Select your preferred order
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"022PaneLayout.png?raw=true"))
+```
+]
+
+---
+
+## 2.4 Using RStudio
+
+Testing the console
+
+R is like a calculator
+
+- Write in the console
+```{r, comment="", eval=FALSE}
+3*4
+```
+
+- Write in the editor
+```{r, comment="", eval=FALSE}
+3*4
+```
+
+--
+
+In the editor: ctrl + enter
+
+--
+
+- Now write in the editor, dont forget to click ctrl+enter
+
+```{r, eval=FALSE}
+Result<-3*4
+```
+
+What happend in the **environment**?
+
+
+---
+
+name: data-types
+
+## 2.5. Data types
+
+Some data types:
+- Numeric
+```{r, comment=""}
+class(1.4)
+```
+
+- Characters
+```{r, comment=""}
+class("Miriam")
+```
+
+---
+
+## 2.5. Data types
+
+Why if we use quotes ""?
+```{r, comment=""}
+class("1")
+```
+
+- Logical
+```{r}
+3 == 4
+```
+
+```{r}
+3 < 5
+```
+
+There are many others, that would be relevant later on.
+
+Source: [Data structures by the Carpentries](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/)
+
+---
+
+## 2.6. Data frame
+
+Assign symbol
+
+```{r, eval=FALSE}
+<-
+```
+
+This symbol is frequently use, and is important that you find it in your keyboard as soon as possible. 
+ 
+
+- The equal **=**  might behave differently than the assign symbol <br>
+See here: [Assignment operators](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-assignment-operators-in-r), [R inferno](https://www.burns-stat.com/pages/Tutor/R_inferno.pdf), [Why they are not the same](https://www.roelpeters.be/the-difference-between-arrow-and-equals-assignment-in-r/)   
+
+.center[
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics(paste0(ImageFolder,"024Assign.jpg?raw=true"))
+```
+]
+
+---
+
+## 2.6. Data frame
+
+Lets use the arrow symbol.  
+```{r}
+Names<-c("Miriam","Jette","Kai","Nele","Jana","Kristin","Karena","Nico","Philipp","Mads")
+class(Names)
+```
+
+```{r}
+Names<-as.data.frame(Names)
+class(Names)
+```
+
+Now in the **environment** click twice and look at your data frame.
+
+---
+
+## 2.6. Data frame
+
+Assign vectors to a column or check a column contents
+
+The symbol $ is in R 
+```{r, eval=FALSE}
+$
+```
+
+Lets create a new column
+
+```{r}
+Names$LastName<-c("G","A","T","D","L","S","H",NA,"M","L")
+```
+
+```{r, comment=""}
+head(Names,5)
+```
+
+---
+
+## 2.7. Force classes
+
+Force column type
+
+```{r}
+my_number<-'1'
+```
+
+```{r}
+class(my_number)
+```
+
+```{r}
+my_number<-as.numeric(my_number)
+```
+
+```{r}
+class(my_number)
+```
+
+---
+
+## 2.7. Force classes
+
+Our favorite class
+
+```{r}
+my_timestamp<-'2015-06-12 05:00:00'
+```
+
+```{r}
+class(my_timestamp)
+```
+
+```{r}
+my_timestamp <- as.POSIXct(strptime(my_timestamp, "%d/%m/%Y %H:%M:%S "), "GMT")
+```
+
+```{r}
+class(my_timestamp)
+```
+
+Timestamp should be a "POSIXct" "POSIXt" for R to understand the are date and time
+
+---
+
+## 2.8. Code editor
+
+To add text in the **editor** we use the symbol **#** (hashtag)
+
+```{r}
+#Here you created a data frame with names, but there is NA
+```
+
+R will ignore the text that has a # but these are very important for us to make annotations.
+
+It is a **good practice** to write comments. Either for us to share the script, or for you to remember what you were doing.
+
+This is specially important if you get corrections, or if you want to repeat the analyses. 
+
+---
+name:errors
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1555861496-0666c8981751?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)
+background-size: cover
+
+# Errors
+
+
+---
+
+## 2.9. Type of errors
+
+Errors are part of life.  
+```{r echo=FALSE, out.height=100, eval=FALSE}
+knitr::include_graphics(paste0(ImageFolder,"025Spongebob.gif"))
+```
+
+R very often is trying to tell us how to solve the error.
+
+- For example:
+```{r, eval=FALSE}
+3 = 4
+```
+Error in 3 = 4 :left-hand side to assignment (do_set)
+
+
+Other messages that might be red or orange are:
+- Warnings, I will do it, but Im not responsible of what you are doing.
+- Messages, hey I just want to let you know this happend.
+
+---
+
+## 2.9. The most common errors
+
+Whats going on here
+
+Remove the # and find the error.
+
+```{r,eval=FALSE}
+#c("Miriam","Bety","Angel","Denise""Pamela")
+```
+
+--
+
+- Missing a comma
+
+--
+
+```{r}
+#c("Alvaro","Gabriela","Juan",,"Lisset")
+```
+
+--
+
+- Too many commas
+
+--
+
+```{r}
+#c("Majo","Irma","Paulina"
+```
+
+--
+
+- Missing a parenthesis
+
+--
+
+```{r}
+#c("Majo","Irma,"Paulina")
+```
+
+--
+
+- Missing a quote (")
+
+---
+
+## 2.9. Debugging bingo
+
+```{r echo=FALSE, out.height=450}
+knitr::include_graphics(paste0(ImageFolder,"023DebuggingBingo.jpg?raw=true"))
+```
+
+Source: Dr. Ji Son
+
+---
+
+## 2.10. Name consistency
+
+Many errors are going to be marked by a red x in the **code editor**.
+
+--
+
+But many will not.
+
+What is wrong with these?
+```{r}
+#name
+```
+--
+
+-  If our goal is to use of data frame from the environment it needs to be written exactly the same **Names**.
+
+--
+
+To reduce this source of error, is important to be consitent on how we name the objects.
+
+Some considerations are:
+
+- R will not take objects that start with a number (Eg."1Names").  
+- But the number can be at the end of the name (Eg."Names1").  
+
+- Try to be consistent 
+E.g. ("my_names").  
+E.g. ("my.names").  
+
+
+---
+
+class: title-slide
+
+# Pause
+
+- Open RStudio `r fa("pencil-alt", fill = "#f2cc8f")`<br>
+- Write something in the console<br>
+- Create a data frame with characters and numbers<br>
+
+.pull-left[
+Until here:
+- [Index](#index)
+- [What is R](#r-story)
+- [RStudio and identify the parts](#r-parts)
+- [Data types](#data-types)
+- [Errors](#errors)
+]
+
+
+.pull-right[
+Next part:
+- [Packages](#packages)
+- [Directories](#directories)
+- [Read data](#read_files)
+- [Contact](#out)
+
+]
+
+
+---
+
+name: packages
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/reserve/oIpwxeeSPy1cnwYpqJ1w_Dufer%20Collateral%20test.jpg?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1015&q=80)
+background-size: cover
+
+# `r text_spec("Packages", background = "#003049", color = "#e5e5e5", bold = T)`
+
+---
+
+## 3.1. Packages
+
+- Packages are a collection of functions
+- Packages are installed one time, but need to be loaded every time you need them.
+
+An analogy is that install.packages() is downloading an app, and library() is like opening the app every time you want to use it.
+
+To install packages using the **workspace**
+
+Go to Packages>Install and write tha name of the package
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"020Rparts.png?raw=true"))
+```
+
+---
+
+## 3.1. Packages
+
+- To install in the **console** write: install.packages("").  
+To load a package: library("").  
+
+Some packages that we will use: 
+
+```{r, eval=FALSE}
+install.packages("cowsay")
+install.packages("here")
+install.packages("tidyverse")
+```
+
+`r emo::ji("clock")` Tidyverse is a compilation of packages, this one might take some time.
+
+Note: It probably will give us a warning, remember that a warning might be just information. In this case is telling us what the package contains.
+
+---
+
+## 3.1. Packages
+
+
+```{r, eval=FALSE}
+say(what = "Now you can download packages!", by = "cat")
+```
+
+nothing happend?
+We should load the library first.
+
+---
+
+## 3.1. Packages
+
+```{r, comment="", warning=FALSE}
+library("cowsay")
+say(what = "Now you can download packages!", by = "cat")
+```
+
+---
+
+
+## 3.2. Directories
+
+Where are my files?.  
+
+By hand: Click on the **workspace** > Files > More > Set As Working directory
+
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics(paste0(ImageFolder,"019Rparts.png?raw=true"))
+```
+
+This is practical, but needs to be done every time that we enter R and therefore be time consuming.
+
+---
+
+## 3.2. Directories
+
+Where I am working?
+
+```{r, eval=FALSE}
+getwd()
+```
+
+```{r, eval=FALSE}
+setwd("paste your directory name here")
+```
+
+Note, that you will need to copy and paste the directory.
+
+If you share your script or are working in another computer, everyone will have different directories. 
+
+---
+
+## 3.2. Directories
+
+Where I am?
+
+```{r, eval=FALSE}
+install.packages('here')
+```
+
+```{r, eval=FALSE}
+library(here)
+```
+
+```{r, eval=FALSE}
+here()
+```
+
+Advantages:
+- **here** allows to use the folder where we saved the script
+- You can share your script and your collaborators dont need to copy and paste their directory
+- If the folder name is changed or the folder is change from place it would still work
+
+
+---
+
+class: title-slide
+
+# Pause
+
+- Open RStudio `r fa("pencil-alt", fill = "#f2cc8f")`<br>
+- Install and load packages<br>
+- Check your directory<br>
+
+Make comments or suggestions [here `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
+.pull-left[
+Until here:
+- [Index](#index)
+- [What is R](r-story)
+- [RStudio and identify the parts](r-parts)
+- [Data types](data-types)
+- [Errors](errors)
+- [Packages](packages)
+- [Directories](directories)
+]
+
+
+.pull-right[
+Next part:
+- [Read data](read_files)
+- [Contact](#out)
+]
+
+
+---
+
+name: read-files
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1533279443086-d1c19a186416?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80)
+background-size: cover
+
+# `r text_spec("Read files", background = "#003049", color = "#e5e5e5", bold = T)`
+
+---
+
+## 4.1. Read files
+
+A typical R project looks like this:
+
+```{r echo=FALSE, out.height=250}
+knitr::include_graphics(paste0(ImageFolder,"031Program.png?raw=true"))
+```
+
+.right[
+Source: [R4DS](https://r4ds.had.co.nz/introduction.html)
+]
+
+---
+
+
+## 4.1. Read files
+
+To load data, we will use functions from the package tidyverse and the files:  
+
+- penguins1.csv
+- penguins2.csv
+- penguins3.txt
+- penguins4.xlsx  
+
+[Download here](https://github.com/MiriamLL/R_intro/tree/master/Downloads)
+
+Do you already have it installed?
+
+```{r, warning = FALSE, message = FALSE}
+library("tidyverse")
+```
+
+
+---
+
+## 4.2. By hand
+
+You can upload data by hand in your workspace
+
+In the **environment** there is a part that says **Import Dataset**
+
+Select the file **penguins1.csv**
+
+--
+
+Another option is to go to the **workspace** 
+Files> Click on the file and **import data set**
+
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics(paste0(ImageFolder,"019Rparts.png?raw=true"))
+```
+
+---
+
+## 4.2. csv format
+
+Instead of clicks, we can write in the console or script:
+
+```{r, eval=FALSE}
+penguins1<-read_csv("Downloads/penguins1.csv")
+```
+
+```{r, eval=FALSE}
+head(penguins1)
+```
+
+---
+
+## 4.2. csv format
+
+Now try opening **penguins2.csv**  
+
+This file instead of being separated by comas, its separated by colons ";"
+
+Therefore, instead of using **read_csv** we will need to use **read_csv2**
+
+To illustrate this issue, try loading the data using **read_csv**.
+
+```{r, eval=FALSE}
+penguins2<-read_csv("Downloads/penguins2.csv")
+```
+
+```{r, eval=FALSE}
+head(penguins2)
+```
+
+
+--
+
+Lets try now with **read_csv2**
+
+```{r, eval=FALSE}
+penguins2<-read_csv2("Downloads/penguins2.csv")
+```
+
+```{r, eval=FALSE}
+head(penguins2)
+```
+
+---
+
+## 4.3.  Other formats
+
+Click on the file **penguin3.txt**.  
+
+This one is separated by tabs.  
+
+read_tsv is for reading tab separated values.  
+
+```{r, eval=FALSE}
+penguins3<-read_tsv("Downloads/penguins3.txt")
+```
+
+```{r, eval=FALSE}
+head(penguins3)
+```
+
+---
+
+## 4.4. Excel format
+
+For loading excel data, there is a special package called **readxl**
+
+```{r, eval=FALSE}
+library("readxl")
+```
+
+```{r, eval=FALSE}
+penguins4<- read_excel("Downloads/penguins4.xlsx")
+```
+
+```{r, eval=FALSE}
+head(penguins4)
+```
+
+
+---
+
+## 4.5. From an url
+
+Urls (Uniform Resource Locators) or links can also be source of data.
+
+```{r, message=FALSE, warning=FALSE}
+penguins5<- read_csv('https://github.com/MiriamLL/R_intro/blob/master/Downloads/penguins1.csv')
+```
+
+Look at the first 5 rows of the data
+
+```{r, eval=FALSE}
+head(penguins,5)
+```
+
+---
+
+## 4.6. movebank
+
+There is a package called [move](https://cran.r-project.org/web/packages/move/vignettes/browseMovebank.html) that can be use to access data stored in movebank.
+
+To install:
+```{r, eval=FALSE}
+install.packages('move')
+```
+
+```{r, eval=FALSE}
+library(move)
+```
+
+```{r,eval=FALSE}
+movebankLogin()
+```
+
+Add your login, if you have one, at the console.
+
+---
+
+## 4.6 movebank
+
+It is more convenient to store your login information, but you have to be careful to not share the script with your login information.
+
+```{r, eval=FALSE}
+loginStored <- movebankLogin(username="MiriamLerma", password="********")
+```
+
+```{r,eval=TRUE}
+my_study<-'FTZ UCN Kelp Gull Chile'
+```
+
+```{r, eval=FALSE}
+MyGull<-getMovebankLocationData(study=my_study, 
+                               individual_local_identifier="KEGU-noband01-Coquimbo",
+                               timestamp_start="202212010000000",
+                               timestamp_end="20221205000000000",
+                               sensorID="GPS")
+```
+
+
+It might give you a warning, but for now that is not important.
+
+---
+
+## 4.7. packages with data
+
+Data can also be stored in packages.  
+For example [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
+
+```{r, eval=FALSE}
+install.packages("palmerpenguins")
+```
+
+```{r, warning=FALSE}
+library(palmerpenguins)
+penguin6<-penguins
+```
+
+```{r, eval=FALSE}
+head(penguin6)
+```
+
+---
+
+## 4.7. packages with data
+
+Moreover, packages with data are not limited to data frames.
+
+---
+
+## 4.7. packages with data
+
+For example, the package GermanNorthSea contains shapefiles
+
+With 6 lines of code you can plot a map (Showing just for illustration purposes)
+
+.pull-left[
+```{r, eval=FALSE, message=FALSE}
+# install.packages("devtools")
+devtools::install_github("MiriamLL/GermanNorthSea")
+```
+
+Now the package sf
+```{r, message=FALSE,eval=FALSE}
+#install.packages('sf')
+library(sf)
+library(ggplot2)
+library(GermanNorthSea)
+```
+
+Load and plot some data
+
+```{r}
+German_land<-GermanNorthSea::German_land
+```
+]
+
+.pull-right[
+```{r, fig.height=5}
+ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
+  coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000),
+                    label_axes = list(top = "E", left = "N", bottom = 'E', right='N'))
+```
+]
+
+---
+
+
+class: inverse
+
+# Pause
+
+Load penguin data  `r fa("pencil-alt", fill = '#FFFFFF')`  
+- Using read_csv <br>
+- Using read_csv2 <br>
+- Using read_tsv <br>
+- Using read_excel <br>
+
+There are many other options of files. Suggestions? [here `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
+
+.pull-left[
+Until here:
+- [Index](#index)
+- [What is R](#r-story)
+- [RStudio and identify the parts](#r-parts)
+- [Data types](#data-types)
+- [Errors](#errors)
+- [Packages](#packages)
+- [Directories](#directories)
+- [Read data](#read_files)
+]
+
+.pull-right[
+Next part:
+- [Rmd](#rmd)
+- [Contact](#out)
+]
+
+---
+
+name: out
+class:inverse
+background-image: url(https://images.unsplash.com/photo-1557075877-3e112375a834?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
+background-size: cover
+
+# Back to
+- [Index](#index)
+- [What is R](#r-story)
+- [RStudio and identify the parts](#r-parts)
+- [Data types](#data-types)
+- [Errors](#errors)
+- [Packages](#packages)
+- [Directories](#directories)
+- [Read data](#read_files)
+
+Make comments or suggestions [here `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
+.right[
+### Contact
+
+This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-04-18-intro-to-r/)
+]
+
+.right[
+
+[`r fa("home", fill = '#f2cc8f')`Home](https://www.miriam-lerma.com/teaching.html)
+
+[`r fa("play", fill = '#f2cc8f')` Index ](https://miriamll.github.io/R_intro/IntroToR_1104.html#2)
+
+]
+
+<br>
+
+.center[
+```{r, echo=FALSE}
+library(fontawesome)
+```
+<h3>`r fa("home", fill = "#74c69d")`[Volver ](https://www.miriam-lerma.com/teaching.html)
+]
