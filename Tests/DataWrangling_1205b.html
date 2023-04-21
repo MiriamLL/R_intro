@@ -1,0 +1,2741 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Welcome to R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Miriam Lerma" />
+    <script src="DataWrangling_1205b_files/header-attrs-2.20/header-attrs.js"></script>
+    <link rel="stylesheet" href="RZero-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: title-slide, bottom, right
+background-image: url(https://images.unsplash.com/photo-1542320260-f8f651de8c12?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80)
+background-size: cover
+
+### Welcome to R
+# 
+
+### **Miriam Lerma**&lt;br&gt;
+May 2023
+
+---
+name: index
+class: title-slide, inverse
+
+
+
+# Index
+
+- [rmarkdown](#rmd)
+- [read files](#read-files)
+- [basic operations](#basic-operationr)
+- [bolumns and Rows](#column-rows)
+- [tidydata](#tidydata)
+- [count](#count)
+- [select](#select)
+- [filter](#filter) 
+- [mutate](#mutate)
+- [summarise](#sumarise) 
+- [unique](#unique) 
+- [drop_na](#drop)  
+- [join](#join) 
+- [export](#exportar) 
+- [contact](#out)
+
+---
+
+class: title-slide, inverse
+
+# Today
+
+.pull-left[
+
+**Your profile**
+- You have R and Rstudio installed  
+- You can navigate inside Rstudio
+
+**Goals of today**
+
+- Difference between R script and Rmd
+- Load data
+- Basic operations
+- Manipulate data
+- Export clen data
+
+**Pauses and questions**
+
+- Exercises and 10 minute pauses for catching up
+- You can stop me to ask questions or
+- Questions can be made [at this link too <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
+]
+
+
+--
+
+.pull-right[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/001Approximate.png?raw=true" height="200" /&gt;
+
+]
+
+---
+
+class: title-slide, inverse
+
+# References
+
+- R for Data Science  
+[<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"/></svg> R4DS](https://r4ds.had.co.nz/)  
+
+- Data Carpentries  
+[<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"/></svg> Carpentries](https://datacarpentry.org/genomics-r-intro/00-introduction/index.html)
+
+- From Zero to Shero by RLadies   
+[<svg aria-hidden="true" role="img" viewBox="0 0 480 512" style="height:1em;width:0.94em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg> Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg) 
+
+
+
+
+- Images from  
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M48 32C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48H48zm0 32h106c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H38c-3.3 0-6-2.7-6-6V80c0-8.8 7.2-16 16-16zm426 96H38c-3.3 0-6-2.7-6-6v-36c0-3.3 2.7-6 6-6h138l30.2-45.3c1.1-1.7 3-2.7 5-2.7H464c8.8 0 16 7.2 16 16v74c0 3.3-2.7 6-6 6zM256 424c-66.2 0-120-53.8-120-120s53.8-120 120-120 120 53.8 120 120-53.8 120-120 120zm0-208c-48.5 0-88 39.5-88 88s39.5 88 88 88 88-39.5 88-88-39.5-88-88-88zm-48 104c-8.8 0-16-7.2-16-16 0-35.3 28.7-64 64-64 8.8 0 16 7.2 16 16s-7.2 16-16 16c-17.6 0-32 14.4-32 32 0 8.8-7.2 16-16 16z"/></svg> Unsplash](https://unsplash.com/)  
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg> Allison horst](https://twitter.com/allison_horst?lang=es)  
+
+- Other resources  
+[<svg aria-hidden="true" role="img" viewBox="0 0 480 512" style="height:1em;width:0.94em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg> María Paula Caldas](https://mpaulacaldas.github.io/rrrtidyverse/)  
+[<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg> RLadiesBuenosAires](https://www.youtube.com/watch?v=ycudMihLues&amp;t=3605s)
+
+
+---
+
+
+name: rmd
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1478641300939-0ec5188d3802?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1172&amp;q=80)
+background-size: cover
+
+.pull-right[
+# &lt;span style=" font-weight: bold;    color: #e5e5e5 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #003049 !important;" &gt;R markdown&lt;/span&gt;
+]
+
+---
+
+## 1. RMarkdown 
+
+Rmarkdown is very convenient because it let us export what we do in R to html or word documents.
+
+We can even make slides... &lt;br&gt;
+.right[...like this one.]
+
+--
+
+There are **plenty** of options on Rmd. I will just point out a few.
+
+---
+
+## 1.2. Rmd
+
+Markdown is plain text...  
+.right[...just as we write in a note block.]
+
+However, the advantages of using Rmd is that you can include a lot of text and thus you can write your **thesis, papers, webpage, books and presentations** without leaving RStudio.
+
+--
+
+Moreover, you can include:  
+- code and results that are automatically generated.
+
+---
+
+## 1.2. Rmd
+
+What Rmd does, is that it "translates" what has been written using **PanDoc**.  
+
+.center[
+&lt;img src="https://d33wubrfki0l68.cloudfront.net/61d189fd9cdf955058415d3e1b28dd60e1bd7c9b/b739c/lesson-images/rmarkdownflow.png" width="600" /&gt;
+]
+
+---
+
+
+## 1.2. Rmd
+
+We can generate an **output**, that can be read even if you dont have R install.
+
+Just like this presentation.
+
+--
+
+Also, you can get your results without showing the code and without having to copy and paste the results in other program like word.
+
+
+- Download Rmd file [here](https://raw.githubusercontent.com/MiriamLL/R_intro/master/02ExercisesRmd.Rmd).
+
+See the example:     
+
+_Here I load my data and check the number of observations_  
+
+```r
+library(palmerpenguins)
+penguins7&lt;-penguins
+nrow(penguins7) 
+```
+
+```
+## [1] 344
+```
+
+---
+
+## 1.2. R vs Rmd
+
+**Considerations:  **  
+Rmd behaves differently than R 
+- Rmarkdown works better in a clean environment.  
+- All the variables need to be inside your file.
+- This actually assures that your workflow is **reproducible**.
+
+---
+
+## 1.3. Start an Rmd
+
+To start a new file
+
+File&gt;NewFile&gt;RMarkdown &lt;br&gt;
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/040Rmd.png?raw=true" height="300" /&gt;
+
+---
+
+## 1.4. Rmd parts
+
+Rmd has four main parts:
+- yaml (including the output)
+- chunks 
+- plain text
+- knit
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/041Rmd.png?raw=true" height="300" /&gt;
+
+
+---
+
+## 1.5. Rmd text
+
+You can write plain text in the white area
+
+You can use: 
+- **bold** using two astheriscs.  
+- *italics* using one astherics before and one after the word.  
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdPlainText.png?raw=true" height="300" /&gt;
+
+
+More options: [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#e9c46a;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>Text in Rmd](https://rmarkdown.rstudio.com/lesson-8.html)
+
+---
+
+## 1.6. Rmd chunk
+
+The parts that are in grey are chunks.  
+- The code is written inside three inverted commas at the start and at the end and the r between {}
+This is because we need to tell which language are we using
+
+- We can run the code using the green arrow that looks like a <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#588157;overflow:visible;position:relative;"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/></svg>, using the button **Run** in the upper part of the code editor, or using **ctrl+enter**.
+- The results in Rmd appears in the code editor document, not in the console.
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdChunk.png?raw=true" height="300" /&gt;
+
+---
+
+## 1.7. Rmd chunk
+
+We can add new code chunks using **Ctrl+Alt+I** , the **back ticks** or in the green square with a C in the upper part of the code editor **+**. 
+
+
+The R code needs to be inside the chunks (the shadowed grey parts) to run.
+
+**Common mistakes are**:
+- Not closing the parenthesis **{}**
+- Not having the three inverted commas
+- Add code outside the codechunks
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdChunk.png?raw=true" height="300" /&gt;
+
+---
+
+## 1.8. YAML
+
+YAML means _“YAML Yet Ain’t Markup Language”._ 
+
+By default it will show: title, author, date, **output**.  
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdYaml.png?raw=true" height="300" /&gt;
+
+
+---
+
+## 1.8. YAML
+
+When you change the YAML, the information that appears in your report will change&lt;br&gt;
+If you chnge the output, different type of reports will be generated.
+
+**Common mistakes**  
+When you **knit** or render your report, there is something incompatible with Pandoc (or LateX)
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdYaml.png?raw=true" height="300" /&gt;
+
+---
+
+## 1.9. Knitr
+
+There is a botton that says **knit** with a knitting blue ball.
+This bottons generates the report.
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/042RmdKnit.png?raw=true" height="300" /&gt;
+
+**Note**: every time we knit the changes are saved on our document.
+
+
+---
+
+## 1.10. Rmd titles
+
+.pull-left[
+You can use the titles to navigate.
+
+Search for the square with lines (say outline) or click on  **Crtl+Shft+O**.  
+
+This can be very useful in large documents.
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/043Outline.png?raw=true" height="30" /&gt;
+]
+
+.pull-right[
+Main title use one hashtag #.&lt;br&gt;
+- First level #.&lt;br&gt;
+- Second level ##.&lt;br&gt;
+- Third level ###.&lt;br&gt;
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/044Outline.png?raw=true" height="100" /&gt;
+]
+
+---
+name: outputs
+
+## 1.11. Rmd outputs  
+
+The documents can be exported to word, pdf and html.  
+
+Advantages and disadvantages for each one:  
+
+- **word**: easier to share and many journals ask for documents in this format  
+- **pdf**: easier to share but not easy to edit  
+- **html**: you can include a lot of type of contents ⭐, but might look unfamiliar   
+
+---
+
+## 1.11. Rmd outputs  
+
+To change the output, you need to change it in the YAML, or chick on the arrow <svg aria-hidden="true" role="img" viewBox="0 0 320 512" style="height:1em;width:0.62em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#2a9d8f;overflow:visible;position:relative;"><path d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"/></svg> in the knit button and chose your format.  
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/045Outputs.png?raw=true" height="150" /&gt;
+
+To modify the word format [see here](https://rfortherestofus.com/2020/07/word-reference-documents-rmarkdown/)
+
+---
+class: inverse
+
+# Pause
+
+- Open RStudio <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg> 
+- Open a Rmd file (File&gt;NewFile&gt;Rmd)
+- Create three different formats: pdf, word and html
+- Delete everything except for the YAML (change YAML to your info)
+- Add a code chunk
+- Add text
+
+Example of code chunk
+
+```r
+library(palmerpenguins)
+nrow(penguins) #sample size
+```
+
+
+**Note**&lt;br&gt;
+Maybe you need to install tinytex&lt;br&gt;
+
+```r
+tinytex::install_tinytex()
+```
+
+- [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#e9c46a;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>What is tiny text?](https://yihui.org/tinytex/)
+
+---
+
+class: title-slide, bottom
+background-image: url(https://images.unsplash.com/photo-1533279443086-d1c19a186416?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1632&amp;q=80)
+background-size: cover
+
+#  &lt;span style=" font-weight: bold;    color: #e5e5e5 !important;border-radius: 4px; padding-right: 4px; padding-left: 4px; background-color: #003049 !important;" &gt;Load data&lt;/span&gt;
+
+---
+
+
+## 4.1. Read files
+
+A typical R project looks like this:
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/031Program.png?raw=true" height="250" /&gt;
+
+.right[
+Source: [R4DS](https://r4ds.had.co.nz/introduction.html)
+]
+
+---
+
+
+## 4.1. Read files
+
+To load data, we will use functions from the package tidyverse and the files:  
+
+- penguins1.csv
+- penguins2.csv
+- penguins3.txt
+- penguins4.xlsx  
+
+[Download here](https://github.com/MiriamLL/R_intro/tree/master/Downloads)
+
+Do you already have it installed?
+
+
+```r
+library("tidyverse")
+```
+
+
+---
+
+## 4.2. By hand
+
+You can upload data by hand in your workspace
+
+In the **environment** there is a part that says **Import Dataset**
+
+Select the file **penguins1.csv**
+
+--
+
+Another option is to go to the **workspace** 
+Files&gt; Click on the file and **import data set**
+
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/019Rparts.png?raw=true" height="350" /&gt;
+
+---
+
+## 4.2. csv format
+
+Instead of clicks, we can write in the console or script:
+
+
+```r
+penguins1&lt;-read_csv("Downloads/penguins1.csv")
+```
+
+
+```r
+head(penguins1)
+```
+
+---
+
+## 4.2. csv format
+
+Now try opening **penguins2.csv**  
+
+This file instead of being separated by comas, its separated by colons ";"
+
+Therefore, instead of using **read_csv** we will need to use **read_csv2**
+
+To illustrate this issue, try loading the data using **read_csv**.
+
+
+```r
+penguins2&lt;-read_csv("Downloads/penguins2.csv")
+```
+
+
+```r
+head(penguins2)
+```
+
+
+--
+
+Lets try now with **read_csv2**
+
+
+```r
+penguins2&lt;-read_csv2("Downloads/penguins2.csv")
+```
+
+
+```r
+head(penguins2)
+```
+
+---
+
+## 4.3.  Other formats
+
+Click on the file **penguin3.txt**.  
+
+This one is separated by tabs.  
+
+read_tsv is for reading tab separated values.  
+
+
+```r
+penguins3&lt;-read_tsv("Downloads/penguins3.txt")
+```
+
+
+```r
+head(penguins3)
+```
+
+---
+
+## 4.4. Excel format
+
+For loading excel data, there is a special package called **readxl**
+
+
+```r
+library("readxl")
+```
+
+
+```r
+penguins4&lt;- read_excel("Downloads/penguins4.xlsx")
+```
+
+
+```r
+head(penguins4)
+```
+
+
+---
+
+## 4.5. From an url
+
+Urls (Uniform Resource Locators) or links can also be source of data.
+
+
+```r
+penguins5&lt;- read_csv('https://github.com/MiriamLL/R_intro/blob/master/Downloads/penguins1.csv')
+```
+
+Look at the first 5 rows of the data
+
+
+```r
+head(penguins,5)
+```
+
+---
+
+## 4.6. movebank
+
+There is a package called [move](https://cran.r-project.org/web/packages/move/vignettes/browseMovebank.html) that can be use to access data stored in movebank.
+
+To install:
+
+```r
+install.packages('move')
+```
+
+
+```r
+library(move)
+```
+
+
+```r
+movebankLogin()
+```
+
+Add your login, if you have one, at the console.
+
+---
+
+## 4.6 movebank
+
+It is more convenient to store your login information, but you have to be careful to not share the script with your login information.
+
+
+```r
+loginStored &lt;- movebankLogin(username="MiriamLerma", password="********")
+```
+
+
+```r
+my_study&lt;-'FTZ UCN Kelp Gull Chile'
+```
+
+
+```r
+MyGull&lt;-getMovebankLocationData(study=my_study, 
+                               individual_local_identifier="KEGU-noband01-Coquimbo",
+                               timestamp_start="202212010000000",
+                               timestamp_end="20221205000000000",
+                               sensorID="GPS")
+```
+
+
+It might give you a warning, but for now that is not important.
+
+---
+
+## 4.7. packages with data
+
+Data can also be stored in packages.  
+For example [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
+
+
+```r
+install.packages("palmerpenguins")
+```
+
+
+```r
+library(palmerpenguins)
+penguin6&lt;-penguins
+```
+
+
+```r
+head(penguin6)
+```
+
+---
+
+## 4.7. packages with data
+
+Moreover, packages with data are not limited to data frames.
+
+---
+
+## 4.7. packages with data
+
+For example, the package GermanNorthSea contains shapefiles
+
+With 6 lines of code you can plot a map (Showing just for illustration purposes)
+
+.pull-left[
+
+```r
+# install.packages("devtools")
+devtools::install_github("MiriamLL/GermanNorthSea")
+```
+
+Now the package sf
+
+```r
+#install.packages('sf')
+library(sf)
+library(ggplot2)
+library(GermanNorthSea)
+```
+
+Load and plot some data
+
+
+```r
+German_land&lt;-GermanNorthSea::German_land
+```
+]
+
+.pull-right[
+
+```r
+ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
+  coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000),
+                    label_axes = list(top = "E", left = "N", bottom = 'E', right='N'))
+```
+
+![](DataWrangling_1205b_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+]
+
+---
+
+
+class: inverse
+
+# Pause
+
+Load penguin data  <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>  
+- Using read_csv &lt;br&gt;
+- Using read_csv2 &lt;br&gt;
+- Using read_tsv &lt;br&gt;
+- Using read_excel &lt;br&gt;
+
+There are many other options of files. Suggestions? [here <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
+
+.pull-left[
+Until here:
+- [Index](#index)
+- [What is R](#r-story)
+- [RStudio and identify the parts](#r-parts)
+- [Data types](#data-types)
+- [Errors](#errors)
+- [Packages](#packages)
+- [Directories](#directories)
+- [Read data](#read_files)
+]
+
+.pull-right[
+Next part:
+- [Rmd](#rmd)
+- [Contact](#out)
+]
+
+
+---
+
+class: title-slide, inverse, bottom,right
+background-image: url(https://images.unsplash.com/photo-1564939558297-fc396f18e5c7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1351&amp;q=80)
+background-size: cover
+
+# 2. Operaciones
+
+---
+
+## 2.1. Operaciones basicas
+
+Sumas
+
+```r
+15+6
+```
+
+```
+## [1] 21
+```
+
+Restas
+
+```r
+4-6
+```
+
+```
+## [1] -2
+```
+
+---
+
+## 2.1. Operaciones basicas
+
+Divisiones
+
+```r
+1700/8
+```
+
+```
+## [1] 212.5
+```
+
+Multiplicaciones
+
+```r
+20*20
+```
+
+```
+## [1] 400
+```
+
+---
+
+## 2.2. Operaciones usando objetos
+
+```r
+Personas&lt;-5+6
+Pizzas&lt;-5*12
+```
+
+Cuantos pedazos le toca a cada quien?
+
+```r
+Personas/Pizzas
+```
+
+```
+## [1] 0.1833333
+```
+
+---
+
+## 2.3. Funciones comunes
+
+Media
+
+```r
+Temperatura&lt;-c(34,45,67,20)
+mean(Temperatura)
+```
+
+```
+## [1] 41.5
+```
+
+Mediana
+
+```r
+median(Temperatura)
+```
+
+```
+## [1] 39.5
+```
+
+Desviacion estandar
+
+```r
+sd(Temperatura)
+```
+
+```
+## [1] 19.84103
+```
+
+---
+
+## 2.3. Funciones comunes
+
+Rangos
+
+```r
+range(Temperatura)
+```
+
+```
+## [1] 20 67
+```
+
+Minimo
+
+```r
+min(Temperatura)
+```
+
+```
+## [1] 20
+```
+
+Maximo
+
+```r
+max(Temperatura)
+```
+
+```
+## [1] 67
+```
+
+---
+
+## 2.4. Buscar ayuda
+
+
+```r
+mean(1,3,6,9,12)
+```
+
+```
+## [1] 1
+```
+Porque me da 1? no me parece correcto. 
+
+Pregúntale a R
+
+```r
+?mean
+```
+Las instrucciones aparecerán en la esquina inferior derecha, en la pestaña **Help**.
+
+Hay que poner la c de ***concatenar***
+
+```r
+mean(c(1,3,6,9,12))
+```
+
+```
+[1] 6.2
+```
+Ya tiene más sentido.
+
+---
+
+## 2.4. Buscar ayuda
+
+Parte de la fortalezas de R y porque es tan usado es que hay muchos sitios para pedir ayuda.
+
+Lo primero que hay que hacer es tener paciencia y revisar que no hayamos escrito algo mal.
+
+Si no funciona, otra opción es literalmente copiar el error que nos aparece y escribirlo en google.
+
+Fuentes confiables son: 
+- stackoverflow  
+Seguro lo vamos a usar en algún momento durante la clase.
+
+- twitter  
+Hashtag: #rstatsES (en español) o #rstats (en inglés).
+
+---
+
+class: inverse
+
+# Ejercicios <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
+
+Realizar operaciones en R usando objetos
+
+---
+
+## 2.5. Ejercicios
+
+Tengo tres gatos y cada uno come 2 latas de comida, cuantas latas tengo que comprar?
+
+```r
+Gatitos&lt;-3
+Latas&lt;-2
+Gatitos*Latas
+```
+
+--
+
+Tengo 4 perros y ya se cuantos gatos, cuantas mascotas tengo en total?
+
+```r
+Perritos&lt;-4
+Mascotas&lt;-Perritos+Gatitos
+Mascotas
+```
+
+---
+
+## 2.5 Ejercicios
+
+Quiero calcular cuantos kilos de croquetas debo comprar si mis perritos (que son 3) se comen 0.5 Kg al día y quiero ir al super cada 15 días por lo de la pandemia?
+
+
+```r
+#Perritos&lt;-
+#Croquetas&lt;-
+#Dias&lt;-
+```
+
+
+```r
+#(Perritos*Croquetas)*Dias
+```
+Hasta le podríamos agregar el precio de las croquetas, si quisiéramos.
+
+&lt;h1&gt;<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#black;overflow:visible;position:relative;"><path d="M298.06,224,448,277.55V496a16,16,0,0,1-16,16H368a16,16,0,0,1-16-16V384H192V496a16,16,0,0,1-16,16H112a16,16,0,0,1-16-16V282.09C58.84,268.84,32,233.66,32,192a32,32,0,0,1,64,0,32.06,32.06,0,0,0,32,32ZM544,112v32a64,64,0,0,1-64,64H448v35.58L320,197.87V48c0-14.25,17.22-21.39,27.31-11.31L374.59,64h53.63c10.91,0,23.75,7.92,28.62,17.69L464,96h64A16,16,0,0,1,544,112Zm-112,0a16,16,0,1,0-16,16A16,16,0,0,0,432,112Z"/></svg>&lt;/h1&gt;
+
+---
+
+## 2.6. Datos pinguinos.
+
+Inspeccionen los datos de pinguinos.
+
+```r
+library(datos)
+```
+
+```
+## Warning: package 'datos' was built under R version 4.2.3
+```
+
+```r
+Pingus&lt;-pinguinos
+```
+
+.center[
+&lt;img src="https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/lter_penguins.png" height="350" /&gt;
+]
+
+
+---
+
+## 2.6. Datos pinguinos. 
+
+Incluye datos de hembras y machos, de tres especies diferentes en tres islas diferentes.
+Incluye datos de medidas como masa corporal, longitud del pico, largo de la aleta.  
+
+.center[
+&lt;img src="https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/culmen_depth.png" height="250" /&gt;
+]
+
+---
+
+## 2.6. Datos pinguinos. 
+
+Como calculo el **rango** de la masa corporal de los pinguinos?  
+**Cuidado con los NAs!, na.rm me sirve para ignorarlos**
+
+
+```r
+range(Pingus$masa_corporal_g,
+*     na.rm=TRUE)
+```
+
+Cuanto pesan en **promedio** los pinguinos en kilos?  
+Guardarlo en un objeto y transformar de kilos a gramos.
+
+```r
+PromedioPesoPingus&lt;-mean(Pingus$masa_corporal_g,na.rm=TRUE)
+PromedioPesoPingus/1000
+```
+
+```
+## [1] 4.201754
+```
+
+---
+
+## 2.7. Ejercicios pinguinos.
+
+- Como calculo el **promedio** del largo del pico de los pinguinos?  
+
+```r
+m**n(Pingus$largo_pico_mm,na.rm=TRUE)
+```
+
+- Como obtengo el **rango** de valores del largo del pico de los pinguinos?  
+
+```r
+r***e(Pingus$*****,na.rm=TRUE)
+```
+
+- Como obtengo el valor **mínimo** del largo del pico de los pinguinos?  
+
+```r
+m**(Pingus$*****,na.rm=TRUE)
+```
+
+---
+
+class: inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1516382799247-87df95d790b7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1353&amp;q=80)
+background-size: cover
+
+# **3. Inspeccionar &lt;br&gt;data frames**
+
+---
+
+## 3.1. Inspeccionar data frames
+
+- Ver mis primeras y ultimas filas  
+- Ver filas especificas
+- Ver columnas especificas
+- Extraer específicos de acuerdo a su columna y fila
+
+&lt;img src="https://www.frases333.com/wp-content/uploads/2019/03/Filas-Columnas.png" height="300" /&gt;
+  
+Fuente: frases333
+
+---
+
+## 3.2. head() y tail()
+
+Para ver mis primeras y ultimas filas
+
+```r
+head(Pingus)
+```
+
+```
+## # A tibble: 6 × 8
+##   especie isla      largo_pico_mm alto_pico_mm largo_aleta…¹ masa_…² sexo   anio
+##   &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;        &lt;dbl&gt;         &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+## 1 Adelia  Torgersen          39.1         18.7           181    3750 macho  2007
+## 2 Adelia  Torgersen          39.5         17.4           186    3800 hemb…  2007
+## 3 Adelia  Torgersen          40.3         18             195    3250 hemb…  2007
+## 4 Adelia  Torgersen          NA           NA              NA      NA &lt;NA&gt;   2007
+## 5 Adelia  Torgersen          36.7         19.3           193    3450 hemb…  2007
+## 6 Adelia  Torgersen          39.3         20.6           190    3650 macho  2007
+## # … with abbreviated variable names ¹​largo_aleta_mm, ²​masa_corporal_g
+```
+
+
+```r
+tail(Pingus)
+```
+
+```
+## # A tibble: 6 × 8
+##   especie isla  largo_pico_mm alto_pico_mm largo_aleta_mm masa_cor…¹ sexo   anio
+##   &lt;fct&gt;   &lt;fct&gt;         &lt;dbl&gt;        &lt;dbl&gt;          &lt;int&gt;      &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+## 1 Barbijo Dream          45.7         17              195       3650 hemb…  2009
+## 2 Barbijo Dream          55.8         19.8            207       4000 macho  2009
+## 3 Barbijo Dream          43.5         18.1            202       3400 hemb…  2009
+## 4 Barbijo Dream          49.6         18.2            193       3775 macho  2009
+## 5 Barbijo Dream          50.8         19              210       4100 macho  2009
+## 6 Barbijo Dream          50.2         18.7            198       3775 hemb…  2009
+## # … with abbreviated variable name ¹​masa_corporal_g
+```
+
+---
+
+## 3.3. Filas
+
+Las filas se pone entre corchetes en la **primera** posición.
+
+```r
+(Pingus[1,])
+```
+
+```
+## # A tibble: 1 × 8
+##   especie isla      largo_pico_mm alto_pico_mm largo_aleta…¹ masa_…² sexo   anio
+##   &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;        &lt;dbl&gt;         &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+## 1 Adelia  Torgersen          39.1         18.7           181    3750 macho  2007
+## # … with abbreviated variable names ¹​largo_aleta_mm, ²​masa_corporal_g
+```
+
+Muéstrame las primeras 3 filas. &lt;br&gt;
+El signo de **:** es como decir "de aquí hasta acá".
+
+```r
+(Pingus[1:3,])
+```
+
+```
+## # A tibble: 3 × 8
+##   especie isla      largo_pico_mm alto_pico_mm largo_aleta…¹ masa_…² sexo   anio
+##   &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;        &lt;dbl&gt;         &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+## 1 Adelia  Torgersen          39.1         18.7           181    3750 macho  2007
+## 2 Adelia  Torgersen          39.5         17.4           186    3800 hemb…  2007
+## 3 Adelia  Torgersen          40.3         18             195    3250 hemb…  2007
+## # … with abbreviated variable names ¹​largo_aleta_mm, ²​masa_corporal_g
+```
+
+---
+
+## 3.4. Columnas
+
+Las columnas se pone entre corchetes en la **segunda** posición.
+
+```r
+head(Pingus[,1])
+```
+
+```
+## # A tibble: 6 × 1
+##   especie
+##   &lt;fct&gt;  
+## 1 Adelia 
+## 2 Adelia 
+## 3 Adelia 
+## 4 Adelia 
+## 5 Adelia 
+## 6 Adelia
+```
+
+Usando $ y el nombre de la columna.  
+
+```r
+head(Pingus$especie)
+```
+
+```
+## [1] Adelia Adelia Adelia Adelia Adelia Adelia
+## Levels: Adelia Barbijo Papúa
+```
+
+---
+
+## 3.5. Columnas y filas
+
+Muéstrame un dato especifico [**fila**, **columna**]
+
+```r
+(Pingus[1,1])
+```
+
+```
+## # A tibble: 1 × 1
+##   especie
+##   &lt;fct&gt;  
+## 1 Adelia
+```
+
+
+```r
+(Pingus[3,2])
+```
+
+```
+## # A tibble: 1 × 1
+##   isla     
+##   &lt;fct&gt;    
+## 1 Torgersen
+```
+
+
+---
+
+class: inverse, bottom, left
+background-image: url(https://images.unsplash.com/photo-1586892477838-2b96e85e0f96?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1341&amp;q=80)
+background-size: cover
+
+
+# 4. Datos &lt;br&gt;ordenados
+
+---
+
+## 4.1. Ordenar datos
+
+El proceso mas tardado es el de limpieza y preparación de los datos, y se realiza varias veces.  
+
+&lt;img src="https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/data-science.svg" height="300" /&gt;
+
+---
+
+## 4.2. Datos ordenados
+
+Los datos ordenados (**"tidy"**), es una estructuración de los conjuntos de datos para facilitar el análisis. 
+
+&lt;img src="https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/tidy-1.svg" height="200" /&gt;
+
+- Cada variable debe estar columna
+- Cada observación es una fila
+- Cada tipo de unidad de observación forma una tabla 
+
+---
+
+## 4.3. Errores comunes
+
+Se recomienda que al almacenar datos:
+- Diferentes tipos de variables se almacenen en columnas separadas.
+
+
+```r
+MiPrimerAcomodo&lt;-'Miriam (Mujer)'
+MiMejorAcomodo&lt;-c('Miriam','Mujer')
+```
+
+Es importante que cuando recolecten datos por primera vez piensen en como van a estructurarlos.  
+Si no el proceso de ordenarlos puede ser tardado 🕣.
+
+---
+
+## 4.4. Ordenar
+
+Hay muchas maneras de ordenar y manipular tus datos.  
+En ingles le dicen 'data wrangling' que significa como rodeo.
+
+Hay muchas maneras de hacer las mismas operaciones. Hoy usaremos el paquete **tidyverse**.
+
+```r
+library(tidyverse)
+```
+
+&lt;h1&gt;<svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M260.8 291.06c-28.63-22.94-62-35.06-96.4-35.06C87 256 21.47 318.72 1.43 412.06c-3.55 16.6-.43 33.83 8.57 47.3C18.75 472.47 31.83 480 45.88 480H592c-103.21 0-155-37.07-233.19-104.46zm234.65-18.29L468.4 116.2A64 64 0 0 0 392 64.41L200.85 105a64 64 0 0 0-50.35 55.79L143.61 226c6.9-.83 13.7-2 20.79-2 41.79 0 82 14.55 117.29 42.82l98 84.48C450.76 412.54 494.9 448 592 448a48 48 0 0 0 48-48c0-25.39-29.6-119.33-144.55-127.23z"/></svg>&lt;h1&gt;
+
+
+---
+
+## 4.5. Ordenar
+
+**Porque usar datos ordenados? **
+- Muchos comandos se basan en la suposición de que tus datos están ordenados.  
+- El formato es el esperado para análisis estadísticos.  
+- Tener datos ordenados ayudan a realizar los gráficos.  
+- Podemos compartirlos y la otra persona podría entender nuestra tabla mas rápido que en una tabla desordenada.  
+
+---
+
+## 4.6. Tidyverse 
+
+Tidyverse engloba varios paquetes, la mayoría para específicamente para inspeccionar y manipular tus datos. 
+
+.center[
+&lt;img src="https://tidyverse.tidyverse.org/articles/tidyverse-logo.png" height="350" /&gt;
+]
+
+---
+
+## 4.7. Pipe
+
+Vamos a usar mucho el **pipe** un argumento que se usa para encadenar funciones.
+
+En su teclado: strg+alt+M
+
+```r
+%&gt;% 
+```
+
+---
+
+## 4.8. Manipular
+
+El paquete dplyr nos da una serie de herramientas para **manipular** datos
+
+Las principales funciones, o **verbos** de dplyr, son:
+
+- **count()** para contar
+- **select()**, para seleccionar columnas
+- **filter()**, para filtrar filas
+- **mutate()**, para crear o modificar columnas
+- **summarise()**, para resumir información de las columnas
+
+Hoy veremos **count** y **select**, la próxima clase los otros.
+
+---
+
+## 4.9. count()
+
+¿Cuantos datos tengo?
+
+```r
+Pingus %&gt;% 
+  count()
+```
+
+¿Cuantos datos tengo por especie?
+
+```r
+Pingus %&gt;% 
+  count(especie)
+```
+
+---
+
+## 4.10. count()
+
+¿Cuantos datos tengo por isla y por especie?
+
+```r
+Pingus %&gt;% 
+  count(isla,especie)
+```
+
+```
+## # A tibble: 5 × 3
+##   isla      especie     n
+##   &lt;fct&gt;     &lt;fct&gt;   &lt;int&gt;
+## 1 Biscoe    Adelia     44
+## 2 Biscoe    Papúa     124
+## 3 Dream     Adelia     56
+## 4 Dream     Barbijo    68
+## 5 Torgersen Adelia     52
+```
+
+El argumento **arrange()** nos ayuda ordenarlos 
+
+```r
+Pingus %&gt;%
+  count(anio) %&gt;% 
+  arrange((n))
+```
+
+---
+
+## 4.11. select()
+
+Con la función **select()**, podemos elegir:
+Que columnas quiero ver.
+
+```r
+Pingus %&gt;% 
+* select(especie) %&gt;%
+  head()
+```
+
+```
+## # A tibble: 6 × 1
+##   especie
+##   &lt;fct&gt;  
+## 1 Adelia 
+## 2 Adelia 
+## 3 Adelia 
+## 4 Adelia 
+## 5 Adelia 
+## 6 Adelia
+```
+
+---
+
+## 4.12. select(-)
+
+Que columnas no quiero ver.  
+El signo **-** es como decir "menos ese"
+
+```r
+Pingus %&gt;% 
+* select(-sexo) %&gt;%
+  head()
+```
+
+```
+## # A tibble: 6 × 7
+##   especie isla      largo_pico_mm alto_pico_mm largo_aleta_mm masa_corpo…¹  anio
+##   &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;        &lt;dbl&gt;          &lt;int&gt;        &lt;int&gt; &lt;int&gt;
+## 1 Adelia  Torgersen          39.1         18.7            181         3750  2007
+## 2 Adelia  Torgersen          39.5         17.4            186         3800  2007
+## 3 Adelia  Torgersen          40.3         18              195         3250  2007
+## 4 Adelia  Torgersen          NA           NA               NA           NA  2007
+## 5 Adelia  Torgersen          36.7         19.3            193         3450  2007
+## 6 Adelia  Torgersen          39.3         20.6            190         3650  2007
+## # … with abbreviated variable name ¹​masa_corporal_g
+```
+
+---
+
+## 4.13. select(-)
+
+El signo de admiración **!** es como decir "diferente a".
+
+```r
+Pingus %&gt;% 
+* select(!sexo) %&gt;%
+  head()
+```
+
+```
+## # A tibble: 6 × 7
+##   especie isla      largo_pico_mm alto_pico_mm largo_aleta_mm masa_corpo…¹  anio
+##   &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;        &lt;dbl&gt;          &lt;int&gt;        &lt;int&gt; &lt;int&gt;
+## 1 Adelia  Torgersen          39.1         18.7            181         3750  2007
+## 2 Adelia  Torgersen          39.5         17.4            186         3800  2007
+## 3 Adelia  Torgersen          40.3         18              195         3250  2007
+## 4 Adelia  Torgersen          NA           NA               NA           NA  2007
+## 5 Adelia  Torgersen          36.7         19.3            193         3450  2007
+## 6 Adelia  Torgersen          39.3         20.6            190         3650  2007
+## # … with abbreviated variable name ¹​masa_corporal_g
+```
+
+---
+
+## 4.14. select(:)
+
+Seleccionar columnas que están en medio de varias columnas.  
+El signo de **:** es como decir "de aquí hasta acá".
+
+```r
+Pingus %&gt;% 
+* select(largo_pico_mm:masa_corporal_g) %&gt;%
+  head()
+```
+
+```
+## # A tibble: 6 × 4
+##   largo_pico_mm alto_pico_mm largo_aleta_mm masa_corporal_g
+##           &lt;dbl&gt;        &lt;dbl&gt;          &lt;int&gt;           &lt;int&gt;
+## 1          39.1         18.7            181            3750
+## 2          39.5         17.4            186            3800
+## 3          40.3         18              195            3250
+## 4          NA           NA               NA              NA
+## 5          36.7         19.3            193            3450
+## 6          39.3         20.6            190            3650
+```
+
+---
+
+## 4.15. select(:)
+
+También se pueden usar cadenas de caracteres (strings).  
+Tanto usando como termina el nombre de la columna.
+
+```r
+Pingus %&gt;% 
+  select(ends_with("mm"))
+```
+
+```
+## # A tibble: 344 × 3
+##    largo_pico_mm alto_pico_mm largo_aleta_mm
+##            &lt;dbl&gt;        &lt;dbl&gt;          &lt;int&gt;
+##  1          39.1         18.7            181
+##  2          39.5         17.4            186
+##  3          40.3         18              195
+##  4          NA           NA               NA
+##  5          36.7         19.3            193
+##  6          39.3         20.6            190
+##  7          38.9         17.8            181
+##  8          39.2         19.6            195
+##  9          34.1         18.1            193
+## 10          42           20.2            190
+## # … with 334 more rows
+```
+
+
+---
+
+## 4.16. select(:)
+
+También se pueden usar cadenas de caracteres (strings).  
+Como seleccionando como inicia el nombre de la columna.  
+
+```r
+Pingus %&gt;% 
+  select(starts_with("masa"))
+```
+
+```
+## # A tibble: 344 × 1
+##    masa_corporal_g
+##              &lt;int&gt;
+##  1            3750
+##  2            3800
+##  3            3250
+##  4              NA
+##  5            3450
+##  6            3650
+##  7            3625
+##  8            4675
+##  9            3475
+## 10            4250
+## # … with 334 more rows
+```
+
+---
+
+class: inverse
+
+# Ejercicios <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
+
+.pull-left[
+
+```r
+Pingus %&gt;% 
+  count()
+```
+
+
+```r
+Pingus %&gt;% 
+  count(especie) 
+```
+]
+
+.pull-right[
+
+```r
+Pingus %&gt;% 
+  select(especie) %&gt;%
+  head()
+```
+
+
+```r
+Pingus %&gt;% 
+  select(-sexo) %&gt;% 
+  head()
+```
+
+
+```r
+PingusSinSexo&lt;-Pingus %&gt;% 
+  select(-sexo) %&gt;% 
+  head()
+```
+]
+
+
+---
+
+class: inverse
+
+## Créditos
+
+-Material basado en el libro:  
+[<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"/></svg> R4DS, editado por Riva Quiroga](https://r4ds-en-espaniol.netlify.app/)  
+
+-Y materiales de RLadies   
+[<svg aria-hidden="true" role="img" viewBox="0 0 480 512" style="height:1em;width:0.94em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg> Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg)  
+
+-Presentaciones de tidyverse:  
+[<svg aria-hidden="true" role="img" viewBox="0 0 480 512" style="height:1em;width:0.94em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg> María Paula Caldas](https://mpaulacaldas.github.io/rrrtidyverse/)  
+[<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg> RLadiesBuenosAires](https://www.youtube.com/watch?v=ycudMihLues&amp;t=3605s)
+
+
+-Imágenes adicionales  
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M48 32C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48H48zm0 32h106c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H38c-3.3 0-6-2.7-6-6V80c0-8.8 7.2-16 16-16zm426 96H38c-3.3 0-6-2.7-6-6v-36c0-3.3 2.7-6 6-6h138l30.2-45.3c1.1-1.7 3-2.7 5-2.7H464c8.8 0 16 7.2 16 16v74c0 3.3-2.7 6-6 6zM256 424c-66.2 0-120-53.8-120-120s53.8-120 120-120 120 53.8 120 120-53.8 120-120 120zm0-208c-48.5 0-88 39.5-88 88s39.5 88 88 88 88-39.5 88-88-39.5-88-88-88zm-48 104c-8.8 0-16-7.2-16-16 0-35.3 28.7-64 64-64 8.8 0 16 7.2 16 16s-7.2 16-16 16c-17.6 0-32 14.4-32 32 0 8.8-7.2 16-16 16z"/></svg> Portada por Jess Bailey](https://unsplash.com/@jessbaileydesigns) &lt;br&gt;
+[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M48 32C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48H48zm0 32h106c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H38c-3.3 0-6-2.7-6-6V80c0-8.8 7.2-16 16-16zm426 96H38c-3.3 0-6-2.7-6-6v-36c0-3.3 2.7-6 6-6h138l30.2-45.3c1.1-1.7 3-2.7 5-2.7H464c8.8 0 16 7.2 16 16v74c0 3.3-2.7 6-6 6zM256 424c-66.2 0-120-53.8-120-120s53.8-120 120-120 120 53.8 120 120-53.8 120-120 120zm0-208c-48.5 0-88 39.5-88 88s39.5 88 88 88 88-39.5 88-88-39.5-88-88-88zm-48 104c-8.8 0-16-7.2-16-16 0-35.3 28.7-64 64-64 8.8 0 16 7.2 16 16s-7.2 16-16 16c-17.6 0-32 14.4-32 32 0 8.8-7.2 16-16 16z"/></svg> Unsplash](https://unsplash.com/)
+
+
+---
+
+class: title-slide, middle, center
+background-image: url(https://images.unsplash.com/photo-1527402858-36f052d83df4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80)
+background-size: cover
+
+# Ordenar
+
+---
+
+## Datos pinguinos. 
+🐧
+
+Si van a hacer los ejercicios a la par, cargen sus datos.
+
+```r
+library(datos)
+Pingus&lt;-pinguinos
+```
+Otra opcion es usar read_csv desde su computador.
+
+
+```r
+library(tidyverse)
+```
+
+---
+
+## 1.1. Tidyverse 
+
+Tidyverse engloba varios paquetes, la mayoria para especificamente para inspeccionar y manipular tus datos. 
+
+.center[
+&lt;img src="https://tidyverse.tidyverse.org/articles/tidyverse-logo.png" height="350" /&gt;
+]
+
+---
+
+## 1.2. Pipe
+
+Vamos a usar mucho el **pipe** un argumento que se usa para encadenar funciones.
+
+En su teclado: strg+alt+M
+
+```r
+%&gt;% 
+```
+
+---
+
+## 1.3. Funciones
+
+El paquete dplyr nos da una serie de herramientas para **manipular** datos
+
+Las principales funciones, o **verbos** de dplyr, son:
+
+- **count()** para contar
+- **select()**, para seleccionar columnas
+- **filter()**, para filtrar filas
+- **mutate()**, para crear o modificar columnas
+- **summarise()**, para resumir información de las columnas
+
+count y select las vimos en **[<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#52b788;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>la clase pasada](https://miriamlerma.netlify.app/materiales.html)**
+
+---
+name: filt
+## 1.4. filter()
+Podemos filtrar columnas de acuerdo a valores que nos interesen.
+
+Pero para esto hay que conocer algunos operadores lógicos:
+
+- El símbolo **==** es para decir 'igual a'  
+- El símbolo **!=** es para decir 'distinto a'  
+- El símbolo **&gt;** es para decir 'mayor que'
+- El símbolo **&lt;** es para decir 'menor que'
+- El símbolo **&gt;=** es para decir 'mayor o igual que'
+- El símbolo **&lt;=** es para decir 'menor o igual que'
+- El símbolo **&amp;** es para decir 'y'
+- El símbolo **|** es para decir 'o'
+
+---
+
+## 1.4. filter(==)
+
+
+```r
+Pingus %&gt;%
+  filter(sexo == 'hembra')
+```
+Nota: las variables son sin comillas y las categorías en comillas.
+
+--
+
+Vayan a su environment... y revisen... se cambio mi tabla?
+
+--
+
+No. Hay que crear un nuevo objeto.
+
+```r
+PingusHembras&lt;-Pingus %&gt;%
+  filter(sexo == 'hembra')
+```
+Miren su environment.
+
+---
+
+## 1.4. filter(&lt;=)
+
+
+```r
+Pingus %&gt;%
+* filter(largo_pico_mm &lt;= 39.1)
+```
+
+```
+## # A tibble: 83 × 8
+##    especie isla      largo_pico_mm alto_pico_mm largo_alet…¹ masa_…² sexo   anio
+##    &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;        &lt;dbl&gt;        &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+##  1 Adelia  Torgersen          39.1         18.7          181    3750 macho  2007
+##  2 Adelia  Torgersen          36.7         19.3          193    3450 hemb…  2007
+##  3 Adelia  Torgersen          38.9         17.8          181    3625 hemb…  2007
+##  4 Adelia  Torgersen          34.1         18.1          193    3475 &lt;NA&gt;   2007
+##  5 Adelia  Torgersen          37.8         17.1          186    3300 &lt;NA&gt;   2007
+##  6 Adelia  Torgersen          37.8         17.3          180    3700 &lt;NA&gt;   2007
+##  7 Adelia  Torgersen          38.6         21.2          191    3800 macho  2007
+##  8 Adelia  Torgersen          34.6         21.1          198    4400 macho  2007
+##  9 Adelia  Torgersen          36.6         17.8          185    3700 hemb…  2007
+## 10 Adelia  Torgersen          38.7         19            195    3450 hemb…  2007
+## # … with 73 more rows, and abbreviated variable names ¹​largo_aleta_mm,
+## #   ²​masa_corporal_g
+```
+
+---
+
+## 1.4. filter(&gt;=)
+
+
+```r
+Pingus %&gt;%
+* filter(largo_pico_mm &gt;= 39.1)
+```
+
+```
+## # A tibble: 260 × 8
+##    especie isla      largo_pico_mm alto_pico_mm largo_alet…¹ masa_…² sexo   anio
+##    &lt;fct&gt;   &lt;fct&gt;             &lt;dbl&gt;        &lt;dbl&gt;        &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+##  1 Adelia  Torgersen          39.1         18.7          181    3750 macho  2007
+##  2 Adelia  Torgersen          39.5         17.4          186    3800 hemb…  2007
+##  3 Adelia  Torgersen          40.3         18            195    3250 hemb…  2007
+##  4 Adelia  Torgersen          39.3         20.6          190    3650 macho  2007
+##  5 Adelia  Torgersen          39.2         19.6          195    4675 macho  2007
+##  6 Adelia  Torgersen          42           20.2          190    4250 &lt;NA&gt;   2007
+##  7 Adelia  Torgersen          41.1         17.6          182    3200 hemb…  2007
+##  8 Adelia  Torgersen          42.5         20.7          197    4500 macho  2007
+##  9 Adelia  Torgersen          46           21.5          194    4200 macho  2007
+## 10 Adelia  Biscoe             40.6         18.6          183    3550 macho  2007
+## # … with 250 more rows, and abbreviated variable names ¹​largo_aleta_mm,
+## #   ²​masa_corporal_g
+```
+
+---
+
+## 1.4. filter(&amp;)
+
+
+```r
+Pingus %&gt;%
+* filter(isla == 'Biscoe' &amp; especie =='Adelia')
+```
+
+```
+## # A tibble: 44 × 8
+##    especie isla   largo_pico_mm alto_pico_mm largo_aleta_mm masa_c…¹ sexo   anio
+##    &lt;fct&gt;   &lt;fct&gt;          &lt;dbl&gt;        &lt;dbl&gt;          &lt;int&gt;    &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+##  1 Adelia  Biscoe          37.8         18.3            174     3400 hemb…  2007
+##  2 Adelia  Biscoe          37.7         18.7            180     3600 macho  2007
+##  3 Adelia  Biscoe          35.9         19.2            189     3800 hemb…  2007
+##  4 Adelia  Biscoe          38.2         18.1            185     3950 macho  2007
+##  5 Adelia  Biscoe          38.8         17.2            180     3800 macho  2007
+##  6 Adelia  Biscoe          35.3         18.9            187     3800 hemb…  2007
+##  7 Adelia  Biscoe          40.6         18.6            183     3550 macho  2007
+##  8 Adelia  Biscoe          40.5         17.9            187     3200 hemb…  2007
+##  9 Adelia  Biscoe          37.9         18.6            172     3150 hemb…  2007
+## 10 Adelia  Biscoe          40.5         18.9            180     3950 macho  2007
+## # … with 34 more rows, and abbreviated variable name ¹​masa_corporal_g
+```
+
+---
+name: muta
+## 1.5. mutate()
+
+Es para crear o modificar columnas.  
+Podemos crear una columna a partir de los valores de otra.
+
+```r
+Pingus&lt;-Pingus %&gt;% 
+* mutate(kilos = masa_corporal_g / 1000)
+```
+
+
+---
+
+## 1.6. lubridate
+
+Facilita el trabajo con fechas y horas, ya que te permite decirle a R que una cadena de caracteres, es tiempo y horas.
+
+```r
+library(lubridate)
+```
+
+
+```r
+ymd_hms("2010-12-13 15:30:30")
+```
+
+Ademas, te permite **extraer** componentes de fechas y horas.
+
+```r
+ymd_hms("2010-12-13 15:30:30") %&gt;% month()
+```
+
+```
+## [1] 12
+```
+
+---
+
+## 1.6. ymd_hms
+
+Datos de hora inventados, solo nos interesa ver la hora, los minutos y los segundos.
+
+```r
+DatosPorHora&lt;-c("2010-12-13 13:30:30","2010-12-13 14:30:30","2010-12-13 15:30:30","2010-12-13 16:30:30","2010-12-13 17:30:30","2010-12-13 18:30:30","2010-12-13 19:30:30","2010-12-13 20:30:30")
+Horas&lt;-data.frame(DatosPorHora=DatosPorHora)
+```
+
+Usando **mutate** podemos separar esa informacion y extraer la que nos interesa.
+
+```r
+Horas %&gt;% 
+  mutate(
+    hora = hour(DatosPorHora),
+    minuto = minute(DatosPorHora),
+    segundo = second(DatosPorHora)
+  )
+```
+
+---
+name: suma
+
+## 1.7. group_by() y summarise()
+
+summarise() para resumir información de las columnas
+
+
+```r
+Pingus %&gt;% 
+  group_by(anio) %&gt;%
+  summarise(PromedioLargoPico=mean(largo_pico_mm))
+```
+
+```
+## # A tibble: 3 × 2
+##    anio PromedioLargoPico
+##   &lt;int&gt;             &lt;dbl&gt;
+## 1  2007              NA  
+## 2  2008              43.5
+## 3  2009              NA
+```
+
+---
+
+## 1.8. top_n()
+
+Obserservaciones maximas que le pidamos de una variable. 
+
+```r
+Pingus %&gt;% 
+  top_n(2,largo_pico_mm)
+```
+
+```
+## # A tibble: 2 × 9
+##   especie isla   largo_pico_mm alto_pico_mm largo_al…¹ masa_…² sexo   anio kilos
+##   &lt;fct&gt;   &lt;fct&gt;          &lt;dbl&gt;        &lt;dbl&gt;      &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;dbl&gt;
+## 1 Papúa   Biscoe          59.6         17          230    6050 macho  2007  6.05
+## 2 Barbijo Dream           58           17.8        181    3700 hemb…  2007  3.7 
+## # … with abbreviated variable names ¹​largo_aleta_mm, ²​masa_corporal_g
+```
+
+---
+name: unique
+## 1.9. unique() o distinct()
+Valores únicos en esa columna.
+
+Hay varias maneras de ver este tipo de informacion:
+
+```r
+unique(Pingus$especie)
+```
+
+```
+## [1] Adelia  Papúa   Barbijo
+## Levels: Adelia Barbijo Papúa
+```
+
+
+```r
+pinguinos %&gt;% 
+* distinct(especie)
+```
+
+```
+## # A tibble: 3 × 1
+##   especie
+##   &lt;fct&gt;  
+## 1 Adelia 
+## 2 Papúa  
+## 3 Barbijo
+```
+
+---
+
+## 1.9. unique() o distinct()
+Valores únicos en esa columna.
+
+
+```r
+Pingus %&gt;% 
+  distinct(isla)
+```
+
+```
+## # A tibble: 3 × 1
+##   isla     
+##   &lt;fct&gt;    
+## 1 Torgersen
+## 2 Biscoe   
+## 3 Dream
+```
+
+---
+name: drop
+## 1.10. drop_na 
+
+Hay que tener cuidado con las nas para varias operaciones.
+
+Para filtrar nas en pipe:
+
+```r
+Pingus %&gt;% 
+  drop_na(largo_pico_mm)
+```
+
+Otra opcion:
+
+```r
+PingusSinNA &lt;- Pingus %&gt;% 
+  filter(!is.na(largo_pico_mm))
+```
+Miren que ahora tenemos menos observaciones en pingus sin NAs.
+
+---
+
+class: inverse
+
+# Ejercicios <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
+
+Usar funciones de tidyverse
+- count 
+- distinct 
+- group_by 
+- drop_na
+- summarise
+- mutate
+- select
+- filter
+
+
+---
+
+## 1.11. Ejercicios 
+
+
+```r
+library(datos)
+Pingus&lt;-pinguinos
+```
+
+Cuantas observaciones tenemos?
+
+```r
+pinguinos %&gt;% 
+  count()
+```
+
+Cuantas observaciones por isla?
+
+```r
+Pingus %&gt;% 
+  distinct(isla)
+```
+
+Cuantas observaciones por sexo e isla?
+
+```r
+Pingus %&gt;% 
+  group_by(sexo, isla) %&gt;% 
+  count()
+```
+
+---
+
+## 1.11.  Ejercicios 
+Cual es el promedio de peso entre hembras y machos por especie? y en base a cuantas observaciones?
+
+```r
+Pingus %&gt;% 
+  group_by(especie,sexo) %&gt;% 
+  drop_na(masa_corporal_g)%&gt;% 
+  summarise(mean = mean(masa_corporal_g), n = n())
+```
+
+Cambia el peso de los pinguinos a kilos.
+
+```r
+Pingus&lt;-Pingus %&gt;% 
+  mutate(kilos = masa_corporal_g / 1000)
+```
+
+---
+
+## 1.12. Ejercicios solos
+- Crea un objeto con solo dos columnas, las de sexo y anio.
+
+```r
+#_____ &lt;-Pingus %&gt;%
+#  select(____,_____)
+```
+
+- Crea un objeto con las diferentes especies de pinguinos que hay en el data.frame y a que especies corresponden.
+
+```r
+#______ &lt;-Pingus %&gt;%
+#  distinct(_____)
+```
+
+- Crea un objeto con solo machos.
+
+```r
+#______ &lt;-Pingus %&gt;%
+#  filter(_____ == '______')
+```
+
+- Crea un objeto con solo hembras que pesen (masa_corporal_g) igual o mas de 3800 g.
+
+```r
+#______ &lt;-Pingus %&gt;%
+#  filter(_____ == '______')%&gt;%
+#  filter(______ &gt;= ______)
+```
+
+
+---
+name: join
+class: title-slide, inverse, middle, center
+background-image: url(https://images.unsplash.com/photo-1527402858-36f052d83df4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80)
+background-size: cover
+
+# Unir
+
+---
+
+# 2.1. left_join()
+
+Datos inventados de 10 individuos, pesos de los individuos y la concentracion de pesticida.
+
+```r
+ID&lt;-c("ID01","ID02","ID03","ID04","ID05",
+      "ID06","ID07","ID08","ID09","ID10")
+Pesos&lt;-c(1.5,2.0,3.5,4.1,2.6,3.7,8.9,2.5,6.3,1.0)
+Pesticidas&lt;-c(10,20,35,1,6,3,8,2,3,1)
+```
+
+---
+
+# 2.1. left_join()
+
+Muchas veces tengo datos de laboratorio por un lado...
+
+```r
+Laboratorio&lt;-data.frame(ID,Pesticidas)
+head(Laboratorio)
+```
+
+```
+##     ID Pesticidas
+## 1 ID01         10
+## 2 ID02         20
+## 3 ID03         35
+## 4 ID04          1
+## 5 ID05          6
+## 6 ID06          3
+```
+
+--
+... y de campo por otro.
+
+```r
+Libreta &lt;- data.frame(ID,Pesos)
+head(Libreta)
+```
+
+```
+##     ID Pesos
+## 1 ID01   1.5
+## 2 ID02   2.0
+## 3 ID03   3.5
+## 4 ID04   4.1
+## 5 ID05   2.6
+## 6 ID06   3.7
+```
+
+---
+
+# 2.1. left_join()
+
+Pero los necesitamos juntos!
+- **left_join()** me permite unirlos.
+Pero es importante tener un ID para poder unir las tablas.
+
+
+```r
+*DatosJuntos&lt;-left_join(Libreta, Laboratorio,
+                       by = "ID") 
+DatosJuntos
+```
+
+```
+##      ID Pesos Pesticidas
+## 1  ID01   1.5         10
+## 2  ID02   2.0         20
+## 3  ID03   3.5         35
+## 4  ID04   4.1          1
+## 5  ID05   2.6          6
+## 6  ID06   3.7          3
+## 7  ID07   8.9          8
+## 8  ID08   2.5          2
+## 9  ID09   6.3          3
+## 10 ID10   1.0          1
+```
+
+---
+
+
+# 2.1. left_join()
+
+Lo que hace left_join() es usar ese ID para saber como unir la tabla.&lt;br&gt;
+
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/left-join.gif" height="350" /&gt;
+
+Fuente: [tidyexplain](https://www.garrickadenbuie.com/project/tidyexplain/)
+
+Otras opciones de unión [ilustradas](https://www.garrickadenbuie.com/project/tidyexplain/)
+
+---
+
+# 2.2. pivot_longer
+A veces los datos se toman de manera **no ordenada** en el sentido de que las observaciones estan en cada columna y no en cada fila.
+
+Esto es normal, particularmente en campo o en el laboratorio y tenemos una libreta con espacio limitado.
+
+Entonces hay que re-organizarlos.
+
+&lt;img src="https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/tidy-9.svg" height="200" /&gt;
+
+---
+
+# 2.2. pivot_longer
+
+Datos inventados de 5 especies y sus riquezas en tres anios diferentes.
+
+```r
+Especies&lt;-c('Especie1','Especie2','Especie3','Especie4','Especie5')
+Anio2010&lt;-c(5,4,5,6,7)
+Anio2011&lt;-c(3,2,1,9,4)
+Anio2012&lt;-c(6,2,3,7,8)
+```
+
+Creamos un nuevo data frame usando esos datos.
+
+```r
+EspecieAnio&lt;-data.frame(Especie=Especies,
+                        Anio2010=Anio2010,Anio2011=Anio2011,Anio2012)
+```
+
+Quedar algo así
+
+```r
+head(EspecieAnio)
+```
+
+```
+##    Especie Anio2010 Anio2011 Anio2012
+## 1 Especie1        5        3        6
+## 2 Especie2        4        2        2
+## 3 Especie3        5        1        3
+## 4 Especie4        6        9        7
+## 5 Especie5        7        4        8
+```
+
+---
+
+# 2.2. pivot_longer
+
+El argumento **pivot_longer** te permite reorganizarlas.
+
+```r
+Especies_largo &lt;- EspecieAnio %&gt;%
+  pivot_longer(c(Anio2010, Anio2011, Anio2012),
+    names_to = "Anio",
+    values_to = "Riqueza" )
+Especies_largo
+```
+
+```
+## # A tibble: 15 × 3
+##    Especie  Anio     Riqueza
+##    &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
+##  1 Especie1 Anio2010       5
+##  2 Especie1 Anio2011       3
+##  3 Especie1 Anio2012       6
+##  4 Especie2 Anio2010       4
+##  5 Especie2 Anio2011       2
+##  6 Especie2 Anio2012       2
+##  7 Especie3 Anio2010       5
+##  8 Especie3 Anio2011       1
+##  9 Especie3 Anio2012       3
+## 10 Especie4 Anio2010       6
+## 11 Especie4 Anio2011       9
+## 12 Especie4 Anio2012       7
+## 13 Especie5 Anio2010       7
+## 14 Especie5 Anio2011       4
+## 15 Especie5 Anio2012       8
+```
+
+---
+
+# 2.3. pivot_wider
+
+Si por alguna razón quiero tenerlos separados, puedo también extraerlos a lo ancho.
+
+&lt;img src="https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/tidy-8.svg" height="450" /&gt;
+
+---
+
+# 2.3. pivot_wider
+
+Datos inventados.
+
+```r
+Especies_ancho&lt;-Especies_largo %&gt;% 
+  pivot_wider(names_from = Anio, 
+              values_from = Riqueza)
+Especies_ancho
+```
+
+```
+## # A tibble: 5 × 4
+##   Especie  Anio2010 Anio2011 Anio2012
+##   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Especie1        5        3        6
+## 2 Especie2        4        2        2
+## 3 Especie3        5        1        3
+## 4 Especie4        6        9        7
+## 5 Especie5        7        4        8
+```
+
+---
+
+# 2.4. Unite
+
+Este argumento sirve para **unir** valores de dos columnas en una columna.
+
+```r
+(Pingus&lt;-Pingus %&gt;% 
+  unite(col = especie_isla,
+        c("especie", "isla"),
+        sep = ": "))
+```
+
+```
+## # A tibble: 344 × 7
+##    especie_isla      largo_pico_mm alto_pico_mm largo_alet…¹ masa_…² sexo   anio
+##    &lt;chr&gt;                     &lt;dbl&gt;        &lt;dbl&gt;        &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+##  1 Adelia: Torgersen          39.1         18.7          181    3750 macho  2007
+##  2 Adelia: Torgersen          39.5         17.4          186    3800 hemb…  2007
+##  3 Adelia: Torgersen          40.3         18            195    3250 hemb…  2007
+##  4 Adelia: Torgersen          NA           NA             NA      NA &lt;NA&gt;   2007
+##  5 Adelia: Torgersen          36.7         19.3          193    3450 hemb…  2007
+##  6 Adelia: Torgersen          39.3         20.6          190    3650 macho  2007
+##  7 Adelia: Torgersen          38.9         17.8          181    3625 hemb…  2007
+##  8 Adelia: Torgersen          39.2         19.6          195    4675 macho  2007
+##  9 Adelia: Torgersen          34.1         18.1          193    3475 &lt;NA&gt;   2007
+## 10 Adelia: Torgersen          42           20.2          190    4250 &lt;NA&gt;   2007
+## # … with 334 more rows, and abbreviated variable names ¹​largo_aleta_mm,
+## #   ²​masa_corporal_g
+```
+
+---
+
+# 2.5. Separate
+
+Este argumento sirve para **separar** valores de una columna en dos columnas.
+
+```r
+Pingus %&gt;% 
+  separate(col = especie_isla,
+           into = c("especie", "isla"),
+           sep = ":")
+```
+
+Ojo: borra las columnas originales, si no queremos que las borre debemos agregar **remove = FALSE.**
+
+
+```r
+(Pingus&lt;-Pingus %&gt;% 
+  separate(col = especie_isla,
+           into = c("especie", "isla"),
+           sep = ":",
+*          remove = FALSE))
+```
+
+```
+## # A tibble: 344 × 9
+##    especie_isla      especie isla    largo…¹ alto_…² largo…³ masa_…⁴ sexo   anio
+##    &lt;chr&gt;             &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+##  1 Adelia: Torgersen Adelia  " Torg…    39.1    18.7     181    3750 macho  2007
+##  2 Adelia: Torgersen Adelia  " Torg…    39.5    17.4     186    3800 hemb…  2007
+##  3 Adelia: Torgersen Adelia  " Torg…    40.3    18       195    3250 hemb…  2007
+##  4 Adelia: Torgersen Adelia  " Torg…    NA      NA        NA      NA &lt;NA&gt;   2007
+##  5 Adelia: Torgersen Adelia  " Torg…    36.7    19.3     193    3450 hemb…  2007
+##  6 Adelia: Torgersen Adelia  " Torg…    39.3    20.6     190    3650 macho  2007
+##  7 Adelia: Torgersen Adelia  " Torg…    38.9    17.8     181    3625 hemb…  2007
+##  8 Adelia: Torgersen Adelia  " Torg…    39.2    19.6     195    4675 macho  2007
+##  9 Adelia: Torgersen Adelia  " Torg…    34.1    18.1     193    3475 &lt;NA&gt;   2007
+## 10 Adelia: Torgersen Adelia  " Torg…    42      20.2     190    4250 &lt;NA&gt;   2007
+## # … with 334 more rows, and abbreviated variable names ¹​largo_pico_mm,
+## #   ²​alto_pico_mm, ³​largo_aleta_mm, ⁴​masa_corporal_g
+```
+
+
+---
+
+# 2.6. Rename
+
+Este argumento **cambia** el nombre de la columna.  
+El nuevo nombre se debe poner primero y el nombre anterior después.
+
+```r
+Pingus %&gt;% 
+  rename(peso = masa_corporal_g)
+```
+
+```
+## # A tibble: 344 × 9
+##    especie_isla      especie isla      largo…¹ alto_…² largo…³  peso sexo   anio
+##    &lt;chr&gt;             &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+##  1 Adelia: Torgersen Adelia  " Torger…    39.1    18.7     181  3750 macho  2007
+##  2 Adelia: Torgersen Adelia  " Torger…    39.5    17.4     186  3800 hemb…  2007
+##  3 Adelia: Torgersen Adelia  " Torger…    40.3    18       195  3250 hemb…  2007
+##  4 Adelia: Torgersen Adelia  " Torger…    NA      NA        NA    NA &lt;NA&gt;   2007
+##  5 Adelia: Torgersen Adelia  " Torger…    36.7    19.3     193  3450 hemb…  2007
+##  6 Adelia: Torgersen Adelia  " Torger…    39.3    20.6     190  3650 macho  2007
+##  7 Adelia: Torgersen Adelia  " Torger…    38.9    17.8     181  3625 hemb…  2007
+##  8 Adelia: Torgersen Adelia  " Torger…    39.2    19.6     195  4675 macho  2007
+##  9 Adelia: Torgersen Adelia  " Torger…    34.1    18.1     193  3475 &lt;NA&gt;   2007
+## 10 Adelia: Torgersen Adelia  " Torger…    42      20.2     190  4250 &lt;NA&gt;   2007
+## # … with 334 more rows, and abbreviated variable names ¹​largo_pico_mm,
+## #   ²​alto_pico_mm, ³​largo_aleta_mm
+```
+
+---
+
+# 2.6. Rename
+
+Este argumento sirve para cambiar el nombre de varias columnas.  
+El nuevo nombre se pone primero y luego se pone el nombre anterior.
+
+
+```r
+Pingus %&gt;% 
+  rename(peso=masa_corporal_g, 
+         temporada=anio)
+```
+
+```
+## # A tibble: 344 × 9
+##    especie_isla      especie isla    largo…¹ alto_…² largo…³  peso sexo  tempo…⁴
+##    &lt;chr&gt;             &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt;   &lt;int&gt;
+##  1 Adelia: Torgersen Adelia  " Torg…    39.1    18.7     181  3750 macho    2007
+##  2 Adelia: Torgersen Adelia  " Torg…    39.5    17.4     186  3800 hemb…    2007
+##  3 Adelia: Torgersen Adelia  " Torg…    40.3    18       195  3250 hemb…    2007
+##  4 Adelia: Torgersen Adelia  " Torg…    NA      NA        NA    NA &lt;NA&gt;     2007
+##  5 Adelia: Torgersen Adelia  " Torg…    36.7    19.3     193  3450 hemb…    2007
+##  6 Adelia: Torgersen Adelia  " Torg…    39.3    20.6     190  3650 macho    2007
+##  7 Adelia: Torgersen Adelia  " Torg…    38.9    17.8     181  3625 hemb…    2007
+##  8 Adelia: Torgersen Adelia  " Torg…    39.2    19.6     195  4675 macho    2007
+##  9 Adelia: Torgersen Adelia  " Torg…    34.1    18.1     193  3475 &lt;NA&gt;     2007
+## 10 Adelia: Torgersen Adelia  " Torg…    42      20.2     190  4250 &lt;NA&gt;     2007
+## # … with 334 more rows, and abbreviated variable names ¹​largo_pico_mm,
+## #   ²​alto_pico_mm, ³​largo_aleta_mm, ⁴​temporada
+```
+
+---
+
+# 2.7. Relocate
+
+Este argumento sirve para mover columnas al inicio del data frame.
+
+```r
+Pingus %&gt;% 
+  relocate(sexo, anio)
+```
+
+```
+## # A tibble: 344 × 9
+##    sexo    anio especie_isla      especie isla   largo…¹ alto_…² largo…³ masa_…⁴
+##    &lt;fct&gt;  &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;
+##  1 macho   2007 Adelia: Torgersen Adelia  " Tor…    39.1    18.7     181    3750
+##  2 hembra  2007 Adelia: Torgersen Adelia  " Tor…    39.5    17.4     186    3800
+##  3 hembra  2007 Adelia: Torgersen Adelia  " Tor…    40.3    18       195    3250
+##  4 &lt;NA&gt;    2007 Adelia: Torgersen Adelia  " Tor…    NA      NA        NA      NA
+##  5 hembra  2007 Adelia: Torgersen Adelia  " Tor…    36.7    19.3     193    3450
+##  6 macho   2007 Adelia: Torgersen Adelia  " Tor…    39.3    20.6     190    3650
+##  7 hembra  2007 Adelia: Torgersen Adelia  " Tor…    38.9    17.8     181    3625
+##  8 macho   2007 Adelia: Torgersen Adelia  " Tor…    39.2    19.6     195    4675
+##  9 &lt;NA&gt;    2007 Adelia: Torgersen Adelia  " Tor…    34.1    18.1     193    3475
+## 10 &lt;NA&gt;    2007 Adelia: Torgersen Adelia  " Tor…    42      20.2     190    4250
+## # … with 334 more rows, and abbreviated variable names ¹​largo_pico_mm,
+## #   ²​alto_pico_mm, ³​largo_aleta_mm, ⁴​masa_corporal_g
+```
+
+---
+
+# 2.8 ggplot()
+
+Noten que se pueden **encadenar** funciones y crear graficos.
+
+
+```r
+Pingus %&gt;%
+  filter(sexo=='hembra') %&gt;%
+  ggplot(aes(x = largo_pico_mm)) +
+  geom_histogram()
+```
+
+
+---
+
+class: inverse
+
+# Ejercicios <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
+
+Usar funciones de tidyverse
+- left_join() 
+- pivot_longer()
+- pivot_wider()
+
+---
+
+## 2.9. Ejercicios
+### left_join()
+
+Datos inventados.
+
+```r
+ID&lt;-c("ID01","ID02","ID03","ID04","ID05",
+      "ID06","ID07","ID08","ID09","ID10")
+Pesos&lt;-c(1.5,2.0,3.5,4.1,2.6,3.7,8.9,2.5,6.3,1.0)
+Pesticidas&lt;-c(10,20,35,1,6,3,8,2,3,1)
+```
+
+Datos del laboratorio.
+
+```r
+Laboratorio&lt;-data.frame(ID,Pesticidas)
+```
+
+Datos de campo.
+
+```r
+Libreta &lt;- data.frame(ID,Pesos)
+```
+
+DatosJuntos.
+
+```r
+DatosJuntos&lt;-left_join(Libreta, Laboratorio, 
+*                      by = "ID")
+```
+
+---
+
+## 2.9. Ejercicios
+### pivot_longer
+  
+Datos inventados de 5 especies y sus riquezas.
+
+```r
+Especies&lt;-c('Especie1','Especie2','Especie3','Especie4','Especie5')
+Anio2010&lt;-c(5,4,5,6,7)
+Anio2011&lt;-c(3,2,1,9,4)
+Anio2012&lt;-c(6,2,3,7,8)
+```
+
+Un nuevo data frame.
+
+```r
+EspecieAnio&lt;-data.frame(Especie=Especies,Anio2010=Anio2010,Anio2011=Anio2011,Anio2012)
+```
+
+
+```r
+head(EspecieAnio)
+```
+
+Este argumento me permite reorganizarlas.
+
+```r
+EspeciesLargo &lt;- EspecieAnio %&gt;%
+  pivot_longer(c(Anio2010, Anio2011, Anio2012),
+    names_to = "Anio",
+    values_to = "Riqueza" )
+EspeciesLargo
+```
+
+
+---
+name: exportar
+class: title-slide, middle, center
+background-image: url(https://images.unsplash.com/photo-1527402858-36f052d83df4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80)
+background-size: cover
+
+# Exportar
+
+---
+
+# 3. Exportar 
+
+Igual que los argumentos para importar tus datos (read_csv), cada uno tiene su contra parte para exportarlos.
+- write_csv()  
+- write_csv2()  
+- write_tsv()  
+- write_delim()  
+
+---
+
+class: inverse
+
+# Ejercicios <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
+
+1- Define una carpeta.  
+
+```r
+library(here)
+ResultsFolder&lt;-here::here("Clase3 wrangling")
+```
+
+2-  Exporta tu tabla.
+
+```r
+write_csv(
+  DatosJuntos,
+  file =paste0(ResultsFolder,'/DatosJuntos.csv'))
+```
+
+
+---
+
+# 4. Continuar aprendiendo
+
+Usar [CheatSheet](https://dplyr.tidyverse.org/), que son acordeones para tener la información mas a la mano.  
+Realizar [ejercicios](https://allisonhorst.shinyapps.io/edge-of-the-tidyverse/#section-wrangling-in-dplyr).  
+
+En R&gt;  
+&lt;img src="https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/dplyrcheatsheet.jpg" height="300" /&gt;
+
+---
+
+name: out
+class:inverse
+background-image: url(https://images.unsplash.com/photo-1557075877-3e112375a834?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1170&amp;q=80)
+background-size: cover
+
+# Back to
+- [Index](#index)
+- [Rmd](#rmd)
+
+Make comments or suggestions [here <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+
+.right[
+### Contact
+
+This materials are free of use &lt;br&gt; Download the presentation here: [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>github](https://github.com/MiriamLL/R_intro) and  [<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"/></svg>webpage](https://www.miriam-lerma.com/posts/2023-05-12-data-wrangling/)
+]
+
+.right[
+
+[<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg>Home](https://www.miriam-lerma.com/teaching.html)
+
+[<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#f2cc8f;overflow:visible;position:relative;"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/></svg> Index ](https://miriamll.github.io/R_intro/DataWrangling_1205.html#2)
+
+]
+
+&lt;br&gt;
+
+.center[
+
+&lt;h3&gt;<svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#74c69d;overflow:visible;position:relative;"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"/></svg>[Volver ](https://www.miriam-lerma.com/teaching.html)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
