@@ -421,10 +421,6 @@ library("tidyverse")
 ```
 
 
-```r
-food_consumption &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv')
-```
-
 
 ---
 
@@ -677,7 +673,7 @@ ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
                     label_axes = list(top = "E", left = "N", bottom = 'E', right='N'))
 ```
 
-![](DataWrangling_1205_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
+![](DataWrangling_1205_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1109,7 +1105,7 @@ There are three interrelated rules which make a dataset tidy:
 
 ## 5.2. Recomendations
 
-- To reduce the time organizing your data, is important to think earlier how are you going to collect and store your data. 🕞
+- To reduce the time organizing your data, is important to think earlier how are you going to collect and store your data. 🕔
 
 
 **Why to use tidydata? **
@@ -1643,7 +1639,7 @@ This is very common, particularly  in the lab or fieldwork because is not the sa
 
 To reorganized them, we can use the function **pivot_longer**
 
-&lt;img src="https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/tidy-9.svg" height="200" /&gt;
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/201longer.png?raw=true" height="350" /&gt;
 
 ---
 
@@ -1719,7 +1715,7 @@ The opposite will be to separate the columns.
 
 pivot_wider() "widens" data, increasing the number of columns and decreasing the number of rows.
 
-&lt;img src="https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/tidy-8.svg" height="200" /&gt;
+&lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/201wider.png?raw=true" height="350" /&gt;
 
 The most important arguments are **names_from** which are going to be the names of the columns created after (often the column with factors) and **values_from** is the the name of the column with the values (often the columns with numbers)
 
