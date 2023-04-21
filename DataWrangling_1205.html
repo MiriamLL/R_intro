@@ -716,7 +716,7 @@ Next part:
 - [summarise](#sumarise) 
 - [drop_na](#drop)  
 - [join](#join) 
-- [export](#exportar) 
+- [export](#export) 
 - [contact](#out)
 
 ]
@@ -967,7 +967,7 @@ Next part:
 - [unique](#unique) 
 - [drop_na](#drop)  
 - [join](#join) 
-- [export](#exportar) 
+- [export](#export) 
 - [contact](#out)
 
 ]
@@ -1109,7 +1109,7 @@ There are three interrelated rules which make a dataset tidy:
 
 ## 5.2. Recomendations
 
-- To reduce the time organizing your data, is important to think earlier how are you going to collect and store your data. 🕓
+- To reduce the time organizing your data, is important to think earlier how are you going to collect and store your data. 🕧
 
 
 **Why to use tidydata? **
@@ -1496,9 +1496,9 @@ class: inverse
 
 # Pause
 
-Practice <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
-
 .pull-left[
+
+Practice <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
 
 ```r
 penguins %&gt;% 
@@ -1540,7 +1540,7 @@ Until here:
 
 Next part:
 - [join](#join) 
-- [export](#exportar) 
+- [export](#export) 
 - [contact](#out)
 
 ]
@@ -1567,28 +1567,28 @@ Lets create a new data set.
 
 
 ```r
-penguin_id&lt;-c("ID01","ID02","ID03","ID04","ID05",
+bird_id&lt;-c("ID01","ID02","ID03","ID04","ID05",
       "ID06","ID07","ID08","ID09","ID10")
-penguin_body_mass&lt;-c(1.5,2.0,3.5,4.1,2.6,3.7,8.9,2.5,6.3,1.0)
-penguin_gps_id&lt;-c(50010,50020,50035,50001,50006,50003,50008,50002,50003,50001)
+bird_mass&lt;-c(1.5,2.0,3.5,4.1,2.6,3.7,8.9,2.5,6.3,1.0)
+bird_gps&lt;-c(50010,50020,50035,50001,50006,50003,50008,50002,50003,50001)
 ```
 
 We might have two data sets  
 On one hand, the measurement data...
 
 ```r
-penguin_measurements&lt;-data.frame(penguin_id,penguin_body_mass)
-head(penguin_measurements)
+bird_measurements&lt;-data.frame(bird_id,bird_mass)
+head(bird_measurements)
 ```
 
 ```
-##   penguin_id penguin_body_mass
-## 1       ID01               1.5
-## 2       ID02               2.0
-## 3       ID03               3.5
-## 4       ID04               4.1
-## 5       ID05               2.6
-## 6       ID06               3.7
+##   bird_id bird_mass
+## 1    ID01       1.5
+## 2    ID02       2.0
+## 3    ID03       3.5
+## 4    ID04       4.1
+## 5    ID05       2.6
+## 6    ID06       3.7
 ```
 
 --
@@ -1596,33 +1596,33 @@ head(penguin_measurements)
 ... on the other, field data.
 
 ```r
-penguin_tracking &lt;- data.frame(penguin_id,penguin_gps_id)
-head(penguin_tracking)
+bird_tracking &lt;- data.frame(bird_id,bird_gps)
+head(bird_tracking)
 ```
 
 ```
-##   penguin_id penguin_gps_id
-## 1       ID01          50010
-## 2       ID02          50020
-## 3       ID03          50035
-## 4       ID04          50001
-## 5       ID05          50006
-## 6       ID06          50003
+##   bird_id bird_gps
+## 1    ID01    50010
+## 2    ID02    50020
+## 3    ID03    50035
+## 4    ID04    50001
+## 5    ID05    50006
+## 6    ID06    50003
 ```
 
 ---
 
 ## 7.1. left_join()
 
-To joined them we can use the function **left_join()**  
+To join them we can use the function **left_join()**  
 However it is important to have a **key** to match the observations
 
 
 
 ```r
-penguin_joined&lt;-left_join(penguin_measurements, 
-                          penguin_tracking, 
-*                         by = "penguin_id")
+bird_joined&lt;-left_join(bird_measurements,
+                       bird_tracking, 
+*                      by = "bird_id")
 ```
 
 
@@ -1653,30 +1653,31 @@ Lets imagine we have data from five species and their richness among three diffe
 
 
 ```r
-my_species&lt;-c('Sp1','Sp2','Sp3','Sp4','Sp5')
-year_2010&lt;-c(5,4,5,6,7)
-year_2011&lt;-c(3,2,1,9,4)
-year_2012&lt;-c(6,2,3,7,8)
+bird_id&lt;-c("ID01","ID02","ID03","ID04","ID05",
+      "ID06","ID07","ID08","ID09","ID10")
+year_2010&lt;-c(5,4,5,6,7,3,2,1,9,10)
+year_2011&lt;-c(3,2,1,9,4,5,6,7,3,2)
+year_2012&lt;-c(6,2,3,7,8,2,1,9,4,5)
 ```
 
 New data frame
 
 ```r
-my_dataframe&lt;-data.frame(my_species,year_2010,year_2011,year_2012)
+bird_nlocs&lt;-data.frame(bird_id,year_2010,year_2011,year_2012)
 ```
 
 
 ```r
-head(my_dataframe)
+head(bird_nlocs,5)
 ```
 
 ```
-##   my_species year_2010 year_2011 year_2012
-## 1        Sp1         5         3         6
-## 2        Sp2         4         2         2
-## 3        Sp3         5         1         3
-## 4        Sp4         6         9         7
-## 5        Sp5         7         4         8
+##   bird_id year_2010 year_2011 year_2012
+## 1    ID01         5         3         6
+## 2    ID02         4         2         2
+## 3    ID03         5         1         3
+## 4    ID04         6         9         7
+## 5    ID05         7         4         8
 ```
 
 ---
@@ -1688,32 +1689,26 @@ pivot_longer "lengthens" data, increasing the number of rows and decreasing the 
 
 
 ```r
-dataframe_long &lt;- my_dataframe %&gt;%
+bird_long &lt;- bird_nlocs %&gt;%
   pivot_longer(c(year_2010,year_2011,year_2012),
     names_to = "year",
-    values_to = "richness" )
-dataframe_long
+    values_to = "nlocs" )
+```
+
+
+```r
+head(bird_long,5)
 ```
 
 ```
-## # A tibble: 15 × 3
-##    my_species year      richness
-##    &lt;chr&gt;      &lt;chr&gt;        &lt;dbl&gt;
-##  1 Sp1        year_2010        5
-##  2 Sp1        year_2011        3
-##  3 Sp1        year_2012        6
-##  4 Sp2        year_2010        4
-##  5 Sp2        year_2011        2
-##  6 Sp2        year_2012        2
-##  7 Sp3        year_2010        5
-##  8 Sp3        year_2011        1
-##  9 Sp3        year_2012        3
-## 10 Sp4        year_2010        6
-## 11 Sp4        year_2011        9
-## 12 Sp4        year_2012        7
-## 13 Sp5        year_2010        7
-## 14 Sp5        year_2011        4
-## 15 Sp5        year_2012        8
+## # A tibble: 5 × 3
+##   bird_id year      nlocs
+##   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;
+## 1 ID01    year_2010     5
+## 2 ID01    year_2011     3
+## 3 ID01    year_2012     6
+## 4 ID02    year_2010     4
+## 5 ID02    year_2011     2
 ```
 
 ---
@@ -1730,9 +1725,9 @@ The most important arguments are **names_from** which are going to be the names 
 
 
 ```r
-dataframe_wide&lt;-dataframe_long %&gt;% 
+bird_wide&lt;-bird_long %&gt;% 
   pivot_wider(names_from = year, 
-              values_from = richness)
+              values_from = nlocs)
 ```
 
 ---
@@ -1741,105 +1736,104 @@ name: paste
 
 ## 7.4. paste or unite
 
-The argument paste or paste0 from base R allows you to paste together multiple columns
+The argument **paste** or **paste0** from base R allows you to paste together multiple columns
 
 
 ```r
-penguins$species_island&lt;-paste0(penguins$species,'_',penguins$island)
+bird_long$unique_id&lt;-paste0(bird_long$bird_id,'_',bird_long$year)
 ```
 
-This argument allows you to paste together multiple columns into one.
-
-**Note** it will get rid of the original column, so if you dont want to eliminate the original column add **remove = FALSE.**
+The argument **unite** is similar, but lets you to paste together multiple columns into one.
 
 
 ```r
-penguins&lt;-penguins %&gt;% 
-* unite(col = species_island,
-        c("species", "island"),
+bird_long&lt;-bird_long %&gt;% 
+* unite(col = unique_id2,
+        c("bird_id", "year"),
         sep = "_",
         remove=FALSE)
 ```
+
+**Note** it will get rid of the original column, so if you don't want to eliminate the original column add **remove = FALSE.**
+
 
 ---
 
 ## 7.5. Separate
 
-This arguments allows you to separate the values from one column into two
+The arguments **separate** allows you to separate the values from one column into two columns.
 
 
 ```r
-penguins %&gt;% 
-* separate(col = species_island,
-           into = c("species", "islands"),
+bird_long %&gt;% 
+* separate(col = unique_id,
+           into = c("id", "text","year"),
            sep = "_")
+```
+
+
+```r
+head(bird_long,5)
+```
+
+```
+## # A tibble: 5 × 5
+##   unique_id2     bird_id year      nlocs unique_id     
+##   &lt;chr&gt;          &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;         
+## 1 ID01_year_2010 ID01    year_2010     5 ID01_year_2010
+## 2 ID01_year_2011 ID01    year_2011     3 ID01_year_2011
+## 3 ID01_year_2012 ID01    year_2012     6 ID01_year_2012
+## 4 ID02_year_2010 ID02    year_2010     4 ID02_year_2010
+## 5 ID02_year_2011 ID02    year_2011     2 ID02_year_2011
 ```
 
 **Note** it will get rid of the original column, so if you don't want to eliminate the original column add **remove = FALSE.**
 
 
 ```r
-penguins&lt;-penguins %&gt;% 
-  separate(col = species_island,
-           into = c("species", "island"),
+bird_long&lt;-bird_long %&gt;% 
+* separate(col = unique_id,
+           into = c("id", "text","year"),
            sep = "_",
 *          remove = FALSE)
 ```
-
 
 ---
 
 ## 7.6. Rename
 
-This arguments allows to change the name of one or several columns.  
+The argument **rename** allows to change the name of one or several columns.  
 The new name is written first and the old name comes after.
 
 An example changing the name of one column
 
 ```r
-penguins %&gt;% 
-* rename(body_mass = body_mass_g)
+bird_long %&gt;% 
+* rename(unique_identifier = unique_id2)
 ```
 
-An example changing the name of several columns
-
-```r
-penguins %&gt;% 
-* rename(body_mass=body_mass_g,
-         sampling_year=year)
-```
 
 ---
 
 ## 7.7. Relocate
 
-This arguments allows you to reorganize your columns.
+The argument **relocate** allows you to reorganize your columns and keeping just those that you are interested on.
+
 
 ```r
-penguins %&gt;% 
-* relocate(sex, year)
+bird_long %&gt;% 
+* relocate(bird_id,year,nlocs)
+```
+Using this argument together with select you can keep only the columns of interest.
+
+
+```r
+bird_long %&gt;% 
+  select(bird_id,year,nlocs)%&gt;%
+* relocate(bird_id,year,nlocs)
 ```
 
-```
-## # A tibble: 344 × 10
-##    sex     year species…¹ species island bill_…² bill_…³ flipp…⁴ body_…⁵ body_…⁶
-##    &lt;fct&gt;  &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;
-##  1 male    2007 Adelie_T… Adelie  Torge…    39.1    18.7     181    3750    3.75
-##  2 female  2007 Adelie_T… Adelie  Torge…    39.5    17.4     186    3800    3.8 
-##  3 female  2007 Adelie_T… Adelie  Torge…    40.3    18       195    3250    3.25
-##  4 &lt;NA&gt;    2007 Adelie_T… Adelie  Torge…    NA      NA        NA      NA   NA   
-##  5 female  2007 Adelie_T… Adelie  Torge…    36.7    19.3     193    3450    3.45
-##  6 male    2007 Adelie_T… Adelie  Torge…    39.3    20.6     190    3650    3.65
-##  7 female  2007 Adelie_T… Adelie  Torge…    38.9    17.8     181    3625    3.62
-##  8 male    2007 Adelie_T… Adelie  Torge…    39.2    19.6     195    4675    4.68
-##  9 &lt;NA&gt;    2007 Adelie_T… Adelie  Torge…    34.1    18.1     193    3475    3.48
-## 10 &lt;NA&gt;    2007 Adelie_T… Adelie  Torge…    42      20.2     190    4250    4.25
-## # … with 334 more rows, and abbreviated variable names ¹​species_island,
-## #   ²​bill_length_mm, ³​bill_depth_mm, ⁴​flipper_length_mm, ⁵​body_mass_g,
-## #   ⁶​body_mass_kg
-```
-
---- 
+---
 
 ## 7.8. Keep learning
 
@@ -1855,12 +1849,31 @@ class: inverse
 
 # Pause
 
+.pull-left[
 Practice <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>
 
-.pull-left[
-- left_join() 
-- pivot_longer()
-- pivot_wider()
+
+```r
+left_join(bird_measurements, 
+          bird_tracking, 
+          by = "bird_id") 
+```
+
+
+```r
+bird_long &lt;- bird_nlocs %&gt;%
+  pivot_longer(c(year_2010,year_2011,year_2012),
+    names_to = "year",
+    values_to = "nlocs" )
+```
+
+
+```r
+bird_wide&lt;-bird_long %&gt;% 
+  pivot_wider(names_from = year, 
+              values_from = nlocs)
+```
+
 ]
 
 .pull-right[
@@ -1881,7 +1894,7 @@ Until here:
 - [join](#join) 
 
 Next part:
-- [export](#exportar) 
+- [export](#export) 
 - [contact](#out)
 - [contact](#out)
 ]
@@ -1928,8 +1941,8 @@ Export to csv
 
 ```r
 write_csv(
-  penguins_join,
-  file =paste0(ResultsFolder,'/penguin_joined.csv'))
+  bird_joined,
+  file =paste0(ResultsFolder,'/bird_joined.csv'))
 ```
 ]
 
@@ -1948,7 +1961,7 @@ Until here:
 - [summarise](#sumarise) 
 - [drop_na](#drop)  
 - [join](#join) 
-- [export](#exportar) 
+- [export](#export) 
 
 ]
 
@@ -1973,7 +1986,7 @@ background-size: cover
 - [summarise](#sumarise) 
 - [drop_na](#drop)  
 - [join](#join) 
-- [export](#exportar) 
+- [export](#export) 
 
 .right[
 ### Contact

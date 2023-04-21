@@ -224,26 +224,158 @@ penguins_means<-penguins %>%
 ```
 # Tables
 
-## Join
+```{r}
+bird_id<-c("ID01","ID02","ID03","ID04","ID05",
+      "ID06","ID07","ID08","ID09","ID10")
+bird_mass<-c(1.5,2.0,3.5,4.1,2.6,3.7,8.9,2.5,6.3,1.0)
+bird_gps<-c(50010,50020,50035,50001,50006,50003,50008,50002,50003,50001)
+```
 
-##
+We might have two data sets  
+On one hand, the measurement data...
+```{r}
+bird_measurements<-data.frame(bird_id,bird_mass)
+head(bird_measurements)
+```
+
+... on the other, field data.
+```{r}
+bird_tracking <- data.frame(bird_id,bird_gps)
+head(bird_tracking)
+```
+
+## left_join()
+
+To join them we can use the function **left_join()**  
+However it is important to have a **key** to match the observations
+
+```{r}
+bird_joined<-left_join(bird_measurements,
+                       bird_tracking, 
+                       by = "bird_id") #<<
+```
+
+
+## pivot_longer
+
+Lets imagine we have data from five species and their richness among three different years. 
+
+```{r}
+bird_id<-c("ID01","ID02","ID03","ID04","ID05",
+      "ID06","ID07","ID08","ID09","ID10")
+year_2010<-c(5,4,5,6,7,3,2,1,9,10)
+year_2011<-c(3,2,1,9,4,5,6,7,3,2)
+year_2012<-c(6,2,3,7,8,2,1,9,4,5)
+```
+
+New data frame
+```{r}
+bird_nlocs<-data.frame(bird_id,year_2010,year_2011,year_2012)
+```
+
+```{r}
+head(bird_nlocs,5)
+```
+
+## pivot_longer
+
+pivot_longer "lengthens" data, increasing the number of rows and decreasing the number of columns. 
+
+```{r}
+bird_long <- bird_nlocs %>%
+  pivot_longer(c(year_2010,year_2011,year_2012),
+    names_to = "year",
+    values_to = "nlocs" )
+```
+
+```{r}
+head(bird_long,5)
+```
+
+## pivot_wider
+
+The opposite will be to separate the columns.
+
+pivot_wider() "widens" data, increasing the number of columns and decreasing the number of rows.
+
+The most important arguments are **names_from** which are going to be the names of the columns created after (often the column with factors) and **values_from** is the the name of the column with the values (often the columns with numbers)
+
+```{r}
+bird_wide<-bird_long %>% 
+  pivot_wider(names_from = year, 
+              values_from = nlocs)
+```
+
+## paste or unite
+
+The argument **paste** or **paste0** from base R allows you to paste together multiple columns
+
+```{r}
+bird_long$unique_id<-paste0(bird_long$bird_id,'_',bird_long$year)
+```
+
+The argument **unite** is similar, but lets you to paste together multiple columns into one.
+
+```{r}
+bird_long<-bird_long %>% 
+  unite(col = unique_id2, #<<
+        c("bird_id", "year"),
+        sep = "_",
+        remove=FALSE)
+```
+
+**Note** it will get rid of the original column, so if you don't want to eliminate the original column add **remove = FALSE.**
+
+## Separate
+
+```{r, eval=FALSE}
+bird_long %>% 
+  separate(col = unique_id, #<<
+           into = c("id", "text","year"),
+           sep = "_")
+```
+
+```{r,}
+head(bird_long,5)
+```
+
+**Note** it will get rid of the original column, so if you don't want to eliminate the original column add **remove = FALSE.**
+
+```{r}
+bird_long<-bird_long %>% 
+  separate(col = unique_id, #<<
+           into = c("id", "text","year"),
+           sep = "_",
+           remove = FALSE) #<<
+```
 
 ## Rename
 
-This arguments allows to change the name of one or several columns.  
+The argument **rename** allows to change the name of one or several columns.  
 The new name is written first and the old name comes after.
 
 An example changing the name of one column
-```{r}
-penguins %>% 
-  rename(peso = masa_corporal_g)
+
+```{r, eval=FALSE}
+bird_long %>% 
+  rename(unique_identifier = unique_id2) #<<
 ```
 
-An example changing the name of several columns
-```{r}
-penguins %>% 
-  rename(body_mass=body_mass_g, 
-         sampling_year=year)
+## Relocate
+
+The argument **relocate** allows you to reorganize your columns and keeping just those that you are interested on.
+
+```{r, eval=FALSE}
+bird_long %>% 
+  relocate(bird_id,year,nlocs) #<<
+```
+
+Using this argument together with select you can keep only the columns of interest.
+
+```{r, eval=FALSE}
+bird_long %>% 
+  select(bird_id,year,nlocs)%>%
+  relocate(bird_id,year,nlocs) #<<
 ```
 
 # Export
@@ -253,10 +385,9 @@ library(here)
 ResultsFolder<-here()
 ```
 
-2-  Exporta tu tabla.
 ```{r, eval=FALSE}
 write_csv(
-  penguins_join,
-  file =paste0(ResultsFolder,'/penguin_joined.csv'))
+  bird_joined,
+  file =paste0(ResultsFolder,'/bird_joined.csv'))
 ```
 
