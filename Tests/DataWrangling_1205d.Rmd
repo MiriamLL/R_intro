@@ -412,7 +412,7 @@ background-size: cover
 
 .pull-right[
 #  `r text_spec("Load data", background = "#003049", color = "#e5e5e5", bold = T)`
-### `r text_spec("Bring the ingredients", background = "#003049", color = "#e5e5e5", bold = T)`
+### `r text_spec("Ingredients", background = "#003049", color = "#e5e5e5", bold = T)`
 ]
 
 ---
@@ -1707,9 +1707,9 @@ class: inverse
 
 # Pause
 
-.pull-left[
 Practice `r fa("pencil-alt", fill = '#FFFFFF')`
 
+.pull-left[
 Define a folder 
 ```{r, message=FALSE}
 library(here)
@@ -1724,8 +1724,7 @@ write_csv(
 ```
 ]
 
-.pull-right[
-Until here:
+.pull.right[
 - [rmarkdown](#rmd)
 - [read files](#read-files)
 - [basic operations](#basic-operationr)
@@ -1746,8 +1745,8 @@ Until here:
 ---
 
 name: out
-class: title-slide, inverse
-background-image: url(https://images.unsplash.com/photo-1555813456-94a3dd418cd3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1026&q=80)
+class:inverse
+background-image: url(https://images.unsplash.com/photo-1447078806655-40579c2520d6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
 # Back to
