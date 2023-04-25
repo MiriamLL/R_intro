@@ -77,7 +77,8 @@ class: title-slide, inverse
 **Pauses and questions**
 
 - Exercises and 10 minute pauses for catching up
-- You can stop me to ask questions or use [this link `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
+- You can stop me to ask questions or
+- Questions can be made [at this link too `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
 
 ]
 
@@ -114,6 +115,8 @@ class: title-slide, inverse
 - Images from  
 [`r fa("camera-retro", fill = "#f2cc8f")` Unsplash](https://unsplash.com/)  
 [`r fa("palette", fill = "#f2cc8f")` Allison horst](https://allisonhorst.com/allison-horst)  
+
+- Other resources  
 
 
 
@@ -276,6 +279,9 @@ The R code needs to be inside the chunks (the shadowed grey parts) to run.
 - Not having the three inverted commas
 - Add code outside the codechunks
 
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics(paste0(ImageFolder,"042RmdChunk.png?raw=true"))
+```
 
 ---
 
@@ -699,7 +705,8 @@ Until here:
 Next part:
 
 - [basic operations](#basic-operationr)
-- [columns and rows](#column-rows)
+- [bolumns and Rows](#column-rows)
+- [tidydata](#tidydata)
 - [count](#count)
 - [distinct](#distinct) 
 - [select](#select)
@@ -821,9 +828,7 @@ max(cooking_temp)
 ```{r}
 mean(1,3,6,9,12)
 ```
-Why 1? That can't be
-
---
+Why 1? That can be
 
 Ask for help using **?**
 ```{r, eval=FALSE}
@@ -872,10 +877,6 @@ Salat*Cucumber
 
 -  I also want to make some cakes 🎂 and I need 200 g of sugar. How many grams of sugar do I need for preparing 5 cakes?
 
-```{r, eval=FALSE}
-Cakes<-5
-Sugar<-200
-```
 
 ]
 
@@ -887,7 +888,8 @@ Until here:
 - [basic operations](#basic-operationr)
 
 Next part:
-- [columns and rows](#column-rows)
+- [columns and Rows](#column-rows)
+- [tidydata](#tidydata)
 - [count](#count)
 - [select](#select)
 - [filter](#filter) 
@@ -999,7 +1001,7 @@ background-size: cover
 
 **Data wrangling** is usually the longest and slowest process and you can expect to do this several times.
 
-Tidy data is a data structure to facilitate the analyses.
+Tidy data is the a data structure to facilitate the analyses.
 
 There are three interrelated rules which make a dataset tidy:
 
@@ -1023,7 +1025,7 @@ knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2
 - Many commands will assume that your data is organized.  
 - Is the expected format for statistical analyses.  
 - Its easier to plot organized data.  
-- When sharing the data it would be  easier to understand.  
+- Sharing the data will allow other people to understand our information.  
 
 
 
@@ -1033,52 +1035,37 @@ class: inverse
 
 # Pause
 
-.pull-left[
-
 Practice `r fa("pencil-alt", fill = '#FFFFFF')`
 
+.pull-left[
+
+Load penguin data
+
+- Data from three penguins species at three colonies.  
+- Data of body mass, bill length and flipper length.  
 - Calculate the range of the body mass of the penguins. 
+- Calculate the mean of the body mass of the penguins. 
+
+]
+
+.pull-right[
+
+Note that **na.rm allows you to ignore NAs**
 
 ```{r, eval=FALSE}
 range(penguins$body_mass_g,
-      na.rm=TRUE)
+      na.rm=TRUE) #<<
 ```
-
-- Calculate the mean of the body mass of the penguins. 
 
 ```{r, eval=FALSE}
 mean(penguins$body_mass_g,
      na.rm=TRUE)
 ```
-Note that **na.rm allows you to ignore NAs**
+]
 
 ```{r echo=FALSE, out.height=100}
 knitr::include_graphics('https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/lter_penguins.png')
 ```
-]
-
-.pull-right[
-Until here:
-- [index](#index)
-- [rmarkdown](#rmd)
-- [read files](#read-files)
-- [basic operations](#basic-operationr)
-
-Next part:
-- [columns and rows](#column-rows)
-- [count](#count)
-- [select](#select)
-- [filter](#filter) 
-- [mutate](#mutate)
-- [summarise](#sumarise) 
-- [unique](#unique) 
-- [drop_na](#drop)  
-- [join](#join) 
-- [export](#export) 
-- [contact](#out)
-]
-
-
 
 ---
 
@@ -1140,19 +1127,19 @@ library(tidyverse)
 Sample size?
 ```{r, eval=FALSE}
 penguins %>% 
-  count() #<<
+  count()
 ```
 
 Sample size per species?
 ```{r, eval=FALSE}
 penguins %>% 
-  count(species)#<<
+  count(species)
 ```
 
 Per island and per species?
 ```{r, eval=FALSE}
 penguins %>% 
-  count(island,species)#<<
+  count(island,species)
 ```
 
 ---
@@ -1185,19 +1172,19 @@ Select variables in a data frame
 Select one column
 ```{r, eval=FALSE}
 penguins %>% 
-  select(species) #<<
+  select(species) 
 ```
 
 Remove one column using " **-** "
 ```{r, eval=FALSE}
 penguins %>% 
-  select(-sex) #<<
+  select(-sex) 
 ```
 
 Select all columns expect this one using " **!** "
 ```{r, eval=FALSE}
 penguins %>% 
-  select(!sex) #<<
+  select(!sex) 
 ```
 ]
 
@@ -1205,20 +1192,20 @@ penguins %>%
 Select columns in between using "**:** "
 ```{r,eval=FALSE}
 penguins %>% 
-  select(bill_length_mm:body_mass_g) #<<
+  select(bill_length_mm:body_mass_g) 
 ```
 
 Using the final letter of the string
 ```{r,eval=FALSE}
 penguins %>% 
-  select(ends_with("mm"))#<<
+  select(ends_with("mm"))
 ```
 
 
 Using the first letters of the string
 ```{r,eval=FALSE}
 penguins %>% 
-  select(starts_with("bill"))#<<
+  select(starts_with("bill"))
 ```
 
 ]
@@ -1249,7 +1236,7 @@ There are many functions and operators, some useful expressions are:
 
 ```{r, eval=FALSE}
 penguins %>%
-  filter(sex == 'female')#<<
+  filter(sex == 'female')
 ```
 **Note** variables are without quotes and observations in quotes.  
 
@@ -1262,7 +1249,7 @@ Is there actually something different in the object at your environment?
 To change the object we need to create a new data frame.
 ```{r, eval=FALSE}
 female_penguins<-penguins %>%
-  filter(sex == 'female')#<<
+  filter(sex == 'female')
 ```
 
 ---
@@ -1311,8 +1298,8 @@ summarise() can be used to use specific operations for each factor defined in th
 
 ```{r}
 penguins %>% 
-  group_by(year) %>% #<<
-  summarise(mean_bill_length=mean(bill_length_mm))#<<
+  group_by(year) %>%
+  summarise(mean_bill_length=mean(bill_length_mm))
 ```
 
 
@@ -1324,21 +1311,13 @@ This functions allows you to ignore or remove NAs
 
 ```{r, eval=FALSE}
 penguins %>% 
-  drop_na(bill_length_mm)#<<
+  drop_na(bill_length_mm)
 ```
 
-Another option is to remove the nas
+Another option is
 ```{r}
 clean_penguins <- penguins %>% 
-  filter(!is.na(bill_length_mm))#<<
-```
-
-Example of using drop_na with other functions
-```{r}
-penguins %>% 
-  group_by(year) %>% 
-  drop_na(bill_length_mm) %>% #<<
-  summarise(mean_bill_length=mean(bill_length_mm))
+  filter(!is.na(bill_length_mm))
 ```
 
 ---
@@ -1356,7 +1335,7 @@ library(lubridate)
 ymd_hms("2010-12-13 15:30:30")
 ```
 
-You can **extract** some elements from dates and times
+You can **extraer** some elements from dates and times
 ```{r}
 ymd_hms("2010-12-13 15:30:30") %>% 
   month()
@@ -1371,7 +1350,7 @@ Lets try with this data frame.
 my_timestamps<-data.frame(timestamp=c("2010-12-13 13:30:30","2010-12-13 14:30:30","2010-12-13 15:30:30","2010-12-13 16:30:30","2010-12-13 17:30:30","2010-12-13 18:30:30","2010-12-13 19:30:30","2010-12-13 20:30:30"))
 ```
 
-Using mutate we can separate elements form the date and time
+Lets use the mutate example with our timestamp.
 ```{r, eval = FALSE}
 my_timestamps %>% 
   mutate(
@@ -1403,7 +1382,7 @@ penguins %>%
 ```{r, eval=FALSE}
 penguins %>% 
   group_by(species,sex) %>% 
-  drop_na(body_mass_g,sex)%>% 
+  drop_na(body_mass_g)%>% 
   summarise(mean_body_mass_g = mean(body_mass_g), n = n())%>% 
   mutate(mean_body_mass_kg = mean_body_mass_g / 1000)
 ```
@@ -1416,7 +1395,8 @@ Until here:
 - [rmarkdown](#rmd)
 - [read files](#read-files)
 - [basic operations](#basic-operationr)
-- [columns and rows](#column-rows)
+- [bolumns and Rows](#column-rows)
+- [tidydata](#tidydata)
 - [count](#count)
 - [distinct](#distinct) 
 - [select](#select)
@@ -1460,30 +1440,26 @@ bird_gps<-c(50010,50020,50035,50001,50006,50003,50008,50002,50003,50001)
 ```
 
 We might have two data sets  
-.pull-left[
 On one hand, the measurement data...
-```{r, message=FALSE}
-bird_measurements<-
-  data.frame(bird_id,
-             bird_mass)
+```{r}
+bird_measurements<-data.frame(bird_id,bird_mass)
+head(bird_measurements)
 ```
-]
 
-.pull-right[
+--
+
 ... on the other, field data.
 ```{r}
-bird_tracking <- 
-  data.frame(bird_id,
-             bird_gps)
+bird_tracking <- data.frame(bird_id,bird_gps)
+head(bird_tracking)
 ```
-]
 
 ---
 
 ## 7.1. left_join()
 
 To join them we can use the function **left_join()**  
-But it is important to have a **key** to match the observations
+However it is important to have a **key** to match the observations
 
 
 ```{r}
@@ -1510,7 +1486,7 @@ Sometimes the data are not organized in a way that each observation has a row an
 
 This is very common, particularly  in the lab or fieldwork because is not the same how we write in a notebook than in the computer. 
 
-To re-organized, we can use the function **pivot_longer**.
+To reorganized them, we can use the function **pivot_longer**
 
 ```{r echo=FALSE, out.height=350}
 knitr::include_graphics(paste0(ImageFolder,"201longer.png?raw=true"))
@@ -1520,7 +1496,7 @@ knitr::include_graphics(paste0(ImageFolder,"201longer.png?raw=true"))
 
 ## 7.2. pivot_longer
 
-Lets imagine we have data from five species and their number of locations among three different years. 
+Lets imagine we have data from five species and their richness among three different years. 
 
 ```{r}
 bird_id<-c("ID01","ID02","ID03","ID04","ID05",
@@ -1604,15 +1580,19 @@ bird_long<-bird_long %>%
 
 ---
 
-## 7.5. separate
+## 7.5. Separate
 
-The argument **separate** allows you to separate the values from one column into two columns.
+The arguments **separate** allows you to separate the values from one column into two columns.
 
 ```{r, eval=FALSE}
 bird_long %>% 
   separate(col = unique_id, #<<
            into = c("id", "text","year"),
            sep = "_")
+```
+
+```{r,}
+head(bird_long,5)
 ```
 
 **Note** it will get rid of the original column, so if you don't want to eliminate the original column add **remove = FALSE.**
@@ -1627,7 +1607,7 @@ bird_long<-bird_long %>%
 
 ---
 
-## 7.6. rename
+## 7.6. Rename
 
 The argument **rename** allows to change the name of one or several columns.  
 The new name is written first and the old name comes after.
@@ -1641,7 +1621,7 @@ bird_long %>%
 
 ---
 
-## 7.7. relocate
+## 7.7. Relocate
 
 The argument **relocate** allows you to reorganize your columns and keeping just those that you are interested on.
 
@@ -1659,15 +1639,12 @@ bird_long %>%
 
 ---
 
-## 7.8. keep learning
+## 7.8. Keep learning
 
 Use the dplyr [cheatSheet](https://dplyr.tidyverse.org/).  
 Try the [exercises](https://allisonhorst.shinyapps.io/edge-of-the-tidyverse/#section-wrangling-in-dplyr) from Allison horst.    
 
-Cheatsheets 
-
-Help > Cheat sheet > Data transformation with dplyr
-
+Cheatsheets >  
 ```{r echo=FALSE, out.height=300}
 knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/dplyrcheatsheet.jpg')
 ```
@@ -1722,6 +1699,7 @@ Until here:
 Next part:
 - [export](#export) 
 - [contact](#out)
+- [contact](#out)
 ]
 
 ---
@@ -1752,6 +1730,7 @@ class: inverse
 
 # Pause
 
+.pull-left[
 Practice `r fa("pencil-alt", fill = '#FFFFFF')`
 
 Define a folder 
@@ -1766,16 +1745,33 @@ write_csv(
   bird_joined,
   file =paste0(ResultsFolder,'/bird_joined.csv'))
 ```
+]
 
+.pull-right[
+Until here:
+- [rmarkdown](#rmd)
+- [read files](#read-files)
+- [basic operations](#basic-operationr)
+- [columns and rows](#column-rows)
+- [tidydata](#tidydata)
+- [distinct](#distinct) 
+- [count](#count)
+- [select](#select)
+- [filter](#filter) 
+- [mutate](#mutate)
+- [summarise](#sumarise) 
+- [drop_na](#drop)  
+- [join](#join) 
+- [export](#export) 
 
+]
 
 ---
 
 name: out
 class: title-slide
-background-image: url(https://images.unsplash.com/photo-1587246574087-0b56fabf9861?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzExfHxob3JuZWFuZG98ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60)
+background-image: url(https://images.unsplash.com/photo-1586969593928-1c87c1f9c2ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80)
 background-size: cover
-
 
 ### Back to
 - [rmarkdown](#rmd)

@@ -94,7 +94,7 @@ unique(penguins$species)
 Using tidyverse
 ```{r}
 penguins %>% 
-  distinct(species) #<<
+  distinct(species)  
 ```
 
 ## select
@@ -149,26 +149,26 @@ female_penguins<-penguins %>%
 - The symbol **<=** means 'smaller or same as'
 ```{r, eval=FALSE}
 penguins %>%
-  filter(bill_lenght_mm <= 39.1) #<<
+  filter(bill_length_mm <= 39.1)  
 ```
 
 
 - The symbol **>=** means 'larger or same as'
 ```{r, eval=FALSE}
 penguins %>%
-  filter(bill_length_mm >= 39.1)#<<
+  filter(bill_length_mm >= 39.1) 
 ```
 
 - The symbol **&** means 'and'
 ```{r, eval=FALSE}
 penguins %>%
-  filter(island == 'Biscoe' & species =='Adelie')#<<
+  filter(island == 'Biscoe' & species =='Adelie') 
 ```
 
 ## mutate
 ```{r}
 penguins<-penguins %>% 
-  mutate(body_mass_kg = body_mass_g / 1000)#<<
+  mutate(body_mass_kg = body_mass_g / 1000) 
 ```
 
 ## group_by
@@ -186,6 +186,13 @@ penguins %>%
   drop_na(bill_length_mm)
 ```
 
+## group_by
+```{r}
+penguins %>% 
+  group_by(year) %>% 
+  drop_na(bill_length_mm) %>%
+  summarise(mean_bill_length=mean(bill_length_mm))
+```
 
 ### fill out
 
@@ -218,7 +225,7 @@ penguins %>%
 ```{r}
 penguins_means<-penguins %>% 
   group_by(species,sex) %>% 
-  drop_na(body_mass_g)%>% 
+  drop_na(body_mass_g,sex)%>% 
   summarise(mean_body_mass_g = mean(body_mass_g), n = n())%>% 
   mutate(mean_body_mass_kg = mean_body_mass_g / 1000)
 ```
@@ -252,13 +259,15 @@ However it is important to have a **key** to match the observations
 ```{r}
 bird_joined<-left_join(bird_measurements,
                        bird_tracking, 
-                       by = "bird_id") #<<
+                       by = "bird_id")  
+bird_joined
 ```
+
 
 
 ## pivot_longer
 
-Lets imagine we have data from five species and their richness among three different years. 
+Lets imagine we have data from five species and their number of locations (nlocs) among three different years. 
 
 ```{r}
 bird_id<-c("ID01","ID02","ID03","ID04","ID05",
@@ -304,6 +313,7 @@ The most important arguments are **names_from** which are going to be the names 
 bird_wide<-bird_long %>% 
   pivot_wider(names_from = year, 
               values_from = nlocs)
+bird_wide
 ```
 
 ## paste or unite
@@ -318,19 +328,20 @@ The argument **unite** is similar, but lets you to paste together multiple colum
 
 ```{r}
 bird_long<-bird_long %>% 
-  unite(col = unique_id2, #<<
+  unite(col = unique_id2,  
         c("bird_id", "year"),
         sep = "_",
         remove=FALSE)
+bird_long
 ```
 
 **Note** it will get rid of the original column, so if you don't want to eliminate the original column add **remove = FALSE.**
 
-## Separate
+## separate
 
 ```{r, eval=FALSE}
 bird_long %>% 
-  separate(col = unique_id, #<<
+  separate(col = unique_id,  
            into = c("id", "text","year"),
            sep = "_")
 ```
@@ -343,13 +354,13 @@ head(bird_long,5)
 
 ```{r}
 bird_long<-bird_long %>% 
-  separate(col = unique_id, #<<
+  separate(col = unique_id,  
            into = c("id", "text","year"),
            sep = "_",
-           remove = FALSE) #<<
+           remove = FALSE)  
 ```
 
-## Rename
+## rename
 
 The argument **rename** allows to change the name of one or several columns.  
 The new name is written first and the old name comes after.
@@ -358,16 +369,16 @@ An example changing the name of one column
 
 ```{r, eval=FALSE}
 bird_long %>% 
-  rename(unique_identifier = unique_id2) #<<
+  rename(unique_identifier = unique_id2)  
 ```
 
-## Relocate
+## relocate
 
 The argument **relocate** allows you to reorganize your columns and keeping just those that you are interested on.
 
 ```{r, eval=FALSE}
 bird_long %>% 
-  relocate(bird_id,year,nlocs) #<<
+  relocate(bird_id,year,nlocs)  
 ```
 
 Using this argument together with select you can keep only the columns of interest.
@@ -375,7 +386,7 @@ Using this argument together with select you can keep only the columns of intere
 ```{r, eval=FALSE}
 bird_long %>% 
   select(bird_id,year,nlocs)%>%
-  relocate(bird_id,year,nlocs) #<<
+  relocate(bird_id,year,nlocs)  
 ```
 
 # Export
