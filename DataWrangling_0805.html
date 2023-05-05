@@ -4,7 +4,7 @@
     <title>Data wrangling</title>
     <meta charset="utf-8" />
     <meta name="author" content="Miriam Lerma" />
-    <script src="DataWrangling_1205_files/header-attrs-2.20/header-attrs.js"></script>
+    <script src="DataWrangling_0805_files/header-attrs-2.20/header-attrs.js"></script>
     <link rel="stylesheet" href="RZero-themer.css" type="text/css" />
   </head>
   <body>
@@ -669,7 +669,7 @@ ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
                     label_axes = list(top = "E", left = "N", bottom = 'E', right='N'))
 ```
 
-![](DataWrangling_1205_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
+![](DataWrangling_0805_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -1106,7 +1106,7 @@ There are three interrelated rules which make a dataset tidy:
 
 ## 5.2. Recomendations
 
-- To reduce the time organizing your data, is important to think earlier how are you going to collect and store your data. ⏲
+- To reduce the time organizing your data, is important to think earlier how are you going to collect and store your data. 🕤
 
 
 **Why to use tidydata? **
@@ -1453,6 +1453,24 @@ clean_penguins &lt;- penguins %&gt;%
 * filter(!is.na(bill_length_mm))
 ```
 
+Example of using drop_na with other functions
+
+```r
+penguins %&gt;% 
+  group_by(year) %&gt;% 
+* drop_na(bill_length_mm) %&gt;%
+  summarise(mean_bill_length=mean(bill_length_mm))
+```
+
+```
+## # A tibble: 3 × 2
+##    year mean_bill_length
+##   &lt;int&gt;            &lt;dbl&gt;
+## 1  2007             43.7
+## 2  2008             43.5
+## 3  2009             44.5
+```
+
 ---
 
 ## 6.9. lubridate
@@ -1527,7 +1545,7 @@ penguins %&gt;%
 ```r
 penguins %&gt;% 
   group_by(species,sex) %&gt;% 
-  drop_na(body_mass_g)%&gt;% 
+  drop_na(body_mass_g,sex)%&gt;% 
   summarise(mean_body_mass_g = mean(body_mass_g), n = n())%&gt;% 
   mutate(mean_body_mass_kg = mean_body_mass_g / 1000)
 ```
