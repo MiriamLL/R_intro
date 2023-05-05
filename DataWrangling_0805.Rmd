@@ -692,7 +692,6 @@ There are many other options of files. Suggestions? [here `r fa("external-link-a
 
 .pull-right[
 Until here:
-- [index](#index)
 - [rmarkdown](#rmd)
 - [read files](#read-files)
 
@@ -881,7 +880,6 @@ Sugar<-200
 
 .pull-right[
 Until here:
-- [index](#index)
 - [rmarkdown](#rmd)
 - [read files](#read-files)
 - [basic operations](#basic-operationr)
@@ -1052,14 +1050,13 @@ mean(penguins$body_mass_g,
 ```
 Note that **na.rm allows you to ignore NAs**
 
-```{r echo=FALSE, out.height=100}
+```{r echo=FALSE, out.height=90}
 knitr::include_graphics('https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/lter_penguins.png')
 ```
 ]
 
 .pull-right[
 Until here:
-- [index](#index)
 - [rmarkdown](#rmd)
 - [read files](#read-files)
 - [basic operations](#basic-operationr)
@@ -1412,7 +1409,6 @@ penguins %>%
 
 .pull-right[
 Until here:
-- [index](#index)
 - [rmarkdown](#rmd)
 - [read files](#read-files)
 - [basic operations](#basic-operationr)
@@ -1704,12 +1700,9 @@ bird_wide<-bird_long %>%
 
 .pull-right[
 Until here:
-- [index](#index)
 - [rmarkdown](#rmd)
 - [read files](#read-files)
 - [basic operations](#basic-operationr)
-- [bolumns and Rows](#column-rows)
-- [tidydata](#tidydata)
 - [count](#count)
 - [distinct](#distinct) 
 - [select](#select)
@@ -1782,7 +1775,6 @@ background-size: cover
 - [read files](#read-files)
 - [basic operations](#basic-operationr)
 - [columns and rows](#column-rows)
-- [tidydata](#tidydata)
 - [distinct](#distinct) 
 - [count](#count)
 - [select](#select)
@@ -1795,15 +1787,14 @@ background-size: cover
 
 .right[
 ### Contact
-
-This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-05-12-data-wrangling/)
+This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-05-08-data-wrangling/)
 ]
 
 .right[
 
 [`r fa("home", fill = '#f2cc8f')`Home](https://www.miriam-lerma.com/teaching.html)
 
-[`r fa("play", fill = '#f2cc8f')` Index ](https://miriamll.github.io/R_intro/DataWrangling_1205.html#2)
+[`r fa("play", fill = '#f2cc8f')` Index ](https://miriamll.github.io/R_intro/DataWrangling_0805.html#2)
 
 ]
 
