@@ -1331,7 +1331,7 @@ clean_penguins <- penguins %>%
 ```
 
 Example of using drop_na with other functions
-```{r}
+```{r, eval=FALSE}
 penguins %>% 
   group_by(year) %>% 
   drop_na(bill_length_mm) %>% #<<
@@ -1564,6 +1564,10 @@ pivot_wider() "widens" data, increasing the number of columns and decreasing the
 ```{r echo=FALSE, out.height=350}
 knitr::include_graphics(paste0(ImageFolder,"201wider.png?raw=true"))
 ```
+
+---
+
+## 7.3. pivot_wider
 
 The most important arguments are **names_from** which are going to be the names of the columns created after (often the column with factors) and **values_from** is the the name of the column with the values (often the columns with numbers)
 

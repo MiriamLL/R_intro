@@ -1104,7 +1104,7 @@ There are three interrelated rules which make a dataset tidy:
 
 ## 5.2. Recomendations
 
-- To reduce the time organizing your data, is important to think earlier how are you going to collect and store your data. 🕧
+- To reduce the time organizing your data, is important to think earlier how are you going to collect and store your data. 🕰
 
 
 **Why to use tidydata? **
@@ -1459,15 +1459,6 @@ penguins %&gt;%
   summarise(mean_bill_length=mean(bill_length_mm))
 ```
 
-```
-## # A tibble: 3 × 2
-##    year mean_bill_length
-##   &lt;int&gt;            &lt;dbl&gt;
-## 1  2007             43.7
-## 2  2008             43.5
-## 3  2009             44.5
-```
-
 ---
 
 ## 6.9. lubridate
@@ -1729,6 +1720,10 @@ The opposite will be to separate the columns.
 pivot_wider() "widens" data, increasing the number of columns and decreasing the number of rows.
 
 &lt;img src="https://github.com/MiriamLL/R_intro/blob/master/Images/201wider.png?raw=true" height="350" /&gt;
+
+---
+
+## 7.3. pivot_wider
 
 The most important arguments are **names_from** which are going to be the names of the columns created after (often the column with factors) and **values_from** is the the name of the column with the values (often the columns with numbers)
 
