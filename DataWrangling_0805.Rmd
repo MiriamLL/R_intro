@@ -36,6 +36,10 @@ library(fontawesome)
 library(emo)
 ```
 
+```{r xaringanExtra-clipboard, echo=FALSE}
+xaringanExtra::use_clipboard()
+```
+
 # Index
 
 - [rmarkdown](#rmd)
