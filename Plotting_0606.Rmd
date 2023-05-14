@@ -14,7 +14,7 @@ output:
 ---
 
 class: title-slide, bottom, right
-background-image: url(https://images.unsplash.com/photo-1542320260-f8f651de8c12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
+background-image: url(https://images.unsplash.com/photo-1570386230314-9fe8204c6f80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1108&q=80)
 background-size: cover
 
 ### `r rmarkdown::metadata$title`
@@ -38,21 +38,14 @@ library(emo)
 
 # Index
 
-- [rmarkdown](#rmd)
-- [read files](#read-files)
-- [basic operations](#basic-operations)
-- [columns and rows](#column-rows)
-- [tidydata](#tidydata)
-- [distinct](#distinct) 
-- [count](#count)
-- [select](#select)
-- [filter](#filter) 
-- [mutate](#mutate)
-- [summarise](#sumarise) 
-- [drop_na](#drop)  
-- [join](#join) 
+- [points](#points)
+- [lines](#lines)
+- [boxplot](#boxplot)
+- [trajectory](#trajectories)
+- [maps](#maps)
+- [theme](#theme)
+- [legend](#legend)
 - [export](#export) 
-- [contact](#out)
 
 ---
 
@@ -66,14 +59,6 @@ class: title-slide, inverse
 - You know how to use a Rmd document
 - You know how to install packages
 
-We will use the packages
-
-```{r,eval=TRUE}
-install.packages(tidyverse)
-# install.packages("devtools")
-devtools::install_github("MiriamLL/sula")
-devtools::install_github("MiriamLL/GermanNorthSea")
-```
 
 **Goals of today**
 
@@ -88,14 +73,38 @@ devtools::install_github("MiriamLL/GermanNorthSea")
 
 ]
 
+.pull-right[
+We will use the packages
+
+```{r,eval=FALSE}
+# install.packages('tidyverse')
+# install.packages("devtools")
+devtools::install_github("MiriamLL/sula")
+devtools::install_github("MiriamLL/GermanNorthSea")
+```
+]
+
 ---
 
 class: inverse
 
 # References
 
--[gg is for Grammar of Graphics](https://pkg.garrickadenbuie.com/trug-ggplot2)<br>
-[IntroduccionToGGplot](https://englelab.gatech.edu/useRguide/introduction-to-ggplot2.html)  
+Tutorials  
+
+- [gg is for Grammar of Graphics](https://pkg.garrickadenbuie.com/trug-ggplot2)<br>
+
+- [IntroduccionToGGplot](https://englelab.gatech.edu/useRguide/introduction-to-ggplot2.html)  
+
+Galleries/Portafolios
+
+- [Examples of graph on R](https://spcanelon.notion.site/spcanelon/Data-Viz-Bookmarks-dc01718020bd4fd6a8a4ca80e6bce933)<br>
+
+- [RGraphGallery](https://www.r-graph-gallery.com/) <br>
+
+- [DataToViz](https://www.data-to-viz.com/) <br>
+
+- [Coolors](https://coolors.co/) <br>
 
 ---
 
@@ -115,7 +124,7 @@ Fuente:  [VizThinker](https://paldhous.github.io/ucb/2016/dataviz/week2.html)
 
 ## 1.1. Theory
 
-Plotting is transfor data to visualizations that vary in shape, size and colors.
+Plotting is transforming data to visualizations that vary in shape, size and colors.
 
 ```{r echo=FALSE, out.height=350}
 knitr::include_graphics("https://paldhous.github.io/ucb/2016/dataviz/img/class2_1.jpg")
@@ -166,9 +175,9 @@ knitr::include_graphics("https://paldhous.github.io/ucb/2016/dataviz/img/class2_
 
 name: intro
 
-## 1.2. Intro to ggplot
+## 1.2. Intro
 
-There are manuy packages to create plots in R.
+There are many packages to create plots in R.
 - Here we will use **ggplot2**.
 
 
@@ -176,7 +185,7 @@ ggplot is the most versatile one, and from which you can find more help and insp
 
 ---
 
-## 1.2. How does it works?
+## 1.2. Intro
 
 A graph can be divided in three main components:
 
@@ -185,7 +194,7 @@ A graph can be divided in three main components:
 - **Aesthetics** (aes): the aesthetic attributes to a geometric object, such as position, color, shape and size. 
   
 
-In **ggplot** we use **layers**, as in GIS (Geographic information systems).
+In **ggplot** we use **layers** as in GIS (Geographic information systems).
 
 ```{r echo=FALSE, out.height=200}
 knitr::include_graphics("https://englelab.gatech.edu/useRguide/images/dataviz/ge_geom.png")
@@ -196,9 +205,13 @@ Fuente: [ggplot2 book](https://englelab.gatech.edu/useRguide/working-with-data-o
 
 ---
 
-## 1.3. Install and load
+## 1.3. Data
 
-The package ggplot is already included in tidyverse. If you have installed tidyverse you just need to call your package.
+```{r xaringanExtra-clipboard, echo=FALSE}
+xaringanExtra::use_clipboard()
+```
+
+The package ggplot is already included in tidyverse. <br> If you have installed tidyverse you just need to call your package.
 
 ```{r, eval=FALSE}
 library(tidyverse)
@@ -211,60 +224,74 @@ install.packages("ggplot2")
 
 ---
 
-## 1.3. Load data
+## 1.3. Data
 
 For the exercises, we can use data from packages.
 Lets add our object to our **environment**
 
+.pull-left[
+Package with data
 ```{r}
 library(palmerpenguins)
 penguins<-penguins
 ```
 
+Call library
 ```{r}
 library(ggplot2)
 ```
+]
 
-```{r, echo=TRUE, eval=FALSE}
+.pull-right[]
+Add data to a plot
+```{r, echo=TRUE, fig.width=3, fig.height=6}
 ggplot(data=penguins)
 ```
-
+]
 
 ---
 
 ## 1.3. Add axis
 
+.pull-left[
+We told ggplot what data frame we want to use, but we didnt give instructions on what we want to plot. <br>
+**mapping** is where we tell ggplot what to plot in the x and y axis.<br>
+Note that the axis are columns from your data frame.
+]
+
+.pull-right[
 ```{r, fig.height=3}
-ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm, #<<
+                   y=bill_depth_mm))
 ```
 
-
-Now the axis are columns from your data frame.
+]
 
 ---
 
 ## 1.3. Geometry
 
+The next step is to give it a geometry, in this case we say plot points with the argument **geom_point**
+
+  
+It would likely show a **warning**
+This is because NAs are not going to be plotted and is trying to warn you.
+
+.pull-right[
 ```{r, fig.height=3}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
        geom_point() #<<
 ```
-  
-It would likely show a **warning**
-This is because NAs are not going to be plotted and is trying to warn you.
+
+]
 
 ---
 
 ## 1.4. Different geometries
 
-There are many, but today we will cover:
--Points<br>
--Lines<br>
--Bars<br>
--Boxplots<br>
--Trajectories<br> 
--Maps<br>  
-.
+There are many **geometries**
+
 .center[
 ```{r echo=FALSE, out.height=300}
 knitr::include_graphics("http://www.typesofgraphs.com/wp-content/uploads/2015/12/Typesofgraphs.png")
@@ -275,6 +302,8 @@ knitr::include_graphics("http://www.typesofgraphs.com/wp-content/uploads/2015/12
 name: points
 
 ## 1.4. Points
+
+Description: The point geom is used to create scatterplots. The scatterplot is most useful for displaying the relationship between two continuous variables.
 
 ```{r, fig.height=3}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
@@ -287,6 +316,8 @@ name: lines
 
 ## 1.4. Lines
 
+Description: **geom_line()** connects observations in order of the variable on the x axis
+
 ```{r, fig.height=3,warning=FALSE}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_line() #<<
@@ -296,10 +327,13 @@ ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
 
 name: Bars
 
-## 1.4. Gráfico de barras
+## 1.4. Bars
+
+Description: geom_bar() makes the height of the bar proportional to the number of cases in each group
 
 It might be easier to follow the logic as the previous plots, and add only **geom_bar**.
 However, we need to tell what do you want inside the bars.
+
 ```{r, fig.height=3,warning=FALSE, eval=FALSE}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_bar() #<<
@@ -307,7 +341,7 @@ ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
 Error: stat_count() can only have an x or y aesthetic.
 
 Therefore we need to write **stat=**
-```{r, echo=TRUE, eval=FALSE}
+```{r, echo=TRUE, eval=FALSE, warning=FALSE}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_bar(stat='identity') #<<
 ```
@@ -319,14 +353,19 @@ name: boxplot
 
 ## 1.4. Boxplot
 
-For boxplot, we could also follow the previous logic, but it would plot all together.
+Definition: The boxplot compactly displays the distribution of a continuous variable. It visualises five summary statistics (the median, two hinges and two whiskers), and all "outlying" points individually.
+
 ```{r, fig.height=3, echo=TRUE, warning=FALSE}
 ggplot(data=penguins,
        mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_boxplot() #<<
 ```
 
-Therefore adding the argument **group=* inside mapping, we can create boxplots per group.
+---
+
+## 1.4. Boxplot
+
+However, mostly likely we want to compare groups. Therefore adding the argument **group=* inside mapping to create boxplots per group.
 
 ```{r, fig.height=3, echo=TRUE, warning=FALSE}
 ggplot(data=penguins,
@@ -341,23 +380,21 @@ name: trajectories
 
 ## 1.4. Trajectory
 
-To install the package
-```{r}
-devtools::install_github("MiriamLL/sula")
-```
-
-To load package
-```{r}
+To test this function, load data from the package **sula**
+```{r, warning=FALSE}
+#devtools::install_github("MiriamLL/sula")
 library(sula)
 ```
 
-To get data in the environment
+Get data in the environment
 ```{r}
 tracking_data<-GPS_raw
 ```
 
 To plot, use **geom_path**
-```{r, fig.height=3, echo=TRUE, eval=FALSE}
+geom_path() connects the observations in the order in which they appear in the data.
+
+```{r, fig.height=3, echo=TRUE, eval=TRUE}
 ggplot(data = tracking_data, aes(x = Latitude, y = Longitude)) +
   geom_path() #<<
 ```
@@ -368,23 +405,31 @@ name: maps
 
 ## 1.4. Maps
 
-Install 
+Install **GermanNorthSea**
 
-```{r}
-devtools::install_github("MiriamLL/GermanNorthSea")
-```
+This package compiles shapefiles from the North Sea
 
-Load
-```{r}
+```{r, warning=FALSE}
+#devtools::install_github("MiriamLL/GermanNorthSea")
 library(GermanNorthSea)
 ```
 
-Add to environment
+Add shapefile to environment
 ```{r}
 German_land<-German_land
 ```
 
 Plot
+
+```{r}
+ggplot(German_land)+ 
+  geom_sf()+
+  coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000))
+```
+
+---
+
+## 1.4. Maps
 
 Here I have **coord_sf** and some coordinates to **zoom-in**
 ```{r}
@@ -405,174 +450,108 @@ class: inverse
 
 .panelset[
 .panel[.panel-name[Datos]
-- Carga los datos
+- Load data
 ```{r}
-library(datos)
-Pingus<-datos::pinguinos
+library(palmerpenguins)
+penguins<-penguins
 ```
 ]
 
 .panel[.panel-name[Rellenar]
-- Rellena los espacios (*****) para crear un gráfico de puntos el largo del pico y el largo de la aleta.
+- Fill the spaces (*****) to create a plot of bill lenght and body mass.
 ```{r}
 #ggplot(data=***, mapping=aes(x=***,y=***))+
 #  geom_***()
 ```
-]
-
-.panel[.panel-name[Respuesta]
-```{r, echo=TRUE, eval=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm))+
-  geom_point()
-```
-
-```{r, fig.height=3, echo=FALSE, include=TRUE, warning=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm))+
-  geom_point()
-```
-```{r echo=FALSE, out.height=300, eval=FALSE}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/unnamed-chunk-41-1.png')
-```
-]
-]
-
+]]
 
 ---
 
-name: estetica
+name: aesthetics
 class: title-slide, inverse, right, middle
 background-image: url(https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80)
 background-size:cover
 
-# 2. Estéticas
+# 2. Aesthetics
 
 ---
 
-## 2.1. Colores de los símbolos
+## 2.1. Symbol color
 
-```{r, echo=TRUE, eval=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, 
-                                color=especie))+ #<<
+```{r}
+library(ggplot2)
+```
+
+```{r, echo=TRUE, warning=FALSE}
+ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))+ #<<
   geom_point()
 ```
 
-```{r, fig.height=3, echo=FALSE, include=TRUE, warning=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, 
-                                color=especie))+
-  geom_point()
-```
-
-```{r echo=FALSE, out.height=300, eval=FALSE}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/unnamed-chunk-43-1.png')
-```
 
 ---
 
-## 2.2. Temas
+## 2.2. Theme
 
 ```{r, echo=TRUE, eval=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))+
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))+ 
   geom_point()+
   theme_bw() #<<
 ```
 
-```{r, fig.height=3, echo=FALSE, include=TRUE, warning=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))+
-  geom_point()+
-  theme_bw()
-```
-
-```{r echo=FALSE, out.height=300, eval=FALSE}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/unnamed-chunk-50-1.png')
-```
-
 ---
 
-## 2.3. Fondos
+## 2.3. Background colors
 
 ```{r, echo=TRUE, eval=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))+
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))+
   geom_point()+
   theme_bw()+
   theme(panel.background = element_rect(fill = 'darkblue'))#<<
 ```
 
-```{r, fig.height=3, echo=FALSE, include=TRUE, warning=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))+
-  geom_point()+
-  theme_bw()+
-  theme(panel.background = element_rect(fill = 'darkblue'))
-```
-
-```{r echo=FALSE, out.height=300, eval=FALSE}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/unnamed-chunk-47-1.png')
-```
-
 ---
 
-## 2.4. Modificar ejes
+## 2.4. Axis legends
 
 ```{r, echo=TRUE, eval=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))+
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))+
   geom_point()+
   theme_bw()+
-  xlab('Largo Pico')+ylab('Largo Aleta')#<<
-```
-
-```{r, fig.height=3, echo=FALSE, include=TRUE, warning=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))+
-  geom_point()+
-  theme_bw()+
-  xlab('Largo Pico')+ylab('Largo Aleta')
-```
-
-```{r echo=FALSE, out.height=300, eval=FALSE}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/unnamed-chunk-50-1.png')
+  xlab('Bill lenght')+ylab('Flipper length')#<<
 ```
 
 
 ---
 
-## 2.5. Tamaño de letras
+## 2.5. Font size
 
 ```{r, echo=TRUE, eval=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))+
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))+
   geom_point()+
   theme_bw()+
   theme(axis.title = element_text(size=20)) #<<
 ```
 
-```{r, fig.height=3, echo=FALSE, include=TRUE, warning=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))+
-  geom_point()+
-  theme_bw()+
-  theme(axis.title = element_text(size=20))
-```
-
-```{r echo=FALSE, out.height=300, eval=FALSE}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/unnamed-chunk-52-1.png')
-```
-
 ---
 
-## 2.6. Leyendas
+## 2.6. Legends
 
-```{r, echo=TRUE, eval=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))+
+```{r, echo=TRUE, warning=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))+
   geom_point()+
   theme_bw()+
   theme(legend.position = "top") #<<
-```
-
-```{r, fig.height=3, echo=FALSE, include=TRUE, warning=FALSE}
-ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))+
-  geom_point()+
-  theme_bw()+
-  theme(legend.position = "top")
-```
-
-```{r echo=FALSE, out.height=300, eval=FALSE}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/unnamed-chunk-54-1.png')
 ```
 
 ---
@@ -583,11 +562,10 @@ Help>CheatSheets>Data Visualization with ggplot
 
 ---
 
-## 2.8. Errores comunes
+## 2.8. Common mistakes
 
-No tener los datos ordenados.  
-Noten que para definir los ejes usamos columnas, por lo tanto es importante que tengan sus datos ordenados de esta manera.  
-Si no los tienen asi por ahora, lo veremos mas adelante en 'ordenar mis datos'.  
+Not having **tidydata**  
+ 
 
 ```{r echo=FALSE, out.width=600}
 knitr::include_graphics('https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/visualization-stat-bar.svg')
@@ -597,47 +575,59 @@ Fuente: [R4DS](https://r4ds-en-espaniol.netlify.app/)
 
 ---
 
-## 2.8. Errores comunes de sintaxis
+## 2.8. Common mistakes
 
-No poner el **+**
-```{r}
-#ggplot(data=Pingus, 
-#       mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))
-#       geom_point()
+Forgetting a plus symbol ( **+** )
+
+```{r, eval=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))
+  geom_point()
 ```
 
 --
 
-Poner el **+** en el lugar incorrecto
-```{r}
-#ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))
-# +geom_point()
+Adding the **+** on the wrong order
+```{r, eval=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))
+ +geom_point()
 ```
 
 --
 
-No cerrar paréntesis
+Forgetting a parethesis
 
-```{r}
-#ggplot(data=Pingus, mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie)+
-# geom_point()
+```{r, eval=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species)+ #<<
+         geom_point()
 ```
-Falta un parentesis despues de especie.
+Add a parenthesis after "species"
 
 ---
 
-## 2.9. Grafico como objeto
+## 2.9. Plot as an object
 
-Se pueden guardar los gráficos como objeto 
-```{r, echo=TRUE, eval=FALSE}
-MiGrafico<-ggplot(data=Pingus, 
-                  mapping=aes(x=largo_pico_mm,y=largo_aleta_mm, 
-                              color=especie))+ geom_point()
+You can save your plot as an object in the environment
+
+```{r, echo=TRUE}
+My_plot<-ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))+ 
+  geom_point()
 ```
 
-Y agregar estéticas a su gráfico base con el signo de +
+```{r}
+My_plot
+```
+
+Yo can add aesthetics to the object using the **+**
 ```{r, fig.height=3, echo=TRUE, eval=FALSE}
-MiGrafico+ #<<
+My_plot+ #<<
   theme_bw()+
   theme(legend.position = "top")
 ```
@@ -645,20 +635,21 @@ MiGrafico+ #<<
 
 ---
 
-## 2.10. Omitir partes
+## 2.10. Simplify 
+
+So far we always wrote data= and mapping= <br>
+
+However, you can skip it if you follow the same order.
 
 No necesitan escribir todo (data, mapping se puede omitir) si siguen un orden.
 ```{r, echo=TRUE, eval=FALSE}
-MiGrafico<-ggplot(Pingus, 
-                  aes(x=largo_pico_mm,y=largo_aleta_mm, 
-                              color=especie))+geom_point()
-MiGrafico
+My_plot<-ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))+
+  geom_point()
+My_plot
 ```
 
-```{r, fig.height=3, echo=FALSE, include=TRUE, warning=FALSE}
-ggplot(Pingus, aes(x=largo_pico_mm,y=largo_aleta_mm, color=especie))+
-  geom_point()
-```
 
 ---
 
@@ -711,14 +702,15 @@ knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/m
 ]
 
 ---
-name: exportar
-# 3. Exportar
+name: export
 
-Para exportar tu figura puedes usar la función **ggsave**
+# 3. Export
+
+To export a plot there is **ggsave**
 
 ```{r, eval=FALSE}
-ggsave(Figura, 
-       filename = "~/Figura.png",
+ggsave(My_plot, 
+       filename = "~/My_plot.png",
        width = 24, 
        height = 24, 
        units = "in",
@@ -727,132 +719,55 @@ ggsave(Figura,
 
 ---
 
-# 4. Otras posibilidades
+# 4. Other options
 
-.pull-left[
-Los gráficos se pueden animar.
+## 4.1. Interactive
 
-```{r, eval=FALSE}
-library(gganimate)
+Graphs can be interactive.
+
+```{r, warning=FALSE,message=FALSE}
+#install.packages('plotly')
 library(plotly)
+```
+
+```{r}
+ggplotly(My_plot)
+```
+
+
+---
+
+# 4.2. Animate
+
+```{r}
+library(gganimate)
 ```
 
 ```{r, echo=FALSE, out.height=350}
 knitr::include_graphics('https://www.datanovia.com/en/wp-content/uploads/dn-tutorials/r-tutorial/images/transition_time.gif')
 ```
-]
-
-.pull-right[
-
-
-Explorar:
-
-- [Visualizaciones en R](https://www.notion.so/Data-Viz-Bookmarks-dc01718020bd4fd6a8a4ca80e6bce933) by Silvia Canelón (@spcanelon) and Tom Mock (@thomas_mock)  <br>
-
-- Twitter: <br> #tidytuesday <br> #DatosDeMiercoles, #30díasdegráficos <br>
-
-- [RGraphGallery](https://www.r-graph-gallery.com/) <br>
-
-- [DataToViz](https://www.data-to-viz.com/) <br>
-
-- [Coolors](https://coolors.co/) <br>
-]
 
 ---
-
-class: inverse
-
-# Recapitulando
-
----
-
-class: title-slide, inverse
-
-# References
-
-- R for Data Science  
-[`r fa("book-open", fill = "#f2cc8f")` R4DS](https://r4ds.had.co.nz/)  
-
-- Data Carpentries  
-[`r fa("book-open", fill = "#f2cc8f")` Carpentries](https://datacarpentry.org/genomics-r-intro/00-introduction/index.html)
-
-- R cookbook  
-[`r fa("book-open", fill = "#f2cc8f")` R cookbook](http://www.cookbook-r.com/)
-
-- From Zero to Shero by RLadies   
-[`r fa("github-alt", fill = "#f2cc8f")` Zero to Hero](https://github.com/rladies/meetup-presentations_freiburg) 
-
-- Images from  
-[`r fa("camera-retro", fill = "#f2cc8f")` Unsplash](https://unsplash.com/)  
-[`r fa("palette", fill = "#f2cc8f")` Allison horst](https://allisonhorst.com/allison-horst)  
-
-
-
----
-
-
-name: rmd
-class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1542319785-59a73ea1c114?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)
-background-size: cover
-
-.pull-right[
-# `r text_spec("R markdown", background = "#003049", color = "#e5e5e5", bold = T)`
-### `r text_spec("Parts of the kitchen", background = "#003049", color = "#e5e5e5", bold = T)`
-]
-
----
-
-## 1. RMarkdown 
-
-Rmarkdown is very convenient because it let us export what we do in R to html or word documents.
-
-We can even make slides... <br>
-.right[...like this one.]
-
---
-
-There are **plenty** of options on Rmd. I will just point out a few.
-
----
-
-
-
-
-
----
-
-name: out
-class: title-slide
-background-image: url(https://images.unsplash.com/photo-1587246574087-0b56fabf9861?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzExfHxob3JuZWFuZG98ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60)
-background-size: cover
-
 
 ### Back to
-- [rmarkdown](#rmd)
-- [read files](#read-files)
-- [basic operations](#basic-operationr)
-- [columns and rows](#column-rows)
-- [distinct](#distinct) 
-- [count](#count)
-- [select](#select)
-- [filter](#filter) 
-- [mutate](#mutate)
-- [summarise](#sumarise) 
-- [drop_na](#drop)  
-- [join](#join) 
+- [points](#points)
+- [lines](#lines)
+- [boxplot](#boxplot)
+- [maps](#maps)
+- [theme](#theme)
+- [legend](#legend)
 - [export](#export) 
 
 .right[
 ### Contact
-This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-05-08-data-wrangling/)
+This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-06-06-plotting/)
 ]
 
 .right[
 
 [`r fa("home", fill = '#f2cc8f')`Home](https://www.miriam-lerma.com/teaching.html)
 
-[`r fa("play", fill = '#f2cc8f')` Index ](https://miriamll.github.io/R_intro/DataWrangling_0805.html#2)
+[`r fa("play", fill = '#f2cc8f')` Index ](https://miriamll.github.io/R_intro/Plotting_0606.html#2)
 
 ]
 
