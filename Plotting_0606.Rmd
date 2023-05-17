@@ -469,7 +469,7 @@ penguins<-penguins
 
 name: aesthetics
 class: title-slide, inverse, right, middle
-background-image: url(https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80)
+background-image: url(https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80)
 background-size:cover
 
 # 2. Aesthetics
@@ -653,75 +653,306 @@ My_plot
 
 ---
 
-class: inverse
+name: maps
+background-image: url(https://images.unsplash.com/photo-1554033551-050e208bcaf2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=800)
+background-size: cover
 
-# Ejercicios `r fa("pencil-alt", fill = '#FFFFFF')`
-
-- Crear un gráfico de puntos con los datos de diamantes <br>
-- Graficar el *precio* por el *quilate* -
-- Cambiar el color de lo puntos de acuerdo al *corte* 
-- Cambiar el nombre en el eje x por 'Precio en dolares' y el eje y por 'kt'.
-
-.panelset[
-.panel[.panel-name[Datos]
-- Crear un gráfico de puntos con los datos de diamantes
-```{r}
-Diamantes<-datos::diamantes
-```
-]
-.panel[.panel-name[Rellenar]
-Graficar el *precio* por el *quilate* y cambiar el color de lo puntos de acuerdo al *corte* y cambiar el nombre en el eje x por *Precio en dolares* y el eje y por *kt*.
-```{r}
-#ggplot(data=***,mapping=aes(x=***, y=***, color=****))+
-#  geom_****()+
-#  theme_bw()+
-#  xlab("**")+ylab("***")
-```
-]
-
-.panel[.panel-name[Respuesta]
-```{r, echo=TRUE, eval=FALSE}
-ggplot(data=Diamantes,mapping=aes(x=precio, y=quilate, color=corte))+
-  geom_point()+
-  theme_bw()+
-  xlab("Precio en pesos")+ylab("kt")
-```
-
-Gráfico  
-```{r, fig.height=2, echo=FALSE, include=TRUE}
-ggplot(data=Diamantes,mapping=aes(x=precio, y=quilate, color=corte))+
-  geom_point()+
-  theme_bw()+
-  xlab("Precio en pesos")+ylab("kt")
-```
-
-```{r echo=FALSE, out.height=300, eval=FALSE}
-knitr::include_graphics('https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/unnamed-chunk-66-1.png')
-```
-]
-]
+# 3. Maps
 
 ---
-name: export
 
-# 3. Export
-
-To export a plot there is **ggsave**
+## 3.1. Basic Map
 
 ```{r, eval=FALSE}
-ggsave(My_plot, 
-       filename = "~/My_plot.png",
-       width = 24, 
-       height = 24, 
-       units = "in",
-       dpi = 500)
+1. Getting ready
+
+You can download shapefiles from: https://www.naturalearthdata.com/downloads/
+
+Call the package here to work in your directory.
+
+library(here)
+
+Call the package sf to read the shapefiles into R
+
+library(sf)
+
+2. Read your shapefile
+
+Use your directory name, and give the name of your shapefile
+
+Europe<-st_read(paste0(Directory,MyShapefileName))
+
+Reading layer `country' from data source 
+  `C:\Users\lerma\OneDrive\Documents\4Programacion\2023\1Distill\Distill\_posts\2023-03-04-mapping-in-r\country.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 54 features and 2 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -31.26575 ymin: 32.39748 xmax: 69.07032 ymax: 81.85737
+Geodetic CRS:  WGS 84
+
+3. Create a basic map
+
+Load ggplot2
+
+library(ggplot2)
+
+Plot your shapefile
+
+ggplot()+  
+  geom_sf(data = Europe)
+
+4. Add colors
+
+I copy the hex colors from coolors
+
+ggplot()+  
+  geom_sf(data = Europe, 
+          colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)
+
+5. Change background color
+
+You can eliminate the grids and the change the background color in ggplot
+
+ggplot()+  
+  geom_sf(data = Europe, 
+          colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)+
+  theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = '#edf2f4'),
+        legend.background = element_rect(fill = '#edf2f4'))
+
+6. Add limits
+
+Reduce to focus in your area of interest
+
+ggplot()+  
+  geom_sf(data = Europe, 
+          colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)+
+  theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = '#edf2f4'),
+        legend.background = element_rect(fill = '#edf2f4'))+
+  
+  coord_sf(xlim = c(9, 31),ylim = c(53, 65))
+
+7. Add scale
+
+Load the package ggspatial to add a scale and an north arrow
+
+library(ggspatial)
+
+br is from bottom right
+bar_cols is for column colors
+text_col is for the color of the text
+
+ggplot()+  
+  geom_sf(data = Europe, 
+          colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)+
+  theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = '#edf2f4'),
+        legend.background = element_rect(fill = '#edf2f4'))+
+  
+  coord_sf(xlim = c(9, 31),ylim = c(53, 65))+
+    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
+    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N")) +
+  
+  annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')
+
+8. Add arrow
+
+tl is for top left
+which_north preferably true (see why here)
+north_arrow_fancy_orienteering (see other styles here)
+
+ggplot()+  
+  geom_sf(data = Europe, 
+          colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)+
+  theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = '#edf2f4'),
+        legend.background = element_rect(fill = '#edf2f4'))+
+  
+  coord_sf(xlim = c(9, 31),ylim = c(53, 65))+
+    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
+    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N")) +
+  
+   annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')+
+  
+  annotation_north_arrow(location = "tl", style = north_arrow_minimal(text_col = '#ffd60a',line_col = '#ffd60a',fill = '#ffd60a')) 
+
+Thats it for now!
 ```
+
 
 ---
 
-# 4. Other options
+## 3.2. Add dots
 
-## 4.1. Interactive
+```{r, eval=FALSE}
+
+library(tidyverse)
+library(seamonas)
+
+## Create data frame
+density_df<-data.frame(
+             seq=(1:50),
+             survey_id=rep(c(1, 2, 3, 4, 5), each = 10),
+             longitude=c(seq(6, 8, length = 10),
+                         seq(6, 8, length = 10),
+                         seq(6, 8, length = 10),
+                         seq(6, 8, length = 10),
+                         seq(6, 8, length = 10)),
+             latitude=c(seq(55.1,54, length = 10),
+                        seq(55.1+0.1,54+0.1, length = 10),
+                        seq(55.1+0.2,54+0.2, length = 10),
+                        seq(55.1-0.2,54-0.2, length = 10),
+                        seq(55.1-0.1,54-0.1, length = 10)),
+             timestamps=c(
+  head(seq.POSIXt(as.POSIXct("2018-04-01 09:00:00"), as.POSIXct("2018-04-01 18:00:00"), by="min"), 10),
+  head(seq.POSIXt(as.POSIXct("2018-05-01 09:00:00"), as.POSIXct("2018-05-01 18:00:00"), by="min"), 10),
+  head(seq.POSIXt(as.POSIXct("2018-06-01 09:00:00"), as.POSIXct("2018-06-01 18:00:00"), by="min"), 10),
+  head(seq.POSIXt(as.POSIXct("2018-07-01 09:00:00"), as.POSIXct("2018-07-01 18:00:00"), by="min"), 10),
+  head(seq.POSIXt(as.POSIXct("2018-08-01 09:00:00"), as.POSIXct("2018-08-01 18:00:00"), by="min"), 10))
+)
+
+
+density_df$year<-stringr::str_sub(density_df$timestamps, 1, 4)
+density_df$month<-stringr::str_sub(density_df$timestamps, 6, 7)
+density_df$day<-stringr::str_sub(density_df$timestamps, 9, 10)
+density_df$date<-paste0(density_df$year,"-",density_df$month,"-",density_df$day)
+
+density_df<-density_df
+
+ggplot()+
+  geom_point(data=density_df,
+          aes(x = longitude,
+              y= latitude))
+
+#values 0 or 1
+random1<-sample(0:1, 50, replace=TRUE)
+
+#values 0 to 5.1
+
+random2<-runif(50, min=0, max=5.1)
+
+#make data frame
+
+random3<-cbind(random1,random2)
+random3<-as.data.frame(random3)
+
+
+#substitute values
+random4<-random3 %>%
+  mutate(random5 = case_when(
+    random1 == 0 ~ 0,
+    random1 != 0 ~ random2,
+    TRUE ~ random2))
+#use as densities
+
+density_df$densities<-as.numeric(random4$random5)
+
+range(density_df$densities)
+
+class0<-0
+class1<-1
+class2<-2.5
+class3<-5
+
+density_df<-density_df %>% 
+    mutate(density_class = case_when(
+      densities ==  class0 ~ as.character("group0"),
+      densities >=  class0 & densities <=  class1 ~ as.character("group1"),
+      densities >=  class1 & densities <=  class2 ~ as.character("group2"),
+      densities >=  class2 & densities <=  class3 ~ as.character("group3"),
+      densities >=  class3 ~ as.character("group4"),
+      TRUE~"U"))
+
+density_df %>%
+  group_by(density_class)%>%
+  tally()
+
+density_shapes<-c("group0"=3, "group1"=21,"group2"=21, "group3"=21, "group4"=21)
+
+density_sizes<-c("group0"=0.5, "group1"=1,"group2"=2, "group3"=3, "group4"=5)
+
+density_labels<-c('0','> 0-1','> 1-2.5','> 2.5-5','> 5')
+
+ggplot()+
+  geom_point(data=density_df,
+          aes(x = longitude,
+              y= latitude,
+              shape = density_class,
+              size= density_class),
+              fill= "#d00000")+
+  
+  scale_shape_manual(values = density_shapes,labels=density_labels)+
+  scale_size_manual(values =  density_sizes,labels=density_labels)
+
+library(sf)
+library(GermanNorthSea)
+
+my_CRS<-4326
+Europa<-sf::st_transform(German_land, my_CRS)
+EEZ<-sf::st_transform(German_EEZ, my_CRS)
+color_land='#f7bf54'
+color_water='#3668b4'
+xval<-c(3,9)
+yval<-c(53,56)
+
+base_plot<-ggplot2::ggplot()+
+    # maps
+    ggplot2::geom_sf(data = EEZ, colour = 'black', fill = color_water)+
+    ggplot2::geom_sf(data = Europa, colour = 'black', fill = color_land)+ 
+    ggplot2::coord_sf(xlim = xval, ylim = yval)+
+
+    NULL
+base_plot
+
+density_wmap<-base_plot+
+  geom_point(data=density_df,
+          aes(x = longitude,
+              y= latitude,
+              shape = density_class,
+              size= density_class),
+              fill= "#d00000")+
+  
+  scale_shape_manual(values = density_shapes,labels=density_labels)+
+  scale_size_manual(values =  density_sizes,labels=density_labels)
+density_wmap
+
+density_wlegend<-add_legend(
+  plot_wbreaks=density_wmap,
+  legtx=3.0,
+  legty=54.0,
+  legxy=c(0.11, 0.21),
+  xval=xval,
+  yval=yval)+
+  theme(legend.key.size = ggplot2::unit(0.4, "cm"))
+density_wlegend
+
+density_wtheme<-add_theme(plot_wlegend = density_wlegend)
+density_wtheme
+```
+
+
+---
+## 3.3. Interactive
 
 Graphs can be interactive.
 
@@ -734,20 +965,51 @@ library(plotly)
 ggplotly(My_plot)
 ```
 
-
 ---
 
-# 4.2. Animate
+# 3.4. Animate
 
 ```{r}
 library(gganimate)
 ```
 
 ```{r, echo=FALSE, out.height=350}
-knitr::include_graphics('https://www.datanovia.com/en/wp-content/uploads/dn-tutorials/r-tutorial/images/transition_time.gif')
+knitr::include_graphics('https://github.com/MiriamLL/miriamlerma_/blob/main/animation.gif?raw=true')
 ```
 
 ---
+name: export
+background-image: url(https://images.unsplash.com/photo-1465161191540-aac346fcbaff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80)
+background-size: cover
+
+# 4. Export
+
+---
+
+# 4. ggsave
+
+To export a plot there is **ggsave**
+
+```{r}
+ResultsFolder<-here::here()
+```
+
+```{r, eval=FALSE}
+ggsave(My_plot, 
+       filename = paste0(ResultsFolder,"/My_plot.png"),
+       width = 24, 
+       height = 24, 
+       units = "in",
+       dpi = 500)
+```
+
+
+---
+
+name: out
+class: title-slide
+background-image: url(https://images.unsplash.com/photo-1514679347725-10436adc23a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=862&q=80)
+background-size: cover
 
 ### Back to
 - [points](#points)

@@ -508,7 +508,7 @@ penguins&lt;-penguins
 
 name: aesthetics
 class: title-slide, inverse, right, middle
-background-image: url(https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=675&amp;q=80)
+background-image: url(https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=580&amp;q=80)
 background-size:cover
 
 # 2. Aesthetics
@@ -714,72 +714,307 @@ My_plot
 
 ---
 
-class: inverse
+name: maps
+background-image: url(https://images.unsplash.com/photo-1554033551-050e208bcaf2?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=870&amp;q=800)
+background-size: cover
 
-# Ejercicios <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#FFFFFF;overflow:visible;position:relative;"><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
-
-- Crear un gráfico de puntos con los datos de diamantes &lt;br&gt;
-- Graficar el *precio* por el *quilate* -
-- Cambiar el color de lo puntos de acuerdo al *corte* 
-- Cambiar el nombre en el eje x por 'Precio en dolares' y el eje y por 'kt'.
-
-.panelset[
-.panel[.panel-name[Datos]
-- Crear un gráfico de puntos con los datos de diamantes
-
-```r
-Diamantes&lt;-datos::diamantes
-```
-]
-.panel[.panel-name[Rellenar]
-Graficar el *precio* por el *quilate* y cambiar el color de lo puntos de acuerdo al *corte* y cambiar el nombre en el eje x por *Precio en dolares* y el eje y por *kt*.
-
-```r
-#ggplot(data=***,mapping=aes(x=***, y=***, color=****))+
-#  geom_****()+
-#  theme_bw()+
-#  xlab("**")+ylab("***")
-```
-]
-
-.panel[.panel-name[Respuesta]
-
-```r
-ggplot(data=Diamantes,mapping=aes(x=precio, y=quilate, color=corte))+
-  geom_point()+
-  theme_bw()+
-  xlab("Precio en pesos")+ylab("kt")
-```
-
-Gráfico  
-![](Plotting_0606_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
-
-
-]
-]
-
----
-name: export
-
-# 3. Export
-
-To export a plot there is **ggsave**
-
-
-```r
-ggsave(My_plot, 
-       filename = "~/My_plot.png",
-       width = 24, 
-       height = 24, 
-       units = "in",
-       dpi = 500)
-```
+# 3. Maps
 
 ---
 
-# 4. Other options
+## 3.1. Basic Map
 
-## 4.1. Interactive
+
+```r
+1. Getting ready
+
+You can download shapefiles from: https://www.naturalearthdata.com/downloads/
+
+Call the package here to work in your directory.
+
+library(here)
+
+Call the package sf to read the shapefiles into R
+
+library(sf)
+
+2. Read your shapefile
+
+Use your directory name, and give the name of your shapefile
+
+Europe&lt;-st_read(paste0(Directory,MyShapefileName))
+
+Reading layer `country' from data source 
+  `C:\Users\lerma\OneDrive\Documents\4Programacion\2023\1Distill\Distill\_posts\2023-03-04-mapping-in-r\country.shp' 
+  using driver `ESRI Shapefile'
+Simple feature collection with 54 features and 2 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -31.26575 ymin: 32.39748 xmax: 69.07032 ymax: 81.85737
+Geodetic CRS:  WGS 84
+
+3. Create a basic map
+
+Load ggplot2
+
+library(ggplot2)
+
+Plot your shapefile
+
+ggplot()+  
+  geom_sf(data = Europe)
+
+4. Add colors
+
+I copy the hex colors from coolors
+
+ggplot()+  
+  geom_sf(data = Europe, 
+          colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)
+
+5. Change background color
+
+You can eliminate the grids and the change the background color in ggplot
+
+ggplot()+  
+  geom_sf(data = Europe, 
+          colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)+
+  theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = '#edf2f4'),
+        legend.background = element_rect(fill = '#edf2f4'))
+
+6. Add limits
+
+Reduce to focus in your area of interest
+
+ggplot()+  
+  geom_sf(data = Europe, 
+          colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)+
+  theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = '#edf2f4'),
+        legend.background = element_rect(fill = '#edf2f4'))+
+  
+  coord_sf(xlim = c(9, 31),ylim = c(53, 65))
+
+7. Add scale
+
+Load the package ggspatial to add a scale and an north arrow
+
+library(ggspatial)
+
+br is from bottom right
+bar_cols is for column colors
+text_col is for the color of the text
+
+ggplot()+  
+  geom_sf(data = Europe, 
+          colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)+
+  theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = '#edf2f4'),
+        legend.background = element_rect(fill = '#edf2f4'))+
+  
+  coord_sf(xlim = c(9, 31),ylim = c(53, 65))+
+    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
+    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N")) +
+  
+  annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')
+
+8. Add arrow
+
+tl is for top left
+which_north preferably true (see why here)
+north_arrow_fancy_orienteering (see other styles here)
+
+ggplot()+  
+  geom_sf(data = Europe, 
+          colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)+
+  theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = '#edf2f4'),
+        legend.background = element_rect(fill = '#edf2f4'))+
+  
+  coord_sf(xlim = c(9, 31),ylim = c(53, 65))+
+    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
+    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N")) +
+  
+   annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')+
+  
+  annotation_north_arrow(location = "tl", style = north_arrow_minimal(text_col = '#ffd60a',line_col = '#ffd60a',fill = '#ffd60a')) 
+
+Thats it for now!
+```
+
+
+---
+
+## 3.2. Add dots
+
+
+```r
+library(tidyverse)
+library(seamonas)
+
+## Create data frame
+density_df&lt;-data.frame(
+             seq=(1:50),
+             survey_id=rep(c(1, 2, 3, 4, 5), each = 10),
+             longitude=c(seq(6, 8, length = 10),
+                         seq(6, 8, length = 10),
+                         seq(6, 8, length = 10),
+                         seq(6, 8, length = 10),
+                         seq(6, 8, length = 10)),
+             latitude=c(seq(55.1,54, length = 10),
+                        seq(55.1+0.1,54+0.1, length = 10),
+                        seq(55.1+0.2,54+0.2, length = 10),
+                        seq(55.1-0.2,54-0.2, length = 10),
+                        seq(55.1-0.1,54-0.1, length = 10)),
+             timestamps=c(
+  head(seq.POSIXt(as.POSIXct("2018-04-01 09:00:00"), as.POSIXct("2018-04-01 18:00:00"), by="min"), 10),
+  head(seq.POSIXt(as.POSIXct("2018-05-01 09:00:00"), as.POSIXct("2018-05-01 18:00:00"), by="min"), 10),
+  head(seq.POSIXt(as.POSIXct("2018-06-01 09:00:00"), as.POSIXct("2018-06-01 18:00:00"), by="min"), 10),
+  head(seq.POSIXt(as.POSIXct("2018-07-01 09:00:00"), as.POSIXct("2018-07-01 18:00:00"), by="min"), 10),
+  head(seq.POSIXt(as.POSIXct("2018-08-01 09:00:00"), as.POSIXct("2018-08-01 18:00:00"), by="min"), 10))
+)
+
+
+density_df$year&lt;-stringr::str_sub(density_df$timestamps, 1, 4)
+density_df$month&lt;-stringr::str_sub(density_df$timestamps, 6, 7)
+density_df$day&lt;-stringr::str_sub(density_df$timestamps, 9, 10)
+density_df$date&lt;-paste0(density_df$year,"-",density_df$month,"-",density_df$day)
+
+density_df&lt;-density_df
+
+ggplot()+
+  geom_point(data=density_df,
+          aes(x = longitude,
+              y= latitude))
+
+#values 0 or 1
+random1&lt;-sample(0:1, 50, replace=TRUE)
+
+#values 0 to 5.1
+
+random2&lt;-runif(50, min=0, max=5.1)
+
+#make data frame
+
+random3&lt;-cbind(random1,random2)
+random3&lt;-as.data.frame(random3)
+
+
+#substitute values
+random4&lt;-random3 %&gt;%
+  mutate(random5 = case_when(
+    random1 == 0 ~ 0,
+    random1 != 0 ~ random2,
+    TRUE ~ random2))
+#use as densities
+
+density_df$densities&lt;-as.numeric(random4$random5)
+
+range(density_df$densities)
+
+class0&lt;-0
+class1&lt;-1
+class2&lt;-2.5
+class3&lt;-5
+
+density_df&lt;-density_df %&gt;% 
+    mutate(density_class = case_when(
+      densities ==  class0 ~ as.character("group0"),
+      densities &gt;=  class0 &amp; densities &lt;=  class1 ~ as.character("group1"),
+      densities &gt;=  class1 &amp; densities &lt;=  class2 ~ as.character("group2"),
+      densities &gt;=  class2 &amp; densities &lt;=  class3 ~ as.character("group3"),
+      densities &gt;=  class3 ~ as.character("group4"),
+      TRUE~"U"))
+
+density_df %&gt;%
+  group_by(density_class)%&gt;%
+  tally()
+
+density_shapes&lt;-c("group0"=3, "group1"=21,"group2"=21, "group3"=21, "group4"=21)
+
+density_sizes&lt;-c("group0"=0.5, "group1"=1,"group2"=2, "group3"=3, "group4"=5)
+
+density_labels&lt;-c('0','&gt; 0-1','&gt; 1-2.5','&gt; 2.5-5','&gt; 5')
+
+ggplot()+
+  geom_point(data=density_df,
+          aes(x = longitude,
+              y= latitude,
+              shape = density_class,
+              size= density_class),
+              fill= "#d00000")+
+  
+  scale_shape_manual(values = density_shapes,labels=density_labels)+
+  scale_size_manual(values =  density_sizes,labels=density_labels)
+
+library(sf)
+library(GermanNorthSea)
+
+my_CRS&lt;-4326
+Europa&lt;-sf::st_transform(German_land, my_CRS)
+EEZ&lt;-sf::st_transform(German_EEZ, my_CRS)
+color_land='#f7bf54'
+color_water='#3668b4'
+xval&lt;-c(3,9)
+yval&lt;-c(53,56)
+
+base_plot&lt;-ggplot2::ggplot()+
+    # maps
+    ggplot2::geom_sf(data = EEZ, colour = 'black', fill = color_water)+
+    ggplot2::geom_sf(data = Europa, colour = 'black', fill = color_land)+ 
+    ggplot2::coord_sf(xlim = xval, ylim = yval)+
+
+    NULL
+base_plot
+
+density_wmap&lt;-base_plot+
+  geom_point(data=density_df,
+          aes(x = longitude,
+              y= latitude,
+              shape = density_class,
+              size= density_class),
+              fill= "#d00000")+
+  
+  scale_shape_manual(values = density_shapes,labels=density_labels)+
+  scale_size_manual(values =  density_sizes,labels=density_labels)
+density_wmap
+
+density_wlegend&lt;-add_legend(
+  plot_wbreaks=density_wmap,
+  legtx=3.0,
+  legty=54.0,
+  legxy=c(0.11, 0.21),
+  xval=xval,
+  yval=yval)+
+  theme(legend.key.size = ggplot2::unit(0.4, "cm"))
+density_wlegend
+
+density_wtheme&lt;-add_theme(plot_wlegend = density_wlegend)
+density_wtheme
+```
+
+
+---
+## 3.3. Interactive
 
 Graphs can be interactive.
 
@@ -794,30 +1029,55 @@ library(plotly)
 ggplotly(My_plot)
 ```
 
-<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-044cdcaa03541deac035" style="width:504px;height:504px;"></div>
-<script type="application/json" data-for="htmlwidget-044cdcaa03541deac035">{"x":{"data":[{"x":[39.1,39.5,40.3,null,36.7,39.3,38.9,39.2,34.1,42,37.8,37.8,41.1,38.6,34.6,36.6,38.7,42.5,34.4,46,37.8,37.7,35.9,38.2,38.8,35.3,40.6,40.5,37.9,40.5,39.5,37.2,39.5,40.9,36.4,39.2,38.8,42.2,37.6,39.8,36.5,40.8,36,44.1,37,39.6,41.1,37.5,36,42.3,39.6,40.1,35,42,34.5,41.4,39,40.6,36.5,37.6,35.7,41.3,37.6,41.1,36.4,41.6,35.5,41.1,35.9,41.8,33.5,39.7,39.6,45.8,35.5,42.8,40.9,37.2,36.2,42.1,34.6,42.9,36.7,35.1,37.3,41.3,36.3,36.9,38.3,38.9,35.7,41.1,34,39.6,36.2,40.8,38.1,40.3,33.1,43.2,35,41,37.7,37.8,37.9,39.7,38.6,38.2,38.1,43.2,38.1,45.6,39.7,42.2,39.6,42.7,38.6,37.3,35.7,41.1,36.2,37.7,40.2,41.4,35.2,40.6,38.8,41.5,39,44.1,38.5,43.1,36.8,37.5,38.1,41.1,35.6,40.2,37,39.7,40.2,40.6,32.1,40.7,37.3,39,39.2,36.6,36,37.8,36,41.5],"y":[181,186,195,null,193,190,181,195,193,190,186,180,182,191,198,185,195,197,184,194,174,180,189,185,180,187,183,187,172,180,178,178,188,184,195,196,190,180,181,184,182,195,186,196,185,190,182,179,190,191,186,188,190,200,187,191,186,193,181,194,185,195,185,192,184,192,195,188,190,198,190,190,196,197,190,195,191,184,187,195,189,196,187,193,191,194,190,189,189,190,202,205,185,186,187,208,190,196,178,192,192,203,183,190,193,184,199,190,181,197,198,191,193,197,191,196,188,199,189,189,187,198,176,202,186,199,191,195,191,210,190,197,193,199,187,190,191,200,185,193,193,187,188,190,192,185,190,184,195,193,187,201],"text":["bill_length_mm: 39.1<br />flipper_length_mm: 181<br />species: Adelie","bill_length_mm: 39.5<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 40.3<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm:   NA<br />flipper_length_mm:  NA<br />species: Adelie","bill_length_mm: 36.7<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 39.3<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 38.9<br />flipper_length_mm: 181<br />species: Adelie","bill_length_mm: 39.2<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 34.1<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 42.0<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 37.8<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 37.8<br />flipper_length_mm: 180<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 182<br />species: Adelie","bill_length_mm: 38.6<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 34.6<br />flipper_length_mm: 198<br />species: Adelie","bill_length_mm: 36.6<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 38.7<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 42.5<br />flipper_length_mm: 197<br />species: Adelie","bill_length_mm: 34.4<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 46.0<br />flipper_length_mm: 194<br />species: Adelie","bill_length_mm: 37.8<br />flipper_length_mm: 174<br />species: Adelie","bill_length_mm: 37.7<br />flipper_length_mm: 180<br />species: Adelie","bill_length_mm: 35.9<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 38.2<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 38.8<br />flipper_length_mm: 180<br />species: Adelie","bill_length_mm: 35.3<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 40.6<br />flipper_length_mm: 183<br />species: Adelie","bill_length_mm: 40.5<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 37.9<br />flipper_length_mm: 172<br />species: Adelie","bill_length_mm: 40.5<br />flipper_length_mm: 180<br />species: Adelie","bill_length_mm: 39.5<br />flipper_length_mm: 178<br />species: Adelie","bill_length_mm: 37.2<br />flipper_length_mm: 178<br />species: Adelie","bill_length_mm: 39.5<br />flipper_length_mm: 188<br />species: Adelie","bill_length_mm: 40.9<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 36.4<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 39.2<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 38.8<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 42.2<br />flipper_length_mm: 180<br />species: Adelie","bill_length_mm: 37.6<br />flipper_length_mm: 181<br />species: Adelie","bill_length_mm: 39.8<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 36.5<br />flipper_length_mm: 182<br />species: Adelie","bill_length_mm: 40.8<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 36.0<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 44.1<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 37.0<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 39.6<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 182<br />species: Adelie","bill_length_mm: 37.5<br />flipper_length_mm: 179<br />species: Adelie","bill_length_mm: 36.0<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 42.3<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 39.6<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 40.1<br />flipper_length_mm: 188<br />species: Adelie","bill_length_mm: 35.0<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 42.0<br />flipper_length_mm: 200<br />species: Adelie","bill_length_mm: 34.5<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 41.4<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 39.0<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 40.6<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 36.5<br />flipper_length_mm: 181<br />species: Adelie","bill_length_mm: 37.6<br />flipper_length_mm: 194<br />species: Adelie","bill_length_mm: 35.7<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 41.3<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 37.6<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 192<br />species: Adelie","bill_length_mm: 36.4<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 41.6<br />flipper_length_mm: 192<br />species: Adelie","bill_length_mm: 35.5<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 188<br />species: Adelie","bill_length_mm: 35.9<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 41.8<br />flipper_length_mm: 198<br />species: Adelie","bill_length_mm: 33.5<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 39.7<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 39.6<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 45.8<br />flipper_length_mm: 197<br />species: Adelie","bill_length_mm: 35.5<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 42.8<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 40.9<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 37.2<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 36.2<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 42.1<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 34.6<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 42.9<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 36.7<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 35.1<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 37.3<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 41.3<br />flipper_length_mm: 194<br />species: Adelie","bill_length_mm: 36.3<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 36.9<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 38.3<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 38.9<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 35.7<br />flipper_length_mm: 202<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 205<br />species: Adelie","bill_length_mm: 34.0<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 39.6<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 36.2<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 40.8<br />flipper_length_mm: 208<br />species: Adelie","bill_length_mm: 38.1<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 40.3<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 33.1<br />flipper_length_mm: 178<br />species: Adelie","bill_length_mm: 43.2<br />flipper_length_mm: 192<br />species: Adelie","bill_length_mm: 35.0<br />flipper_length_mm: 192<br />species: Adelie","bill_length_mm: 41.0<br />flipper_length_mm: 203<br />species: Adelie","bill_length_mm: 37.7<br />flipper_length_mm: 183<br />species: Adelie","bill_length_mm: 37.8<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 37.9<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 39.7<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 38.6<br />flipper_length_mm: 199<br />species: Adelie","bill_length_mm: 38.2<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 38.1<br />flipper_length_mm: 181<br />species: Adelie","bill_length_mm: 43.2<br />flipper_length_mm: 197<br />species: Adelie","bill_length_mm: 38.1<br />flipper_length_mm: 198<br />species: Adelie","bill_length_mm: 45.6<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 39.7<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 42.2<br />flipper_length_mm: 197<br />species: Adelie","bill_length_mm: 39.6<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 42.7<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 38.6<br />flipper_length_mm: 188<br />species: Adelie","bill_length_mm: 37.3<br />flipper_length_mm: 199<br />species: Adelie","bill_length_mm: 35.7<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 36.2<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 37.7<br />flipper_length_mm: 198<br />species: Adelie","bill_length_mm: 40.2<br />flipper_length_mm: 176<br />species: Adelie","bill_length_mm: 41.4<br />flipper_length_mm: 202<br />species: Adelie","bill_length_mm: 35.2<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 40.6<br />flipper_length_mm: 199<br />species: Adelie","bill_length_mm: 38.8<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 41.5<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 39.0<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 44.1<br />flipper_length_mm: 210<br />species: Adelie","bill_length_mm: 38.5<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 43.1<br />flipper_length_mm: 197<br />species: Adelie","bill_length_mm: 36.8<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 37.5<br />flipper_length_mm: 199<br />species: Adelie","bill_length_mm: 38.1<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 35.6<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 40.2<br />flipper_length_mm: 200<br />species: Adelie","bill_length_mm: 37.0<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 39.7<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 40.2<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 40.6<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 32.1<br />flipper_length_mm: 188<br />species: Adelie","bill_length_mm: 40.7<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 37.3<br />flipper_length_mm: 192<br />species: Adelie","bill_length_mm: 39.0<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 39.2<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 36.6<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 36.0<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 37.8<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 36.0<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 41.5<br />flipper_length_mm: 201<br />species: Adelie"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"Adelie","legendgroup":"Adelie","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[46.5,50,51.3,45.4,52.7,45.2,46.1,51.3,46,51.3,46.6,51.7,47,52,45.9,50.5,50.3,58,46.4,49.2,42.4,48.5,43.2,50.6,46.7,52,50.5,49.5,46.4,52.8,40.9,54.2,42.5,51,49.7,47.5,47.6,52,46.9,53.5,49,46.2,50.9,45.5,50.9,50.8,50.1,49,51.5,49.8,48.1,51.4,45.7,50.7,42.5,52.2,45.2,49.3,50.2,45.6,51.9,46.8,45.7,55.8,43.5,49.6,50.8,50.2],"y":[192,196,193,188,197,198,178,197,195,198,193,194,185,201,190,201,197,181,190,195,181,191,187,193,195,197,200,200,191,205,187,201,187,203,195,199,195,210,192,205,210,187,196,196,196,201,190,212,187,198,199,201,193,203,187,197,191,203,202,194,206,189,195,207,202,193,210,198],"text":["bill_length_mm: 46.5<br />flipper_length_mm: 192<br />species: Chinstrap","bill_length_mm: 50.0<br />flipper_length_mm: 196<br />species: Chinstrap","bill_length_mm: 51.3<br />flipper_length_mm: 193<br />species: Chinstrap","bill_length_mm: 45.4<br />flipper_length_mm: 188<br />species: Chinstrap","bill_length_mm: 52.7<br />flipper_length_mm: 197<br />species: Chinstrap","bill_length_mm: 45.2<br />flipper_length_mm: 198<br />species: Chinstrap","bill_length_mm: 46.1<br />flipper_length_mm: 178<br />species: Chinstrap","bill_length_mm: 51.3<br />flipper_length_mm: 197<br />species: Chinstrap","bill_length_mm: 46.0<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 51.3<br />flipper_length_mm: 198<br />species: Chinstrap","bill_length_mm: 46.6<br />flipper_length_mm: 193<br />species: Chinstrap","bill_length_mm: 51.7<br />flipper_length_mm: 194<br />species: Chinstrap","bill_length_mm: 47.0<br />flipper_length_mm: 185<br />species: Chinstrap","bill_length_mm: 52.0<br />flipper_length_mm: 201<br />species: Chinstrap","bill_length_mm: 45.9<br />flipper_length_mm: 190<br />species: Chinstrap","bill_length_mm: 50.5<br />flipper_length_mm: 201<br />species: Chinstrap","bill_length_mm: 50.3<br />flipper_length_mm: 197<br />species: Chinstrap","bill_length_mm: 58.0<br />flipper_length_mm: 181<br />species: Chinstrap","bill_length_mm: 46.4<br />flipper_length_mm: 190<br />species: Chinstrap","bill_length_mm: 49.2<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 42.4<br />flipper_length_mm: 181<br />species: Chinstrap","bill_length_mm: 48.5<br />flipper_length_mm: 191<br />species: Chinstrap","bill_length_mm: 43.2<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 50.6<br />flipper_length_mm: 193<br />species: Chinstrap","bill_length_mm: 46.7<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 52.0<br />flipper_length_mm: 197<br />species: Chinstrap","bill_length_mm: 50.5<br />flipper_length_mm: 200<br />species: Chinstrap","bill_length_mm: 49.5<br />flipper_length_mm: 200<br />species: Chinstrap","bill_length_mm: 46.4<br />flipper_length_mm: 191<br />species: Chinstrap","bill_length_mm: 52.8<br />flipper_length_mm: 205<br />species: Chinstrap","bill_length_mm: 40.9<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 54.2<br />flipper_length_mm: 201<br />species: Chinstrap","bill_length_mm: 42.5<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 51.0<br />flipper_length_mm: 203<br />species: Chinstrap","bill_length_mm: 49.7<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 47.5<br />flipper_length_mm: 199<br />species: Chinstrap","bill_length_mm: 47.6<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 52.0<br />flipper_length_mm: 210<br />species: Chinstrap","bill_length_mm: 46.9<br />flipper_length_mm: 192<br />species: Chinstrap","bill_length_mm: 53.5<br />flipper_length_mm: 205<br />species: Chinstrap","bill_length_mm: 49.0<br />flipper_length_mm: 210<br />species: Chinstrap","bill_length_mm: 46.2<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 50.9<br />flipper_length_mm: 196<br />species: Chinstrap","bill_length_mm: 45.5<br />flipper_length_mm: 196<br />species: Chinstrap","bill_length_mm: 50.9<br />flipper_length_mm: 196<br />species: Chinstrap","bill_length_mm: 50.8<br />flipper_length_mm: 201<br />species: Chinstrap","bill_length_mm: 50.1<br />flipper_length_mm: 190<br />species: Chinstrap","bill_length_mm: 49.0<br />flipper_length_mm: 212<br />species: Chinstrap","bill_length_mm: 51.5<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 49.8<br />flipper_length_mm: 198<br />species: Chinstrap","bill_length_mm: 48.1<br />flipper_length_mm: 199<br />species: Chinstrap","bill_length_mm: 51.4<br />flipper_length_mm: 201<br />species: Chinstrap","bill_length_mm: 45.7<br />flipper_length_mm: 193<br />species: Chinstrap","bill_length_mm: 50.7<br />flipper_length_mm: 203<br />species: Chinstrap","bill_length_mm: 42.5<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 52.2<br />flipper_length_mm: 197<br />species: Chinstrap","bill_length_mm: 45.2<br />flipper_length_mm: 191<br />species: Chinstrap","bill_length_mm: 49.3<br />flipper_length_mm: 203<br />species: Chinstrap","bill_length_mm: 50.2<br />flipper_length_mm: 202<br />species: Chinstrap","bill_length_mm: 45.6<br />flipper_length_mm: 194<br />species: Chinstrap","bill_length_mm: 51.9<br />flipper_length_mm: 206<br />species: Chinstrap","bill_length_mm: 46.8<br />flipper_length_mm: 189<br />species: Chinstrap","bill_length_mm: 45.7<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 55.8<br />flipper_length_mm: 207<br />species: Chinstrap","bill_length_mm: 43.5<br />flipper_length_mm: 202<br />species: Chinstrap","bill_length_mm: 49.6<br />flipper_length_mm: 193<br />species: Chinstrap","bill_length_mm: 50.8<br />flipper_length_mm: 210<br />species: Chinstrap","bill_length_mm: 50.2<br />flipper_length_mm: 198<br />species: Chinstrap"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,186,56,1)"}},"hoveron":"points","name":"Chinstrap","legendgroup":"Chinstrap","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[46.1,50,48.7,50,47.6,46.5,45.4,46.7,43.3,46.8,40.9,49,45.5,48.4,45.8,49.3,42,49.2,46.2,48.7,50.2,45.1,46.5,46.3,42.9,46.1,44.5,47.8,48.2,50,47.3,42.8,45.1,59.6,49.1,48.4,42.6,44.4,44,48.7,42.7,49.6,45.3,49.6,50.5,43.6,45.5,50.5,44.9,45.2,46.6,48.5,45.1,50.1,46.5,45,43.8,45.5,43.2,50.4,45.3,46.2,45.7,54.3,45.8,49.8,46.2,49.5,43.5,50.7,47.7,46.4,48.2,46.5,46.4,48.6,47.5,51.1,45.2,45.2,49.1,52.5,47.4,50,44.9,50.8,43.4,51.3,47.5,52.1,47.5,52.2,45.5,49.5,44.5,50.8,49.4,46.9,48.4,51.1,48.5,55.9,47.2,49.1,47.3,46.8,41.7,53.4,43.3,48.1,50.5,49.8,43.5,51.5,46.2,55.1,44.5,48.8,47.2,null,46.8,50.4,45.2,49.9],"y":[211,230,210,218,215,210,211,219,209,215,214,216,214,213,210,217,210,221,209,222,218,215,213,215,215,215,216,215,210,220,222,209,207,230,220,220,213,219,208,208,208,225,210,216,222,217,210,225,213,215,210,220,210,225,217,220,208,220,208,224,208,221,214,231,219,230,214,229,220,223,216,221,221,217,216,230,209,220,215,223,212,221,212,224,212,228,218,218,212,230,218,228,212,224,214,226,216,222,203,225,219,228,215,228,216,215,210,219,208,209,216,229,213,230,217,230,217,222,214,null,215,222,212,213],"text":["bill_length_mm: 46.1<br />flipper_length_mm: 211<br />species: Gentoo","bill_length_mm: 50.0<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 48.7<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 50.0<br />flipper_length_mm: 218<br />species: Gentoo","bill_length_mm: 47.6<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 46.5<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 45.4<br />flipper_length_mm: 211<br />species: Gentoo","bill_length_mm: 46.7<br />flipper_length_mm: 219<br />species: Gentoo","bill_length_mm: 43.3<br />flipper_length_mm: 209<br />species: Gentoo","bill_length_mm: 46.8<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 40.9<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm: 49.0<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 45.5<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm: 48.4<br />flipper_length_mm: 213<br />species: Gentoo","bill_length_mm: 45.8<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 49.3<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 42.0<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 49.2<br />flipper_length_mm: 221<br />species: Gentoo","bill_length_mm: 46.2<br />flipper_length_mm: 209<br />species: Gentoo","bill_length_mm: 48.7<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 50.2<br />flipper_length_mm: 218<br />species: Gentoo","bill_length_mm: 45.1<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 46.5<br />flipper_length_mm: 213<br />species: Gentoo","bill_length_mm: 46.3<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 42.9<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 46.1<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 44.5<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 47.8<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 48.2<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 50.0<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 47.3<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 42.8<br />flipper_length_mm: 209<br />species: Gentoo","bill_length_mm: 45.1<br />flipper_length_mm: 207<br />species: Gentoo","bill_length_mm: 59.6<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 49.1<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 48.4<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 42.6<br />flipper_length_mm: 213<br />species: Gentoo","bill_length_mm: 44.4<br />flipper_length_mm: 219<br />species: Gentoo","bill_length_mm: 44.0<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 48.7<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 42.7<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 49.6<br />flipper_length_mm: 225<br />species: Gentoo","bill_length_mm: 45.3<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 49.6<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 50.5<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 43.6<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 45.5<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 50.5<br />flipper_length_mm: 225<br />species: Gentoo","bill_length_mm: 44.9<br />flipper_length_mm: 213<br />species: Gentoo","bill_length_mm: 45.2<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 46.6<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 48.5<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 45.1<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 50.1<br />flipper_length_mm: 225<br />species: Gentoo","bill_length_mm: 46.5<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 45.0<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 43.8<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 45.5<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 43.2<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 50.4<br />flipper_length_mm: 224<br />species: Gentoo","bill_length_mm: 45.3<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 46.2<br />flipper_length_mm: 221<br />species: Gentoo","bill_length_mm: 45.7<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm: 54.3<br />flipper_length_mm: 231<br />species: Gentoo","bill_length_mm: 45.8<br />flipper_length_mm: 219<br />species: Gentoo","bill_length_mm: 49.8<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 46.2<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm: 49.5<br />flipper_length_mm: 229<br />species: Gentoo","bill_length_mm: 43.5<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 50.7<br />flipper_length_mm: 223<br />species: Gentoo","bill_length_mm: 47.7<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 46.4<br />flipper_length_mm: 221<br />species: Gentoo","bill_length_mm: 48.2<br />flipper_length_mm: 221<br />species: Gentoo","bill_length_mm: 46.5<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 46.4<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 48.6<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 47.5<br />flipper_length_mm: 209<br />species: Gentoo","bill_length_mm: 51.1<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 45.2<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 45.2<br />flipper_length_mm: 223<br />species: Gentoo","bill_length_mm: 49.1<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 52.5<br />flipper_length_mm: 221<br />species: Gentoo","bill_length_mm: 47.4<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 50.0<br />flipper_length_mm: 224<br />species: Gentoo","bill_length_mm: 44.9<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 50.8<br />flipper_length_mm: 228<br />species: Gentoo","bill_length_mm: 43.4<br />flipper_length_mm: 218<br />species: Gentoo","bill_length_mm: 51.3<br />flipper_length_mm: 218<br />species: Gentoo","bill_length_mm: 47.5<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 52.1<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 47.5<br />flipper_length_mm: 218<br />species: Gentoo","bill_length_mm: 52.2<br />flipper_length_mm: 228<br />species: Gentoo","bill_length_mm: 45.5<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 49.5<br />flipper_length_mm: 224<br />species: Gentoo","bill_length_mm: 44.5<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm: 50.8<br />flipper_length_mm: 226<br />species: Gentoo","bill_length_mm: 49.4<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 46.9<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 48.4<br />flipper_length_mm: 203<br />species: Gentoo","bill_length_mm: 51.1<br />flipper_length_mm: 225<br />species: Gentoo","bill_length_mm: 48.5<br />flipper_length_mm: 219<br />species: Gentoo","bill_length_mm: 55.9<br />flipper_length_mm: 228<br />species: Gentoo","bill_length_mm: 47.2<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 49.1<br />flipper_length_mm: 228<br />species: Gentoo","bill_length_mm: 47.3<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 46.8<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 41.7<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 53.4<br />flipper_length_mm: 219<br />species: Gentoo","bill_length_mm: 43.3<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 48.1<br />flipper_length_mm: 209<br />species: Gentoo","bill_length_mm: 50.5<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 49.8<br />flipper_length_mm: 229<br />species: Gentoo","bill_length_mm: 43.5<br />flipper_length_mm: 213<br />species: Gentoo","bill_length_mm: 51.5<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 46.2<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 55.1<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 44.5<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 48.8<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 47.2<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm:   NA<br />flipper_length_mm:  NA<br />species: Gentoo","bill_length_mm: 46.8<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 50.4<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 45.2<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 49.9<br />flipper_length_mm: 213<br />species: Gentoo"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(97,156,255,1)"}},"hoveron":"points","name":"Gentoo","legendgroup":"Gentoo","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.3059360730594,"r":7.30593607305936,"b":37.2602739726027,"l":43.1050228310502},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[30.725,60.975],"tickmode":"array","ticktext":["40","50","60"],"tickvals":[40,50,60],"categoryorder":"array","categoryarray":["40","50","60"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"bill_length_mm","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[169.05,233.95],"tickmode":"array","ticktext":["170","180","190","200","210","220","230"],"tickvals":[170,180,190,200,210,220,230],"categoryorder":"array","categoryarray":["170","180","190","200","210","220","230"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"flipper_length_mm","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"species","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"9f81b763786":{"x":{},"y":{},"colour":{},"type":"scatter"}},"cur_data":"9f81b763786","visdat":{"9f81b763786":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f002b5b251a33955ba6d" style="width:504px;height:504px;"></div>
+<script type="application/json" data-for="htmlwidget-f002b5b251a33955ba6d">{"x":{"data":[{"x":[39.1,39.5,40.3,null,36.7,39.3,38.9,39.2,34.1,42,37.8,37.8,41.1,38.6,34.6,36.6,38.7,42.5,34.4,46,37.8,37.7,35.9,38.2,38.8,35.3,40.6,40.5,37.9,40.5,39.5,37.2,39.5,40.9,36.4,39.2,38.8,42.2,37.6,39.8,36.5,40.8,36,44.1,37,39.6,41.1,37.5,36,42.3,39.6,40.1,35,42,34.5,41.4,39,40.6,36.5,37.6,35.7,41.3,37.6,41.1,36.4,41.6,35.5,41.1,35.9,41.8,33.5,39.7,39.6,45.8,35.5,42.8,40.9,37.2,36.2,42.1,34.6,42.9,36.7,35.1,37.3,41.3,36.3,36.9,38.3,38.9,35.7,41.1,34,39.6,36.2,40.8,38.1,40.3,33.1,43.2,35,41,37.7,37.8,37.9,39.7,38.6,38.2,38.1,43.2,38.1,45.6,39.7,42.2,39.6,42.7,38.6,37.3,35.7,41.1,36.2,37.7,40.2,41.4,35.2,40.6,38.8,41.5,39,44.1,38.5,43.1,36.8,37.5,38.1,41.1,35.6,40.2,37,39.7,40.2,40.6,32.1,40.7,37.3,39,39.2,36.6,36,37.8,36,41.5],"y":[181,186,195,null,193,190,181,195,193,190,186,180,182,191,198,185,195,197,184,194,174,180,189,185,180,187,183,187,172,180,178,178,188,184,195,196,190,180,181,184,182,195,186,196,185,190,182,179,190,191,186,188,190,200,187,191,186,193,181,194,185,195,185,192,184,192,195,188,190,198,190,190,196,197,190,195,191,184,187,195,189,196,187,193,191,194,190,189,189,190,202,205,185,186,187,208,190,196,178,192,192,203,183,190,193,184,199,190,181,197,198,191,193,197,191,196,188,199,189,189,187,198,176,202,186,199,191,195,191,210,190,197,193,199,187,190,191,200,185,193,193,187,188,190,192,185,190,184,195,193,187,201],"text":["bill_length_mm: 39.1<br />flipper_length_mm: 181<br />species: Adelie","bill_length_mm: 39.5<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 40.3<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm:   NA<br />flipper_length_mm:  NA<br />species: Adelie","bill_length_mm: 36.7<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 39.3<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 38.9<br />flipper_length_mm: 181<br />species: Adelie","bill_length_mm: 39.2<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 34.1<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 42.0<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 37.8<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 37.8<br />flipper_length_mm: 180<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 182<br />species: Adelie","bill_length_mm: 38.6<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 34.6<br />flipper_length_mm: 198<br />species: Adelie","bill_length_mm: 36.6<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 38.7<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 42.5<br />flipper_length_mm: 197<br />species: Adelie","bill_length_mm: 34.4<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 46.0<br />flipper_length_mm: 194<br />species: Adelie","bill_length_mm: 37.8<br />flipper_length_mm: 174<br />species: Adelie","bill_length_mm: 37.7<br />flipper_length_mm: 180<br />species: Adelie","bill_length_mm: 35.9<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 38.2<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 38.8<br />flipper_length_mm: 180<br />species: Adelie","bill_length_mm: 35.3<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 40.6<br />flipper_length_mm: 183<br />species: Adelie","bill_length_mm: 40.5<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 37.9<br />flipper_length_mm: 172<br />species: Adelie","bill_length_mm: 40.5<br />flipper_length_mm: 180<br />species: Adelie","bill_length_mm: 39.5<br />flipper_length_mm: 178<br />species: Adelie","bill_length_mm: 37.2<br />flipper_length_mm: 178<br />species: Adelie","bill_length_mm: 39.5<br />flipper_length_mm: 188<br />species: Adelie","bill_length_mm: 40.9<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 36.4<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 39.2<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 38.8<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 42.2<br />flipper_length_mm: 180<br />species: Adelie","bill_length_mm: 37.6<br />flipper_length_mm: 181<br />species: Adelie","bill_length_mm: 39.8<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 36.5<br />flipper_length_mm: 182<br />species: Adelie","bill_length_mm: 40.8<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 36.0<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 44.1<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 37.0<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 39.6<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 182<br />species: Adelie","bill_length_mm: 37.5<br />flipper_length_mm: 179<br />species: Adelie","bill_length_mm: 36.0<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 42.3<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 39.6<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 40.1<br />flipper_length_mm: 188<br />species: Adelie","bill_length_mm: 35.0<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 42.0<br />flipper_length_mm: 200<br />species: Adelie","bill_length_mm: 34.5<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 41.4<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 39.0<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 40.6<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 36.5<br />flipper_length_mm: 181<br />species: Adelie","bill_length_mm: 37.6<br />flipper_length_mm: 194<br />species: Adelie","bill_length_mm: 35.7<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 41.3<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 37.6<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 192<br />species: Adelie","bill_length_mm: 36.4<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 41.6<br />flipper_length_mm: 192<br />species: Adelie","bill_length_mm: 35.5<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 188<br />species: Adelie","bill_length_mm: 35.9<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 41.8<br />flipper_length_mm: 198<br />species: Adelie","bill_length_mm: 33.5<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 39.7<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 39.6<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 45.8<br />flipper_length_mm: 197<br />species: Adelie","bill_length_mm: 35.5<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 42.8<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 40.9<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 37.2<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 36.2<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 42.1<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 34.6<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 42.9<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 36.7<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 35.1<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 37.3<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 41.3<br />flipper_length_mm: 194<br />species: Adelie","bill_length_mm: 36.3<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 36.9<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 38.3<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 38.9<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 35.7<br />flipper_length_mm: 202<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 205<br />species: Adelie","bill_length_mm: 34.0<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 39.6<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 36.2<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 40.8<br />flipper_length_mm: 208<br />species: Adelie","bill_length_mm: 38.1<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 40.3<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 33.1<br />flipper_length_mm: 178<br />species: Adelie","bill_length_mm: 43.2<br />flipper_length_mm: 192<br />species: Adelie","bill_length_mm: 35.0<br />flipper_length_mm: 192<br />species: Adelie","bill_length_mm: 41.0<br />flipper_length_mm: 203<br />species: Adelie","bill_length_mm: 37.7<br />flipper_length_mm: 183<br />species: Adelie","bill_length_mm: 37.8<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 37.9<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 39.7<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 38.6<br />flipper_length_mm: 199<br />species: Adelie","bill_length_mm: 38.2<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 38.1<br />flipper_length_mm: 181<br />species: Adelie","bill_length_mm: 43.2<br />flipper_length_mm: 197<br />species: Adelie","bill_length_mm: 38.1<br />flipper_length_mm: 198<br />species: Adelie","bill_length_mm: 45.6<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 39.7<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 42.2<br />flipper_length_mm: 197<br />species: Adelie","bill_length_mm: 39.6<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 42.7<br />flipper_length_mm: 196<br />species: Adelie","bill_length_mm: 38.6<br />flipper_length_mm: 188<br />species: Adelie","bill_length_mm: 37.3<br />flipper_length_mm: 199<br />species: Adelie","bill_length_mm: 35.7<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 189<br />species: Adelie","bill_length_mm: 36.2<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 37.7<br />flipper_length_mm: 198<br />species: Adelie","bill_length_mm: 40.2<br />flipper_length_mm: 176<br />species: Adelie","bill_length_mm: 41.4<br />flipper_length_mm: 202<br />species: Adelie","bill_length_mm: 35.2<br />flipper_length_mm: 186<br />species: Adelie","bill_length_mm: 40.6<br />flipper_length_mm: 199<br />species: Adelie","bill_length_mm: 38.8<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 41.5<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 39.0<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 44.1<br />flipper_length_mm: 210<br />species: Adelie","bill_length_mm: 38.5<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 43.1<br />flipper_length_mm: 197<br />species: Adelie","bill_length_mm: 36.8<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 37.5<br />flipper_length_mm: 199<br />species: Adelie","bill_length_mm: 38.1<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 41.1<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 35.6<br />flipper_length_mm: 191<br />species: Adelie","bill_length_mm: 40.2<br />flipper_length_mm: 200<br />species: Adelie","bill_length_mm: 37.0<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 39.7<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 40.2<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 40.6<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 32.1<br />flipper_length_mm: 188<br />species: Adelie","bill_length_mm: 40.7<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 37.3<br />flipper_length_mm: 192<br />species: Adelie","bill_length_mm: 39.0<br />flipper_length_mm: 185<br />species: Adelie","bill_length_mm: 39.2<br />flipper_length_mm: 190<br />species: Adelie","bill_length_mm: 36.6<br />flipper_length_mm: 184<br />species: Adelie","bill_length_mm: 36.0<br />flipper_length_mm: 195<br />species: Adelie","bill_length_mm: 37.8<br />flipper_length_mm: 193<br />species: Adelie","bill_length_mm: 36.0<br />flipper_length_mm: 187<br />species: Adelie","bill_length_mm: 41.5<br />flipper_length_mm: 201<br />species: Adelie"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"Adelie","legendgroup":"Adelie","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[46.5,50,51.3,45.4,52.7,45.2,46.1,51.3,46,51.3,46.6,51.7,47,52,45.9,50.5,50.3,58,46.4,49.2,42.4,48.5,43.2,50.6,46.7,52,50.5,49.5,46.4,52.8,40.9,54.2,42.5,51,49.7,47.5,47.6,52,46.9,53.5,49,46.2,50.9,45.5,50.9,50.8,50.1,49,51.5,49.8,48.1,51.4,45.7,50.7,42.5,52.2,45.2,49.3,50.2,45.6,51.9,46.8,45.7,55.8,43.5,49.6,50.8,50.2],"y":[192,196,193,188,197,198,178,197,195,198,193,194,185,201,190,201,197,181,190,195,181,191,187,193,195,197,200,200,191,205,187,201,187,203,195,199,195,210,192,205,210,187,196,196,196,201,190,212,187,198,199,201,193,203,187,197,191,203,202,194,206,189,195,207,202,193,210,198],"text":["bill_length_mm: 46.5<br />flipper_length_mm: 192<br />species: Chinstrap","bill_length_mm: 50.0<br />flipper_length_mm: 196<br />species: Chinstrap","bill_length_mm: 51.3<br />flipper_length_mm: 193<br />species: Chinstrap","bill_length_mm: 45.4<br />flipper_length_mm: 188<br />species: Chinstrap","bill_length_mm: 52.7<br />flipper_length_mm: 197<br />species: Chinstrap","bill_length_mm: 45.2<br />flipper_length_mm: 198<br />species: Chinstrap","bill_length_mm: 46.1<br />flipper_length_mm: 178<br />species: Chinstrap","bill_length_mm: 51.3<br />flipper_length_mm: 197<br />species: Chinstrap","bill_length_mm: 46.0<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 51.3<br />flipper_length_mm: 198<br />species: Chinstrap","bill_length_mm: 46.6<br />flipper_length_mm: 193<br />species: Chinstrap","bill_length_mm: 51.7<br />flipper_length_mm: 194<br />species: Chinstrap","bill_length_mm: 47.0<br />flipper_length_mm: 185<br />species: Chinstrap","bill_length_mm: 52.0<br />flipper_length_mm: 201<br />species: Chinstrap","bill_length_mm: 45.9<br />flipper_length_mm: 190<br />species: Chinstrap","bill_length_mm: 50.5<br />flipper_length_mm: 201<br />species: Chinstrap","bill_length_mm: 50.3<br />flipper_length_mm: 197<br />species: Chinstrap","bill_length_mm: 58.0<br />flipper_length_mm: 181<br />species: Chinstrap","bill_length_mm: 46.4<br />flipper_length_mm: 190<br />species: Chinstrap","bill_length_mm: 49.2<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 42.4<br />flipper_length_mm: 181<br />species: Chinstrap","bill_length_mm: 48.5<br />flipper_length_mm: 191<br />species: Chinstrap","bill_length_mm: 43.2<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 50.6<br />flipper_length_mm: 193<br />species: Chinstrap","bill_length_mm: 46.7<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 52.0<br />flipper_length_mm: 197<br />species: Chinstrap","bill_length_mm: 50.5<br />flipper_length_mm: 200<br />species: Chinstrap","bill_length_mm: 49.5<br />flipper_length_mm: 200<br />species: Chinstrap","bill_length_mm: 46.4<br />flipper_length_mm: 191<br />species: Chinstrap","bill_length_mm: 52.8<br />flipper_length_mm: 205<br />species: Chinstrap","bill_length_mm: 40.9<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 54.2<br />flipper_length_mm: 201<br />species: Chinstrap","bill_length_mm: 42.5<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 51.0<br />flipper_length_mm: 203<br />species: Chinstrap","bill_length_mm: 49.7<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 47.5<br />flipper_length_mm: 199<br />species: Chinstrap","bill_length_mm: 47.6<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 52.0<br />flipper_length_mm: 210<br />species: Chinstrap","bill_length_mm: 46.9<br />flipper_length_mm: 192<br />species: Chinstrap","bill_length_mm: 53.5<br />flipper_length_mm: 205<br />species: Chinstrap","bill_length_mm: 49.0<br />flipper_length_mm: 210<br />species: Chinstrap","bill_length_mm: 46.2<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 50.9<br />flipper_length_mm: 196<br />species: Chinstrap","bill_length_mm: 45.5<br />flipper_length_mm: 196<br />species: Chinstrap","bill_length_mm: 50.9<br />flipper_length_mm: 196<br />species: Chinstrap","bill_length_mm: 50.8<br />flipper_length_mm: 201<br />species: Chinstrap","bill_length_mm: 50.1<br />flipper_length_mm: 190<br />species: Chinstrap","bill_length_mm: 49.0<br />flipper_length_mm: 212<br />species: Chinstrap","bill_length_mm: 51.5<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 49.8<br />flipper_length_mm: 198<br />species: Chinstrap","bill_length_mm: 48.1<br />flipper_length_mm: 199<br />species: Chinstrap","bill_length_mm: 51.4<br />flipper_length_mm: 201<br />species: Chinstrap","bill_length_mm: 45.7<br />flipper_length_mm: 193<br />species: Chinstrap","bill_length_mm: 50.7<br />flipper_length_mm: 203<br />species: Chinstrap","bill_length_mm: 42.5<br />flipper_length_mm: 187<br />species: Chinstrap","bill_length_mm: 52.2<br />flipper_length_mm: 197<br />species: Chinstrap","bill_length_mm: 45.2<br />flipper_length_mm: 191<br />species: Chinstrap","bill_length_mm: 49.3<br />flipper_length_mm: 203<br />species: Chinstrap","bill_length_mm: 50.2<br />flipper_length_mm: 202<br />species: Chinstrap","bill_length_mm: 45.6<br />flipper_length_mm: 194<br />species: Chinstrap","bill_length_mm: 51.9<br />flipper_length_mm: 206<br />species: Chinstrap","bill_length_mm: 46.8<br />flipper_length_mm: 189<br />species: Chinstrap","bill_length_mm: 45.7<br />flipper_length_mm: 195<br />species: Chinstrap","bill_length_mm: 55.8<br />flipper_length_mm: 207<br />species: Chinstrap","bill_length_mm: 43.5<br />flipper_length_mm: 202<br />species: Chinstrap","bill_length_mm: 49.6<br />flipper_length_mm: 193<br />species: Chinstrap","bill_length_mm: 50.8<br />flipper_length_mm: 210<br />species: Chinstrap","bill_length_mm: 50.2<br />flipper_length_mm: 198<br />species: Chinstrap"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,186,56,1)"}},"hoveron":"points","name":"Chinstrap","legendgroup":"Chinstrap","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[46.1,50,48.7,50,47.6,46.5,45.4,46.7,43.3,46.8,40.9,49,45.5,48.4,45.8,49.3,42,49.2,46.2,48.7,50.2,45.1,46.5,46.3,42.9,46.1,44.5,47.8,48.2,50,47.3,42.8,45.1,59.6,49.1,48.4,42.6,44.4,44,48.7,42.7,49.6,45.3,49.6,50.5,43.6,45.5,50.5,44.9,45.2,46.6,48.5,45.1,50.1,46.5,45,43.8,45.5,43.2,50.4,45.3,46.2,45.7,54.3,45.8,49.8,46.2,49.5,43.5,50.7,47.7,46.4,48.2,46.5,46.4,48.6,47.5,51.1,45.2,45.2,49.1,52.5,47.4,50,44.9,50.8,43.4,51.3,47.5,52.1,47.5,52.2,45.5,49.5,44.5,50.8,49.4,46.9,48.4,51.1,48.5,55.9,47.2,49.1,47.3,46.8,41.7,53.4,43.3,48.1,50.5,49.8,43.5,51.5,46.2,55.1,44.5,48.8,47.2,null,46.8,50.4,45.2,49.9],"y":[211,230,210,218,215,210,211,219,209,215,214,216,214,213,210,217,210,221,209,222,218,215,213,215,215,215,216,215,210,220,222,209,207,230,220,220,213,219,208,208,208,225,210,216,222,217,210,225,213,215,210,220,210,225,217,220,208,220,208,224,208,221,214,231,219,230,214,229,220,223,216,221,221,217,216,230,209,220,215,223,212,221,212,224,212,228,218,218,212,230,218,228,212,224,214,226,216,222,203,225,219,228,215,228,216,215,210,219,208,209,216,229,213,230,217,230,217,222,214,null,215,222,212,213],"text":["bill_length_mm: 46.1<br />flipper_length_mm: 211<br />species: Gentoo","bill_length_mm: 50.0<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 48.7<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 50.0<br />flipper_length_mm: 218<br />species: Gentoo","bill_length_mm: 47.6<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 46.5<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 45.4<br />flipper_length_mm: 211<br />species: Gentoo","bill_length_mm: 46.7<br />flipper_length_mm: 219<br />species: Gentoo","bill_length_mm: 43.3<br />flipper_length_mm: 209<br />species: Gentoo","bill_length_mm: 46.8<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 40.9<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm: 49.0<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 45.5<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm: 48.4<br />flipper_length_mm: 213<br />species: Gentoo","bill_length_mm: 45.8<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 49.3<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 42.0<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 49.2<br />flipper_length_mm: 221<br />species: Gentoo","bill_length_mm: 46.2<br />flipper_length_mm: 209<br />species: Gentoo","bill_length_mm: 48.7<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 50.2<br />flipper_length_mm: 218<br />species: Gentoo","bill_length_mm: 45.1<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 46.5<br />flipper_length_mm: 213<br />species: Gentoo","bill_length_mm: 46.3<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 42.9<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 46.1<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 44.5<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 47.8<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 48.2<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 50.0<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 47.3<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 42.8<br />flipper_length_mm: 209<br />species: Gentoo","bill_length_mm: 45.1<br />flipper_length_mm: 207<br />species: Gentoo","bill_length_mm: 59.6<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 49.1<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 48.4<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 42.6<br />flipper_length_mm: 213<br />species: Gentoo","bill_length_mm: 44.4<br />flipper_length_mm: 219<br />species: Gentoo","bill_length_mm: 44.0<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 48.7<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 42.7<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 49.6<br />flipper_length_mm: 225<br />species: Gentoo","bill_length_mm: 45.3<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 49.6<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 50.5<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 43.6<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 45.5<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 50.5<br />flipper_length_mm: 225<br />species: Gentoo","bill_length_mm: 44.9<br />flipper_length_mm: 213<br />species: Gentoo","bill_length_mm: 45.2<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 46.6<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 48.5<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 45.1<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 50.1<br />flipper_length_mm: 225<br />species: Gentoo","bill_length_mm: 46.5<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 45.0<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 43.8<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 45.5<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 43.2<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 50.4<br />flipper_length_mm: 224<br />species: Gentoo","bill_length_mm: 45.3<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 46.2<br />flipper_length_mm: 221<br />species: Gentoo","bill_length_mm: 45.7<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm: 54.3<br />flipper_length_mm: 231<br />species: Gentoo","bill_length_mm: 45.8<br />flipper_length_mm: 219<br />species: Gentoo","bill_length_mm: 49.8<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 46.2<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm: 49.5<br />flipper_length_mm: 229<br />species: Gentoo","bill_length_mm: 43.5<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 50.7<br />flipper_length_mm: 223<br />species: Gentoo","bill_length_mm: 47.7<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 46.4<br />flipper_length_mm: 221<br />species: Gentoo","bill_length_mm: 48.2<br />flipper_length_mm: 221<br />species: Gentoo","bill_length_mm: 46.5<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 46.4<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 48.6<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 47.5<br />flipper_length_mm: 209<br />species: Gentoo","bill_length_mm: 51.1<br />flipper_length_mm: 220<br />species: Gentoo","bill_length_mm: 45.2<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 45.2<br />flipper_length_mm: 223<br />species: Gentoo","bill_length_mm: 49.1<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 52.5<br />flipper_length_mm: 221<br />species: Gentoo","bill_length_mm: 47.4<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 50.0<br />flipper_length_mm: 224<br />species: Gentoo","bill_length_mm: 44.9<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 50.8<br />flipper_length_mm: 228<br />species: Gentoo","bill_length_mm: 43.4<br />flipper_length_mm: 218<br />species: Gentoo","bill_length_mm: 51.3<br />flipper_length_mm: 218<br />species: Gentoo","bill_length_mm: 47.5<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 52.1<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 47.5<br />flipper_length_mm: 218<br />species: Gentoo","bill_length_mm: 52.2<br />flipper_length_mm: 228<br />species: Gentoo","bill_length_mm: 45.5<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 49.5<br />flipper_length_mm: 224<br />species: Gentoo","bill_length_mm: 44.5<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm: 50.8<br />flipper_length_mm: 226<br />species: Gentoo","bill_length_mm: 49.4<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 46.9<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 48.4<br />flipper_length_mm: 203<br />species: Gentoo","bill_length_mm: 51.1<br />flipper_length_mm: 225<br />species: Gentoo","bill_length_mm: 48.5<br />flipper_length_mm: 219<br />species: Gentoo","bill_length_mm: 55.9<br />flipper_length_mm: 228<br />species: Gentoo","bill_length_mm: 47.2<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 49.1<br />flipper_length_mm: 228<br />species: Gentoo","bill_length_mm: 47.3<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 46.8<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 41.7<br />flipper_length_mm: 210<br />species: Gentoo","bill_length_mm: 53.4<br />flipper_length_mm: 219<br />species: Gentoo","bill_length_mm: 43.3<br />flipper_length_mm: 208<br />species: Gentoo","bill_length_mm: 48.1<br />flipper_length_mm: 209<br />species: Gentoo","bill_length_mm: 50.5<br />flipper_length_mm: 216<br />species: Gentoo","bill_length_mm: 49.8<br />flipper_length_mm: 229<br />species: Gentoo","bill_length_mm: 43.5<br />flipper_length_mm: 213<br />species: Gentoo","bill_length_mm: 51.5<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 46.2<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 55.1<br />flipper_length_mm: 230<br />species: Gentoo","bill_length_mm: 44.5<br />flipper_length_mm: 217<br />species: Gentoo","bill_length_mm: 48.8<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 47.2<br />flipper_length_mm: 214<br />species: Gentoo","bill_length_mm:   NA<br />flipper_length_mm:  NA<br />species: Gentoo","bill_length_mm: 46.8<br />flipper_length_mm: 215<br />species: Gentoo","bill_length_mm: 50.4<br />flipper_length_mm: 222<br />species: Gentoo","bill_length_mm: 45.2<br />flipper_length_mm: 212<br />species: Gentoo","bill_length_mm: 49.9<br />flipper_length_mm: 213<br />species: Gentoo"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(97,156,255,1)"}},"hoveron":"points","name":"Gentoo","legendgroup":"Gentoo","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.3059360730594,"r":7.30593607305936,"b":37.2602739726027,"l":43.1050228310502},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[30.725,60.975],"tickmode":"array","ticktext":["40","50","60"],"tickvals":[40,50,60],"categoryorder":"array","categoryarray":["40","50","60"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"bill_length_mm","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[169.05,233.95],"tickmode":"array","ticktext":["170","180","190","200","210","220","230"],"tickvals":[170,180,190,200,210,220,230],"categoryorder":"array","categoryarray":["170","180","190","200","210","220","230"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"flipper_length_mm","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"species","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"2d1474667026":{"x":{},"y":{},"colour":{},"type":"scatter"}},"cur_data":"2d1474667026","visdat":{"2d1474667026":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 
 ---
 
-# 4.2. Animate
+# 3.4. Animate
 
 
 ```r
 library(gganimate)
 ```
 
-```
-## No renderer backend detected. gganimate will default to writing frames to separate files
-## Consider installing:
-## - the `gifski` package for gif output
-## - the `av` package for video output
-## and restarting the R session
-```
-
-&lt;img src="https://www.datanovia.com/en/wp-content/uploads/dn-tutorials/r-tutorial/images/transition_time.gif" height="350" /&gt;
+&lt;img src="https://github.com/MiriamLL/miriamlerma_/blob/main/animation.gif?raw=true" height="350" /&gt;
 
 ---
+name: export
+background-image: url(https://images.unsplash.com/photo-1465161191540-aac346fcbaff?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=870&amp;q=80)
+background-size: cover
+
+# 4. Export
+
+---
+
+# 4. ggsave
+
+To export a plot there is **ggsave**
+
+
+```r
+ResultsFolder&lt;-here::here()
+```
+
+
+```r
+ggsave(My_plot, 
+       filename = paste0(ResultsFolder,"/My_plot.png"),
+       width = 24, 
+       height = 24, 
+       units = "in",
+       dpi = 500)
+```
+
+
+---
+
+name: out
+class: title-slide
+background-image: url(https://images.unsplash.com/photo-1514679347725-10436adc23a8?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=862&amp;q=80)
+background-size: cover
 
 ### Back to
 - [points](#points)
