@@ -90,15 +90,19 @@ class: inverse
 
 # References
 
-Tutorials  
+Tutorials/Books  
 
 - [gg is for Grammar of Graphics](https://pkg.garrickadenbuie.com/trug-ggplot2)<br>
 
-- [IntroduccionToGGplot](https://englelab.gatech.edu/useRguide/introduction-to-ggplot2.html)  
+- [Introduccion to ggplot](https://englelab.gatech.edu/useRguide/introduction-to-ggplot2.html)  
 
-Galleries/Portafolios
+- [r4ds](https://r4ds.had.co.nz/data-visualisation.html)
 
-- [Examples of graph on R](https://spcanelon.notion.site/spcanelon/Data-Viz-Bookmarks-dc01718020bd4fd6a8a4ca80e6bce933)<br>
+- [Geocomputation with R,](https://r.geocompx.org/attr.html)
+
+Gallery/Portafolios
+
+- [Data-Viz-Bookmarks](https://spcanelon.notion.site/spcanelon/Data-Viz-Bookmarks-dc01718020bd4fd6a8a4ca80e6bce933)<br>
 
 - [RGraphGallery](https://www.r-graph-gallery.com/) <br>
 
@@ -194,7 +198,7 @@ A graph can be divided in three main components:
 - **Aesthetics** (aes): the aesthetic attributes to a geometric object, such as position, color, shape and size. 
   
 
-In **ggplot** we use **layers** as in GIS (Geographic information systems).
+Each component is displayed as **layers** like in GIS (Geographic information systems).
 
 ```{r echo=FALSE, out.height=200}
 knitr::include_graphics("https://englelab.gatech.edu/useRguide/images/dataviz/ge_geom.png")
@@ -226,47 +230,48 @@ install.packages("ggplot2")
 
 ## 1.3. Data
 
-For the exercises, we can use data from packages.
+For the exercises, we can use data from packages.<br>
 Lets add our object to our **environment**
 
-.pull-left[
 Package with data
 ```{r}
 library(palmerpenguins)
 penguins<-penguins
 ```
 
-Call library
+Call library **ggplot2**
+
 ```{r}
 library(ggplot2)
 ```
-]
 
-.pull-right[]
-Add data to a plot
-```{r, echo=TRUE, fig.width=3, fig.height=6}
+---
+
+## 1.3. Data
+
+First step: add data to a plot
+
+```{r, echo=TRUE, fig.width=6, fig.height=4}
 ggplot(data=penguins)
 ```
-]
+
+
+We told ggplot what data frame we want to use, but we didnt give instructions on what we want to plot. <br>
 
 ---
 
 ## 1.3. Add axis
 
-.pull-left[
-We told ggplot what data frame we want to use, but we didnt give instructions on what we want to plot. <br>
-**mapping** is where we tell ggplot what to plot in the x and y axis.<br>
-Note that the axis are columns from your data frame.
-]
+Using **mapping**  we tell ggplot what to plot in the x and y axis.<br>
 
-.pull-right[
-```{r, fig.height=3}
+Note that the axis are columns from your data frame.
+
+```{r, fig.width=6, fig.height=4}
 ggplot(data=penguins,
        mapping=aes(x=bill_length_mm, #<<
-                   y=bill_depth_mm))
+                   y=bill_depth_mm)) #<<
 ```
 
-]
 
 ---
 
@@ -274,17 +279,14 @@ ggplot(data=penguins,
 
 The next step is to give it a geometry, in this case we say plot points with the argument **geom_point**
 
-  
-It would likely show a **warning**
-This is because NAs are not going to be plotted and is trying to warn you.
-
-.pull-right[
-```{r, fig.height=3}
+```{r, fig.width=6, fig.height=4, warning=FALSE}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
        geom_point() #<<
 ```
 
-]
+It would likely show a **warning** <br>
+This is because NAs are not going to be plotted and R is trying to warn you.
+
 
 ---
 
@@ -292,20 +294,39 @@ ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
 
 There are many **geometries**
 
-.center[
+Most, if not all, of them start with geom_*
+
 ```{r echo=FALSE, out.height=300}
-knitr::include_graphics("http://www.typesofgraphs.com/wp-content/uploads/2015/12/Typesofgraphs.png")
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/302geometries.png?raw=true")
 ```
-]
+
+
+---
+
+## 1.4. Different geometries
+
+Examples are to be found on [R-graph-gallery](https://r-graph-gallery.com/)
+
+```{r, echo=FALSE, out.height=100}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/302examples.png?raw=true")
+```
+
+```{r, echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/303examples.png?raw=true")
+```
 
 ---
 name: points
 
-## 1.4. Points
+## 1.4. Scatterplots
 
-Description: The point geom is used to create scatterplots. The scatterplot is most useful for displaying the relationship between two continuous variables.
+The scatterplot is most useful for displaying the relationship between two continuous variables.<br>
+Each dot represents an observation. <br>
+Their position on the X (horizontal) and Y (vertical) axis represents the values of the 2 variables. 
 
-```{r, fig.height=3}
+The argument to create scatterplots is **geom_point**
+
+```{r, fig.width=6, fig.height=4, warning=FALSE}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_point() #<<
 ```
@@ -314,25 +335,28 @@ ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
 ---
 name: lines
 
-## 1.4. Lines
+## 1.4. Line chart
 
-Description: **geom_line()** connects observations in order of the variable on the x axis
+A line chart or line graph displays the evolution of one or several numeric variables. <br>
+Data points are connected by straight line segments. 
 
-```{r, fig.height=3,warning=FALSE}
+The argument to create line charts is **geom_line()** 
+
+```{r, fig.width=6, fig.height=4, warning=FALSE}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_line() #<<
 ```
+[See more scatterplots](https://r-graph-gallery.com/scatterplot.html)
 
 ---
 
-name: Bars
+name: barplot
 
-## 1.4. Bars
+## 1.4. Barplot
 
-Description: geom_bar() makes the height of the bar proportional to the number of cases in each group
+A barplot is used to display the relationship between a numeric and a categorical variable.<br>
 
-It might be easier to follow the logic as the previous plots, and add only **geom_bar**.
-However, we need to tell what do you want inside the bars.
+The argument to create barplots is **geom_bar()** 
 
 ```{r, fig.height=3,warning=FALSE, eval=FALSE}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
@@ -340,12 +364,18 @@ ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
 ```
 Error: stat_count() can only have an x or y aesthetic.
 
-Therefore we need to write **stat=**
-```{r, echo=TRUE, eval=FALSE, warning=FALSE}
+---
+
+## 1.4. Barplot
+
+Different from the logic of the previous plots, we need to tell what do you want inside the bars by adding **stats=**.
+
+```{r, fig.width=6, fig.height=4,warning=FALSE}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_bar(stat='identity') #<<
 ```
 
+[See more barplots](https://r-graph-gallery.com/barplot.html)
 
 ---
 
@@ -353,27 +383,46 @@ name: boxplot
 
 ## 1.4. Boxplot
 
-Definition: The boxplot compactly displays the distribution of a continuous variable. It visualises five summary statistics (the median, two hinges and two whiskers), and all "outlying" points individually.
+Boxplot is probably the most commonly used chart type to compare distribution of several groups.<br>
 
-```{r, fig.height=3, echo=TRUE, warning=FALSE}
-ggplot(data=penguins,
-       mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
-  geom_boxplot() #<<
+It visualises five summary statistics (the median, two hinges and two whiskers), and all "outlying" points individually.
+
+```{r, echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/305boxplot.png?raw=true")
 ```
+
+Source: [Boxplot explanation](https://www.leansigmacorporation.com/box-plot-with-minitab/)
 
 ---
 
 ## 1.4. Boxplot
 
-However, mostly likely we want to compare groups. Therefore adding the argument **group=* inside mapping to create boxplots per group.
+The boxplot compactly displays the distribution of a continuous variable. 
 
-```{r, fig.height=3, echo=TRUE, warning=FALSE}
+The argument **geom_boxplot** is to be used.
+
+```{r, fig.width=6, fig.height=4,echo=TRUE, warning=FALSE}
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+  geom_boxplot() #<<
+```
+
+However, most likely we will like to visualize differences between groups.
+
+---
+
+## 1.4. Boxplot
+
+Using the argument **group=* inside mapping to create boxplots per group.
+
+```{r, fig.width=6, fig.height=4, warning=FALSE}
 ggplot(data=penguins,
        mapping=aes(x=bill_length_mm,y=bill_depth_mm, 
                    group=species))+#<<
   geom_boxplot() 
 ```
 
+[See more boxplots](https://r-graph-gallery.com/boxplot.html)
 ---
 
 name: trajectories
@@ -381,6 +430,7 @@ name: trajectories
 ## 1.4. Trajectory
 
 To test this function, load data from the package **sula**
+
 ```{r, warning=FALSE}
 #devtools::install_github("MiriamLL/sula")
 library(sula)
@@ -388,13 +438,23 @@ library(sula)
 
 Get data in the environment
 ```{r}
-tracking_data<-GPS_raw
+tracking_data<-sula::GPS_raw
 ```
 
-To plot, use **geom_path**
+Data contains the columns **Latitude** and **Longitude**
+```{r}
+head(tracking_data)
+```
+
+---
+
+## 1.4. Trajectory
+
+To plot trajectories, the argument **geom_path** is to be used.
+
 geom_path() connects the observations in the order in which they appear in the data.
 
-```{r, fig.height=3, echo=TRUE, eval=TRUE}
+```{r, fig.width=6, fig.height=4,echo=TRUE, eval=TRUE}
 ggplot(data = tracking_data, aes(x = Latitude, y = Longitude)) +
   geom_path() #<<
 ```
@@ -405,6 +465,12 @@ name: maps
 
 ## 1.4. Maps
 
+R is an great tool for geospatial data analysis. 
+
+A very recommended book is: [Geocomputation with R](https://r.geocompx.org/attr.html)
+
+For the exercises today:
+
 Install **GermanNorthSea**
 
 This package compiles shapefiles from the North Sea
@@ -414,13 +480,46 @@ This package compiles shapefiles from the North Sea
 library(GermanNorthSea)
 ```
 
-Add shapefile to environment
+To see the containing shapefiles go to my [github](https://github.com/MiriamLL/GermanNorthSea)
+
+To add shapefile to environment
 ```{r}
 German_land<-German_land
 ```
 
-Plot
+Note that a **sf** object is different from a data frame, if we click on the object is not clear what it contains.
 
+```{r}
+class(German_land)
+```
+
+---
+
+## 1.4. Maps
+
+To plot **sf** or simple features objects, the argument **geom_sf** is to be used
+
+geom_sf() uses a unique aesthetic: geometry, giving an column of class sfc containing simple features data. 
+
+```{r, fig.width=6, fig.height=4,echo=TRUE}
+ggplot(German_land)+ 
+  geom_sf()
+```
+
+---
+
+## 1.4. Maps
+
+To zoom-in we can use the argument **coord_sf**
+
+coord_sf() ensures that all layers use a common CRS. You can either specify it using the crs param, or coord_sf() will take it from the first layer that defines a CRS.
+
+To check which CRS I am using use:
+
+```{r}
+German_land$epsg
+```
+Based on this CRS you can zoom-in
 ```{r}
 ggplot(German_land)+ 
   geom_sf()+

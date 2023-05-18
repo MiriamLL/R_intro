@@ -1,0 +1,104 @@
+---
+title: 'ExercisesRmd'
+output: html_document
+date: '2023-06-06'
+---
+
+# Intro
+
+## Packages
+
+Packages to install
+```{r}
+devtools::install_github("MiriamLL/sula")
+```
+
+Call packages
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(ggplot2)
+library(sula)
+```
+
+## Data
+
+Load data to environment
+```{r}
+penguins<-penguins
+```
+
+Using ggplot
+```{r}
+ggplot()
+```
+
+Add data to ggplot
+```{r}
+ggplot(data=penguins)
+```
+
+Add axis
+```{r}
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm,
+                   y=bill_depth_mm))
+```
+
+Add geometry
+```{r}
+ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+       geom_point()
+```
+
+## Scatterplots
+```{r}
+ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+  geom_point()
+```
+
+## Line charts
+```{r}
+ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+  geom_line()
+```
+
+## Barplot
+```{r}
+ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+  geom_bar()
+```
+
+```{r}
+ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+  geom_bar(stat='identity')
+```
+
+## Boxplot
+```{r}
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+  geom_boxplot() 
+```
+
+```{r}
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm,y=bill_depth_mm, 
+                   group=species))+
+  geom_boxplot()
+```
+
+## Trajectory
+
+```{r}
+tracking_data<-sula::GPS_raw
+```
+
+```{r}
+ggplot(data = tracking_data, aes(x = Latitude, y = Longitude)) +
+  geom_path()
+```
+
+## Maps
+
+
