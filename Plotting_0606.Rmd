@@ -592,17 +592,17 @@ background-size:cover
 
 ---
  
- 
- 
- 
- 
 ## 2. Aesthetics
 
-```{r}
+**Aesthetics** is for controlling the overall appearance of graphs
 
+Things like colors, fonts, background colors, and so on. 
+
+For going into more detail the book [R Graphics cookbook](https://r-graphics.org/) is a great guide.
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/310Cookbook.jpg?raw=true")
 ```
-
-
 
 ---
 
@@ -610,7 +610,7 @@ background-size:cover
 
 Using colour to visualise additional variables
 
-If you wish to colour point on a scatterplot by a third categorical variable, then add colour = variable.name within your aes brackets. This tells ggplot that this third variable will colour the points. 
+If you wish to colour point on a scatterplot by a third categorical variable, then add **colour =** within your aes brackets. This tells ggplot that this third variable will colour the points. 
 
 ```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
 ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
@@ -618,10 +618,13 @@ ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm,
   geom_point()
 ```
 
-
 ---
 
 ## 2.2. Theme
+
+Themes are a powerful way to customize the non-data components of your plots: i.e. titles, labels, fonts, background, gridlines, and legends.
+
+Themes can be used to give plots a consistent customized look. 
 
 ```{r,fig.width=6, fig.height=4, echo=TRUE, eval=FALSE}
 ggplot(data=penguins, 
