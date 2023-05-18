@@ -38,13 +38,14 @@ library(emo)
 
 # Index
 
-- [points](#points)
+- [scatterplot](#scatterplot)
 - [lines](#lines)
 - [boxplot](#boxplot)
 - [trajectory](#trajectories)
 - [maps](#maps)
 - [theme](#theme)
 - [legend](#legend)
+- [custome maps](#custom-map)
 - [export](#export) 
 
 ---
@@ -81,6 +82,7 @@ We will use the packages
 # install.packages("devtools")
 devtools::install_github("MiriamLL/sula")
 devtools::install_github("MiriamLL/GermanNorthSea")
+install.packages('sf')
 ```
 ]
 
@@ -98,7 +100,9 @@ Tutorials/Books
 
 - [r4ds](https://r4ds.had.co.nz/data-visualisation.html)
 
-- [Geocomputation with R,](https://r.geocompx.org/attr.html)
+- [Geocomputation with R](https://r.geocompx.org/attr.html)
+
+- [R Graphics Cookbook](https://r-graphics.org/)
 
 Gallery/Portafolios
 
@@ -111,7 +115,7 @@ Gallery/Portafolios
 - [Coolors](https://coolors.co/) <br>
 
 ---
-
+name: theory
 
 ## 1.1. Theory
 
@@ -316,13 +320,11 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 ```
 
 ---
-name: points
+name: scatterplot
 
 ## 1.4. Scatterplots
 
-The scatterplot is most useful for displaying the relationship between two continuous variables.<br>
-Each dot represents an observation. <br>
-Their position on the X (horizontal) and Y (vertical) axis represents the values of the 2 variables. 
+The scatterplot is most useful for displaying the relationship between two continuous variables. Each dot represents an observation. Their position on the X (horizontal) and Y (vertical) axis represents the values of the 2 variables. 
 
 The argument to create scatterplots is **geom_point**
 
@@ -331,6 +333,7 @@ ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_point() #<<
 ```
 
+[See more scatterplots](https://r-graph-gallery.com/scatterplot.html)
 
 ---
 name: lines
@@ -346,7 +349,9 @@ The argument to create line charts is **geom_line()**
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_line() #<<
 ```
-[See more scatterplots](https://r-graph-gallery.com/scatterplot.html)
+
+[See more lineplots](https://r-graph-gallery.com/line-plot.html)
+
 
 ---
 
@@ -407,13 +412,12 @@ ggplot(data=penguins,
   geom_boxplot() #<<
 ```
 
-However, most likely we will like to visualize differences between groups.
 
 ---
 
 ## 1.4. Boxplot
 
-Using the argument **group=* inside mapping to create boxplots per group.
+Often we will like to visualize differences between groups. Using the argument **group=* inside mapping to create boxplots per group.
 
 ```{r, fig.width=6, fig.height=4, warning=FALSE}
 ggplot(data=penguins,
@@ -423,13 +427,16 @@ ggplot(data=penguins,
 ```
 
 [See more boxplots](https://r-graph-gallery.com/boxplot.html)
+
 ---
 
-name: trajectories
+name: trajectory
 
 ## 1.4. Trajectory
 
-To test this function, load data from the package **sula**
+**Definition of trajectory** the path followed by a projectile flying or an object moving under the action of given forces.
+
+For the exercise, lets load data from the package **sula**
 
 ```{r, warning=FALSE}
 #devtools::install_github("MiriamLL/sula")
@@ -443,7 +450,7 @@ tracking_data<-sula::GPS_raw
 
 Data contains the columns **Latitude** and **Longitude**
 ```{r}
-head(tracking_data)
+head(tracking_data,5)
 ```
 
 ---
@@ -467,11 +474,17 @@ name: maps
 
 R is an great tool for geospatial data analysis. 
 
-A very recommended book is: [Geocomputation with R](https://r.geocompx.org/attr.html)
+The book [Geocomputation with R](https://r.geocompx.org/attr.html) is a great guide.
 
-For the exercises today:
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/306Book.png?raw=true")
+```
 
-Install **GermanNorthSea**
+---
+
+## 1.4. Maps
+
+For today exercises, install **GermanNorthSea**
 
 This package compiles shapefiles from the North Sea
 
@@ -483,6 +496,7 @@ library(GermanNorthSea)
 To see the containing shapefiles go to my [github](https://github.com/MiriamLL/GermanNorthSea)
 
 To add shapefile to environment
+
 ```{r}
 German_land<-German_land
 ```
@@ -497,7 +511,7 @@ class(German_land)
 
 ## 1.4. Maps
 
-To plot **sf** or simple features objects, the argument **geom_sf** is to be used
+To plot **sf** (simple features) objects, the argument **geom_sf** is to be used
 
 geom_sf() uses a unique aesthetic: geometry, giving an column of class sfc containing simple features data. 
 
@@ -510,17 +524,11 @@ ggplot(German_land)+
 
 ## 1.4. Maps
 
-To zoom-in we can use the argument **coord_sf**
+The argument **coord_sf()** ensures that all layers use a common CRS. You can either specify it using the crs param, or coord_sf() will take it from the first layer that defines a CRS.
 
-coord_sf() ensures that all layers use a common CRS. You can either specify it using the crs param, or coord_sf() will take it from the first layer that defines a CRS.
+**Here I know I am using 3035**. Thus, my **xlim** and my **ylim** are in those units.
 
-To check which CRS I am using use:
-
-```{r}
-German_land$epsg
-```
-Based on this CRS you can zoom-in
-```{r}
+```{r,fig.width=6, fig.height=4}
 ggplot(German_land)+ 
   geom_sf()+
   coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000))
@@ -530,39 +538,48 @@ ggplot(German_land)+
 
 ## 1.4. Maps
 
-Here I have **coord_sf** and some coordinates to **zoom-in**
+Other common CRS (Coordinate Reference System) is 4326.
+
+To transform our shapefile to other coordinate system **st_transform** from the package **Sf** can be used.
+
 ```{r}
-ggplot(German_land)+ 
-  geom_sf()+
-  coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000))
+German_land<-sf::st_transform(German_land, 4326)
 ```
 
+Now the xlim and ylim can be in degrees.
 
+```{r,fig.width=6, fig.height=4}
+ggplot(German_land)+ 
+  geom_sf()+
+  coord_sf(xlim = c(3,9), ylim = c(53,56))
+```
 
 ---
 
 class: inverse
 
-# Exercise `r fa("pencil-alt", fill = '#FFFFFF')`
+# Pause
 
- `r emo::ji("penguin")`
+.pull-left[
+Practice `r fa("pencil-alt", fill = '#FFFFFF')`
 
-.panelset[
-.panel[.panel-name[Datos]
-- Load data
-```{r}
-library(palmerpenguins)
-penguins<-penguins
-```
 ]
 
-.panel[.panel-name[Rellenar]
-- Fill the spaces (*****) to create a plot of bill lenght and body mass.
-```{r}
-#ggplot(data=***, mapping=aes(x=***,y=***))+
-#  geom_***()
-```
-]]
+.pull-right[
+Until here:
+- [index](#index)
+- [theory](#theory)
+- [scatterplot](#scatterplot)
+- [line chart](#lines)
+- [barplot](#barplot)
+- [trajectory](#trajectory)
+- [maps](#maps)
+
+Next part:
+- [aesthetics](#export) 
+- [export](#out)
+- [contact](#contact)
+]
 
 ---
 
@@ -575,13 +592,23 @@ background-size:cover
 
 ---
 
-## 2.1. Symbol color
+## 2. Aesthetics
 
 ```{r}
-library(ggplot2)
+
 ```
 
-```{r, echo=TRUE, warning=FALSE}
+
+
+---
+
+## 2.1. Symbol color
+
+Using colour to visualise additional variables
+
+If you wish to colour point on a scatterplot by a third categorical variable, then add colour = variable.name within your aes brackets. This tells ggplot that this third variable will colour the points. 
+
+```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
 ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
                                 color=species))+ #<<
   geom_point()
@@ -592,7 +619,7 @@ ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm,
 
 ## 2.2. Theme
 
-```{r, echo=TRUE, eval=FALSE}
+```{r,fig.width=6, fig.height=4, echo=TRUE, eval=FALSE}
 ggplot(data=penguins, 
        mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
                                 color=species))+ 
@@ -604,7 +631,7 @@ ggplot(data=penguins,
 
 ## 2.3. Background colors
 
-```{r, echo=TRUE, eval=FALSE}
+```{r,fig.width=6, fig.height=4, echo=TRUE, eval=FALSE}
 ggplot(data=penguins, 
        mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
                                 color=species))+
@@ -617,7 +644,7 @@ ggplot(data=penguins,
 
 ## 2.4. Axis legends
 
-```{r, echo=TRUE, eval=FALSE}
+```{r,fig.width=6, fig.height=4, echo=TRUE, eval=FALSE}
 ggplot(data=penguins, 
        mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
                                 color=species))+
@@ -631,7 +658,7 @@ ggplot(data=penguins,
 
 ## 2.5. Font size
 
-```{r, echo=TRUE, eval=FALSE}
+```{r,fig.width=6, fig.height=4, echo=TRUE, eval=FALSE}
 ggplot(data=penguins, 
        mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
                                 color=species))+
@@ -644,7 +671,7 @@ ggplot(data=penguins,
 
 ## 2.6. Legends
 
-```{r, echo=TRUE, warning=FALSE}
+```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
 ggplot(data=penguins, 
        mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
                                 color=species))+
@@ -752,7 +779,7 @@ My_plot
 
 ---
 
-name: maps
+name: custom-maps
 background-image: url(https://images.unsplash.com/photo-1554033551-050e208bcaf2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=800)
 background-size: cover
 
