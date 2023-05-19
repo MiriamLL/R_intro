@@ -1,0 +1,47 @@
+---
+title: 'Exercises plotting in R'
+output: html_document
+author: Miriam Lerma
+date: '2023-06-06'
+---
+
+This is an example on how to export your plot into a html file.
+
+```{r packages, echo=FALSE, warning=FALSE, message=FALSE}
+# Packages
+library(sf)
+library(GermanNorthSea)
+library(ggplot2)
+library(ggspatial)
+library(plotly)
+```
+
+```{r data, echo=FALSE, warning=FALSE, message=FALSE}
+Europe<-st_transform(German_land, 4326)
+```
+
+```{r,echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+ggplotly(ggplot()+  
+  geom_sf(data = Europe, 
+          colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)+
+  theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = '#edf2f4'),
+        legend.background = element_rect(fill = '#edf2f4'))+
+  
+  coord_sf(xlim = c(9, 31),ylim = c(53, 65))+
+    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
+    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N")) +
+  
+   annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')+
+  
+  annotation_north_arrow(location = "tl", style = north_arrow_minimal(text_col = '#ffd60a',line_col = '#ffd60a',fill = '#ffd60a'))
+  )
+```
+
+
+
+
