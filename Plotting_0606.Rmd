@@ -81,11 +81,11 @@ class: title-slide, inverse
 We will use the packages
 
 ```{r,eval=FALSE}
-# install.packages('tidyverse')
-# install.packages("devtools")
 devtools::install_github("MiriamLL/sula")
 devtools::install_github("MiriamLL/GermanNorthSea")
 install.packages('sf')
+install.packages('ggspatial')
+install.packages('plotly')
 ```
 ]
 
@@ -1012,19 +1012,14 @@ background-size: cover
 ---
 
 
-## 3.1. Maps
+## 3.Maps
 
-
+Elements from a map
 ---
 
-## 3.2. Load shapefile
+## 3.1. Load shapefile
 
 You can download shapefiles from: https://www.naturalearthdata.com/downloads/
-
-```{r}
-
-```
-
 
 Call the package here to work in your directory.
 
@@ -1039,58 +1034,46 @@ library(sf)
 ```
 
 Read your shapefile
-Use your directory name, and give the name of your shapefile
+Use your directory name, and give the name of your shapefile.
 
-```{r}
+Download [shapefile]()
+
+```{r, eval=FALSE}
 Europe<-st_read(paste0(Directory,MyShapefileName))
 ```
 
+---
 
-```{r, eval=FALSE}
+## 3.2. Create a basic map
 
-
-
-
-2. 
-
-
-
-
-
-Reading layer `country' from data source 
-  `C:\Users\lerma\OneDrive\Documents\4Programacion\2023\1Distill\Distill\_posts\2023-03-04-mapping-in-r\country.shp' 
-  using driver `ESRI Shapefile'
-Simple feature collection with 54 features and 2 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -31.26575 ymin: 32.39748 xmax: 69.07032 ymax: 81.85737
-Geodetic CRS:  WGS 84
-
-3. Create a basic map
-
-Load ggplot2
-
+```{r}
 library(ggplot2)
+```
 
 Plot your shapefile
 
+```{r,fig.width=6, fig.height=4, }
 ggplot()+  
   geom_sf(data = Europe)
+```
 
-4. Add colors
+---
+
+## 3.3. Add colors
 
 I copy the hex colors from coolors
 
+```{r,fig.width=6, fig.height=4, }
 ggplot()+  
   geom_sf(data = Europe, 
           colour = "#edf2f4", 
           fill = "#2b2d42",
           size=0.5)
+```
 
-5. Change background color
+Change background color
 
-You can eliminate the grids and the change the background color in ggplot
-
+```{r,fig.width=6, fig.height=4, }
 ggplot()+  
   geom_sf(data = Europe, 
           colour = "#edf2f4", 
@@ -1101,11 +1084,15 @@ ggplot()+
         panel.grid.minor = element_blank(),
         panel.background = element_rect(fill = '#edf2f4'),
         legend.background = element_rect(fill = '#edf2f4'))
+```
 
-6. Add limits
+---
+
+## 3.4. Add limits
 
 Reduce to focus in your area of interest
 
+```{r,fig.width=6, fig.height=4, }
 ggplot()+  
   geom_sf(data = Europe, 
           colour = "#edf2f4", 
@@ -1118,17 +1105,24 @@ ggplot()+
         legend.background = element_rect(fill = '#edf2f4'))+
   
   coord_sf(xlim = c(9, 31),ylim = c(53, 65))
+```
 
-7. Add scale
+---
+
+## 3.5. Add scale
 
 Load the package ggspatial to add a scale and an north arrow
 
+```{r}
 library(ggspatial)
+```
+
 
 br is from bottom right
 bar_cols is for column colors
 text_col is for the color of the text
 
+```{r,fig.width=6, fig.height=4, }
 ggplot()+  
   geom_sf(data = Europe, 
           colour = "#edf2f4", 
@@ -1145,13 +1139,18 @@ ggplot()+
     scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N")) +
   
   annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')
+```
 
-8. Add arrow
+
+---
+
+## 3.6. Add arrow
 
 tl is for top left
 which_north preferably true (see why here)
 north_arrow_fancy_orienteering (see other styles here)
 
+```{r,fig.width=6, fig.height=4, }
 ggplot()+  
   geom_sf(data = Europe, 
           colour = "#edf2f4", 
@@ -1170,118 +1169,30 @@ ggplot()+
    annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')+
   
   annotation_north_arrow(location = "tl", style = north_arrow_minimal(text_col = '#ffd60a',line_col = '#ffd60a',fill = '#ffd60a')) 
-
-Thats it for now!
 ```
-
 
 ---
 
-## 3.2. Add dots
+## 3.7. Add dots
+
+
+```{r}
+library(seamonas)
+```
+
+```{r}
+survey_4326<-survey_4326
+```
 
 ```{r, eval=FALSE}
-
-library(tidyverse)
-library(seamonas)
-
-## Create data frame
-density_df<-data.frame(
-             seq=(1:50),
-             survey_id=rep(c(1, 2, 3, 4, 5), each = 10),
-             longitude=c(seq(6, 8, length = 10),
-                         seq(6, 8, length = 10),
-                         seq(6, 8, length = 10),
-                         seq(6, 8, length = 10),
-                         seq(6, 8, length = 10)),
-             latitude=c(seq(55.1,54, length = 10),
-                        seq(55.1+0.1,54+0.1, length = 10),
-                        seq(55.1+0.2,54+0.2, length = 10),
-                        seq(55.1-0.2,54-0.2, length = 10),
-                        seq(55.1-0.1,54-0.1, length = 10)),
-             timestamps=c(
-  head(seq.POSIXt(as.POSIXct("2018-04-01 09:00:00"), as.POSIXct("2018-04-01 18:00:00"), by="min"), 10),
-  head(seq.POSIXt(as.POSIXct("2018-05-01 09:00:00"), as.POSIXct("2018-05-01 18:00:00"), by="min"), 10),
-  head(seq.POSIXt(as.POSIXct("2018-06-01 09:00:00"), as.POSIXct("2018-06-01 18:00:00"), by="min"), 10),
-  head(seq.POSIXt(as.POSIXct("2018-07-01 09:00:00"), as.POSIXct("2018-07-01 18:00:00"), by="min"), 10),
-  head(seq.POSIXt(as.POSIXct("2018-08-01 09:00:00"), as.POSIXct("2018-08-01 18:00:00"), by="min"), 10))
-)
-
-
-density_df$year<-stringr::str_sub(density_df$timestamps, 1, 4)
-density_df$month<-stringr::str_sub(density_df$timestamps, 6, 7)
-density_df$day<-stringr::str_sub(density_df$timestamps, 9, 10)
-density_df$date<-paste0(density_df$year,"-",density_df$month,"-",density_df$day)
-
-density_df<-density_df
-
 ggplot()+
-  geom_point(data=density_df,
+  geom_point(data=survey_4326,
           aes(x = longitude,
               y= latitude))
-
-#values 0 or 1
-random1<-sample(0:1, 50, replace=TRUE)
-
-#values 0 to 5.1
-
-random2<-runif(50, min=0, max=5.1)
-
-#make data frame
-
-random3<-cbind(random1,random2)
-random3<-as.data.frame(random3)
+```
 
 
-#substitute values
-random4<-random3 %>%
-  mutate(random5 = case_when(
-    random1 == 0 ~ 0,
-    random1 != 0 ~ random2,
-    TRUE ~ random2))
-#use as densities
-
-density_df$densities<-as.numeric(random4$random5)
-
-range(density_df$densities)
-
-class0<-0
-class1<-1
-class2<-2.5
-class3<-5
-
-density_df<-density_df %>% 
-    mutate(density_class = case_when(
-      densities ==  class0 ~ as.character("group0"),
-      densities >=  class0 & densities <=  class1 ~ as.character("group1"),
-      densities >=  class1 & densities <=  class2 ~ as.character("group2"),
-      densities >=  class2 & densities <=  class3 ~ as.character("group3"),
-      densities >=  class3 ~ as.character("group4"),
-      TRUE~"U"))
-
-density_df %>%
-  group_by(density_class)%>%
-  tally()
-
-density_shapes<-c("group0"=3, "group1"=21,"group2"=21, "group3"=21, "group4"=21)
-
-density_sizes<-c("group0"=0.5, "group1"=1,"group2"=2, "group3"=3, "group4"=5)
-
-density_labels<-c('0','> 0-1','> 1-2.5','> 2.5-5','> 5')
-
-ggplot()+
-  geom_point(data=density_df,
-          aes(x = longitude,
-              y= latitude,
-              shape = density_class,
-              size= density_class),
-              fill= "#d00000")+
-  
-  scale_shape_manual(values = density_shapes,labels=density_labels)+
-  scale_size_manual(values =  density_sizes,labels=density_labels)
-
-library(sf)
-library(GermanNorthSea)
-
+```{r}
 my_CRS<-4326
 Europa<-sf::st_transform(German_land, my_CRS)
 EEZ<-sf::st_transform(German_EEZ, my_CRS)
@@ -1289,7 +1200,9 @@ color_land='#f7bf54'
 color_water='#3668b4'
 xval<-c(3,9)
 yval<-c(53,56)
+```
 
+```{r}
 base_plot<-ggplot2::ggplot()+
     # maps
     ggplot2::geom_sf(data = EEZ, colour = 'black', fill = color_water)+
@@ -1298,75 +1211,76 @@ base_plot<-ggplot2::ggplot()+
 
     NULL
 base_plot
+```
 
+
+```{r}
 density_wmap<-base_plot+
-  geom_point(data=density_df,
+  geom_point(data=survey_4326,
           aes(x = longitude,
-              y= latitude,
-              shape = density_class,
-              size= density_class),
-              fill= "#d00000")+
-  
-  scale_shape_manual(values = density_shapes,labels=density_labels)+
-  scale_size_manual(values =  density_sizes,labels=density_labels)
+              y= latitude),
+              fill= "#d00000")
 density_wmap
-
-density_wlegend<-add_legend(
-  plot_wbreaks=density_wmap,
-  legtx=3.0,
-  legty=54.0,
-  legxy=c(0.11, 0.21),
-  xval=xval,
-  yval=yval)+
-  theme(legend.key.size = ggplot2::unit(0.4, "cm"))
-density_wlegend
-
-density_wtheme<-add_theme(plot_wlegend = density_wlegend)
-density_wtheme
 ```
 
 
 ---
-## 3.3. Interactive
+
+## 3.11. Interactive
 
 Graphs can be interactive.
 
+To install package.
+
+```{r, eval=FALSE}
+install.packages('plotly')
+```
+
+Call the package. 
 ```{r, warning=FALSE,message=FALSE}
-#install.packages('plotly')
 library(plotly)
 ```
 
 ```{r}
-ggplotly(My_plot)
+ggplotly(density_wmap)
 ```
 
 ---
 
-# 3.4. Animate
+# 3.12. Animate
 
-```{r}
-library(gganimate)
-```
+We can also create animated plots.
 
 ```{r, echo=FALSE, out.height=350}
 knitr::include_graphics('https://github.com/MiriamLL/miriamlerma_/blob/main/animation.gif?raw=true')
 ```
 
+However, doing this during a R session would be very time consuming.
+
+To recreate the animation, you can see my [blog](www.miriam-lerma.com/blog)
+
 ---
+
 name: export
 background-image: url(https://images.unsplash.com/photo-1465161191540-aac346fcbaff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80)
 background-size: cover
 
-# 4. Export
+#  `r text_spec("Maps", background = "#003049", color = "#e5e5e5", bold = T)`
+### `r text_spec("Level up", background = "#003049", color = "#e5e5e5", bold = T)`
 
 ---
 
-# 4. ggsave
+# 4. Export
+
+
+---
+
+## 4.1. ggsave
 
 To export a plot there is **ggsave**
 
 ```{r}
-ResultsFolder<-here::here()
+ResultsFolder<-here()
 ```
 
 ```{r, eval=FALSE}
@@ -1377,6 +1291,34 @@ ggsave(My_plot,
        units = "in",
        dpi = 500)
 ```
+
+---
+
+## 4.2. word
+
+Another way to export maps is to use a Rmd file like the one on the [link]().
+
+For exporting to word, consider:
+Not including the code, write **echo=FALSE** in your code chunk.
+Not including messages, write **message=FALSE** in your code chunk.
+Not including warnings, write **warning=FALSE** in your code chunk.
+
+```{r, eval=FALSE}
+{r,echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+```
+
+To adjust the size of the maps you can specify the fig.height and fig.width in the code chunk
+
+```{r, eval=FALSE}
+{r,echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE,fig.height=10, fig.width=10}
+```
+
+
+---
+
+## 4.3. html
+
+The best way to export interactive maps is to use Rmd to html like the one on the [link]().
 
 
 ---
