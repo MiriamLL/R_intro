@@ -43,8 +43,11 @@ library(emo)
 - [boxplot](#boxplot)
 - [trajectory](#trajectories)
 - [maps](#maps)
+- [aesthetics](#aesthetics)
 - [theme](#theme)
-- [legend](#legend)
+- [color](#color)
+- [background](#background)
+- [axis](#axis)
 - [custome maps](#custom-map)
 - [export](#export) 
 
@@ -92,6 +95,7 @@ class: inverse
 
 # References
 
+.pull-left[
 Tutorials/Books  
 
 - [gg is for Grammar of Graphics](https://pkg.garrickadenbuie.com/trug-ggplot2)<br>
@@ -104,6 +108,8 @@ Tutorials/Books
 
 - [R Graphics Cookbook](https://r-graphics.org/)
 
+- [Allison Horst tutorial](https://allisonhorst.github.io/rice-data-viz/)
+
 Gallery/Portafolios
 
 - [Data-Viz-Bookmarks](https://spcanelon.notion.site/spcanelon/Data-Viz-Bookmarks-dc01718020bd4fd6a8a4ca80e6bce933)<br>
@@ -113,13 +119,22 @@ Gallery/Portafolios
 - [DataToViz](https://www.data-to-viz.com/) <br>
 
 - [Coolors](https://coolors.co/) <br>
+]
+
+.pull-right[
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/9a306c0a-dac8-413d-ba2e-cc7fd4c4d5c8_rw_1920.png?h=c802991088a9623f1f7aa18c470797ee")
+```
+
+]
+
 
 ---
 name: theory
 
 ## 1.1. Theory
 
-The objective of a graph/plot/map is to communicate. <br>
+The objective of a graph/plot/map/chart is to communicate. <br>
 In science, the idea is to show information in a clear and understandable way. 
 
 ```{r echo=FALSE, out.height=350}
@@ -235,7 +250,7 @@ install.packages("ggplot2")
 ## 1.3. Data
 
 For the exercises, we can use data from packages.<br>
-Lets add our object to our **environment**
+Lets add our object to our **environment**.
 
 Package with data
 ```{r}
@@ -243,9 +258,9 @@ library(palmerpenguins)
 penguins<-penguins
 ```
 
-Call library **ggplot2**
+Call library **ggplot2**.
 
-```{r}
+```{r, warning=FALSE}
 library(ggplot2)
 ```
 
@@ -253,14 +268,14 @@ library(ggplot2)
 
 ## 1.3. Data
 
-First step: add data to a plot
+First step: add data to a plot.
 
 ```{r, echo=TRUE, fig.width=6, fig.height=4}
 ggplot(data=penguins)
 ```
 
 
-We told ggplot what data frame we want to use, but we didnt give instructions on what we want to plot. <br>
+We told ggplot what data frame we want to use, but need to give instruction on how to plot. <br>
 
 ---
 
@@ -268,7 +283,7 @@ We told ggplot what data frame we want to use, but we didnt give instructions on
 
 Using **mapping**  we tell ggplot what to plot in the x and y axis.<br>
 
-Note that the axis are columns from your data frame.
+**Note** that the axis are columns from your data frame. This is when having tidydata is important.
 
 ```{r, fig.width=6, fig.height=4}
 ggplot(data=penguins,
@@ -284,56 +299,67 @@ ggplot(data=penguins,
 The next step is to give it a geometry, in this case we say plot points with the argument **geom_point**
 
 ```{r, fig.width=6, fig.height=4, warning=FALSE}
-ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+ggplot(data=penguins
+       ,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
        geom_point() #<<
 ```
 
-It would likely show a **warning** <br>
+It would likely show a **warning**. <br>
 This is because NAs are not going to be plotted and R is trying to warn you.
 
 
 ---
 
-## 1.4. Different geometries
+## 1.3. Geometry
 
-There are many **geometries**
+There are many **geometries**.
 
-Most, if not all, of them start with geom_*
+Most, if not all, of them start with **geom_***
 
-```{r echo=FALSE, out.height=300}
+```{r echo=FALSE, out.height=400}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/302geometries.png?raw=true")
 ```
 
 
 ---
 
-## 1.4. Different geometries
+## 1.3. Geometry
 
-Examples are to be found on [R-graph-gallery](https://r-graph-gallery.com/)
+Examples of most common geometries are to be found on [R-graph-gallery](https://r-graph-gallery.com/)
 
-```{r, echo=FALSE, out.height=100}
+.pull-left[
+```{r, echo=FALSE, out.height=150}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/302examples.png?raw=true")
 ```
 
 ```{r, echo=FALSE, out.height=200}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/303examples.png?raw=true")
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/306examples.png?raw=true")
 ```
+]
+
+.pull-right[
+```{r, echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/307examples.png?raw=true")
+```
+
+]
 
 ---
 name: scatterplot
 
 ## 1.4. Scatterplots
 
-The scatterplot is most useful for displaying the relationship between two continuous variables. Each dot represents an observation. Their position on the X (horizontal) and Y (vertical) axis represents the values of the 2 variables. 
+The scatterplot is most useful for displaying the relationship between two continuous variables. Each dot represents an observation. Their position on the x (horizontal) and y (vertical) axis represents the values of the 2 variables. 
 
 The argument to create scatterplots is **geom_point**
 
 ```{r, fig.width=6, fig.height=4, warning=FALSE}
-ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_point() #<<
 ```
 
-[See more scatterplots](https://r-graph-gallery.com/scatterplot.html)
+See more [scatterplots](https://r-graph-gallery.com/scatterplot.html)
 
 ---
 name: lines
@@ -346,12 +372,12 @@ Data points are connected by straight line segments.
 The argument to create line charts is **geom_line()** 
 
 ```{r, fig.width=6, fig.height=4, warning=FALSE}
-ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_line() #<<
 ```
 
-[See more lineplots](https://r-graph-gallery.com/line-plot.html)
-
+See more [line chart](https://r-graph-gallery.com/line-plot.html)
 
 ---
 
@@ -364,23 +390,27 @@ A barplot is used to display the relationship between a numeric and a categorica
 The argument to create barplots is **geom_bar()** 
 
 ```{r, fig.height=3,warning=FALSE, eval=FALSE}
-ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_bar() #<<
 ```
 Error: stat_count() can only have an x or y aesthetic.
+
+Different from the logic of the previous plots, we need to tell what do you want inside the bars by adding **stats=**.
 
 ---
 
 ## 1.4. Barplot
 
-Different from the logic of the previous plots, we need to tell what do you want inside the bars by adding **stats=**.
+The argument **stats=** is to be included inside the parethesis of **geom_bar**
 
 ```{r, fig.width=6, fig.height=4,warning=FALSE}
-ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_bar(stat='identity') #<<
 ```
 
-[See more barplots](https://r-graph-gallery.com/barplot.html)
+See more [barplots](https://r-graph-gallery.com/barplot.html)
 
 ---
 
@@ -390,9 +420,9 @@ name: boxplot
 
 Boxplot is probably the most commonly used chart type to compare distribution of several groups.<br>
 
-It visualises five summary statistics (the median, two hinges and two whiskers), and all "outlying" points individually.
+It visualises five summary statistics (the median, two perfcentiles and two whiskers).
 
-```{r, echo=FALSE, out.height=200}
+```{r, echo=FALSE, out.height=400}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/305boxplot.png?raw=true")
 ```
 
@@ -404,7 +434,7 @@ Source: [Boxplot explanation](https://www.leansigmacorporation.com/box-plot-with
 
 The boxplot compactly displays the distribution of a continuous variable. 
 
-The argument **geom_boxplot** is to be used.
+The argument to create boxplots is **geom_boxplot()** 
 
 ```{r, fig.width=6, fig.height=4,echo=TRUE, warning=FALSE}
 ggplot(data=penguins,
@@ -417,7 +447,8 @@ ggplot(data=penguins,
 
 ## 1.4. Boxplot
 
-Often we will like to visualize differences between groups. Using the argument **group=* inside mapping to create boxplots per group.
+Often we will like to use boxplots to visualize differences between groups.   
+Using the argument **group=* inside mapping to create boxplots per group.
 
 ```{r, fig.width=6, fig.height=4, warning=FALSE}
 ggplot(data=penguins,
@@ -426,7 +457,7 @@ ggplot(data=penguins,
   geom_boxplot() 
 ```
 
-[See more boxplots](https://r-graph-gallery.com/boxplot.html)
+See more [boxplots](https://r-graph-gallery.com/boxplot.html)
 
 ---
 
@@ -434,35 +465,45 @@ name: trajectory
 
 ## 1.4. Trajectory
 
-**Definition of trajectory** the path followed by a projectile flying or an object moving under the action of given forces.
+For plotting moving objects (such as planes or birds), connecting points with a line is the most common visualization used.
 
-For the exercise, lets load data from the package **sula**
+--
+
+For today exercises, install **sula**.
+
+```{r, eval=FALSE}
+devtools::install_github("MiriamLL/sula")
+```
+
+The package **sula** contains tracking data from Masked boobies on Easter Island.
 
 ```{r, warning=FALSE}
-#devtools::install_github("MiriamLL/sula")
 library(sula)
 ```
 
-Get data in the environment
+To plot a trajectory, lets load data from the package **sula**. Then, get data in the environment.
+
 ```{r}
 tracking_data<-sula::GPS_raw
 ```
 
-Data contains the columns **Latitude** and **Longitude**
+See that the contains the columns **Latitude** and **Longitude**.
+
 ```{r}
-head(tracking_data,5)
+head(tracking_data,3)
 ```
 
 ---
 
 ## 1.4. Trajectory
 
-To plot trajectories, the argument **geom_path** is to be used.
+The argument to create trajectories is **geom_path()**. 
 
-geom_path() connects the observations in the order in which they appear in the data.
+By definition geom_path() connects the observations in the order in which they appear in the data.
 
 ```{r, fig.width=6, fig.height=4,echo=TRUE, eval=TRUE}
-ggplot(data = tracking_data, aes(x = Latitude, y = Longitude)) +
+ggplot(data=tracking_data, 
+       mapping=aes(x=Latitude, y=Longitude)) +
   geom_path() #<<
 ```
 
@@ -474,9 +515,9 @@ name: maps
 
 R is an great tool for geospatial data analysis. 
 
-The book [Geocomputation with R](https://r.geocompx.org/attr.html) is a great guide.
+The book [geocomputation with R](https://r.geocompx.org/attr.html) is a recommended guide to create maps in R (and is constantly updated).
 
-```{r echo=FALSE, out.height=300}
+```{r echo=FALSE, out.height=450}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/306Book.png?raw=true")
 ```
 
@@ -484,39 +525,42 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 
 ## 1.4. Maps
 
-For today exercises, install **GermanNorthSea**
+For today exercises, install **GermanNorthSea**.
 
-This package compiles shapefiles from the North Sea
+```{r, eval=FALSE}
+devtools::install_github("MiriamLL/GermanNorthSea")
+```
+
+The package **GermanNorthSea** compiles shapefiles from the North Sea.
 
 ```{r, warning=FALSE}
-#devtools::install_github("MiriamLL/GermanNorthSea")
 library(GermanNorthSea)
 ```
 
-To see the containing shapefiles go to my [github](https://github.com/MiriamLL/GermanNorthSea)
+To see the containing shapefiles go to my [github](https://github.com/MiriamLL/GermanNorthSea).
 
-To add shapefile to environment
+To add shapefile to environment.
 
 ```{r}
-German_land<-German_land
+Europe<-German_land
 ```
 
-Note that a **sf** object is different from a data frame, if we click on the object is not clear what it contains.
+**Note** that shapefiles can be an **sf** object. An sf object is different from a data frame, if we click on the object is not clear what it contains.
 
 ```{r}
-class(German_land)
+class(Europe)
 ```
 
 ---
 
 ## 1.4. Maps
 
-To plot **sf** (simple features) objects, the argument **geom_sf** is to be used
+The argument to plot **sf** (simple features) objects is **geom_sf()** 
 
-geom_sf() uses a unique aesthetic: geometry, giving an column of class sfc containing simple features data. 
+By definition geom_sf() uses a unique aesthetic: geometry, giving an column of class sfc containing simple features data. 
 
 ```{r, fig.width=6, fig.height=4,echo=TRUE}
-ggplot(German_land)+ 
+ggplot(data=Europe)+ 
   geom_sf()
 ```
 
@@ -524,12 +568,12 @@ ggplot(German_land)+
 
 ## 1.4. Maps
 
-The argument **coord_sf()** ensures that all layers use a common CRS. You can either specify it using the crs param, or coord_sf() will take it from the first layer that defines a CRS.
+To **zoom-in**, the argument **coord_sf()** can be used. 
 
-**Here I know I am using 3035**. Thus, my **xlim** and my **ylim** are in those units.
+**For this map, I am using 3035**. Thus, my **xlim** and my **ylim** are in those units.
 
 ```{r,fig.width=6, fig.height=4}
-ggplot(German_land)+ 
+ggplot(data=Europe)+ 
   geom_sf()+
   coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000))
 ```
@@ -538,21 +582,86 @@ ggplot(German_land)+
 
 ## 1.4. Maps
 
-Other common CRS (Coordinate Reference System) is 4326.
-
-To transform our shapefile to other coordinate system **st_transform** from the package **Sf** can be used.
+Although I will not give details on CRS's today, A common CRS (Coordinate Reference System) is 4326. 
+To transform our shapefile to other coordinate system **st_transform** from the package **sf** can be used.
 
 ```{r}
-German_land<-sf::st_transform(German_land, 4326)
+Europe<-sf::st_transform(Europe, 4326)
 ```
 
 Now the xlim and ylim can be in degrees.
 
 ```{r,fig.width=6, fig.height=4}
-ggplot(German_land)+ 
+ggplot(data=Europe)+ 
   geom_sf()+
   coord_sf(xlim = c(3,9), ylim = c(53,56))
 ```
+
+---
+
+## 1.5. Simplify 
+
+So far we wrote **data=** and **mapping=** <br>
+
+However, you can skip them by following the orden.
+
+.pull-left[
+```{r,fig.width=6, fig.height=4, echo=TRUE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))+
+  geom_point()
+
+```
+]
+
+.pull-right[
+
+```{r,fig.width=6, fig.height=4, echo=TRUE}
+ggplot(penguins, 
+       aes(x=bill_length_mm,y=flipper_length_mm,))+
+  geom_point()
+
+```
+]
+
+---
+
+## 1.6. Common mistakes
+
+Not having **tidydata**  
+ 
+```{r echo=FALSE, out.height=400}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/104TidyData.jpg?raw=true")
+```
+  
+[Allison Horst](https://allisonhorst.com/) 
+
+---
+
+## 1.6. Common mistakes
+
+Forgetting a plus symbol ( **+** )
+```{r, eval=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))
+  geom_point()
+```
+
+Adding the **+** on the wrong order
+```{r, eval=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))
+ +geom_point()
+```
+
+Forgetting a parenthesis
+```{r, eval=FALSE}
+ggplot(penguins, 
+       aes(x=bill_length_mm,y=flipper_length_mm)+ #<<
+       geom_point()
+```
+Add a parenthesis after flipper_length_mm
+
 
 ---
 
@@ -562,7 +671,7 @@ class: inverse
 
 .pull-left[
 Practice `r fa("pencil-alt", fill = '#FFFFFF')`
-
+Create any plot
 ]
 
 .pull-right[
@@ -576,9 +685,10 @@ Until here:
 - [maps](#maps)
 
 Next part:
-- [aesthetics](#export) 
-- [export](#out)
-- [contact](#contact)
+- [aesthetics](#aesthetics)
+- [theme](#theme)
+- [export](#export)
+- [contact](#out)
 ]
 
 ---
@@ -588,15 +698,31 @@ class: title-slide, inverse, right, middle
 background-image: url(https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80)
 background-size:cover
 
-# 2. Aesthetics
+.pull-right[
+#  `r text_spec("Aesthetics", background = "#003049", color = "#e5e5e5", bold = T)`
+### `r text_spec("Bring some colors", background = "#003049", color = "#e5e5e5", bold = T)`
+]
 
 ---
  
-## 2. Aesthetics
+# 2. Aesthetics
 
-**Aesthetics** is for controlling the overall appearance of graphs
+**Aesthetics** are for controlling the overall appearance of graphs.
 
-Things like colors, fonts, background colors, and so on. 
+You can change every tiny detail to create the plot that you want.
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/308parts-ggplot.png?raw=true")
+```
+
+Source: [ggplot2 elements](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)
+Download [pdf](https://isabella-b.com/files/ggplot2-theme-elements-reference-v2.pdf)
+
+---
+
+# 2. Aesthetics
+
+There are many elements, but I will not go into detail to most of them.
 
 For going into more detail the book [R Graphics cookbook](https://r-graphics.org/) is a great guide.
 
@@ -605,12 +731,148 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 ```
 
 ---
+name: theme
 
-## 2.1. Symbol color
+## 2.1. Theme
 
-Using colour to visualise additional variables
+Themes are a powerful way to customize the non-data components of your plots: i.e. titles, labels, fonts, background, gridlines, and legends.
+
+Themes can be used to give plots a consistent customized look. 
+
+
+.pull-left[
+
+An argument to change the theme is **theme_classic()** 
+
+```{r,fig.width=3, fig.height=2, echo=TRUE, warning=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))+ 
+  geom_point()+
+  theme_classic() #<<
+```
+]
+
+ 
+
+.pull-right[
+
+An argument to change the theme is **theme_bw()**
+
+```{r,fig.width=3, fig.height=2, echo=TRUE, warning=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))+ 
+  geom_point()+
+  theme_bw() #<<
+```
+
+]
+
+---
+
+## 2.1. Theme
+
+There are many different themes. It would depend on the type of graph and taste to choose.
+
+.pull-left[
+
+An argument to change the theme is **theme_minimal()**
+
+```{r,fig.width=3, fig.height=2, echo=TRUE, warning=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))+ 
+  geom_point()+
+  theme_minimal() #<<
+```
+]
+
+.pull-right[
+
+An argument to change the theme is **theme_void()**
+
+```{r,fig.width=3, fig.height=2, echo=TRUE, warning=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))+ 
+  geom_point()+
+  theme_void() #<<
+```
+
+]
+
+---
+name: color
+
+## 2.2. Color
+
+The package ggplot2 allows you to change colors on the elements of your plot. 
+
+To select the colors there are several ways, I use by **name** or **hex codes**.
+
+By **name**, the default names are used.
+
+.pull-left[
+You can see a complete list of the 657 colors typing colors(). 
+
+```{r, eval=FALSE}
+colors()
+```
+]
+
+.pull-right[
+
+You can also see the color and the name by opening this [link](https://github.com/MiriamLL/R_intro/blob/master/Images/311colornamesplot.png?raw=true).
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/311colornamesplot.png?raw=true")
+```
+
+
+]
+
+
+
+---
+
+## 2.2. Color
+
+To use the color by **name** in your plot you can add it, for example, inside the brackets of geom_point()
+
+```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
+ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm))+
+  geom_point(color='red')#<<
+```
+
+---
+
+## 2.2. Color
+
+Colors can also be defined by their **hex code**. An hex code is the code of the color in 6 digits.
+
+To find the hex code there are tons of webpages. I personally like [coolors](https://coolors.co/palettes/trending).
+
+In [coolors](https://coolors.co/palettes/trending) go to explore>put your cursor on top of the color you like>click>paste on your code
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/312coolors.png?raw=true")
+```
+
+---
+
+## 2.2. Color
+
+To use the color by **hex code** in your plot you can add it, for example, inside the brackets of geom_point()
+
+```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
+ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm))+
+  geom_point(color='#c1121f')#<<
+```
+
+---
+
+## 2.2. Color
 
 If you wish to colour point on a scatterplot by a third categorical variable, then add **colour =** within your aes brackets. This tells ggplot that this third variable will colour the points. 
+
+However, the colors are plotted by default and you might not like them.
 
 ```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
 ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
@@ -620,130 +882,88 @@ ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm,
 
 ---
 
-## 2.2. Theme
+## 2.2. Color
 
-Themes are a powerful way to customize the non-data components of your plots: i.e. titles, labels, fonts, background, gridlines, and legends.
+To customize your colors you can add more arguments. <br>
+The argument **scale_colour_manual** allows you to customize those colors. <br>
+You can add colors by **name**.<br>
 
-Themes can be used to give plots a consistent customized look. 
-
-```{r,fig.width=6, fig.height=4, echo=TRUE, eval=FALSE}
-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
+ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
                                 color=species))+ 
-  geom_point()+
-  theme_bw() #<<
+  geom_point()+ 
+  scale_colour_manual(values = c("purple", "yellow", "orange"))#<<
 ```
 
 ---
+
+## 2.2. Color
+
+For the map for example, we can change the colour of our shapefile by adding the argument **colour** and **fill** inside the brackets of **geom_sf()**
+
+```{r,fig.width=6, fig.height=4, warning=FALSE}
+ggplot(data = Europe)+  
+  geom_sf(color = "olivedrab4", 
+          fill = "darkseagreen")
+```
+
+
+---
+
+name: background
 
 ## 2.3. Background colors
 
-```{r,fig.width=6, fig.height=4, echo=TRUE, eval=FALSE}
-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
-                                color=species))+
-  geom_point()+
-  theme_bw()+
-  theme(panel.background = element_rect(fill = 'darkblue'))#<<
+To change the background, we can add the arguments inside the argument **theme**.
+
+I added here the **coord_sf** to focus in a specific area.
+
+```{r,fig.width=6, fig.height=4, echo=TRUE}
+ggplot(data = Europe)+  
+  geom_sf(color = "olivedrab4", 
+          fill = "darkseagreen")+
+  theme(panel.background = element_rect(fill = 'lightskyblue2'))+ #<<
+  coord_sf(xlim = c(3,9), ylim = c(53,56))
 ```
 
 ---
+
+name: axis
 
 ## 2.4. Axis legends
 
-```{r,fig.width=6, fig.height=4, echo=TRUE, eval=FALSE}
-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
-                                color=species))+
-  geom_point()+
-  theme_bw()+
-  xlab('Bill lenght')+ylab('Flipper length')#<<
-```
+To change the legends on the axis, we can add the arguments **xlab** and **ylab**
 
-
----
-
-## 2.5. Font size
-
-```{r,fig.width=6, fig.height=4, echo=TRUE, eval=FALSE}
-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
-                                color=species))+
-  geom_point()+
-  theme_bw()+
-  theme(axis.title = element_text(size=20)) #<<
+```{r,fig.width=6, fig.height=4, echo=TRUE, eval=TRUE}
+ggplot(data = Europe)+  
+  geom_sf(color = "olivedrab4", 
+          fill = "darkseagreen")+
+  theme(panel.background = element_rect(fill = 'lightskyblue2'))+
+  coord_sf(xlim = c(3,9), ylim = c(53,56))+
+  xlab('Longitude')+ylab('Latitude')#<<
 ```
 
 ---
 
-## 2.6. Legends
 
-```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
-                                color=species))+
-  geom_point()+
-  theme_bw()+
-  theme(legend.position = "top") #<<
+## 2.4. Axis legends
+
+To change the axis labels, it is usually more simple with other plots, but with maps we need to specify with the argument **scale_x_continuous** and **scale_y_continuous**.
+
+```{r,fig.width=6, fig.height=4, echo=TRUE, eval=TRUE}
+ggplot(data = Europe)+  
+  geom_sf(color = "olivedrab4", 
+          fill = "darkseagreen")+
+  theme(panel.background = element_rect(fill = 'lightskyblue2'))+
+  coord_sf(xlim = c(3,9), ylim = c(53,56))+
+  xlab('Longitude')+ylab('Latitude')+
+  scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
+  scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
 ```
 
 ---
 
-## 2.7 Cheat sheet
-
-Help>CheatSheets>Data Visualization with ggplot
-
----
-
-## 2.8. Common mistakes
-
-Not having **tidydata**  
- 
-
-```{r echo=FALSE, out.width=600}
-knitr::include_graphics('https://r4ds-en-espaniol.netlify.app/diagrams_w_text_as_path/es/visualization-stat-bar.svg')
-```
-  
-Fuente: [R4DS](https://r4ds-en-espaniol.netlify.app/) 
-
----
-
-## 2.8. Common mistakes
-
-Forgetting a plus symbol ( **+** )
-
-```{r, eval=FALSE}
-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
-                                color=species))
-  geom_point()
-```
-
---
-
-Adding the **+** on the wrong order
-```{r, eval=FALSE}
-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
-                                color=species))
- +geom_point()
-```
-
---
-
-Forgetting a parethesis
-
-```{r, eval=FALSE}
-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
-                                color=species)+ #<<
-         geom_point()
-```
-Add a parenthesis after "species"
-
----
-
-## 2.9. Plot as an object
+## 2.5. Plot as an object
 
 You can save your plot as an object in the environment
 
@@ -758,30 +978,24 @@ My_plot<-ggplot(data=penguins,
 My_plot
 ```
 
-Yo can add aesthetics to the object using the **+**
+You can add aesthetics to the object using the **+**
 ```{r, fig.height=3, echo=TRUE, eval=FALSE}
 My_plot+ #<<
   theme_bw()+
   theme(legend.position = "top")
 ```
 
-
 ---
 
-## 2.10. Simplify 
+## 2.6. Cheat sheet
 
-So far we always wrote data= and mapping= <br>
+Help>CheatSheets>Data Visualization with ggplot
 
-However, you can skip it if you follow the same order.
 
-No necesitan escribir todo (data, mapping se puede omitir) si siguen un orden.
-```{r, echo=TRUE, eval=FALSE}
-My_plot<-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
-                                color=species))+
-  geom_point()
-My_plot
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/314cheatsheet.png?raw=true")
 ```
+
 
 
 ---
@@ -790,30 +1004,58 @@ name: custom-maps
 background-image: url(https://images.unsplash.com/photo-1554033551-050e208bcaf2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=800)
 background-size: cover
 
-# 3. Maps
+.pull-right[
+#  `r text_spec("Maps", background = "#003049", color = "#e5e5e5", bold = T)`
+### `r text_spec("Level up", background = "#003049", color = "#e5e5e5", bold = T)`
+]
 
 ---
 
-## 3.1. Basic Map
 
-```{r, eval=FALSE}
-1. Getting ready
+## 3.1. Maps
+
+
+---
+
+## 3.2. Load shapefile
 
 You can download shapefiles from: https://www.naturalearthdata.com/downloads/
 
+```{r}
+
+```
+
+
 Call the package here to work in your directory.
 
+```{r}
 library(here)
+```
 
 Call the package sf to read the shapefiles into R
 
+```{r}
 library(sf)
+```
 
-2. Read your shapefile
-
+Read your shapefile
 Use your directory name, and give the name of your shapefile
 
+```{r}
 Europe<-st_read(paste0(Directory,MyShapefileName))
+```
+
+
+```{r, eval=FALSE}
+
+
+
+
+2. 
+
+
+
+
 
 Reading layer `country' from data source 
   `C:\Users\lerma\OneDrive\Documents\4Programacion\2023\1Distill\Distill\_posts\2023-03-04-mapping-in-r\country.shp' 

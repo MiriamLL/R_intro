@@ -101,4 +101,23 @@ ggplot(data = tracking_data, aes(x = Latitude, y = Longitude)) +
 
 ## Maps
 
+# Aesthetics
+
+## Colors
+
+## Legend
+
+## Theme
+
+
+# Maps
+
+## Layers
+
+## Points
+
+# Export
+
+## ggsave
+
 
