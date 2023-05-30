@@ -14,7 +14,7 @@ output:
 ---
 
 class: title-slide, bottom, right
-background-image: url(https://images.unsplash.com/photo-1570386230314-9fe8204c6f80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1108&q=80)
+background-image: url(https://images.unsplash.com/photo-1570386230314-9fe8204c6f80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1708&q=80)
 background-size: cover
 
 ### `r rmarkdown::metadata$title`
@@ -502,7 +502,7 @@ Next part:
 
 name: geometries
 class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1459908676235-d5f02a50184b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
+background-image: url(https://images.unsplash.com/photo-1639303638626-2003b9ac307e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 background-size:cover
 
 .pull-right[
@@ -754,7 +754,7 @@ Next part:
 
 name: maps
 class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1554033551-050e208bcaf2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=800)
+background-image: url(https://images.unsplash.com/photo-1518065896235-a4c93e088e7a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
 .pull-right[
@@ -993,7 +993,7 @@ Do you notice the **differences?**
 
 ---
 
-### 3.6. CRS
+## 3.6. CRS
 
 **Note** that when using the map with the **CRS 3035**, the units of **xlim** and my **ylim** need to be changed accordingly.
 
@@ -1014,8 +1014,7 @@ Practice `r fa("pencil-alt", fill = '#FFFFFF')`<br>
 Open the file [03ExercisesPlotting.Rmd](https://github.com/MiriamLL/R_intro/blob/master/03ExercisesPlotting.Rmd)
 
 Run the third part.
-
-You should get a map like the following.
+Change elements from the map if you want to.
 
 ```{r, fig.height=4, echo=FALSE}
 ggplot(data = Europe_shp)+  
@@ -1056,7 +1055,7 @@ Next part:
 
 name: aesthetics
 class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80)
+background-image: url(https://images.unsplash.com/photo-1653408604619-45713aad6d75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 background-size:cover
 
 .pull-right[
@@ -1066,7 +1065,7 @@ background-size:cover
 
 ---
  
-# 4. Aesthetics
+## 4. Aesthetics
 
 **Aesthetics** are for controlling the overall appearance of graphs.
 
@@ -1081,7 +1080,7 @@ Download [pdf](https://isabella-b.com/files/ggplot2-theme-elements-reference-v2.
 
 ---
 
-# 4. Aesthetics
+## 4. Aesthetics
 
 There are many elements, but I will not go into detail to most of them.
 
@@ -1245,7 +1244,7 @@ My_plot+
 
 ---
 
-# 4.3. Theme
+## 4.3. Theme
 
 For maps, in my opinion **theme_bw** is the one that makes most sense.
 
@@ -1374,21 +1373,17 @@ Next part:
 
 name: add
 class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=580&q=80)
+background-image: url(https://images.unsplash.com/photo-1553864250-05b20249ee0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 background-size:cover
 
 .pull-right[
-#  `r text_spec("Maps and geometry", background = "#003049", color = "#e5e5e5", bold = T)`
+#  `r text_spec("Add geometry", background = "#003049", color = "#e5e5e5", bold = T)`
 ### `r text_spec("Level up", background = "#003049", color = "#e5e5e5", bold = T)`
 ]
 
 ---
 
-## 5. Add geometry
-
----
-
-## 5.1. Survey data
+## 5. Survey data
 
 To add observations on a map, we can add more geometries.
 
@@ -1412,7 +1407,7 @@ head(survey_4326,5)
 
 ---
 
-## 5.2. Add points
+## 5.1. Add points
 
 Because ggplot functions as layers, we can add geometries on top of each other.
 
@@ -1428,7 +1423,7 @@ Base_map+
 
 ---
 
-## 5.3. Change color
+## 5.2. Change color
 
 Adding the argument **color** inside the parethesis allows to change the color of the points.
 
@@ -1441,7 +1436,7 @@ Base_map+
 
 ---
 
-## 5.3.  Change color
+## 5.2.  Change color
 
 If you wish to color by a categorical variable, then add **colour =** within your aes brackets. This tells ggplot that this third variable will colour the points. 
 
@@ -1453,7 +1448,7 @@ Base_map+
 
 ---
 
-## 5.4.  Select colors
+## 5.2.  Select colors
 
 The colors, when not declared, are selected by default.<br>
 To customize your colors you can add more arguments. <br>
@@ -1471,7 +1466,7 @@ Base_map+
 
 ---
 
-## 5.5. Change size
+## 5.3. Change size
 
 Adding the argument **size** inside geometric point, we can increase or decrease the size of the point.
 
@@ -1483,7 +1478,7 @@ Base_map+
 
 ---
 
-## 5.6. Add path
+## 5.4. Add path
 
 The argument **geom_path** can be used for trajectories.
 
@@ -1547,11 +1542,13 @@ Next part:
 ---
 
 class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1605811792180-61ee063690de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80)
+background-image: url(https://images.unsplash.com/photo-1501868984184-76121ed6a6e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
-#  `r text_spec("Beyond static maps", background = "#003049", color = "#e5e5e5", bold = T)`
-### `r text_spec("Other options", background = "#003049", color = "#e5e5e5", bold = T)`
+.pull-right[
+#  `r text_spec("Export", background = "#003049", color = "#e5e5e5", bold = T)`
+### `r text_spec("Beyond static maps", background = "#003049", color = "#e5e5e5", bold = T)`
+]
 
 ---
 
@@ -1708,7 +1705,8 @@ Until here:
 
 name: out
 class: title-slide
-background-image: url(https://images.unsplash.com/photo-1554093651-9080a34dfe80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1039&q=80)
+background-image: url(https://images.unsplash.com/photo-1609875133891-443f423fb378?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80)
+
 background-size: cover
 
 ### Back to
@@ -1719,13 +1717,11 @@ background-size: cover
 - [barplot](#barplot)
 - [trajectory](#trajectory)
 - [maps](#maps)
-- [shapefiles](#shapefiles)
 - [limits](#limits)
 - [scale](#scale)
 - [arrow](#arrow)
 - [aesthetics](#aesthetics)
 - [theme](#theme)
-- [color](#color)
 - [background](#background)
 - [axis](#axis)
 - [export](#export)
@@ -1738,7 +1734,6 @@ This materials are free of use <br> Download the presentation here: [`r fa("exte
 .right[
 
 [`r fa("home", fill = '#f2cc8f')`Home](https://www.miriam-lerma.com/teaching.html)
-
 [`r fa("play", fill = '#f2cc8f')` Index ](https://miriamll.github.io/R_intro/Plotting_0606.html#2)
 
 ]

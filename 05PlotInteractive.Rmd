@@ -37,11 +37,8 @@ ggplotly(ggplot()+
   coord_sf(xlim = c(6, 10),ylim = c(53, 56))+
   scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
   scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N")) +
-  
-   annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')+
-  
-  annotation_north_arrow(location = "tl", style = north_arrow_minimal(text_col = '#ffd60a',line_col = '#ffd60a',fill = '#ffd60a'))+
-  geom_point(data=survey_4326,
+    
+    geom_point(data=survey_4326,
           aes(x = longitude,
               y= latitude,
               color=date))

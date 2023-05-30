@@ -16,73 +16,55 @@ library(sf)
 ```
 
 ```{r data, echo=FALSE, warning=FALSE, message=FALSE}
-Europe<-st_transform(German_land, 4326)
+# Shapefiles
+Europe_shp<-st_transform(German_land, 4326)
 ```
 
 ```{r,echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
-ggplot()+  
-  geom_sf(data = Europe, 
-          colour = "#edf2f4", 
-          fill = "#2b2d42",
-          size=0.5)+
-  theme(
+# Base map
+Base_map<-ggplot(data = Europe_shp)+ 
+    geom_sf(color = "#e76f51", 
+            fill = "#e9c46a")+ 
+  coord_sf(xlim = c(3,9), ylim = c(53,56))+
+  theme_bw()+
+  theme(panel.background = element_rect(fill = '#a8dadc'),
         panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(),
-        panel.background = element_rect(fill = '#edf2f4'),
-        legend.background = element_rect(fill = '#edf2f4'))+
-  
-  coord_sf(xlim = c(9, 31),ylim = c(53, 65))+
-    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
-    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N")) +
-  
-   annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')+
-  
-  annotation_north_arrow(location = "tl", style = north_arrow_minimal(text_col = '#ffd60a',line_col = '#ffd60a',fill = '#ffd60a')) 
+        panel.grid.minor = element_blank())+
+  xlab('Longitude')+ylab('Latitude')+
+  scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+
+  scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
+```
+
+```{r,echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE}
+# Add survey data
+library(seamonas)
+survey_4326<-survey_4326
+
+# Survey data from a csv file
+# my_survey<-read_csv("Downloads/my_survey.csv")
+# See https://miriamll.github.io/R_intro/DataWrangling_0805.html#32
 ```
 
 You can also adjust the size in the code chunks.
 Here fig.height=3, fig.width=3
+
 ```{r,echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE,fig.height=3, fig.width=3}
-ggplot()+  
-  geom_sf(data = Europe, 
-          colour = "#edf2f4", 
-          fill = "#2b2d42",
-          size=0.5)+
-  theme(
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(),
-        panel.background = element_rect(fill = '#edf2f4'),
-        legend.background = element_rect(fill = '#edf2f4'))+
-  
-  coord_sf(xlim = c(9, 31),ylim = c(53, 65))+
-    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
-    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N")) +
-  
-   annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')+
-  
-  annotation_north_arrow(location = "tl", style = north_arrow_minimal(text_col = '#ffd60a',line_col = '#ffd60a',fill = '#ffd60a')) 
+Base_map+
+    geom_point(data=survey_4326,aes(x = longitude,y= latitude),size=0.01)
+```
+
+Here fig.height=5, fig.width=5
+
+```{r,echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE,fig.height=5, fig.width=5}
+Base_map+
+    geom_point(data=survey_4326,aes(x = longitude,y= latitude),size=0.01)
 ```
 
 Here fig.height=10, fig.width=10
+
 ```{r,echo=FALSE, echo=FALSE, warning=FALSE, message=FALSE,fig.height=10, fig.width=10}
-ggplot()+  
-  geom_sf(data = Europe, 
-          colour = "#edf2f4", 
-          fill = "#2b2d42",
-          size=0.5)+
-  theme(
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(),
-        panel.background = element_rect(fill = '#edf2f4'),
-        legend.background = element_rect(fill = '#edf2f4'))+
-  
-  coord_sf(xlim = c(9, 31),ylim = c(53, 65))+
-    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
-    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N")) +
-  
-   annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')+
-  
-  annotation_north_arrow(location = "tl", style = north_arrow_minimal(text_col = '#ffd60a',line_col = '#ffd60a',fill = '#ffd60a')) 
+Base_map+
+    geom_point(data=survey_4326,aes(x = longitude,y= latitude),size=0.01)
 ```
 
 
