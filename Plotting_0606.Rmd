@@ -14,7 +14,7 @@ output:
 ---
 
 class: title-slide, bottom, right
-background-image: url(https://images.unsplash.com/photo-1570386230314-9fe8204c6f80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1108&q=80)
+background-image: url(https://images.unsplash.com/photo-1459908676235-d5f02a50184b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
 ### `r rmarkdown::metadata$title`
@@ -45,16 +45,16 @@ library(emo)
 - [barplot](#barplot)
 - [trajectory](#trajectory)
 - [maps](#maps)
-- [aesthetics](#aesthetics)
-- [theme](#theme)
-- [color](#color)
-- [background](#background)
-- [axis](#axis)
 - [maps](#custom-map)
 - [shapefiles](#shapefiles)
 - [limits](#limits)
 - [scale](#scale)
 - [arrow](#arrow)
+- [aesthetics](#aesthetics)
+- [theme](#theme)
+- [color](#color)
+- [background](#background)
+- [axis](#axis)
 - [export](#export)
 - [contact](#out)
 
@@ -107,25 +107,16 @@ class: inverse
 Tutorials/Books  
 
 - [gg is for Grammar of Graphics](https://pkg.garrickadenbuie.com/trug-ggplot2)<br>
-
 - [Introduccion to ggplot](https://englelab.gatech.edu/useRguide/introduction-to-ggplot2.html)  
-
 - [r4ds](https://r4ds.had.co.nz/data-visualisation.html)
-
 - [Geocomputation with R](https://r.geocompx.org/attr.html)
-
 - [R Graphics Cookbook](https://r-graphics.org/)
-
 - [Allison Horst tutorial](https://allisonhorst.github.io/rice-data-viz/)
 
 Gallery/Portafolios
-
 - [Data-Viz-Bookmarks](https://spcanelon.notion.site/spcanelon/Data-Viz-Bookmarks-dc01718020bd4fd6a8a4ca80e6bce933)<br>
-
 - [RGraphGallery](https://www.r-graph-gallery.com/) <br>
-
 - [DataToViz](https://www.data-to-viz.com/) <br>
-
 - [Coolors](https://coolors.co/) <br>
 ]
 
@@ -228,11 +219,11 @@ A graph can be divided in three main components:
 Each component is displayed as **layers** like in GIS (Geographic information systems).
 
 ```{r echo=FALSE, out.height=200}
-knitr::include_graphics("https://englelab.gatech.edu/useRguide/images/dataviz/ge_geom.png")
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/300Geoms.png?raw=true")
 ```
   
 
-Fuente: [ggplot2 book](https://englelab.gatech.edu/useRguide/working-with-data-overview.html)
+Source: [ggplot2 book](https://englelab.gatech.edu/useRguide/working-with-data-overview.html)
 
 ---
 
@@ -261,7 +252,7 @@ For the exercises, we can use data from packages.<br>
 Lets add our object to our **environment**.
 
 Package with data
-```{r}
+```{r, warning=FALSE}
 library(palmerpenguins)
 penguins<-penguins
 ```
@@ -307,8 +298,8 @@ ggplot(data=penguins,
 The next step is to give it a geometry, in this case we say plot points with the argument **geom_point**
 
 ```{r, fig.width=6, fig.height=4, warning=FALSE}
-ggplot(data=penguins
-       ,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
        geom_point() #<<
 ```
 
@@ -322,7 +313,7 @@ This is because NAs are not going to be plotted and R is trying to warn you.
 
 There are many **geometries**.
 
-Most, if not all, of them start with **geom_***
+Most of them start with **geom_***
 
 ```{r echo=FALSE, out.height=400}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/302geometries.png?raw=true")
@@ -353,9 +344,151 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 ]
 
 ---
+
+## 1.4. Common mistakes
+
+The most common mistakes with plotting are the same as while writing code.
+
+```{r echo=FALSE, out.height=450}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/023DebuggingBingo.jpg?raw=true")
+```
+
+---
+
+## 1.4. Common mistakes
+
+Not having **tidydata** is also a very common problem.  
+
+So remember:
+ 
+```{r echo=FALSE, out.height=400}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/104TidyData.jpg?raw=true")
+```
+  
+[Allison Horst](https://allisonhorst.com/) 
+
+---
+
+## 1.4. Common mistakes
+
+Other common mistakes specific to ggplot are:
+
+- Forgetting a plus symbol ( **+** )
+```{r, eval=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))
+  geom_point()
+```
+
+- Adding the **+** on the wrong order
+```{r, eval=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))
+ +geom_point()
+```
+
+- Forgetting a parenthesis
+```{r, eval=FALSE}
+ggplot(penguins, 
+       aes(x=bill_length_mm,y=flipper_length_mm)+ #<<
+       geom_point()
+```
+
+
+## 1.5. Simplify 
+
+We can skip writing **data=** and **mapping=** by just following the order of the elements.
+
+Both codes give the same output.
+
+.pull-left[
+
+Including the elements.
+```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,
+                   y=flipper_length_mm))+
+  geom_point()
+
+```
+]
+
+.pull-right[
+
+Simplified example.
+
+```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
+ggplot(penguins, 
+       aes(x=bill_length_mm,
+           y=flipper_length_mm,))+
+  geom_point()
+
+```
+]
+
+---
+
+class: inverse
+
+# Pause
+
+.pull-left[
+Practice `r fa("pencil-alt", fill = '#FFFFFF')`<br>
+Open the file [03ExercisesPlotting.Rmd](https://github.com/MiriamLL/R_intro/blob/master/03ExercisesPlotting.Rmd)
+Run lines 31 to 53.
+
+```{r, eval=FALSE}
+ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+       geom_point()
+```
+
+]
+
+.pull-right[
+Until here:
+- [index](#index)
+- [theory](#theory)
+
+
+Next part:
+- [scatterplot](#scatterplot)
+- [line chart](#lines)
+- [barplot](#barplot)
+- [trajectory](#trajectory)
+- [maps](#maps)
+- [aesthetics](#aesthetics)
+- [theme](#theme)
+- [color](#color)
+- [background](#background)
+- [axis](#axis)
+- [maps](#custom-map)
+- [shapefiles](#shapefiles)
+- [limits](#limits)
+- [scale](#scale)
+- [arrow](#arrow)
+- [export](#export)
+- [contact](#out)
+]
+
+
+---
+
+name: geometries
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1570386230314-9fe8204c6f80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1108&q=80)
+background-size:cover
+
+.pull-right[
+#  `r text_spec("Geometries", background = "#003049", color = "#e5e5e5", bold = T)`
+### `r text_spec("Try some different", background = "#003049", color = "#e5e5e5", bold = T)`
+]
+
+# 2. Geometries
+
+---
 name: scatterplot
 
-## 1.4. Scatterplots
+## 2.1. Scatterplots
 
 The scatterplot is most useful for displaying the relationship between two continuous variables. Each dot represents an observation. Their position on the x (horizontal) and y (vertical) axis represents the values of the 2 variables. 
 
@@ -372,7 +505,7 @@ See more [scatterplots](https://r-graph-gallery.com/scatterplot.html)
 ---
 name: lines
 
-## 1.4. Line chart
+## 2.2. Line chart
 
 A line chart or line graph displays the evolution of one or several numeric variables. <br>
 Data points are connected by straight line segments. 
@@ -391,7 +524,7 @@ See more [line chart](https://r-graph-gallery.com/line-plot.html)
 
 name: barplot
 
-## 1.4. Barplot
+## 2.3. Barplot
 
 A barplot is used to display the relationship between a numeric and a categorical variable.<br>
 
@@ -408,7 +541,7 @@ Different from the logic of the previous plots, we need to tell what do you want
 
 ---
 
-## 1.4. Barplot
+## 2.3. Barplot
 
 The argument **stats=** is to be included inside the parethesis of **geom_bar**
 
@@ -424,7 +557,7 @@ See more [barplots](https://r-graph-gallery.com/barplot.html)
 
 name: boxplot
 
-## 1.4. Boxplot
+## 2.4. Boxplot
 
 Boxplot is probably the most commonly used chart type to compare distribution of several groups.<br>
 
@@ -438,7 +571,7 @@ Source: [Boxplot explanation](https://www.leansigmacorporation.com/box-plot-with
 
 ---
 
-## 1.4. Boxplot
+## 2.4. Boxplot
 
 The boxplot compactly displays the distribution of a continuous variable. 
 
@@ -453,7 +586,7 @@ ggplot(data=penguins,
 
 ---
 
-## 1.4. Boxplot
+## 2.4. Boxplot
 
 Often we will like to use boxplots to visualize differences between groups.   
 Using the argument **group=* inside mapping to create boxplots per group.
@@ -471,7 +604,7 @@ See more [boxplots](https://r-graph-gallery.com/boxplot.html)
 
 name: trajectory
 
-## 1.4. Trajectory
+## 2.5. Trajectory
 
 For plotting moving objects (such as planes or birds), connecting points with a line is the most common visualization used.
 
@@ -500,7 +633,7 @@ The data frame contains the columns **Latitude** and **Longitude**.
 
 ---
 
-## 1.4. Trajectory
+## 2.5. Trajectory
 
 The argument to create trajectories is **geom_path()**. 
 
@@ -516,7 +649,7 @@ ggplot(data=tracking_data,
 
 name: maps
 
-## 1.4. Maps
+## 2.6. Maps
 
 R is an great tool for geospatial data analysis. 
 
@@ -528,7 +661,7 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 
 ---
 
-## 1.4. Maps
+## 2.6. Maps
 
 For today exercises, install **GermanNorthSea**.
 
@@ -558,7 +691,7 @@ class(Europe)
 
 ---
 
-## 1.4. Maps
+## 2.6. Maps
 
 The argument to plot **sf** (simple features) objects is **geom_sf()** 
 
@@ -571,126 +704,14 @@ ggplot(data=Europe)+
 
 ---
 
-## 1.4. Maps
-
-To **zoom-in**, the argument **coord_sf()** can be used. 
-
-**For this map, I am using the CRS 3035**. Thus, my **xlim** and my **ylim** are in those units.
-
-```{r,fig.width=6, fig.height=3}
-ggplot(data=Europe)+ 
-  geom_sf()+
-  coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000)) #<<
-```
-
----
-
-## 1.4. Maps
-
-Although I will not give details on CRS's today, A common CRS (Coordinate Reference System) is 4326. 
-To transform our shapefile to other coordinate system **st_transform** from the package **sf** can be used.
-
-```{r}
-Europe<-sf::st_transform(Europe, 4326)
-```
-
-Now the xlim and ylim can be in degrees.
-
-```{r,fig.width=6, fig.height=3}
-ggplot(data=Europe)+ 
-  geom_sf()+
-  coord_sf(xlim = c(3,9), ylim = c(53,56)) #<<
-```
-
----
-
-## 1.5. Simplify 
-
-We can skip writing **data=** and **mapping=** by just following the order of the elements.
-
-.pull-left[
-
-Including the elements.
-```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm))+
-  geom_point()
-
-```
-]
-
-.pull-right[
-
-Simplified example.
-
-```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE}
-ggplot(penguins, 
-       aes(x=bill_length_mm,y=flipper_length_mm,))+
-  geom_point()
-
-```
-]
-
----
-
-## 1.6. Common mistakes
-
-The most common mistakes with plotting are the same as while writing code.
-
-```{r echo=FALSE, out.height=450}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/023DebuggingBingo.jpg?raw=true")
-```
-
----
-
-## 1.6. Common mistakes
-
-Not having **tidydata** is also a very common problem.  
-
-So remember:
- 
-```{r echo=FALSE, out.height=400}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/104TidyData.jpg?raw=true")
-```
-  
-[Allison Horst](https://allisonhorst.com/) 
-
----
-
-## 1.6. Common mistakes
-
-Other common mistakes specific to ggplot are:
-
-- Forgetting a plus symbol ( **+** )
-```{r, eval=FALSE}
-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm))
-  geom_point()
-```
-
-- Adding the **+** on the wrong order
-```{r, eval=FALSE}
-ggplot(data=penguins, 
-       mapping=aes(x=bill_length_mm,y=flipper_length_mm))
- +geom_point()
-```
-
-- Forgetting a parenthesis
-```{r, eval=FALSE}
-ggplot(penguins, 
-       aes(x=bill_length_mm,y=flipper_length_mm)+ #<<
-       geom_point()
-```
-
----
-
 class: inverse
 
 # Pause
 
 .pull-left[
 Practice `r fa("pencil-alt", fill = '#FFFFFF')`<br>
-Create a plot from zero
+Open the file [03ExercisesPlotting.Rmd](https://github.com/MiriamLL/R_intro/blob/master/03ExercisesPlotting.Rmd)
+Run lines 63 to 107.
 ]
 
 .pull-right[
@@ -704,20 +725,291 @@ Until here:
 - [maps](#maps)
 
 Next part:
-- [aesthetics](#aesthetics)
-- [theme](#theme)
-- [color](#color)
-- [background](#background)
-- [axis](#axis)
 - [maps](#custom-map)
 - [shapefiles](#shapefiles)
 - [limits](#limits)
 - [scale](#scale)
 - [arrow](#arrow)
+- [aesthetics](#aesthetics)
+- [theme](#theme)
+- [color](#color)
+- [background](#background)
+- [axis](#axis)
 - [export](#export)
 - [contact](#out)
 ]
 
+---
+
+name: custom-maps
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1554033551-050e208bcaf2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=800)
+background-size: cover
+
+.pull-right[
+#  `r text_spec("Maps", background = "#003049", color = "#e5e5e5", bold = T)`
+### `r text_spec("Level up", background = "#003049", color = "#e5e5e5", bold = T)`
+]
+
+---
+
+
+## 3.Maps
+
+Some elements from a map
+
+- Shapefile
+- Coords
+- Scale
+- Arrow
+
+---
+
+## 3.1. Load shapefile
+
+Download the shapefile from [Europe](https://github.com/MiriamLL/R_intro/blob/master/Downloads/Europe.shp)
+
+Give the directory. 
+Either by calling the package **here**.
+
+```{r, message=FALSE, warning=FALSE}
+library(here)
+```
+
+Or manually add the directory where your shapefile is.
+
+```{r, message=TRUE, message=FALSE}
+My_directory<-here('Downloads')
+list.files(My_directory)
+```
+
+```{r, eval=TRUE}
+My_shapefile<-paste0(My_directory,"/Europe.shp")
+```
+
+---
+
+## 3.1. Load shapefile
+
+Call the package sf to read the shapefiles into R.
+
+```{r, message=FALSE, warning=FALSE}
+library(sf)
+```
+
+Use the argument **st_read** to load your shapefile.
+
+```{r, eval=TRUE}
+Europe_shp<-st_read(My_shapefile)
+```
+
+Note that it gives us the Geodetic CRS: WGS 84
+
+---
+
+## 3.2. Create a basic map
+
+Load the package ggplot2
+
+```{r}
+library(ggplot2)
+```
+
+Plot your shapefile using **geom_sf**
+
+```{r,fig.width=6, fig.height=3}
+ggplot(data = Europe_shp)+  
+  geom_sf()
+```
+
+
+
+---
+
+## 3.3. Add limits
+
+Reduce to focus in your area of interest
+
+```{r,fig.width=6, fig.height=3, warning=FALSE}
+ggplot(data = Europe_shp)+  
+  geom_sf()+
+  coord_sf(xlim = c(6, 10),ylim = c(53, 56))
+```
+
+---
+
+## 3.3. Add limits
+
+```{r}
+ggplot(data = Europe_shp)+  
+  geom_sf()+
+  coord_sf(xlim = c(6, 10),ylim = c(53, 56))+
+    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
+    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
+```
+
+
+---
+name: scale
+
+## 3.4. Add scale
+
+Load the package ggspatial to add a scale and an north arrow
+
+```{r}
+library(ggspatial)
+```
+
+br is from bottom right
+
+```{r,fig.width=6, fig.height=4, }
+ggplot(data = Europe_shp)+  
+  geom_sf()+
+  coord_sf(xlim = c(6, 10),ylim = c(53, 56))+
+    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+
+    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))+
+    annotation_scale(location = "br")
+```
+
+
+---
+name: arrow
+
+## 3.5. Add arrow
+
+tl is for top left
+which_north preferably true (see why here)
+north_arrow_fancy_orienteering (see other styles here)
+
+```{r,fig.width=6, fig.height=3}
+ggplot(data = Europe_shp)+  
+  geom_sf()+
+  coord_sf(xlim = c(6, 10),ylim = c(53, 56))+
+    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+
+    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))+
+    annotation_scale(location = "br")+
+    annotation_north_arrow(location = "tl") 
+```
+
+---
+
+## 3.6. Add points
+
+The package **seamonas** contains data from a hypothetical survey.
+
+```{r}
+library(seamonas)
+```
+
+Add the data to your environment. <br>
+
+The data frame contains the columns **latitude** and **longitude**.
+
+```{r}
+survey_4326<-survey_4326
+```
+
+Plot the data from the survey.
+
+```{r,fig.width=6, fig.height=3, eval=TRUE}
+ggplot()+
+  geom_point(data=survey_4326,
+          aes(x = longitude,
+              y= latitude))
+```
+
+
+---
+
+## 3.7. Add points
+
+Now add the points into the your map.
+
+```{r,fig.width=6, fig.height=3, eval=TRUE}
+ggplot(data = Europe_shp)+  
+  geom_sf()+
+  coord_sf(xlim = c(6, 10),ylim = c(53, 56))+
+    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+
+    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))+
+    annotation_scale(location = "br")+
+    annotation_north_arrow(location = "tl") +
+  geom_point(data=survey_4326,aes(x = longitude,y= latitude))
+```
+
+---
+
+## 3.8. CRS
+
+A coordinate reference system (CRS) refers to the way in which spatial data that represent the earth’s surface. 
+ 
+.pull-left[
+CRS: 4326
+
+```{r,fig.width=6, fig.height=3, eval=TRUE, echo=FALSE}
+ggplot(data = Europe_shp)+  
+  geom_sf()+
+  coord_sf(xlim = c(4, 12),ylim = c(53, 56))+
+    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+
+    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
+```
+]
+
+.pull-right[
+
+CRS: 3035
+
+```{r,fig.width=6, fig.height=3, eval=TRUE, echo=FALSE}
+ggplot(data = GermanNorthSea::German_land)+  
+  geom_sf()+
+  coord_sf(xlim = c(4000000,4550000), ylim = c(3350000,3680000))+
+    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+
+    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
+```
+]
+
+---
+
+## 3.8. CRS
+
+It is important to understand the coordinate system that your data uses - particularly if you are working with different data stored in different coordinate systems. 
+
+In our particular case, not using the correct projection might derive in calculation mistakes and differences between studies.
+
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/313CRSdeformation.jpg?raw=true")
+```
+
+---
+
+## 3.8. CRS
+
+To transform our shapefile to other coordinate system **st_transform** from the package **sf** can be used.
+
+```{r}
+Europe_3035<-sf::st_transform(Europe_shp, 3035)
+```
+
+Now the xlim and ylim can be in degrees.
+
+```{r,fig.width=6, fig.height=3}
+ggplot(data=Europe_3035)+ 
+  geom_sf()
+```
+
+---
+
+### 3.8. CRS
+
+To **zoom-in**, the argument **coord_sf()** can be used. 
+
+**For this map, I am using the CRS 3035**. Thus, my **xlim** and my **ylim** are in those units.
+
+```{r,fig.width=6, fig.height=3}
+ggplot(data=Europe_3035)+ 
+  geom_sf()+
+  coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000)) #<<
+```
 
 ---
 
@@ -733,7 +1025,7 @@ background-size:cover
 
 ---
  
-# 2. Aesthetics
+# 4.1. Aesthetics
 
 **Aesthetics** are for controlling the overall appearance of graphs.
 
@@ -743,12 +1035,12 @@ You can change almost every tiny detail to create the plot that you want.
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/308parts-ggplot.png?raw=true")
 ```
 
-Source: [ggplot2 elements](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)<br>
+Source [ggplot2 elements](https://isabella-b.com/blog/ggplot2-theme-elements-reference/)<br>
 Download [pdf](https://isabella-b.com/files/ggplot2-theme-elements-reference-v2.pdf)
 
 ---
 
-# 2. Aesthetics
+# 4.1. Aesthetics
 
 There are many elements, but I will not go into detail to most of them.
 
@@ -761,7 +1053,7 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 ---
 name: theme
 
-## 2.1. Theme
+## 4.2. Theme
 
 Themes are a powerful way to customize the non-data components of your plots: i.e. titles, labels, fonts, background, gridlines, and legends.
 
@@ -784,7 +1076,7 @@ ggplot(data=penguins,
 
 .pull-right[
 
-he theme can be changed using **theme_bw()**
+The theme can be changed using **theme_bw()**
 
 ```{r,fig.width=3, fig.height=2, echo=TRUE, warning=FALSE}
 ggplot(data=penguins, 
@@ -797,7 +1089,7 @@ ggplot(data=penguins,
 
 ---
 
-## 2.1. Theme
+## 4.3. Theme
 
 There are many different themes. It would depend on the type of graph and taste to choose.
 
@@ -829,7 +1121,7 @@ ggplot(data=penguins,
 ---
 name: color
 
-## 2.2. Color
+## 4.4. Color
 
 To go beyond the default colors, the package ggplot2 allows you to change colors on the elements of your plot. 
 
@@ -860,7 +1152,7 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 
 ---
 
-## 2.2. Color
+## 4.5. Color
 
 To use the color by **name** in your plot you can add it, for example, inside the brackets of geom_point()
 
@@ -871,7 +1163,7 @@ ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm))+
 
 ---
 
-## 2.2. Color
+## 4.6. Color
 
 Colors can also be defined by their **hex code**. An hex code is the code of the color in 6 digits.
 
@@ -885,7 +1177,7 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 
 ---
 
-## 2.2. Color
+## 4.6. Color
 
 To use the color by **hex code** in your plot you can add it, for example, inside the brackets of geom_point().
 
@@ -898,7 +1190,7 @@ ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm))+
 
 ---
 
-## 2.2. Color
+## 4.6. Color
 
 If you wish to colour point on a scatterplot by a third categorical variable, then add **colour =** within your aes brackets. This tells ggplot that this third variable will colour the points. 
 
@@ -910,7 +1202,7 @@ ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm,
 
 ---
 
-## 2.2. Color
+## 4.6. Color
 
 The colors, when not declared, are selected by default.<br>
 To customize your colors you can add more arguments. <br>
@@ -926,7 +1218,7 @@ ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm,
 
 ---
 
-## 2.2. Color
+## 4.6. Color
 
 For a map, we can change the color of our shapefile by adding the argument **colour** and **fill** inside the brackets of **geom_sf()**
 
@@ -941,7 +1233,7 @@ ggplot(data = Europe)+
 
 name: background
 
-## 2.3. Background colors
+## 4.7. Background colors
 
 To change the background, we can add the arguments inside the argument **theme**.
 
@@ -958,7 +1250,7 @@ ggplot(data = Europe)+
 
 ---
 
-## 2.3. Background colors
+## 4.7. Background colors
 
 To remove the grids from the background, we can add **element_blank** inside the argument **theme**.
 
@@ -978,7 +1270,7 @@ ggplot(data = Europe)+
 
 name: axis
 
-## 2.4. Axis legends
+## 4.8. Axis legends
 
 To change the legends on the axis, we can add the arguments **xlab** and **ylab**
 
@@ -997,7 +1289,7 @@ ggplot(data = Europe)+
 ---
 
 
-## 2.4. Axis legends
+## 4.8. Axis legends
 
 To change the axis labels, it is usually more simple with other plots, but with maps we need to specify with the argument **scale_x_continuous** and **scale_y_continuous**.
 
@@ -1012,7 +1304,35 @@ ggplot(data = Europe)+
 
 ---
 
-## 2.5. Object
+
+## 3.3. Add colors
+
+I copy the hex colors from coolors
+
+```{r,fig.width=6, fig.height=3}
+Europe_plot<-ggplot(data = Europe_shp)+  
+  geom_sf(colour = "#edf2f4", 
+          fill = "#2b2d42",
+          size=0.5)
+Europe_plot
+```
+
+Change background color
+
+```{r,fig.width=6, fig.height=3}
+Europe_plot<-Europe_plot+
+  theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = '#edf2f4'),
+        legend.background = element_rect(fill = '#edf2f4'))
+Europe_plot
+```
+
+
+---
+
+## 4.9. Object
 
 To also simplify the process, you can save your plot as an object in the environment.
 
@@ -1036,7 +1356,7 @@ My_plot+ #<<
 
 ---
 
-## 2.6. Cheat sheet
+## 4.10. Cheat sheet
 
 Help>CheatSheets>Data Visualization with ggplot
 
@@ -1044,6 +1364,7 @@ Help>CheatSheets>Data Visualization with ggplot
 ```{r echo=FALSE, out.height=400}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/314cheatsheet.png?raw=true")
 ```
+
 
 ---
 
@@ -1077,6 +1398,10 @@ Until here:
 - [barplot](#barplot)
 - [trajectory](#trajectory)
 - [maps](#maps)
+- [shapefiles](#shapefiles)
+- [limits](#limits)
+- [scale](#scale)
+- [arrow](#arrow)
 - [aesthetics](#aesthetics)
 - [theme](#theme)
 - [color](#color)
@@ -1084,235 +1409,17 @@ Until here:
 - [axis](#axis)
 
 Next part:
-- [maps](#custom-map)
-- [shapefiles](#shapefiles)
-- [limits](#limits)
-- [scale](#scale)
-- [arrow](#arrow)
+
 - [export](#export)
 - [contact](#out)
 ]
 
----
 
-name: custom-maps
-class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1554033551-050e208bcaf2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=800)
-background-size: cover
-
-.pull-right[
-#  `r text_spec("Maps", background = "#003049", color = "#e5e5e5", bold = T)`
-### `r text_spec("Level up", background = "#003049", color = "#e5e5e5", bold = T)`
-]
-
----
-
-
-## 3.Maps
-
-Some elements from a map
-
-- Scale
-- Arrow
-
----
-
-## 3.1. Load shapefile
-
-Call the package sf to read the shapefiles into R
-
-```{r}
-library(sf)
-```
-
-Call the package here to work in your directory.
-
-```{r}
-library(here)
-```
-
-Or manually add the directory where your shapefile is.
-
-```{r, message=TRUE, message=FALSE}
-here()
-My_directory<-here('Downloads')
-list.files(My_directory)
-```
-
-
-```{r, eval=TRUE}
-My_shapefile<-paste0(My_directory,"/Europe.shp")
-```
-
-Download [shapefile]()
-
-You can download shapefiles from: https://www.naturalearthdata.com/downloads/
-
----
-
-## 3.1. Load shapefile
-
-```{r, eval=TRUE}
-Europe_shp<-st_read(My_shapefile)
-```
-
----
-
-## 3.2. Create a basic map
-
-Load the package ggplot2
-
-```{r}
-library(ggplot2)
-```
-
-Plot your shapefile using **geom_sf**
-
-```{r,fig.width=6, fig.height=3}
-ggplot(data = Europe_shp)+  
-  geom_sf()
-```
-
----
-
-## 3.3. Add colors
-
-I copy the hex colors from coolors
-
-```{r,fig.width=6, fig.height=3}
-Europe_plot<-ggplot(data = Europe_shp)+  
-  geom_sf(colour = "#edf2f4", 
-          fill = "#2b2d42",
-          size=0.5)
-Europe_plot
-```
-
-Change background color
-
-```{r,fig.width=6, fig.height=3}
-Europe_plot<-Europe_plot+
-  theme(
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(),
-        panel.background = element_rect(fill = '#edf2f4'),
-        legend.background = element_rect(fill = '#edf2f4'))
-Europe_plot
-```
-
----
-
-## 3.4. Add limits
-
-Reduce to focus in your area of interest
-
-```{r,fig.width=6, fig.height=3, warning=FALSE}
-Europe_plot<-Europe_plot+
-  coord_sf(xlim = c(6, 10),ylim = c(53, 56))+
-    scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
-    scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
-Europe_plot
-```
-
----
-name: scale
-
-## 3.5. Add scale
-
-Load the package ggspatial to add a scale and an north arrow
-
-```{r}
-library(ggspatial)
-```
-
-br is from bottom right
-bar_cols is for column colors
-text_col is for the color of the text
-
-```{r,fig.width=6, fig.height=4, }
-Europe_plot<-Europe_plot+
-  annotation_scale(location = "br",bar_cols = c("#ef233c", "#d90429"),text_col = '#ef233c')
-Europe_plot
-```
-
-
----
-name: arrow
-
-## 3.6. Add arrow
-
-tl is for top left
-which_north preferably true (see why here)
-north_arrow_fancy_orienteering (see other styles here)
-
-```{r,fig.width=6, fig.height=3}
-Europe_plot<-Europe_plot+
-  annotation_north_arrow(location = "tl", 
-                         style = north_arrow_minimal(text_col = '#ffd60a',
-                                                     line_col = '#ffd60a',
-                                                     fill = '#ffd60a')) 
-Europe_plot
-```
-
----
-
-## 3.7. Add points
-
-The package **seamonas** contains data from a hypothetical survey.
-
-```{r}
-library(seamonas)
-```
-
-Add the data to your environment. <br>
-
-The data frame contains the columns **latitude** and **longitude**.
-
-```{r}
-survey_4326<-survey_4326
-```
-
-Plot the data from the survey.
-
-```{r,fig.width=6, fig.height=3, eval=TRUE}
-ggplot()+
-  geom_point(data=survey_4326,
-          aes(x = longitude,
-              y= latitude))
-```
 
 
 ---
 
-## 3.7. Add points
-
-Now add the points into the your map.
-
-```{r,fig.width=6, fig.height=3, eval=TRUE}
-Europe_plot+
-  geom_point(data=survey_4326,
-          aes(x = longitude,
-              y= latitude), 
-              color='#2a9d8f')
-```
-
----
-
-## 3.7. Add points
-
-You could even change the size of the points.
-
-```{r,fig.width=6, fig.height=3, eval=TRUE}
-Europe_plot+
-  geom_point(data=survey_4326,
-          aes(x = longitude,
-              y= latitude), 
-              color='#2a9d8f',
-          size=0.1) #<<
-```
-
----
-
-## 3.8. Interactive
+## 5.1. Interactive
 
 Graphs can be interactive.
 
@@ -1335,7 +1442,7 @@ There are many other useful packages such as:
 
 ---
 
-## 3.8. Interactive
+## 5.1. Interactive
 
 The function **ggplotly** converts a ggplot() object to a plotly object.
 
@@ -1351,7 +1458,7 @@ ggplotly(Europe_plot+ #<<
 
 ---
 
-## 3.8. Interactive
+## 5.2. Interactive
 
 Control the information displayed by adding more elements in geom_point
 
@@ -1367,7 +1474,7 @@ ggplotly(Europe_plot+
 
 ---
 
-# 3.9. Animate
+# 5.3. Animate
 
 We can also create animated plots.
 
@@ -1460,11 +1567,11 @@ background-size: cover
 
 ---
 
-# 4. Export
+# 6. Export
 
 ---
 
-## 4.1. ggsave
+## 6.1. ggsave
 
 To export a plot there is **ggsave**
 
@@ -1489,7 +1596,7 @@ ggsave(My_plot,
 
 ---
 
-## 4.2. word
+## 6.2. word
 
 Another way to export maps is to use a Rmd file like the one on the [link](https://raw.githubusercontent.com/MiriamLL/R_intro/master/04PlotWord.Rmd).
 
@@ -1511,7 +1618,7 @@ To adjust the size of the maps you can specify the fig.height and fig.width in t
 
 ---
 
-## 4.3. html
+## 6.3. html
 
 The best way to export interactive maps is to use Rmd to html like the one on the [link](https://raw.githubusercontent.com/MiriamLL/R_intro/master/05PlotInteractive.Rmd).
 
@@ -1541,17 +1648,16 @@ Until here:
 - [barplot](#barplot)
 - [trajectory](#trajectory)
 - [maps](#maps)
-- [aesthetics](#aesthetics)
-- [theme](#theme)
-- [color](#color)
-- [background](#background)
-- [axis](#axis)
-- [maps](#maps)
 - [shapefiles](#shapefiles)
 - [limits](#limits)
 - [scale](#scale)
 - [arrow](#arrow)
 - [export](#export)
+- [aesthetics](#aesthetics)
+- [theme](#theme)
+- [color](#color)
+- [background](#background)
+- [axis](#axis)
 - [contact](#out)
 ]
 
@@ -1570,16 +1676,15 @@ background-size: cover
 - [barplot](#barplot)
 - [trajectory](#trajectory)
 - [maps](#maps)
+- [shapefiles](#shapefiles)
+- [limits](#limits)
+- [scale](#scale)
+- [arrow](#arrow)
 - [aesthetics](#aesthetics)
 - [theme](#theme)
 - [color](#color)
 - [background](#background)
 - [axis](#axis)
-- [maps](#maps)
-- [shapefiles](#shapefiles)
-- [limits](#limits)
-- [scale](#scale)
-- [arrow](#arrow)
 - [export](#export)
 
 .right[

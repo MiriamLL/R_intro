@@ -9,11 +9,18 @@ date: '2023-06-06'
 ## Packages
 
 Packages to install
+
 ```{r}
 devtools::install_github("MiriamLL/sula")
+devtools::install_github("MiriamLL/GermanNorthSea")
+devtools::install_github("MiriamLL/seamonas")
+install.packages('sf')
+install.packages('ggspatial')
+install.packages('plotly')
 ```
 
 Call packages
+
 ```{r}
 library(tidyverse)
 library(palmerpenguins)
@@ -21,49 +28,79 @@ library(ggplot2)
 library(sula)
 ```
 
+# ~~~~~~~~~~~~
+# First part
+
 ## Data
 
 Load data to environment
+
 ```{r}
 penguins<-penguins
 ```
 
 Using ggplot
+
 ```{r}
 ggplot()
 ```
 
-Add data to ggplot
+##Add data to ggplot
+
 ```{r}
 ggplot(data=penguins)
 ```
 
-Add axis
+## Add axis
+
 ```{r}
 ggplot(data=penguins,
        mapping=aes(x=bill_length_mm,
                    y=bill_depth_mm))
 ```
 
-Add geometry
+## Add geometry
+
 ```{r}
-ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
+ggplot(data=penguins,
+       mapping=aes(x=bill_length_mm,
+                   y=bill_depth_mm))+
        geom_point()
 ```
 
-## Scatterplots
+
+## Simplify 
+
+We can skip writing data= and mapping= by just following the order of the elements.
+
+Simplified example.
+
+```{r}
+ggplot(penguins, 
+       aes(x=bill_length_mm,
+           y=flipper_length_mm))+
+  geom_point()
+```
+
+# ~~~~~~~~~~~~~~~~
+# Second Part
+
+## Scatterplot
+
 ```{r}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_point()
 ```
 
-## Line charts
+## Line chart
+
 ```{r}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_line()
 ```
 
 ## Barplot
+
 ```{r}
 ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
   geom_bar()
@@ -75,6 +112,7 @@ ggplot(data=penguins,mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
 ```
 
 ## Boxplot
+
 ```{r}
 ggplot(data=penguins,
        mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
@@ -99,16 +137,23 @@ ggplot(data = tracking_data, aes(x = Latitude, y = Longitude)) +
   geom_path()
 ```
 
-## Maps
+## Map
 
-# Aesthetics
+```{r}
+library(GermanNorthSea)
+```
 
-## Colors
+```{r}
+Europe<-German_land
+```
 
-## Legend
+```{r}
+ggplot(data=Europe)+ 
+  geom_sf()
+```
 
-## Theme
-
+# ~~~~~~~~~~~~~~~~
+# Third Part
 
 # Maps
 
@@ -116,8 +161,178 @@ ggplot(data = tracking_data, aes(x = Latitude, y = Longitude)) +
 
 ## Points
 
+# ~~~~~~~~~~~
+# Fourth part
+
+# Aesthetics
+
+## Themes
+
+theme_classic
+
+```{r}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))+ 
+  geom_point()+
+  theme_classic()
+```
+
+theme_bw
+
+```{r}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))+ 
+  geom_point()+
+  theme_bw()
+```
+
+theme_minimal
+
+```{r}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))+ 
+  geom_point()+
+  theme_minimal()
+```
+
+theme_void
+
+```{r}
+ggplot(data=penguins, 
+       mapping=aes(x=bill_length_mm,y=flipper_length_mm))+ 
+  geom_point()+
+  theme_void()
+```
+
+
+## Colors
+
+Check color names
+
+```{r}
+colors()
+```
+
+Change the color of the points
+
+By name
+
+```{r}
+ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm))+
+  geom_point(color='red')
+```
+
+By hexcode
+
+```{r}
+ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm))+
+  geom_point(color='#c1121f')
+```
+
+Separate categories
+
+```{r}
+ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))+
+  geom_point()
+```
+
+Customize colors
+
+```{r}
+ggplot(data=penguins, mapping=aes(x=bill_length_mm,y=flipper_length_mm, 
+                                color=species))+ 
+  geom_point()+ 
+  scale_colour_manual(values = c("purple", "yellow", "orange"))
+```
+
+Colors in a map
+
+Fill colors
+
+```{r}
+ggplot(data = Europe)+  
+  geom_sf(color = "olivedrab4", 
+          fill = "darkseagreen")
+```
+
+Background color
+
+```{r}
+ggplot(data = Europe)+  
+  geom_sf(color = "olivedrab4", 
+          fill = "darkseagreen")+
+  theme(panel.background = element_rect(fill = 'lightskyblue2'))+
+  coord_sf(xlim = c(3,9), ylim = c(53,56))
+```
+
+Remove grids
+
+```{r}
+ggplot(data = Europe)+  
+  geom_sf(color = "olivedrab4", 
+          fill = "darkseagreen")+
+  theme(
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = 'lightskyblue2'))+ 
+  coord_sf(xlim = c(3,9), ylim = c(53,56))
+```
+
+## Legend
+
+Change axis legends
+
+```{r}
+ggplot(data = Europe)+  
+  geom_sf(color = "olivedrab4", 
+          fill = "darkseagreen")+
+  theme(
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        panel.background = element_rect(fill = 'lightskyblue2'))+ 
+  coord_sf(xlim = c(3,9), ylim = c(53,56))+
+  xlab('Longitude')+ylab('Latitude')
+```
+
+Add degrees in the axis labels
+
+```{r}
+ggplot(data = Europe)+ 
+  geom_sf(color = "olivedrab4", fill = "darkseagreen")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_rect(fill = 'lightskyblue2'))+ 
+  coord_sf(xlim = c(3,9), ylim = c(53,56))+
+  scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
+  scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
+```
+
+## Use object
+
+```{r}
+My_plot<-ggplot(data = Europe)+ 
+  geom_sf(color = "olivedrab4", fill = "darkseagreen")
+```
+
+```{r}
+My_plot+
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        panel.background = element_rect(fill = 'lightskyblue2'))+ 
+  coord_sf(xlim = c(3,9), ylim = c(53,56))+
+  scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W")) +
+  scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
+```
+
+
+
+
+
+# ~~~~~~~~~~~~
+# Fift part
+
 # Export
 
 ## ggsave
 
+# End of document
 
