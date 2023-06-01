@@ -38,22 +38,11 @@ library(emo)
 
 # Index
 
-- [index](#index)
 - [theory](#theory)
-- [scatterplot](#scatterplot)
-- [line chart](#lines)
-- [barplot](#barplot)
-- [trajectory](#trajectory)
+- [geometries](#geoms)
 - [maps](#maps)
-- [shapefiles](#shapefiles)
-- [limits](#limits)
-- [scale](#scale)
-- [arrow](#arrow)
 - [aesthetics](#aesthetics)
-- [theme](#theme)
-- [color](#color)
-- [background](#background)
-- [axis](#axis)
+- [layers](#layers)
 - [export](#export)
 - [contact](#out)
 
@@ -274,7 +263,7 @@ library(ggplot2)
 
 First step: add data to a plot.
 
-```{r, echo=TRUE, fig.width=6, fig.height=4}
+```{r, echo=TRUE, fig.width=6, fig.height=3}
 ggplot(data=penguins)
 ```
 
@@ -289,7 +278,7 @@ Using **mapping**  we tell ggplot what to plot in the x and y axis.<br>
 
 **Note** that the axis are columns from your data frame. This is when having tidydata is important.
 
-```{r, fig.width=6, fig.height=4}
+```{r, fig.width=6, fig.height=3}
 ggplot(data=penguins,
        mapping=aes(x=bill_length_mm, #<<
                    y=bill_depth_mm)) #<<
@@ -302,7 +291,7 @@ ggplot(data=penguins,
 
 The next step is to give it a geometry, in this case we say plot points with the argument **geom_point**
 
-```{r, fig.width=6, fig.height=4, warning=FALSE}
+```{r, fig.width=6, fig.height=3, warning=FALSE}
 ggplot(data=penguins,
        mapping=aes(x=bill_length_mm,y=bill_depth_mm))+
        geom_point() #<<
@@ -362,19 +351,6 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 
 ## 1.4. Common mistakes
 
-Not having **tidydata** is also a very common problem.  
-
- 
-```{r echo=FALSE, out.height=300}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/104TidyData.jpg?raw=true")
-```
-  
-Source [Allison Horst](https://allisonhorst.com/) 
-
----
-
-## 1.4. Common mistakes
-
 Other common mistakes specific to ggplot are:
 
 - Forgetting a plus symbol ( **+** )
@@ -397,6 +373,18 @@ ggplot(penguins,
        aes(x=bill_length_mm,y=flipper_length_mm)+ #<<
        geom_point()
 ```
+
+---
+
+## 1.4. Common mistakes
+
+Not having **tidydata** is also a very common problem.  
+
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/104TidyData.jpg?raw=true")
+```
+  
+Source [Allison Horst](https://allisonhorst.com/) 
 
 ---
 
@@ -469,25 +457,14 @@ ggplot(data=penguins,
 
 .pull-right[
 Until here:
+- [index](#index)
 - [theory](#theory)
 
-
 Next part:
-- [scatterplot](#scatterplot)
-- [line chart](#lines)
-- [barplot](#barplot)
-- [trajectory](#trajectory)
+- [geometries](#geoms)
 - [maps](#maps)
 - [aesthetics](#aesthetics)
-- [theme](#theme)
-- [color](#color)
-- [background](#background)
-- [axis](#axis)
-- [maps](#custom-map)
-- [shapefiles](#shapefiles)
-- [limits](#limits)
-- [scale](#scale)
-- [arrow](#arrow)
+- [layers](#layers)
 - [export](#export)
 - [contact](#out)
 ]
@@ -495,7 +472,7 @@ Next part:
 
 ---
 
-name: geometries
+name: geoms
 class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/photo-1639303638626-2003b9ac307e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 background-size:cover
@@ -584,7 +561,7 @@ Boxplot is probably the most commonly used chart type to compare distribution of
 
 It visualises five summary statistics (the median, two percentiles and two whiskers).
 
-```{r, echo=FALSE, out.height=350}
+```{r, echo=FALSE, out.height=250}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/305boxplot.png?raw=true")
 ```
 
@@ -724,23 +701,14 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 
 .pull-right[
 Until here:
+- [index](#index)
 - [theory](#theory)
-- [scatterplot](#scatterplot)
-- [line chart](#lines)
-- [barplot](#barplot)
-- [trajectory](#trajectory)
+- [geometries](#geoms)
 
 Next part:
 - [maps](#maps)
-- [shapefiles](#shapefiles)
-- [limits](#limits)
-- [scale](#scale)
-- [arrow](#arrow)
 - [aesthetics](#aesthetics)
-- [theme](#theme)
-- [color](#color)
-- [background](#background)
-- [axis](#axis)
+- [layers](#layers)
 - [export](#export)
 - [contact](#out)
 ]
@@ -945,7 +913,7 @@ All maps are distorted and all projections have some error to represent the eart
 
 The error is also depending on the [origin](https://www.earthdatascience.org/courses/use-data-open-source-python/intro-vector-data-python/spatial-data-vector-shapefiles/intro-to-coordinate-reference-systems-python/).
 
-```{r echo=FALSE, out.height=300}
+```{r echo=FALSE, out.height=150}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/318CRS.png?raw=true")
 ```
 
@@ -1031,26 +999,19 @@ ggplot(data = Europe_shp)+
 ]
 
 .pull-right[
+
 Until here:
+- [index](#index)
 - [theory](#theory)
-- [scatterplot](#scatterplot)
-- [line chart](#lines)
-- [barplot](#barplot)
-- [trajectory](#trajectory)
+- [geometries](#geoms)
 - [maps](#maps)
-- [shapefiles](#shapefiles)
-- [limits](#limits)
-- [scale](#scale)
-- [arrow](#arrow)
 
 Next part:
 - [aesthetics](#aesthetics)
-- [theme](#theme)
-- [color](#color)
-- [background](#background)
-- [axis](#axis)
+- [layers](#layers)
 - [export](#export)
 - [contact](#out)
+
 ]
 
 
@@ -1323,7 +1284,7 @@ My_plot
 
 There is an app to personalize all the parts, and gives you the code afterwards. 
 
-To install the add-inn go to [Esquisse](https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html)
+To install the add-inn go to [Esquisse](https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html).
 
 ```{r echo=FALSE, out.height=350}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/319Esquisse.png?raw=true")
@@ -1346,23 +1307,14 @@ Create a map with your prefered colors.
 
 .pull-right[
 Until here:
+- [index](#index)
 - [theory](#theory)
-- [scatterplot](#scatterplot)
-- [line chart](#lines)
-- [barplot](#barplot)
-- [trajectory](#trajectory)
+- [geometries](#geoms)
 - [maps](#maps)
-- [shapefiles](#shapefiles)
-- [limits](#limits)
-- [scale](#scale)
-- [arrow](#arrow)
 - [aesthetics](#aesthetics)
-- [color](#color)
-- [theme](#theme)
-- [background](#background)
-- [axis](#axis)
 
 Next part:
+- [layers](#layers)
 - [export](#export)
 - [contact](#out)
 ]
@@ -1370,14 +1322,14 @@ Next part:
 
 ---
 
-name: add
+name: layers
 class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/photo-1553864250-05b20249ee0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 background-size:cover
 
 .pull-right[
-#  `r text_spec("Add geometry", background = "#003049", color = "#e5e5e5", bold = T)`
-### `r text_spec("Level up", background = "#003049", color = "#e5e5e5", bold = T)`
+#  `r text_spec("Layers", background = "#003049", color = "#e5e5e5", bold = T)`
+### `r text_spec("Adding geometries", background = "#003049", color = "#e5e5e5", bold = T)`
 ]
 
 ---
@@ -1410,6 +1362,16 @@ head(survey_4326,5)
 
 Because ggplot functions as layers, we can add geometries on top of each other.
 
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/300Geoms.png?raw=true")
+```
+
+---
+
+## 5.1. Add points
+
+For the exercise, lets create a base map.
+
 ```{r,fig.width=6, fig.height=3, eval=TRUE}
 Base_map<-ggplot(data = Europe_shp)+ 
     geom_sf(color = "#e76f51", 
@@ -1422,7 +1384,6 @@ Base_map<-ggplot(data = Europe_shp)+
   xlab('Longitude')+ylab('Latitude')+
   scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+
   scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
-Base_map
 ```
 
 
@@ -1523,24 +1484,14 @@ Create your own map with points or a path.
 
 .pull-right[
 Until here:
+- [index](#index)
 - [theory](#theory)
-- [scatterplot](#scatterplot)
-- [line chart](#lines)
-- [barplot](#barplot)
-- [trajectory](#trajectory)
+- [geometries](#geoms)
 - [maps](#maps)
-- [shapefiles](#shapefiles)
-- [limits](#limits)
-- [scale](#scale)
-- [arrow](#arrow)
 - [aesthetics](#aesthetics)
-- [theme](#theme)
-- [color](#color)
-- [background](#background)
-- [axis](#axis)
+- [layers](#layers)
 
 Next part:
-
 - [export](#export)
 - [contact](#out)
 ]
@@ -1567,7 +1518,7 @@ Graphs can be interactive.
 
 -> The package [tmap](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html) is also a recommende alternative. 
 
-```{r, eval=TRUE, echo=FALSE}
+```{r, eval=TRUE, echo=FALSE, fig.height=4}
 plotly::ggplotly(Base_map+ #<<
   geom_point(data=survey_4326,aes(x = longitude,y= latitude, 
                                   color=date))+
@@ -1694,24 +1645,9 @@ Practice `r fa("pencil-alt", fill = '#FFFFFF')`<br>
 ]
 
 .pull-right[
-Until here:
-- [theory](#theory)
-- [scatterplot](#scatterplot)
-- [line chart](#lines)
-- [barplot](#barplot)
-- [trajectory](#trajectory)
-- [maps](#maps)
-- [shapefiles](#shapefiles)
-- [limits](#limits)
-- [scale](#scale)
-- [arrow](#arrow)
-- [aesthetics](#aesthetics)
-- [theme](#theme)
-- [color](#color)
-- [background](#background)
-- [axis](#axis)
-- [export](#export)
-- [contact](#out)
+```{r echo=FALSE, out.height=300}
+knitr::include_graphics("https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/9a306c0a-dac8-413d-ba2e-cc7fd4c4d5c8_rw_1920.png?h=c802991088a9623f1f7aa18c470797ee")
+```
 ]
 
 
@@ -1737,11 +1673,12 @@ background-size: cover
 - [aesthetics](#aesthetics)
 - [theme](#theme)
 - [background](#background)
+- [layers](#layers)
 - [axis](#axis)
+- [interactive maps](#interactive)
 - [export](#export)
 
 .right[
-### Contact
 This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-06-06-plotting/)
 ]
 

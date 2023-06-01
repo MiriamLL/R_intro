@@ -1,0 +1,158 @@
+---
+title: "PreCheckingGeneralization"
+author: "Lerma"
+date: "24/01/2023"
+output: html_document
+---
+
+
+# Data
+
+## Move Bank
+```{r}
+library('move')
+```
+
+```{r}
+loginStored<-movebankLogin(username = "MiriamLerma", password = "gaviotas2022")
+my_study<-'FTZ UCN Kelp Gull Chile'
+```
+
+```{r}
+Referencia<-getMovebankReferenceTable(study=my_study,login=loginStored)
+```
+
+## Data
+
+```{r}
+library(beepr)
+```
+
+```{r}
+# KEGU01
+KEGU01<-getMovebankLocationData(study=my_study, 
+                               login=loginStored, 
+                               individual_local_identifier="KEGU-noband01-Coquimbo",
+                               sensorID="GPS")
+
+
+
+# KEGU02
+KEGU02<-getMovebankLocationData(study=my_study, 
+                               login=loginStored, 
+                               individual_local_identifier="KEGU-noband02-Coquimbo",
+                               sensorID="GPS")
+
+# KEGU03
+KEGU03<-getMovebankLocationData(study=my_study, 
+                               login=loginStored, 
+                               individual_local_identifier="KEGU-noband03-Coquimbo",
+                               sensorID="GPS")
+
+
+# KEGU04
+KEGU04<-getMovebankLocationData(study=my_study, 
+                               login=loginStored, 
+                               individual_local_identifier="KEGU-noband04-Coquimbo",
+                               sensorID="GPS")
+
+
+# KEGU05
+KEGU05<-getMovebankLocationData(study=my_study, 
+                               login=loginStored, 
+                               individual_local_identifier="KEGU-noband05-Coquimbo",
+                               sensorID="GPS")
+
+# KEGU06
+KEGU06<-getMovebankLocationData(study=my_study, 
+                               login=loginStored, 
+                               individual_local_identifier="KEGU-noband06-Damas",
+                               sensorID="GPS")
+
+# KEGU07
+KEGU07<-getMovebankLocationData(study=my_study, 
+                               login=loginStored, 
+                               individual_local_identifier="KEGU-noband07-Damas",
+                               sensorID="GPS")
+
+# KEGU08
+KEGU08<-getMovebankLocationData(study=my_study, 
+                               login=loginStored, 
+                               individual_local_identifier="KEGU-noband08-Damas",
+                               sensorID="GPS")
+# KEGU09
+KEGU09<-getMovebankLocationData(study=my_study, 
+                               login=loginStored, 
+                               individual_local_identifier="KEGU-noband09-Damas",
+                               sensorID="GPS")
+beep(sound=1,expr=NULL)                              
+```
+
+## All
+```{r}
+KEGUS<-rbind(KEGU01,KEGU02,KEGU03,KEGU04,KEGU05,KEGU06,KEGU07,KEGU08,KEGU09)
+beep(sound=1,expr=NULL)
+```
+
+```{r}
+library(tidyverse)
+library(here)
+```
+
+Transform to correct time
+```{r}
+KEGUS$dt<-format(KEGUS$timestamp, tz="America/Santiago",usetz=TRUE)
+KEGUS$CET<-as.POSIXct(strptime(KEGUS$dt, "%Y-%m-%d %H:%M:%S"))
+range(KEGUS$CET)
+```
+
+```{r}
+write_csv(KEGUS, file=paste0(here('Archivo/2023/1Data'),'/KEGUS_0401.csv'))
+```
+
+# Maps
+Where is the function?
+
+```{r, echo=FALSE,include=FALSE}
+library(sf)
+library(ggspatial)
+```
+
+```{r}
+Chile <- read_sf(paste0(here('Archivo/2023/1Data/GIS'),'/comunas.shp'))
+```
+
+```{r, echo=FALSE, include=FALSE}
+# Read Data
+KEGUS<-read_csv(paste0(here('Archivo/2023/1Data'),'/KEGUS_0401.csv'))
+```
+
+```{r input1}
+AnalisisFolder<-here('Archivo/2023/2Analisis') #Where is the parametrization file
+MapsScript <- paste0(AnalisisFolder,"/01Maps_2401.Rmd") #What is the name of the file
+MapsScript
+```
+
+How do you want the output to be named?
+```{r output1}
+ResultsFolder<-here('Archivo/2023/3Results')
+MapsFile <- paste0(ResultsFolder,"_maps.html") #Name of the output
+MapsFile
+```
+
+Run to export document
+```{r render validation, include=FALSE, cache=TRUE}
+rmarkdown::render(
+  input= MapsScript, 
+  output_format = "html_document",
+  output_dir = ResultsFolder,
+  params = list(
+    KEGUS = KEGUS,
+    Chile = Chile
+  ),
+  run_pandoc = TRUE,
+  output_file = MapsFile
+)
+beep(sound = 1, expr = NULL)
+```
+
