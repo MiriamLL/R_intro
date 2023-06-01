@@ -109,8 +109,7 @@ Tutorials/Books ggplot
 - [r4ds](https://r4ds.had.co.nz/data-visualisation.html)
 - [R Graphics Cookbook](https://r-graphics.org/)
 - [Allison Horst tutorial](https://allisonhorst.github.io/rice-data-viz/)
-
-Tutorial/Books maps
+- [Coolors](https://coolors.co/) <br>
 - [Geocomputation with R](https://r.geocompx.org/attr.html)
 - [Earth Data Science](https://www.earthdatascience.org/)
 
@@ -120,8 +119,6 @@ Gallery/Portafolios
 - [DataToViz](https://www.data-to-viz.com/) <br>
 - [Georgios-Mastodon](https://ecoevo.social/@georgios@vis.social)
 
-Additional
-- [Coolors](https://coolors.co/) <br>
 ]
 
 .pull-right[
@@ -455,13 +452,11 @@ class: inverse
 Practice `r fa("pencil-alt", fill = '#FFFFFF')`<br>
 Open the file [03ExercisesPlotting.Rmd](https://github.com/MiriamLL/R_intro/blob/master/03ExercisesPlotting.Rmd)
 
-Run first part.
+Create your first plot in R. 
 
 ```{r echo=FALSE, out.height=50}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/316RmdIcon.png?raw=true")
 ```
-
-You should get this plot.
 
 ```{r, eval=TRUE, fig.height=4, warning=FALSE, echo=FALSE}
 ggplot(data=penguins,
@@ -631,7 +626,7 @@ The package **sula** contains tracking data from Masked boobies on Easter Island
 library(sula)
 ```
 
-To plot a trajectory, lets load data from the package **sula** into the environment.
+Load data from the package **sula** into the environment.
 
 ```{r}
 tracking_data<-sula::GPS_raw
@@ -660,7 +655,7 @@ ggplot(data=tracking_data,
 
 R is an great tool for geospatial data analysis. 
 
-The book [geocomputation with R](https://r.geocompx.org/attr.html) is a recommended guide to create maps in R (and is constantly updated).
+The book [geocomputation with R](https://r.geocompx.org/attr.html) is a recommended guide to create maps in R (is open access and constantly updated).
 
 ```{r echo=FALSE, out.height=400}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/306Book.png?raw=true")
@@ -734,9 +729,9 @@ Until here:
 - [line chart](#lines)
 - [barplot](#barplot)
 - [trajectory](#trajectory)
-- [maps](#maps)
 
 Next part:
+- [maps](#maps)
 - [shapefiles](#shapefiles)
 - [limits](#limits)
 - [scale](#scale)
@@ -863,7 +858,10 @@ ggplot(data = Europe_shp)+
 
 ## 3.3. Add limits
 
-Using the argument **coord_sf** and adding the coordinates in the x axis **xlim** and the y axis **ylim** we can focus in the area of interest.
+Using the argument **coord_sf** to focus in the area of interest.  
+
+- Add x axis coordinates in **xlim** 
+- Add y axis coordinates in **ylim** .
 
 ```{r,fig.width=6, fig.height=3, warning=FALSE}
 ggplot(data = Europe_shp)+  
@@ -929,7 +927,7 @@ ggplot(data = Europe_shp)+
 
 ---
 
-## 3.6. CRS
+## 3.6. Important
 
 A coordinate reference system (CRS) refers to the way in which spatial data that represent the earth’s surface. 
 
@@ -947,18 +945,24 @@ All maps are distorted and all projections have some error to represent the eart
 
 The error is also depending on the [origin](https://www.earthdatascience.org/courses/use-data-open-source-python/intro-vector-data-python/spatial-data-vector-shapefiles/intro-to-coordinate-reference-systems-python/).
 
-```{r echo=FALSE, out.height=350}
+```{r echo=FALSE, out.height=300}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/318CRS.png?raw=true")
 ```
 
+Not using the correct projection might derive in calculation mistakes (over or under calculating distances for example).
+
+I will not go into detaill in CRS but give you some tips to transform to the corresponding system. 
 
 ---
 
 ## 3.6. CRS
 
-Not using the correct projection might derive in calculation mistakes (over or under calculating distances).
 
-If we want to change the CRS of your shapefile, the argument **st_transform** from the package **sf** let us do so.
+The argument **st_transform** from the package **sf** allows you to change the CRS of your shapefile.
+
+First give the name of your shapefile and later the CRS in 4 digits numbers.
+
+**Note** that there are many options available in R to transform your CRS. 
 
 ```{r}
 Europe_3035<-sf::st_transform(Europe_shp, 3035)
@@ -995,7 +999,7 @@ Do you notice the **differences?**
 
 ## 3.6. CRS
 
-**Note** that when using the map with the **CRS 3035**, the units of **xlim** and my **ylim** need to be changed accordingly.
+**Consider** that when using the map with the **CRS 3035**, the units of **xlim** and my **ylim** need to be changed accordingly.
 
 ```{r,fig.width=6, fig.height=3}
 ggplot(data=Europe_3035)+ 
@@ -1013,8 +1017,7 @@ class: inverse
 Practice `r fa("pencil-alt", fill = '#FFFFFF')`<br>
 Open the file [03ExercisesPlotting.Rmd](https://github.com/MiriamLL/R_intro/blob/master/03ExercisesPlotting.Rmd)
 
-Run the third part.
-Change elements from the map if you want to.
+Create a map.
 
 ```{r, fig.height=4, echo=FALSE}
 ggplot(data = Europe_shp)+  
@@ -1222,7 +1225,7 @@ There are many different themes. It would depend on the type of graph and taste 
 
 .pull-left[
 
-he theme can be changed using **theme_minimal()**
+The theme can be changed using **theme_minimal()**
 
 ```{r,fig.width=3, fig.height=2, echo=TRUE, warning=FALSE}
 My_plot+
@@ -1232,6 +1235,7 @@ My_plot+
 
 .pull-right[
 
+T
 he theme can be changed using **theme_void()**
 
 ```{r,fig.width=3, fig.height=2, echo=TRUE, warning=FALSE}
@@ -1274,7 +1278,7 @@ My_plot
 
 ## 4.4. Background colors
 
-To remove the grids from the background, we can add **element_blank** inside the argument **theme**.
+In theme, the grid can be removed by adding **panel.grid.major** and **panel.grid.minor** and **element_blank** to make it blank.
 
 ```{r,fig.width=6, fig.height=3, echo=TRUE}
 My_plot<-My_plot +
@@ -1315,33 +1319,28 @@ My_plot
 
 ---
 
+## 4.7. Esquisse
+
+There is an app to personalize all the parts, and gives you the code afterwards. 
+
+To install the add-inn go to [Esquisse](https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html)
+
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/319Esquisse.png?raw=true")
+```
+
+---
+
 class: inverse
 
 # Pause
 
 .pull-left[
 Practice `r fa("pencil-alt", fill = '#FFFFFF')`<br>
+
 Open the file [03ExercisesPlotting.Rmd](https://github.com/MiriamLL/R_intro/blob/master/03ExercisesPlotting.Rmd)
 
-Run the fourth part.
-
-Change the theme, color, or other elements if you want.
-
-```{r, eval=TRUE}
-Base_map<-ggplot(data = Europe_shp)+ 
-    geom_sf(color = "#e76f51", 
-            fill = "#e9c46a")+ 
-  coord_sf(xlim = c(3,9), ylim = c(53,56))+
-  theme_bw()+
-  theme(panel.background = element_rect(fill = '#a8dadc'),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())+
-  
-  xlab('Longitude')+ylab('Latitude')+
-  scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+
-  scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
-Base_map
-```
+Create a map with your prefered colors. 
 
 ]
 
@@ -1383,11 +1382,11 @@ background-size:cover
 
 ---
 
-## 5. Survey data
+## 5. Geometries
 
-To add observations on a map, we can add more geometries.
+To add observations on a map, we can add geometries.
 
-The package **seamonas** contains data from a hypothetical survey.
+To practice, the package **seamonas** contains data.
 
 ```{r}
 library(seamonas)
@@ -1410,6 +1409,26 @@ head(survey_4326,5)
 ## 5.1. Add points
 
 Because ggplot functions as layers, we can add geometries on top of each other.
+
+```{r,fig.width=6, fig.height=3, eval=TRUE}
+Base_map<-ggplot(data = Europe_shp)+ 
+    geom_sf(color = "#e76f51", 
+            fill = "#e9c46a")+ 
+  coord_sf(xlim = c(3,9), ylim = c(53,56))+
+  theme_bw()+
+  theme(panel.background = element_rect(fill = '#a8dadc'),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())+
+  xlab('Longitude')+ylab('Latitude')+
+  scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+
+  scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
+Base_map
+```
+
+
+---
+
+## 5.1. Add points
 
 The order needs to be considered, the geometry to be on the top should be the last on the list.
 
@@ -1468,7 +1487,7 @@ Base_map+
 
 ## 5.3. Change size
 
-Adding the argument **size** inside geometric point, we can increase or decrease the size of the point.
+Adding the argument **size** inside **geom_point**, we can increase or decrease the size of the point.
 
 ```{r,fig.width=6, fig.height=3, echo=TRUE, warning=FALSE}
 Base_map+
@@ -1496,21 +1515,9 @@ class: inverse
 .pull-left[
 Practice `r fa("pencil-alt", fill = '#FFFFFF')`<br>
 
-Change the data, theme, colors, or other elements of the points if you want.
+Open the file [03ExercisesPlotting.Rmd](https://github.com/MiriamLL/R_intro/blob/master/03ExercisesPlotting.Rmd)
 
-```{r, eval=FALSE}
-Base_map+
-  geom_point(data=survey_4326,
-             aes(x = longitude,
-                 y= latitude,
-                 color=month))+
-  scale_colour_manual(
-    values = c("purple",
-               "yellow", 
-               "orange",
-               "green",
-               "blue"))
-```
+Create your own map with points or a path. 
 
 ]
 
@@ -1556,29 +1563,35 @@ background-size: cover
 
 Graphs can be interactive.
 
-The package **plotly** allows creating interactive maps.
+-> The package [plotly](https://plotly.com/r/) allows creating interactive maps.
 
-To install the package.
+-> The package [tmap](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html) is also a recommende alternative. 
 
-```{r, eval=FALSE}
-install.packages('plotly')
+```{r, eval=TRUE, echo=FALSE}
+plotly::ggplotly(Base_map+ #<<
+  geom_point(data=survey_4326,aes(x = longitude,y= latitude, 
+                                  color=date))+
+  scale_colour_manual(values = c("purple", "yellow", "orange","green","blue"))
+)
 ```
-
-See more about [plotly](https://plotly.com/r/).
-
-- Alternative use [tmap](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html).
 
 ---
 
 ## 6.1. Interactive
 
-Call the package.
+To install the package plotly.
+
+```{r, eval=FALSE}
+install.packages('plotly')
+```
+
+To call the package.
 
 ```{r, warning=FALSE, message=FALSE}
 library(plotly)
 ```
 
-Control the information displayed by adding more elements in geom_point.
+To use, include the argument **ggplotly** and add your ggplot inside the brackets. 
 
 ```{r, eval=FALSE}
 ggplotly(Base_map+ #<<
@@ -1673,9 +1686,10 @@ class: inverse
 
 .pull-left[
 Practice `r fa("pencil-alt", fill = '#FFFFFF')`<br>
-Change some elements from the Rmds. 
-Change the data used or the geometry. 
-Export your plots.
+
+- Export a plot in jpg.
+- Export the plots in a word document. 
+- Export an interactive plot in html. 
 
 ]
 
