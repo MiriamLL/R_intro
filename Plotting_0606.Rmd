@@ -1537,7 +1537,7 @@ Base_map+
 
 ---
 
-## 5.4. Add path
+## 5.5. Add path
 
 .pull-left[
 To change line type add the argument **linetype**.
