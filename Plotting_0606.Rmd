@@ -99,8 +99,11 @@ Tutorials/Books ggplot
 - [R Graphics Cookbook](https://r-graphics.org/)
 - [Allison Horst tutorial](https://allisonhorst.github.io/rice-data-viz/)
 - [Coolors](https://coolors.co/) <br>
+- [Palettes](https://mycolor.space/?hex=%23845EC2&sub=1)
+- [Size, Shape, Lines](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)
 - [Geocomputation with R](https://r.geocompx.org/attr.html)
 - [Earth Data Science](https://www.earthdatascience.org/)
+- [r-spatial](https://r-spatial.org/r/2018/10/25/ggplot2-sf-3.html)
 
 Gallery/Portafolios
 - [Data-Viz-Bookmarks](https://spcanelon.notion.site/spcanelon/Data-Viz-Bookmarks-dc01718020bd4fd6a8a4ca80e6bce933)<br>
@@ -117,6 +120,20 @@ knitr::include_graphics("https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b14
 
 ]
 
+
+---
+
+## 1. Theory
+
+A typical R project looks like this:
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/031Program.png?raw=true")
+```
+
+.right[
+Source: [R4DS](https://r4ds.had.co.nz/introduction.html)
+]
 
 ---
 name: theory
@@ -1448,12 +1465,12 @@ Base_map+
 
 ## 5.3. Change size
 
-Adding the argument **size** inside **geom_point**, we can increase or decrease the size of the point.
+Adding the argument **size** inside **geom_point** let us change the size of the point.
 
 ```{r,fig.width=6, fig.height=3, echo=TRUE, warning=FALSE}
 Base_map+
   geom_point(data=survey_4326,aes(x = longitude,y= latitude),
-             size=0.01)
+             size=0.01) #<<
 ```
 
 ---
@@ -1525,6 +1542,8 @@ plotly::ggplotly(Base_map+ #<<
   scale_colour_manual(values = c("purple", "yellow", "orange","green","blue"))
 )
 ```
+
+Consider the elements inside the brackets of **aes** are the ones visible when putting the cursor on top. 
 
 ---
 
@@ -1682,11 +1701,11 @@ background-size: cover
 This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-06-06-plotting/)
 ]
 
-.right[
-
-[`r fa("home", fill = '#f2cc8f')`Home](https://www.miriam-lerma.com/teaching.html)
-[`r fa("play", fill = '#f2cc8f')` Index ](https://miriamll.github.io/R_intro/Plotting_0606.html#2)
-
+.center[
+```{r, echo=FALSE}
+library(fontawesome)
+```
+<h3>`r fa("home", fill = "#e9c46a")`[Home ](https://www.miriam-lerma.com/teaching.html)
 ]
 
 <br>

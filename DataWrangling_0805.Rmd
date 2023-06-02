@@ -1794,16 +1794,17 @@ background-size: cover
 - [export](#export) 
 
 .right[
-### Contact
+<br>
+<br>
+<br>
 This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-05-08-data-wrangling/)
 ]
 
-.right[
-
-[`r fa("home", fill = '#f2cc8f')`Home](https://www.miriam-lerma.com/teaching.html)
-
-[`r fa("play", fill = '#f2cc8f')` Index ](https://miriamll.github.io/R_intro/DataWrangling_0805.html#2)
-
+.center[
+```{r, echo=FALSE}
+library(fontawesome)
+```
+<h3>`r fa("home", fill = "#e9c46a")`[Home ](https://www.miriam-lerma.com/teaching.html)
 ]
 
 <br>
