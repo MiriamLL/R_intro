@@ -1,26 +1,337 @@
 ---
-title: "Tracking_0606"
-output: html_document
-date: "2023-06-02"
+title: "Tracking"
+author: "Miriam Lerma"
+date: "June 2023"
+output:
+  xaringan::moon_reader:
+    css: RZero-themer.css
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      
 ---
 
----
-
-name: read-files
-class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1533279443086-d1c19a186416?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80)
+class: title-slide, bottom, right
+background-image: url(https://images.unsplash.com/photo-1531142453283-59e592982069?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
-# `r text_spec("Read files", background = "#003049", color = "#e5e5e5", bold = T)`
+# `r text_spec("Tracking", background = "#003049", color = "#e5e5e5", bold = T)`
+## `r text_spec("Miriam Lerma", background = "#003049", color = "#e5e5e5", bold = T)`
 
 ---
 
-## 4.1. Read files
 
-A typical R project looks like this:
+```{r, echo=FALSE, include = FALSE}
+#Paquetes
+library(xaringanExtra)
+library(kableExtra)
+library(fontawesome)
+library(emo)
+```
+
+## Intro
+
+A typical project.
 
 ```{r echo=FALSE, out.height=250}
-knitr::include_graphics(paste0(ImageFolder,"031Program.png?raw=true"))
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/031Program.png?raw=true")
+```
+
+
+### Today
+- Import: [download](#read).
+- Tidy and transform: [wrangling](#wrangling).
+- Visualize: [plotting](#plot).
+
+⚠️ Note that this part would be constantly updated.
+
+---
+
+name: read
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1505356822725-08ad25f3ffe4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80)
+background-size: cover
+
+# `r text_spec("Read data", background = "#003049", color = "#e5e5e5", bold = T)`
+
+---
+
+## 1. Download
+
+There is a package called [move](https://cran.r-project.org/web/packages/move/vignettes/browseMovebank.html) that can be use to access data stored in **movebank.**
+
+To install
+
+```{r, eval=FALSE}
+install.packages('move')
+```
+
+To call
+
+```{r, eval=TRUE, message=FALSE, warning=FALSE}
+library(move)
+```
+
+For details go to the [vignette](https://cran.r-project.org/web/packages/move/vignettes/browseMovebank.html).
+
+---
+
+## 1.2. movebank
+
+To load data you can enter manually your login information with the argument **movebankLogin**.
+
+```{r,eval=FALSE}
+movebankLogin()
+```
+
+It would ask for the login information at the console.
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/401movelogin.png?raw=true")
+```
+
+---
+
+## 1.2. movebank
+
+However, it is more convenient to store your login information.
+
+⚠️ But be careful to not share the script with your login information.
+
+For this exercise, I created a username only for **demonstration**.  
+
+The password is the institute, the year and asterisk. 
+
+```{r, eval=FALSE}
+my_login<-movebankLogin(username = "Demo", password = "*****")
+```
+
+```{r, echo=FALSE}
+my_login<-movebankLogin(username = "Demo", password = "ftz2023*")
+```
+
+---
+
+## 1.2. studies
+
+For the exercise, we will check studies that have **FTZ** on the name.
+
+```{r, message=FALSE}
+searchMovebankStudies(x="FTZ", login=my_login)
+```
+
+---
+
+## 1.2. studies
+
+Select one study, and give your study name as it appears in the list.
+
+For the example, lets use:
+
+```{r,eval=TRUE}
+my_study<-"FTZ: Foraging in lesser black-backed gulls (data from Garthe et al. 2016)"
+```
+
+Check if you have access
+
+```{r, eval=FALSE}
+getMovebankReferenceTable(study=my_study,login=my_login)
+```
+
+If it shows:
+
+```{r, eval=FALSE}
+Error in getMovebank(entity_type = "tag", login, study_id = study) :
+It looks like you are not allowed to download this data set, have you agreed to the license terms in the web interface?
+```
+
+🙀 You need to request for permit on the webpage.
+
+---
+
+## 1.3. Permits
+
+For getting the permits, go to the page [movebank](https://www.movebank.org/cms/movebank-main).
+
+Go to Login/Register.
+
+Add your username and password.
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/400movepage.png?raw=true")
+```
+
+---
+
+## 1.3. Permits
+
+Go to **Studies**>Search>Write the name of the study
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/402studies.png?raw=true")
+```
+
+Click on the i inside a square>Select Open in studies page
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/402studies.png?raw=true")
+```
+
+Click on the Download>Select Download Data
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/404DownloadData.png?raw=true")
+```
+
+---
+
+## 1.3. Permits
+
+Click on I agree for the terms and condition
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/405Terms.png?raw=true")
+```
+
+You can download the data here, but they you will need to open it every time.
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/406Save.png?raw=true")
+```
+
+I close it and I dont need to do the permits again, I can download the data directly to R everytime without the problem showing up again. 
+
+---
+
+
+## 1.4. Inspect study
+
+Check what data the study contains.
+
+```{r, eval=FALSE}
+getMovebankReferenceTable(study=my_study,login=my_login)
+```
+
+If it look alright, you can save information from the study as object.
+
+```{r}
+my_study_ref<-getMovebankReferenceTable(study=my_study,login=my_login)
+```
+
+Now the information is a data frame in your **Environment**.
+
+If we open the data frame we can see that in this study there are 8 individuals.
+
+We can use this information to download the tracking data.
+
+---
+
+## 1.5. Download data
+
+To download all the data use **getMovebankLocationData**.
+
+```{r, eval=TRUE}
+all_tracks<-getMovebankLocationData(study=my_study,
+                                    login=my_login)
+```
+
+⏰ However, this might be too much data, and too much time consuming to download all.
+
+Therefore, we can select specific individuals or specific periods of time.
+
+---
+
+## 1.5. Download data
+
+To download one individual, use the information from the data frame and to identify which **individual_local_identifier** you need to use. 
+
+Use the name as an object.
+
+```{r}
+my_individual<-"LBBG-Spiekeroog-2010-01"
+```
+
+Add the name as an argument in the function.
+
+```{r, eval=TRUE, warning=FALSE, message=FALSE}
+my_individual_track<-getMovebankLocationData(study=my_study,
+                                             login=my_login,
+                                             individual_local_identifier=my_individual)
+```
+
+It would likely show a warning about the sensor, but it did work, you should have **my_individual_track** in the environment now.
+
+🤖 The warning is related to having GPS and accelometer data.
+
+---
+
+## 2.4. Specific times
+
+To select specific times, lets first inspect what information is contained in the data frame using functions from the package **tidyverse**
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+Check location starts
+
+```{r}
+first(my_individual_track$timestamp)
+```
+Check location ends
+
+```{r}
+last(my_individual_track$timestamp)
+```
+
+Here we can see that the period of sampling is about one month.
+
+---
+
+## 2.4. Specific times
+
+Movebank uses a very specific format for timestamps. 
+
+So if you want to have data from "2010-05-18 00:00:00 UTC" to "2010-05-20 00:00:00 UTC", you need to provide it like this:
+
+```{r}
+my_start<-"201005180000000"
+my_end<-"201005200000000"
+```
+
+To download data from this period, you can add the argument in the argument **getMovebankLocationData**.
+
+```{r, warning=FALSE}
+my_individual_subsampled<-getMovebankLocationData(study=my_study, 
+                               login=my_login, 
+                               individual_local_identifier=my_individual,
+                               timestamp_start=my_start,
+                               timestamp_end=my_end)
+```
+
+
+---
+
+
+name: wrangling
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1569387016077-f46d35a9afb3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80)
+background-size: cover
+
+# `r text_spec("Data wrangling", background = "#003049", color = "#e5e5e5", bold = T)`
+
+---
+
+# 2. Wrangling
+
+Most of the times your data will need some **cleaning**.
+
+You can expect to repeat the cleaning several time.
+
+```{r echo=FALSE, out.height=250}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/031Program.png?raw=true")
 ```
 
 .right[
@@ -29,285 +340,193 @@ Source: [R4DS](https://r4ds.had.co.nz/introduction.html)
 
 ---
 
+## 2.1. Correct time
 
-## 4.1. Read files
+Most devices record in a specific time (Coordinated Universal Time (UTC)), which means that if you are outside Europe, you might need to correct your data.
 
-To load data, we will use functions from the package tidyverse and the files:  
-
-- penguins1.csv
-- penguins2.csv
-- penguins3.txt
-- penguins4.xlsx  
-
-[Download here](https://github.com/MiriamLL/R_intro/tree/master/Downloads)
-
-Do you already have it installed?
-
-```{r, warning = FALSE, message = FALSE}
-library("tidyverse")
-```
-
-
----
-
-## 4.2. By hand
-
-You can upload data by hand in your workspace
-
-In the **environment** there is a part that says **Import Dataset**
-
-Select the file **penguins1.csv**
-
---
-
-Another option is to go to the **workspace** 
-Files> Click on the file and **import data set**
-
-```{r echo=FALSE, out.height=350}
-knitr::include_graphics(paste0(ImageFolder,"019Rparts.png?raw=true"))
-```
-
----
-
-## 4.2. csv format
-
-Instead of clicks, we can write in the console or script:
-
-```{r, eval=FALSE}
-penguins1<-read_csv("Downloads/penguins1.csv")
-```
-
-```{r, eval=FALSE}
-head(penguins1)
-```
-
----
-
-## 4.2. csv format
-
-Now try opening **penguins2.csv**  
-
-This file instead of being separated by comas, its separated by colons ";"
-
-Therefore, instead of using **read_csv** we will need to use **read_csv2**
-
-To illustrate this issue, try loading the data using **read_csv**.
-
-```{r, eval=FALSE}
-penguins2<-read_csv("Downloads/penguins2.csv")
-```
-
-```{r, eval=FALSE}
-head(penguins2)
-```
-
-
---
-
-Lets try now with **read_csv2**
-
-```{r, eval=FALSE}
-penguins2<-read_csv2("Downloads/penguins2.csv")
-```
-
-```{r, eval=FALSE}
-head(penguins2)
-```
-
----
-
-## 4.3.  Other formats
-
-Click on the file **penguin3.txt**.  
-
-This one is separated by tabs.  
-
-read_tsv is for reading tab separated values.  
-
-```{r, eval=FALSE}
-penguins3<-read_tsv("Downloads/penguins3.txt")
-```
-
-```{r, eval=FALSE}
-head(penguins3)
-```
-
----
-
-## 4.4. Excel format
-
-For loading excel data, there is a special package called **readxl**
-
-```{r, eval=FALSE}
-library("readxl")
-```
-
-```{r, eval=FALSE}
-penguins4<- read_excel("Downloads/penguins4.xlsx")
-```
-
-```{r, eval=FALSE}
-head(penguins4)
-```
-
-
----
-
-## 4.5. From an url
-
-Urls (Uniform Resource Locators) or links can also be source of data.
-
-```{r, message=FALSE, warning=FALSE}
-penguins5<- read_csv('https://github.com/MiriamLL/R_intro/blob/master/Downloads/penguins1.csv')
-```
-
-Look at the first 5 rows of the data
-
-```{r, eval=FALSE}
-head(penguins,5)
-```
-
----
-
-## 4.6. movebank
-
-There is a package called [move](https://cran.r-project.org/web/packages/move/vignettes/browseMovebank.html) that can be use to access data stored in movebank.
-
-To install:
-```{r, eval=FALSE}
-install.packages('move')
-```
-
-```{r, eval=FALSE}
-library(move)
-```
-
-```{r,eval=FALSE}
-movebankLogin()
-```
-
-Add your login, if you have one, at the console.
-
----
-
-## 4.6 movebank
-
-It is more convenient to store your login information, but you have to be careful to not share the script with your login information.
-
-```{r, eval=FALSE}
-loginStored <- movebankLogin(username="MiriamLerma", password="********")
-```
-
-```{r,eval=TRUE}
-my_study<-'FTZ UCN Kelp Gull Chile'
-```
-
-```{r, eval=FALSE}
-MyGull<-getMovebankLocationData(study=my_study, 
-                               individual_local_identifier="KEGU-noband01-Coquimbo",
-                               timestamp_start="202212010000000",
-                               timestamp_end="20221205000000000",
-                               sensorID="GPS")
-```
-
-
-It might give you a warning, but for now that is not important.
-
----
-
-## 4.7. packages with data
-
-Data can also be stored in packages.  
-For example [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
-
-```{r, eval=FALSE}
-install.packages("palmerpenguins")
-```
-
-```{r, warning=FALSE}
-library(palmerpenguins)
-penguin6<-penguins
-```
-
-```{r, eval=FALSE}
-head(penguin6)
-```
-
----
-
-## 4.7. packages with data
-
-Moreover, packages with data are not limited to data frames.
-
----
-
-## 4.7. packages with data
-
-For example, the package GermanNorthSea contains shapefiles
-
-With 6 lines of code you can plot a map (Showing just for illustration purposes)
-
-.pull-left[
-```{r, eval=FALSE, message=FALSE}
-# install.packages("devtools")
-devtools::install_github("MiriamLL/GermanNorthSea")
-```
-
-Now the package sf
-```{r, message=FALSE,eval=FALSE}
-#install.packages('sf')
-library(sf)
-library(ggplot2)
-library(GermanNorthSea)
-```
-
-Load and plot some data
+Using the data from the example, we can transform the time to the **tz** time zone of Chile.
 
 ```{r}
-German_land<-GermanNorthSea::German_land
+my_individual_subsampled$dt<-format(my_individual_subsampled$timestamp, tz="America/Santiago",usetz=TRUE)
+my_individual_subsampled$CET<-as.POSIXct(strptime(my_individual_subsampled$dt, "%Y-%m-%d %H:%M:%S"))
+range(my_individual_subsampled$dt)
 ```
-]
 
-.pull-right[
-```{r, fig.height=5}
-ggplot()+ geom_sf(data = German_land, colour = 'black', fill = '#ffffbe')+
-  coord_sf(xlim = c(3790000,4250000), ylim = c(3350000,3680000),
-                    label_axes = list(top = "E", left = "N", bottom = 'E', right='N'))
-```
-]
+See more in my [page](https://www.miriam-lerma.com/posts/2022-06-30-time-formats/)
 
 ---
 
+## 2.2. Remove columns
 
-class: inverse
+You might be interested in particular columns and for that the function **select** from the package **tidyverse** is very convenient.
 
-# Pause
+```{r}
+my_individual_clean<-my_individual_subsampled %>%
+  select(individual.local.identifier,timestamp,location.long,location.lat)
+```
 
-Load penguin data  `r fa("pencil-alt", fill = '#FFFFFF')`  
-- Using read_csv <br>
-- Using read_csv2 <br>
-- Using read_tsv <br>
-- Using read_excel <br>
-
-There are many other options of files. Suggestions? [here `r fa("external-link-alt", fill = "#f2cc8f")`]( https://docs.google.com/document/d/1uG7a2_hkdaKQm5gKXRBFf6gcyoUBan2e69gL3ZKcwg8/edit?usp=sharing)
-
-
-.pull-left[
-Until here:
-- [Index](#index)
-- [What is R](#r-story)
-- [RStudio and identify the parts](#r-parts)
-- [Data types](#data-types)
-- [Errors](#errors)
-- [Packages](#packages)
-- [Directories](#directories)
-- [Read data](#read_files)
-]
-
-.pull-right[
-Next part:
-- [Rmd](#rmd)
-- [Contact](#out)
-]
+See more in my [page](https://miriamll.github.io/R_intro/DataWrangling_0805.html#68)
 
 ---
+
+## 2.3. Export
+
+I recommend to export your clean csv to work on them later.
+
+For exporting I like using the package **here**.
+
+```{r, message=FALSE}
+library(here)
+```
+
+The function **write_csv** allows to export the data as csv.
+
+```{r, eval=FALSE}
+write_csv(my_individual_clean, 
+          file=paste0(here('Data'),'/01individual_correcttime.csv'))
+```
+
+See more in my [page](https://miriamll.github.io/R_intro/DataWrangling_0805.html#948)
+
+---
+
+name: plotting
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1622542795953-5c26b9d8a135?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
+background-size: cover
+
+# `r text_spec("Plotting", background = "#003049", color = "#e5e5e5", bold = T)`
+
+---
+
+## 3. Plotting
+
+To plot the data we can use the package **ggplot2** and the argument **geom_path**.
+
+```{r, fig.height=4}
+ggplot()+ 
+  geom_path(data=my_individual_subsampled, aes(x=location.long, y=location.lat))
+```
+
+See more in my [page](https://www.miriam-lerma.com/posts/2023-06-06-plotting/)
+
+---
+
+## 3.1. Base map
+
+To provide reference of the area, the package **GermanNorthSea** contains shapefiles.
+
+Load the package.
+
+```{r, message=FALSE,eval=TRUE}
+library(GermanNorthSea)
+library(sf)
+```
+
+Load shapefile into environment.
+
+```{r}
+Europe<-st_transform(German_land,4326)
+```
+
+See more in my [page](https://www.miriam-lerma.com/posts/2023-06-02-germannorthsea/)
+
+---
+
+## 3.1. Base map
+
+Create basemap
+
+```{r, fig.height=4}
+Base_map<-ggplot(data = Europe)+ geom_sf(color = "#e76f51",fill = "#e9c46a")+ 
+  coord_sf(xlim = c(3,9), ylim = c(53,56))+
+  theme_bw()+
+  theme(panel.background = element_rect(fill = '#a8dadc'),panel.grid.major = element_blank(),panel.grid.minor = element_blank())+
+  xlab('Longitude')+ylab('Latitude')+
+  scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+ scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
+Base_map
+```
+
+See more in my [page](https://www.miriam-lerma.com/posts/2023-03-04-mapping-in-r/)
+
+---
+
+## 3.2. Add geometry
+
+Use the argument **geom_path** to visualize the tracking data.
+
+```{r, fig.height=4}
+Base_map + 
+  geom_path(data=my_individual_subsampled, 
+            aes(x=location.long, y=location.lat),
+            color='black')
+```
+
+---
+
+## 3.3. Plotly
+
+To create interactive plots in R we can use the package plotly.
+
+```{r, message=FALSE, warning=FALSE}
+library(plotly)
+```
+
+I use the function **ggplotly** and then add my map to be able to zoom-in. 
+
+```{r, fig.height=4}
+ggplotly(Base_map + 
+  geom_path(data=my_individual_subsampled, aes(x=location.long, y=location.lat),color='black'))
+```
+
+---
+
+## 3.4. Map
+
+I select different **coord_sf** to zoom-in. I repeat the process until I am satisfied.
+
+```{r, fig.height=4, warning=FALSE, message=FALSE}
+Base_map + 
+  geom_path(data=my_individual_subsampled, aes(x=location.long, y=location.lat),color='black')+
+  coord_sf(xlim = c(7.7,7.9), ylim = c(53.65,53.8)) #<<
+```
+
+Some inspiration: [Mapping movement](https://besmovesig.wordpress.com/2021/02/25/mapping-movements-the-art-and-the-science-we-have-the-winners/).
+
+---
+
+name: out
+class: title-slide
+background-image: url(https://images.unsplash.com/photo-1512135597430-12ee6b2bb959?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1250&q=80)
+
+background-size: cover
+
+# Contact
+
+### Back to
+- [index](#index)
+- [data](#data)
+- [wrangling](#wrangling)
+- [plotting](#plotting)
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+.right[
+This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#f2cc8f")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#f2cc8f")`webpage](https://www.miriam-lerma.com/posts/2023-06-06-plotting/)
+]
+
+.center[
+```{r, echo=FALSE}
+library(fontawesome)
+```
+<h3>`r fa("home", fill = "#e9c46a")`[Home ](https://www.miriam-lerma.com/teaching.html)
+]
+
+<br>
+
+
+
