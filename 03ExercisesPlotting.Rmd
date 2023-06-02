@@ -405,9 +405,32 @@ Base_map+
 ## Size
 
 ```{r}
+Base_map+ 
+  coord_sf(xlim = c(6.2,6.4), 
+           ylim = c(55.1,55.2))+
+  geom_point(data=survey_4326,
+             aes(x = longitude,y= latitude),
+             size=0.005)
+```
+
+```{r}
 Base_map+
-  geom_point(data=survey_4326,aes(x = longitude,y= latitude),
-             size=0.01)
+  coord_sf(xlim = c(6.2,6.4), 
+           ylim = c(55.1,55.2))+
+  geom_point(data=survey_4326,
+             aes(x = longitude,y= latitude),
+             size=2)
+```
+
+## Shape
+```{r}
+Base_map+
+  coord_sf(xlim = c(6.2,6.4), 
+           ylim = c(55.1,55.2))+
+  geom_point(data=survey_4326,
+             aes(x = longitude,
+                 y= latitude),
+             shape=4)
 ```
 
 ## geom_path
@@ -415,6 +438,15 @@ Base_map+
 ```{r}
 Base_map+
   geom_path(data=survey_4326,aes(x = longitude,y= latitude))
+```
+
+## Linetype
+
+```{r}
+Base_map+
+  geom_path(data=survey_4326,
+            aes(x = longitude,y= latitude),
+            linetype = 'dashed')
 ```
 
 # ~~~~~~~~~~~~

@@ -1412,7 +1412,7 @@ The order needs to be considered, the geometry to be on the top should be the la
 
 Using the argument **geom_point** we can add points.
 
-```{r,fig.width=6, fig.height=3, eval=TRUE}
+```{r,fig.width=10, fig.height=5, eval=TRUE}
 Base_map+
   geom_point(data=survey_4326,aes(x = longitude,y= latitude)) #<<
 ```
@@ -1424,7 +1424,7 @@ Base_map+
 
 Adding the argument **color** inside the parethesis allows to change the color of the points.
 
-```{r,fig.width=6, fig.height=3, eval=TRUE}
+```{r,fig.width=10, fig.height=5, eval=TRUE}
 Base_map+
   geom_point(data=survey_4326,aes(x = longitude,y= latitude),
              color='red')#<<
@@ -1437,7 +1437,7 @@ Base_map+
 
 If you wish to color by a categorical variable, then add **colour =** within your aes brackets. This tells ggplot that this third variable will colour the points. 
 
-```{r,fig.width=6, fig.height=3, echo=TRUE, warning=FALSE}
+```{r,fig.width=6, fig.height=5, echo=TRUE, warning=FALSE}
 Base_map+
   geom_point(data=survey_4326,aes(x = longitude,y= latitude, 
                                   color=month))#<<
@@ -1467,22 +1467,97 @@ Base_map+
 
 Adding the argument **size** inside **geom_point** let us change the size of the point.
 
-```{r,fig.width=6, fig.height=3, echo=TRUE, warning=FALSE}
+.pull-left[
+
+Smaller size
+
+```{r,fig.width=6, fig.height=3, echo=TRUE, warning=FALSE,message=FALSE}
+Base_map+ 
+  coord_sf(xlim = c(6.2,6.4), 
+           ylim = c(55.1,55.2))+
+  geom_point(data=survey_4326,
+             aes(x = longitude,y= latitude),
+             size=0.005) #<<
+```
+]
+
+
+.pull-right[
+
+Larger size
+
+```{r,fig.width=6, fig.height=3, echo=TRUE, warning=FALSE,message=FALSE}
 Base_map+
-  geom_point(data=survey_4326,aes(x = longitude,y= latitude),
-             size=0.01) #<<
+  coord_sf(xlim = c(6.2,6.4), 
+           ylim = c(55.1,55.2))+
+  geom_point(data=survey_4326,
+             aes(x = longitude,y= latitude),
+             size=2) #<<
+```
+]
+
+
+---
+
+## 5.4. Change shape
+
+Adding the argument **shape** inside **geom_point** let us change the shape of the point.
+
+.pull-left[
+```{r,fig.width=6, fig.height=4, echo=TRUE, warning=FALSE, message=FALSE}
+Base_map+
+  coord_sf(xlim = c(6.2,6.4), 
+           ylim = c(55.1,55.2))+
+  geom_point(data=survey_4326,
+             aes(x = longitude,
+                 y= latitude),
+             shape=4)#<<
+```
+]
+
+.pull-right[
+
+Other options are:
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/320Shapes.png?raw=true")
+```
+]
+
+---
+
+## 5.5. Add path
+
+The argument **geom_path** can be used for trajectories.
+
+```{r,fig.width=6, fig.height=5, echo=TRUE, warning=FALSE}
+Base_map+
+  geom_path(data=survey_4326,aes(x = longitude,y= latitude)) #<<
 ```
 
 ---
 
 ## 5.4. Add path
 
-The argument **geom_path** can be used for trajectories.
+.pull-left[
+To change line type add the argument **linetype**.
 
-```{r,fig.width=6, fig.height=3, echo=TRUE, warning=FALSE}
+```{r,fig.width=6, fig.height=5, echo=TRUE, warning=FALSE}
 Base_map+
-  geom_path(data=survey_4326,aes(x = longitude,y= latitude)) #<<
+  geom_path(data=survey_4326,
+            aes(x = longitude,y= latitude),
+            linetype = 'dashed') #<<
 ```
+]
+
+.pull-right[
+
+Other line options are: 
+
+```{r echo=FALSE, out.height=200}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/321Lines.png?raw=true")
+```
+]
 
 ---
 
