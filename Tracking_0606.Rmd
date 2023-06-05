@@ -40,34 +40,27 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 
 Here:
 
-- [import](#data)
+- [Import](#data)  
 Import from movebank, csv or excel.
-- [tidy](#tidy)
+- [Tidy](#tidy)  
 Clean your data
-- [transform](#transform)
+- [Transform](#transform)  
 Transform the time zone
-- [visualise](#visualise)
+- [Visualise](#visualise)  
 Create a map and include your tracking data
 
 ---
+class:center,middle
 
-# Note
+## Note
 
-<h1>`r fa("exclamation", fill = "#22577a")`
+<h1>`r fa("exclamation", fill = "#22577a")`</h1>
 
-This part would be constantly updated.
+This presentation is constantly updated.
 
-
-
-
----
-
-name: read
-class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1505356822725-08ad25f3ffe4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80)
-background-size: cover
-
-# `r text_spec("Load data", background = "#003049", color = "#e5e5e5", bold = T)`
+```{r echo=FALSE, out.height=100}
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/500UnderConstruction.gif?raw=true")
+```
 
 ---
 
@@ -76,11 +69,19 @@ class:center,middle
 
 <h1>`r fa("download", fill = "#22577a")`
 
+# Read data from movebank
+
+For this part you need to know how to install packages, if you need to learn that first start [here](https://www.miriam-lerma.com/posts/2023-04-18-intro-to-r/).
+
 ---
 
-## 1. Download
+## 1. Install package
 
 There is a package called [move](https://cran.r-project.org/web/packages/move/vignettes/browseMovebank.html) that can be use to access data stored in **movebank.**
+
+```{r echo=FALSE, out.height=100}
+knitr::include_graphics("https://www.movebank.org/cms/img/logo-movebank.png")
+```
 
 To install.
 
@@ -118,7 +119,8 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 
 However, it is more convenient to store your login information.
 
-⚠️ But be careful to not share the script with your login information.
+<h2>⚠️ </h2>
+Be careful to not share the script with your login information.
 
 For this exercise, I created a username only for **demonstration**.  
 
@@ -164,10 +166,13 @@ If it shows:
 
 ```{r, eval=FALSE}
 Error in getMovebank(entity_type = "tag", login, study_id = study) :
-It looks like you are not allowed to download this data set, have you agreed to the license terms in the web interface?
+It looks like you are not allowed to download this data set, 
+have you agreed to the license terms in the web interface?
 ```
 
-🙀 You need to request for permit on the webpage.
+<h2>🙀 </h2>
+
+You need to request for permit on the webpage.
 
 ---
 
@@ -192,7 +197,7 @@ Go to **Studies**> Search>
 Write the name of the study
 
 ```{r echo=FALSE, out.height=350}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/403studies.png?raw=true")
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/402studies.png?raw=true")
 ```
 ]
 
@@ -201,7 +206,7 @@ Click on the i inside a square>
 Select Open in studies page
 
 ```{r echo=FALSE, out.height=350}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/402studies.png?raw=true")
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/403Studies.png?raw=true")
 ```
 ]
 
@@ -247,7 +252,7 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 
 ## 1.4. Inspect study
 
-Check what data the study contains.
+Back to R, check what data the study contains.
 
 ```{r, eval=FALSE}
 getMovebankReferenceTable(study=my_study,login=my_login)
@@ -265,6 +270,11 @@ If we open the data frame we can see that in this study there are 8 individuals.
 
 We can use this information to download the tracking data.
 
+```{r}
+head(my_study_ref,3)
+```
+
+
 ---
 
 ## 1.5. Download data
@@ -278,7 +288,7 @@ all_tracks<-getMovebankLocationData(study=my_study,
 
 However, this might be too much data, and too much time consuming to download all.
 
-⏰ 
+<h2> ⏰ </h2>
 
 Therefore, we can select specific individuals or specific periods of time.
 
@@ -303,7 +313,8 @@ my_individual_track<-getMovebankLocationData(study=my_study,
 ```
 
 The warning is related to having GPS and accelometer data.
-🤖 
+
+<h2>🤖 </h2>
 
 
 You should have **my_individual_track** in the environment now.
@@ -357,7 +368,18 @@ my_individual_subsampled<-getMovebankLocationData(study=my_study,
 
 ---
 
-## 1.8. From csv. 
+name: read
+class:center,middle
+
+<h1>`r fa("file-csv", fill = "#22577a")`
+
+# Read data from files
+
+For this part you need to know how to set your working directory, if you need to learn that first start [here](https://www.miriam-lerma.com/posts/2023-04-18-intro-to-r/).
+
+---
+
+## 2.1. From csv 
 
 Many devices will collect data in csv format.
 
@@ -369,28 +391,13 @@ knitr::include_graphics("https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/m
 
 ---
 
-## 1.9. From xlsx
+## 2.2. Several files
 
-If you were using your data in excel, you can use the package readxl to load your data. 
+Most likely you will have several individuals tagged, to load several files, define the folder where the files are. 
 
-```{r, eval=FALSE}
-library("readxl")
-```
+To download test data click [`r fa("external-link-alt", fill = "#e63946")` here](https://github.com/MiriamLL/Curso_tracking/tree/main/01Datos).
 
-You need to provide your directory and the complete name of the file you want to import. 
-```{r, eval=FALSE}
-GPS01_excel<- read_excel(paste0(my_directory,("//GPS01.xlsx")))
-```
-
-```{r, eval=FALSE}
-head(GPS01_excel)
-```
-
----
-
-## 1.10. Several files
-
-To load several files, define the folder where the files are. 
+The data comes from: Lerma M, Dehnhard N, Luna-Jorquera G, Voigt CC, Garthe S (2020) Breeding stage, not sex, affects foraging characteristics in masked boobies at Rapa Nui. Behavioral ecology and sociobiology 74: 149. [OpenAccess](https://link.springer.com/article/10.1007/s00265-020-02921-1). 
 
 ```{r, eval=FALSE}
 my_directory<-'C://Users//...'
@@ -407,12 +414,13 @@ To load only **csv** specify the extension.
 
 ```{r, eval=FALSE}
 list_files <- list.files(my_directory,pattern="*.csv",full.names=TRUE)
+list_files
 ```
 
 
 ---
 
-## 1.11. Using lapply
+## 2.3. Using lapply
 
 The function **lapply** allows you to import all the files. 
 
@@ -420,18 +428,11 @@ The function **lapply** allows you to import all the files.
 my_files <- lapply(list_files,read_csv)
 ```
 
-To download test data click [`r fa("external-link-alt", fill = "#e63946")`here](https://github.com/MiriamLL/Curso_tracking/tree/main/01Datos).
-
 If you are lacking of ID inside the files, before joining the files add an ID.
-
----
-name: ids
-
-## 1.12. Add ID
 
 Three options to add ID to your data frames.
 
-.pull-left[
+
 **Manually** 
  
 ```{r,eval=FALSE}
@@ -444,10 +445,14 @@ Recommended only for small lists.
 GPS02<-my_files[2]
 GPS02$ID<-'GPS02'
 ```
-]
 
-.pull-center[
-**Using the file name**  
+---
+name: ids
+
+## 2.5. Add ID
+
+.pull-left[
+**Using the file name and a loop**  
 ```{r,eval=FALSE}
 File_names<-list.files(my_directory,pattern="*.csv",full.names=FALSE)
 IDs<-gsub('.csv','',File_names)
@@ -477,22 +482,23 @@ for( i in seq_along(my_files)){
 
 ---
 
-## 1.13. Bind
+## 2.6. Bind
 
-Currently you have a list of files, to join them in a data frame you can use the function **rbind**
+When importing the data, you likely have a list of files > to join them in a data frame you can use the function **rbind**.
 
 ```{r, eval=FALSE}
 my_tracks <- do.call("rbind",my_files)
 ```
-You should have the same number of column in all the elements of the list. 
+
+**Note** that is important to have the same number of column in all the elements of the list. 
 
 ```{r, eval=FALSE}
-my_tracks
+head(my_tracks)
 ```
 
 ---
 
-## 1.13. Bind
+## 2.6. Bind
 
 The package **purrr** allows you to do the same, joining multiple files. 
 
@@ -505,19 +511,47 @@ my_tracks<-purrr::map_df(my_files,
                read.csv)
 ```
 
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics("https://purrr.tidyverse.org/logo.png")
+```
+
 ---
 
+## 2.2. From xlsx
+
+If you were using your data in excel, you can use the package readxl to load your data. 
+
+```{r, eval=FALSE}
+library("readxl")
+```
+
+You need to provide your directory and the complete name of the file you want to import. 
+```{r, eval=FALSE}
+GPS01_excel<- read_excel(paste0(my_directory,("//GPS01.xlsx")))
+```
+
+```{r, eval=FALSE}
+head(GPS01_excel)
+```
+
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics("https://readxl.tidyverse.org/logo.png")
+```
+
+---
 
 name: tidy
-class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1555885258-3b30363ad7ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
-background-size: cover
+class:center,middle
 
-# `r text_spec("Tidy", background = "#003049", color = "#e5e5e5", bold = T)`
+<h1>`r fa("broom", fill = "#22577a")`
+
+# Tidy
+
+For this part you need to know how to install packages, if you need to learn that first start [here](https://www.miriam-lerma.com/posts/2023-04-18-intro-to-r/).
 
 ---
 
-# 2. Cleaning
+# 3. Cleaning
 
 Most of the times your data will need some **cleaning**.
 
@@ -531,51 +565,99 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 Source: [R4DS](https://r4ds.had.co.nz/introduction.html)
 ]
 
+For training we can use tracking data from the package **sula**
+
+```{r, eval=FALSE}
+remotes::install_github("MiriamLL/sula")
+```
+
+```{r, eval=TRUE}
+library(sula)
+GPS_raw<-GPS_raw
+```
+
 ---
 
-## 2.1. Remove columns
+
+## 3.1. Keep columns
 
 You might be interested in particular columns and for that the function **select** from the package **tidyverse** is very convenient.
 
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
 ```{r}
-my_individual_clean<-my_individual_subsampled %>%
-  select(individual.local.identifier,
-         timestamp,
-         location.long,
-         location.lat)
+my_tracks<-GPS_raw %>%
+  select(IDs,
+         DateGMT,
+         TimeGMT,
+         Longitude,
+         Latitude)
 ```
 
 See more in my [page](https://miriamll.github.io/R_intro/DataWrangling_0805.html#68).
 
 ---
 
-name: transform
-class: title-slide, inverse, bottom
-background-image: url(https://images.unsplash.com/photo-1555885258-3b30363ad7ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
-background-size: cover
+## 3.2. Format time and date
 
-# `r text_spec("Transform", background = "#003049", color = "#e5e5e5", bold = T)`
-
----
-
-## 3.1. Correct time
-
-Most devices record in a specific time (Coordinated Universal Time (UTC)), which means that if you are outside Europe, you might need to correct your data.
-
-Using the data from the example, we can transform the time to the **tz** time zone of Chile.
+To join columns if date and time are separated you can use the function **paste**
 
 ```{r}
-my_individual_subsampled$dt<-format(my_individual_subsampled$timestamp, tz="America/Santiago",usetz=TRUE)
-my_individual_subsampled$CET<-as.POSIXct(strptime(my_individual_subsampled$dt, "%Y-%m-%d %H:%M:%S"))
-range(my_individual_subsampled$dt)
+my_tracks$timestamp<-paste(my_tracks$DateGMT,my_tracks$TimeGMT)
 ```
 
-See more in my [page](https://www.miriam-lerma.com/posts/2022-06-30-time-formats/).
+To tell R this is date time use the function **as.POSIXct**
+
+```{r}
+my_tracks$timestamp_class<-as.POSIXct(strptime(my_tracks$timestamp,
+                                            "%d/%m/%Y %H:%M:%S"),"GMT")
+```
 
 
 ---
 
-## 3.2. Export
+## 3.3. Cut periods
+
+Select period you want to cut and include it as an object in format **POSIXct**.
+
+```{r}
+Time_start<-as.POSIXct(strptime('02/11/2017 18:10:00', "%d/%m/%Y %H:%M:%S"), "GMT") 
+Time_end<- as.POSIXct(strptime('05/11/2017 14:10:00', "%d/%m/%Y %H:%M:%S"), "GMT")
+```
+
+You can include a column to check the correct classification using the argument **mutate**.
+
+```{r}
+my_tracks<-mutate(my_tracks,
+              period_class = ifelse(my_tracks$timestamp_class >= Time_start & 
+                              my_tracks$timestamp_class <= Time_end, 
+                              "Inside","Outside"))
+```
+
+The argument **filter** allows to subset the data frame.
+
+```{r}
+my_tracks_period<-my_tracks %>% 
+  filter(period_class=='Inside')
+```
+
+Before
+
+```{r}
+table(my_tracks$IDs)
+```
+
+After
+
+```{r}
+table(my_tracks_period$IDs)
+```
+
+---
+
+## 3.4. Export
 
 I recommend to export your clean csv to work on them later.
 
@@ -588,11 +670,50 @@ library(here)
 The function **write_csv** allows to export the data as csv.
 
 ```{r, eval=FALSE}
-write_csv(my_individual_clean, 
-          file=paste0(here('Data'),'/01individual_correcttime.csv'))
+write_csv(my_tracks_period, 
+          file=paste0(here('Data'),'/01my_tracks_period.csv'))
 ```
 
 See more in my [page](https://miriamll.github.io/R_intro/DataWrangling_0805.html#948).
+
+
+---
+
+name: transform
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1555885258-3b30363ad7ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
+background-size: cover
+
+# `r text_spec("Transform", background = "#003049", color = "#e5e5e5", bold = T)`
+
+---
+
+## 4.1. Correct time
+
+Most devices record in a specific time (Coordinated Universal Time (UTC)), which means that if you are outside Europe, you might need to correct your data.
+
+Using the data from the example, we can transform the time to the **tz** time zone of Chile.
+
+### 2.1. Identifica tu zona horaria
+
+Es común que los datos de GPS se registren en GMT+0. <br>
+Cuando usamos GPS en América Latina, tienes que identificar en que zona horaria te encuentras.
+
+.center[
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Timezones2008_UTC%2B0.png/1200px-Timezones2008_UTC%2B0.png")
+```
+]
+
+---
+
+```{r}
+my_individual_subsampled$dt<-format(my_individual_subsampled$timestamp, tz="America/Santiago",usetz=TRUE)
+my_individual_subsampled$CET<-as.POSIXct(strptime(my_individual_subsampled$dt, "%Y-%m-%d %H:%M:%S"))
+range(my_individual_subsampled$dt)
+```
+
+See more in my [page](https://www.miriam-lerma.com/posts/2022-06-30-time-formats/).
 
 ---
 
@@ -605,7 +726,7 @@ background-size: cover
 
 ---
 
-## 4. Plotting
+## 5. Plotting
 
 To plot the data we can use the package **ggplot2** and the argument **geom_path**.
 
@@ -618,7 +739,7 @@ See more in my [page](https://www.miriam-lerma.com/posts/2023-06-06-plotting/).
 
 ---
 
-## 4.1. Base map
+## 5.1. Base map
 
 To provide reference of the area, the package **GermanNorthSea** contains shapefiles.
 
@@ -643,7 +764,7 @@ See more in my [page](https://www.miriam-lerma.com/posts/2023-06-02-germannorths
 
 ---
 
-## 4.1. Base map
+## 5.1. Base map
 
 Create base map.
 
@@ -658,7 +779,7 @@ See more details on how to plot in my [page](https://www.miriam-lerma.com/posts/
 
 ---
 
-## 4.2. Add geometry
+## 5.2. Add geometry
 
 Use the argument **geom_path** to visualize the tracking data.
 
@@ -674,7 +795,7 @@ It looks way too small.🔬
 
 ---
 
-## 4.3. Plotly
+## 5.3. Plotly
 
 To create interactive plots in R we can use the package plotly.
 
@@ -691,7 +812,7 @@ ggplotly(Base_map +
 
 ---
 
-## 4.4. Static map
+## 5.4. Static map
 
 For the static map select different **coord_sf** to zoom-in. 
 
@@ -703,7 +824,20 @@ Base_map +
   coord_sf(xlim = c(7.7,7.9), ylim = c(53.65,53.8)) #<<
 ```
 
+
+---
+
+# Keep learning
+
+## L
+
+
+## Visualising
+
 Some inspiration: [mapping movement](https://besmovesig.wordpress.com/2021/02/25/mapping-movements-the-art-and-the-science-we-have-the-winners/).
+
+## Advance topics 
+
 
 ---
 
@@ -718,8 +852,11 @@ background-size: cover
 ### Back to
 - [index](#index)
 - [data](#data)
+For a Spanish version go [here](https://miriamll.github.io/Curso_tracking/Parte1#1)
 - [tidy](#tidy)
+For a Spanish version go [here](https://miriamll.github.io/Curso_tracking/Parte3#1)
 - [transform](#transform)
+For a Spanish version go [here](https://miriamll.github.io/Curso_tracking/Parte2#1)
 - [visualise](#visualise)
 <br>
 <br>
