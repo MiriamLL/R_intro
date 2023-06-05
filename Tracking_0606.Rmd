@@ -38,8 +38,6 @@ A typical project.
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/031Program.png?raw=true")
 ```
 
-Here:
-
 - [Import](#read)  
 Import from movebank, csv or excel.
 - [Tidy](#tidy)  
