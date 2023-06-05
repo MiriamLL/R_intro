@@ -4,7 +4,7 @@ author: "Miriam Lerma"
 date: "June 2023"
 output:
   xaringan::moon_reader:
-    css: RZero-themer.css
+    css: Curso_tracking.css
     seal: false
     nature:
       highlightStyle: github
@@ -12,9 +12,8 @@ output:
       countIncrementalSlides: true
       
 ---
-
-class: title-slide, bottom, right
-background-image: url(https://images.unsplash.com/photo-1531142453283-59e592982069?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
+class: title-slide, inverse, middle, right
+background-image: url(https://raw.githubusercontent.com/MiriamLL/Curso_tracking/main/03Figuras/PortadaC.jpg)
 background-size: cover
 
 ```{r, echo=FALSE, include = FALSE}
@@ -25,8 +24,9 @@ library(fontawesome)
 library(emo)
 ```
 
-# `r text_spec("Tracking", background = "#003049", color = "#e5e5e5", bold = T)`
-## `r text_spec("Miriam Lerma", background = "#003049", color = "#e5e5e5", bold = T)`
+
+# `r rmarkdown::metadata$title`
+## **`r rmarkdown::metadata$author`**<br>
 
 ---
 
@@ -38,13 +38,27 @@ A typical project.
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/031Program.png?raw=true")
 ```
 
+Here:
 
-### Today
-- Import: [download](#read).
-- Tidy and transform: [wrangling](#wrangling).
-- Visualize: [plotting](#plot).
+- [import](#data)
+Import from movebank, csv or excel.
+- [tidy](#tidy)
+Clean your data
+- [transform](#transform)
+Transform the time zone
+- [visualise](#visualise)
+Create a map and include your tracking data
 
-⚠️ Note that this part would be constantly updated.
+---
+
+# Note
+
+<h1>`r fa("exclamation", fill = "#22577a")`
+
+This part would be constantly updated.
+
+
+
 
 ---
 
@@ -53,7 +67,14 @@ class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/photo-1505356822725-08ad25f3ffe4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80)
 background-size: cover
 
-# `r text_spec("Read data", background = "#003049", color = "#e5e5e5", bold = T)`
+# `r text_spec("Load data", background = "#003049", color = "#e5e5e5", bold = T)`
+
+---
+
+name: read
+class:center,middle
+
+<h1>`r fa("download", fill = "#22577a")`
 
 ---
 
@@ -171,7 +192,7 @@ Go to **Studies**> Search>
 Write the name of the study
 
 ```{r echo=FALSE, out.height=350}
-knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/402studies.png?raw=true")
+knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/403studies.png?raw=true")
 ```
 ]
 
@@ -220,8 +241,6 @@ You can download the data here, but then you will need to open it every time.
 ```{r echo=FALSE, out.height=350}
 knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/406Save.png?raw=true")
 ```
-
-
 
 ---
 
@@ -291,7 +310,7 @@ You should have **my_individual_track** in the environment now.
 
 ---
 
-## 2.4. Specific times
+## 1.6. Specific times
 
 To select specific times, lets first inspect what information is contained in the data frame using functions from the package **tidyverse**.
 
@@ -314,7 +333,7 @@ Here we can see that the period of sampling is about one month.
 
 ---
 
-## 2.4. Specific times
+## 1.7. Specific times
 
 Movebank uses a very specific format for timestamps. 
 
@@ -338,17 +357,167 @@ my_individual_subsampled<-getMovebankLocationData(study=my_study,
 
 ---
 
+## 1.8. From csv. 
 
-name: wrangling
+Many devices will collect data in csv format.
+
+To load them into R, the manual way will be clicking on the file and then in **Import Dataset.**
+
+```{r echo=FALSE, out.height=350}
+knitr::include_graphics("https://raw.githubusercontent.com/MiriamLL/Curso_CIAD/main/Figuras/ImportarBoton.jpg")
+```
+
+---
+
+## 1.9. From xlsx
+
+If you were using your data in excel, you can use the package readxl to load your data. 
+
+```{r, eval=FALSE}
+library("readxl")
+```
+
+You need to provide your directory and the complete name of the file you want to import. 
+```{r, eval=FALSE}
+GPS01_excel<- read_excel(paste0(my_directory,("//GPS01.xlsx")))
+```
+
+```{r, eval=FALSE}
+head(GPS01_excel)
+```
+
+---
+
+## 1.10. Several files
+
+To load several files, define the folder where the files are. 
+
+```{r, eval=FALSE}
+my_directory<-'C://Users//...'
+```
+
+Using the package here, simplifies the process.
+
+```{r, eval=FALSE}
+my_directory<-here("Data")
+```
+
+To check that you are in the correct folder, ask for a list of the files. 
+To load only **csv** specify the extension.
+
+```{r, eval=FALSE}
+list_files <- list.files(my_directory,pattern="*.csv",full.names=TRUE)
+```
+
+
+---
+
+## 1.11. Using lapply
+
+The function **lapply** allows you to import all the files. 
+
+```{r, message=FALSE, eval=FALSE}
+my_files <- lapply(list_files,read_csv)
+```
+
+To download test data click [`r fa("external-link-alt", fill = "#e63946")`here](https://github.com/MiriamLL/Curso_tracking/tree/main/01Datos).
+
+If you are lacking of ID inside the files, before joining the files add an ID.
+
+---
+name: ids
+
+## 1.12. Add ID
+
+Three options to add ID to your data frames.
+
+.pull-left[
+**Manually** 
+ 
+```{r,eval=FALSE}
+GPS01<-my_files[1]
+GPS01$ID<-'GPS01'
+```
+
+Recommended only for small lists.
+```{r,eval=FALSE}
+GPS02<-my_files[2]
+GPS02$ID<-'GPS02'
+```
+]
+
+.pull-center[
+**Using the file name**  
+```{r,eval=FALSE}
+File_names<-list.files(my_directory,pattern="*.csv",full.names=FALSE)
+IDs<-gsub('.csv','',File_names)
+```
+
+Create a loop function.
+```{r, eval=FALSE}
+for( i in seq_along(my_files)){
+  my_files[[i]]$IDs <- IDs[i]
+}
+```
+]
+
+.pull-right[
+**Using a vector**  
+```{r, eval=FALSE}
+IDs<-c("ID01","ID02","ID03","ID04","ID05","ID06","ID07","ID08","ID09","ID10")
+```
+
+Add a column called IDs to each of the elements of the list. 
+```{r, eval=FALSE}
+for( i in seq_along(my_files)){
+  my_files[[i]]$IDs <- IDs[i]
+}
+```
+]
+
+---
+
+## 1.13. Bind
+
+Currently you have a list of files, to join them in a data frame you can use the function **rbind**
+
+```{r, eval=FALSE}
+my_tracks <- do.call("rbind",my_files)
+```
+You should have the same number of column in all the elements of the list. 
+
+```{r, eval=FALSE}
+my_tracks
+```
+
+---
+
+## 1.13. Bind
+
+The package **purrr** allows you to do the same, joining multiple files. 
+
+```{r, eval=FALSE}
+my_files<-list.files(".",
+                 pattern="*.csv",
+                 full.names=TRUE)
+
+my_tracks<-purrr::map_df(my_files,
+               read.csv)
+```
+
+---
+
+
+name: tidy
 class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/photo-1555885258-3b30363ad7ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
-# `r text_spec("Data wrangling", background = "#003049", color = "#e5e5e5", bold = T)`
+# `r text_spec("Tidy", background = "#003049", color = "#e5e5e5", bold = T)`
 
 ---
 
-# 2. Wrangling
+# 2. Cleaning
 
 Most of the times your data will need some **cleaning**.
 
@@ -364,23 +533,7 @@ Source: [R4DS](https://r4ds.had.co.nz/introduction.html)
 
 ---
 
-## 2.1. Correct time
-
-Most devices record in a specific time (Coordinated Universal Time (UTC)), which means that if you are outside Europe, you might need to correct your data.
-
-Using the data from the example, we can transform the time to the **tz** time zone of Chile.
-
-```{r}
-my_individual_subsampled$dt<-format(my_individual_subsampled$timestamp, tz="America/Santiago",usetz=TRUE)
-my_individual_subsampled$CET<-as.POSIXct(strptime(my_individual_subsampled$dt, "%Y-%m-%d %H:%M:%S"))
-range(my_individual_subsampled$dt)
-```
-
-See more in my [page](https://www.miriam-lerma.com/posts/2022-06-30-time-formats/).
-
----
-
-## 2.2. Remove columns
+## 2.1. Remove columns
 
 You might be interested in particular columns and for that the function **select** from the package **tidyverse** is very convenient.
 
@@ -396,7 +549,33 @@ See more in my [page](https://miriamll.github.io/R_intro/DataWrangling_0805.html
 
 ---
 
-## 2.3. Export
+name: transform
+class: title-slide, inverse, bottom
+background-image: url(https://images.unsplash.com/photo-1555885258-3b30363ad7ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
+background-size: cover
+
+# `r text_spec("Transform", background = "#003049", color = "#e5e5e5", bold = T)`
+
+---
+
+## 3.1. Correct time
+
+Most devices record in a specific time (Coordinated Universal Time (UTC)), which means that if you are outside Europe, you might need to correct your data.
+
+Using the data from the example, we can transform the time to the **tz** time zone of Chile.
+
+```{r}
+my_individual_subsampled$dt<-format(my_individual_subsampled$timestamp, tz="America/Santiago",usetz=TRUE)
+my_individual_subsampled$CET<-as.POSIXct(strptime(my_individual_subsampled$dt, "%Y-%m-%d %H:%M:%S"))
+range(my_individual_subsampled$dt)
+```
+
+See more in my [page](https://www.miriam-lerma.com/posts/2022-06-30-time-formats/).
+
+
+---
+
+## 3.2. Export
 
 I recommend to export your clean csv to work on them later.
 
@@ -417,16 +596,16 @@ See more in my [page](https://miriamll.github.io/R_intro/DataWrangling_0805.html
 
 ---
 
-name: plotting
+name: visualise
 class: title-slide, inverse, bottom
 background-image: url(https://images.unsplash.com/photo-1622542795953-5c26b9d8a135?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 background-size: cover
 
-# `r text_spec("Plotting", background = "#003049", color = "#e5e5e5", bold = T)`
+# `r text_spec("Visualise", background = "#003049", color = "#e5e5e5", bold = T)`
 
 ---
 
-## 3. Plotting
+## 4. Plotting
 
 To plot the data we can use the package **ggplot2** and the argument **geom_path**.
 
@@ -439,7 +618,7 @@ See more in my [page](https://www.miriam-lerma.com/posts/2023-06-06-plotting/).
 
 ---
 
-## 3.1. Base map
+## 4.1. Base map
 
 To provide reference of the area, the package **GermanNorthSea** contains shapefiles.
 
@@ -464,13 +643,12 @@ See more in my [page](https://www.miriam-lerma.com/posts/2023-06-02-germannorths
 
 ---
 
-## 3.1. Base map
+## 4.1. Base map
 
 Create base map.
 
-```{r, fig.height=4}
-Base_map<-ggplot(data = Europe)+ geom_sf(color = "#e76f51",fill = "#e9c46a")+ 
-  coord_sf(xlim = c(3,9), ylim = c(53,56))+
+```{r, fig.height=3}
+Base_map<-ggplot(data = Europe)+ geom_sf(color = "#e76f51",fill = "#e9c46a")+ coord_sf(xlim = c(3,9), ylim = c(53,56))+
   theme_bw()+ theme(panel.background = element_rect(fill = '#a8dadc'),panel.grid.major = element_blank(),panel.grid.minor = element_blank())+
   xlab('Longitude')+ylab('Latitude')+ scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+ scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
 Base_map
@@ -480,7 +658,7 @@ See more details on how to plot in my [page](https://www.miriam-lerma.com/posts/
 
 ---
 
-## 3.2. Add geometry
+## 4.2. Add geometry
 
 Use the argument **geom_path** to visualize the tracking data.
 
@@ -490,13 +668,13 @@ Base_map +
             color='black')
 ```
 
-🔬 
+ 
 
-It looks way too small.
+It looks way too small.🔬
 
 ---
 
-## 3.3. Plotly
+## 4.3. Plotly
 
 To create interactive plots in R we can use the package plotly.
 
@@ -513,7 +691,7 @@ ggplotly(Base_map +
 
 ---
 
-## 3.4. Map
+## 4.4. Static map
 
 For the static map select different **coord_sf** to zoom-in. 
 
@@ -540,8 +718,9 @@ background-size: cover
 ### Back to
 - [index](#index)
 - [data](#data)
-- [wrangling](#wrangling)
-- [plotting](#plotting)
+- [tidy](#tidy)
+- [transform](#transform)
+- [visualise](#visualise)
 <br>
 <br>
 <br>
