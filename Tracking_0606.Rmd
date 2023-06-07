@@ -1021,10 +1021,6 @@ In Spanish [here](https://miriamll.github.io/Curso_tracking/Parte2#1)<br>
 [Visualise](#visualise)
 <br>
 
-<br>
-<br>
-<br>
-<br>
 
 .right[
 This materials are free of use <br> Download the presentation here: [`r fa("external-link-alt", fill = "#d90429")`github](https://github.com/MiriamLL/R_intro) and  [`r fa("external-link-alt", fill = "#d90429")`webpage](https://www.miriam-lerma.com/posts/2023-06-06-plotting/)
