@@ -24,6 +24,9 @@ library(fontawesome)
 library(emo)
 ```
 
+```{r xaringanExtra-clipboard, echo=FALSE}
+xaringanExtra::use_clipboard()
+```
 
 # `r rmarkdown::metadata$title`
 ## **`r rmarkdown::metadata$author`**<br>
@@ -142,7 +145,7 @@ my_login<-movebankLogin(username = "Demo", password = "ftz2023*")
 
 For the exercise, we will check studies that have **FTZ** on the name.
 
-```{r, message=FALSE}
+```{r, message=FALSE,eval=FALSE}
 searchMovebankStudies(x="FTZ", login=my_login)
 ```
 
@@ -260,7 +263,7 @@ getMovebankReferenceTable(study=my_study,login=my_login)
 
 If it look alright, you can save information from the study as object.
 
-```{r}
+```{r,eval=FALSE}
 my_study_ref<-getMovebankReferenceTable(study=my_study,login=my_login)
 ```
 
@@ -276,12 +279,12 @@ We can use this information to download the tracking data.
 
 To download all the data use **getMovebankLocationData**.
 
-```{r, eval=TRUE}
+```{r, eval=TRUE,eval=FALSE}
 all_tracks<-getMovebankLocationData(study=my_study,
                                     login=my_login)
 ```
 
-However, this might be too much data, and too much time consuming to download all.
+However, this might be too much data, and time consuming to download the full data set.
 
 <h2> ⏰ </h2>
 
