@@ -120,20 +120,22 @@ knitr::include_graphics("https://github.com/MiriamLL/R_intro/blob/master/Images/
 
 However, it is more convenient to store your login information.
 
-<h2>⚠️ </h2>
-Be careful to not share the script with your login information.
-
-<br>
-
-<br>
-
-For this exercise, I created a username for **demonstration**.  
-
-The password is the institute, the year and asterisk. 
-
 ```{r, eval=FALSE}
 my_login<-movebankLogin(username = "Demo", password = "*****")
 ```
+
+Be careful to not share the script with your login information.
+
+<h2>🤫</h2>
+
+To avoid this creating a txt file or an r script only with your login data would be more convenient. You can call it using the function **source()**.
+<br>
+
+<br>
+
+For this tutorial, I created a username for **demonstration**.  
+
+The password is the institute, the year and asterisk. 
 
 ```{r, echo=FALSE}
 my_login<-movebankLogin(username = "Demo", password = "ftz2023*")
@@ -363,6 +365,28 @@ my_individual_subsampled<-getMovebankLocationData(study=my_study,
                                timestamp_end=my_end)
 ```
 
+---
+
+## 1.8. Summarizing
+
+Download data from a specific **study**, specific **individual** and specific **time period** using the code below.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(move)
+```
+
+```{r, warning=FALSE, message=FALSE}
+my_study<-"FTZ: Foraging in lesser black-backed gulls (data from Garthe et al. 2016)"
+# my_login<-movebankLogin(username = "Demo", password = "*****")
+my_individual<-"LBBG-Spiekeroog-2010-01"
+my_start<-"201005180000000"
+my_end<-"201005200000000"
+my_individual_subsampled<-getMovebankLocationData(study=my_study, 
+                               login=my_login, 
+                               individual_local_identifier=my_individual,
+                               timestamp_start=my_start,
+                               timestamp_end=my_end)
+```
 
 ---
 
@@ -504,16 +528,20 @@ head(my_tracks)
 
 The package **purrr** allows you to do the same, joining multiple files. 
 
-```{r echo=FALSE, out.height=150}
-knitr::include_graphics("https://purrr.tidyverse.org/logo.png")
-```
-
+.pull-left[
 Call the package.
 
 ```{r, eval=FALSE}
 library(purrr)
 ```
 
+```{r echo=FALSE, out.height=150}
+knitr::include_graphics("https://purrr.tidyverse.org/logo.png")
+```
+
+]
+
+.pull-right[
 Instead of a loop we use the function **map_df** from the package purrr
 
 ```{r, eval=FALSE}
@@ -524,6 +552,7 @@ my_files<-list.files(".",
 my_tracks<-map_df(my_files,
                read.csv)
 ```
+]
 
 ---
 
@@ -531,22 +560,30 @@ my_tracks<-map_df(my_files,
 
 If you were using your data in excel, you can use the package readxl to load your data. 
 
-```{r echo=FALSE, out.height=150}
-knitr::include_graphics("https://readxl.tidyverse.org/logo.png")
-```
-
+.pull-left[
 To call the package.
 
 ```{r, eval=FALSE}
 library("readxl")
 ```
 
+```{r echo=FALSE, out.height=150}
+knitr::include_graphics("https://readxl.tidyverse.org/logo.png")
+```
+
+]
+
+.pull-right[
+
 Provide your directory and the complete name of the file you want to import.
 
 ```{r, eval=FALSE}
-GPS01_excel<- read_excel(paste0(my_directory,("//GPS01.xlsx")))
+GPS01_excel<- read_excel(
+  paste0(
+    my_directory,
+    ("//GPS01.xlsx")))
 ```
-
+]
 
 ---
 
@@ -777,76 +814,128 @@ For this part knowing ggplot2 is very useful, if you need to learn that first, s
 
 ---
 
-## 5. Plotting
+## 5.1. Plotting
+
+For plotting tracking data be sure you have information about latitude and longitude.
+
+To have test data download movebank data go to this presentation section: [import data from movebank](#read).  
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(move)
+my_login<-movebankLogin(username = "Demo", password = "ftz2023*")
+```
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+my_study<-"FTZ: Foraging in lesser black-backed gulls (data from Garthe et al. 2016)"
+# my_login<-movebankLogin(username = "Demo", password = "*****")
+my_start<-"201005180000000"
+my_end<-"201005200000000"
+my_tracking<-getMovebankLocationData(study=my_study, 
+                               login=my_login, 
+                               timestamp_start=my_start,
+                               timestamp_end=my_end)
+```
+
+---
+
+## 5.1. Plotting
 
 To plot the data we can use the package **ggplot2** and the argument **geom_path**.
 
-```{r, fig.height=4, fig.width=6}
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+This shows all the tracks from the study.
+
+```{r, fig.height=3, fig.width=6}
 ggplot()+ 
-  geom_path(data=my_individual_subsampled, aes(x=location.long, y=location.lat))
+  geom_path(data=my_tracking, aes(x=location.long, y=location.lat))
 ```
 
 See more details on how to plote on the tutorial  [here](https://www.miriam-lerma.com/posts/2023-06-06-plotting/).
 
 ---
 
-## 5.1. Base map
+## 5.1. Plotting
+
+To separate the tracks between individuals add the argument **color** in the geom_path.
+
+```{r, fig.height=4, fig.width=6}
+ggplot()+ 
+  geom_path(data=my_tracking, aes(x=location.long, y=location.lat,
+                                  color=individual.local.identifier))
+```
+
+---
+
+## 5.2. Base map
 
 To provide reference of the area, the package **GermanNorthSea** contains shapefiles.
 
+See all the shapefiles contained in the package [here](https://www.miriam-lerma.com/posts/2023-06-02-germannorthsea/).
+
+.pull-left[
 Load the package.
 
 ```{r, message=FALSE,eval=TRUE}
 library(GermanNorthSea)
-library(sf)
-```
-
-Load shapefile into environment.
-
-```{r}
-Europe<-st_transform(German_land,4326)
 ```
 
 ```{r echo=FALSE, out.height=200}
 knitr::include_graphics("https://www.miriam-lerma.com/posts/2023-06-02-germannorthsea/GNS_hexsticker.png")
 ```
+]
 
-See all the shapefiles contained in the package [here](https://www.miriam-lerma.com/posts/2023-06-02-germannorthsea/).
+.pull-right[
+
+Load shapefile into environment.
+
+```{r, message=FALSE,eval=TRUE}
+library(sf)
+```
+
+```{r}
+Europe<-st_transform(
+  German_land,
+  4326)
+```
+
+]
+
 
 ---
 
-## 5.1. Base map
+## 5.2. Base map
 
 Create base map.
 
-```{r, fig.height=4, fig.width=6}
+```{r, fig.height=3, fig.width=6}
 Base_map<-ggplot(data = Europe)+ geom_sf(color = "#e76f51",fill = "#e9c46a")+ coord_sf(xlim = c(3,9), ylim = c(53,56))+
   theme_bw()+ theme(panel.background = element_rect(fill = '#a8dadc'),panel.grid.major = element_blank(),panel.grid.minor = element_blank())+
   xlab('Longitude')+ylab('Latitude')+ scale_x_continuous(labels = function(x) paste0(x, '\u00B0', "W"))+ scale_y_continuous(labels = function(x) paste0(x, '\u00B0', "N"))
 Base_map
 ```
 
-See more details on how to plot in my [page](https://www.miriam-lerma.com/posts/2023-03-04-mapping-in-r/).
+See more details on how to create a map in my [page](https://www.miriam-lerma.com/posts/2023-03-04-mapping-in-r/).
 
 ---
 
-## 5.2. Add geometry
+## 5.3. Base map
 
-Use the argument **geom_path** to visualize the tracking data.
+Use the argument **geom_path** to add a geometry to your map and visualize the tracking data.
 
-```{r, fig.height=4, fig.width=6}
+```{r, fig.height=3, fig.width=6}
 Base_map + 
-  geom_path(data=my_individual_subsampled, aes(x=location.long, y=location.lat),
-            color='black')
+  geom_path(data=my_tracking, aes(x=location.long, y=location.lat,
+                                  color=individual.local.identifier))
 ```
 
- 
-
-It looks way too small 🔬.
+However, the tracking data looks way too small 🔬.
 
 ---
 
-## 5.3. Plotly
+## 5.4. Plotly
 
 To create interactive plots in R we can use the package plotly.
 
@@ -856,25 +945,48 @@ library(plotly)
 
 The function **ggplotly** allows to zoom-in. 
 
-```{r, fig.height=4, fig.width=6}
-ggplotly(Base_map + 
-  geom_path(data=my_individual_subsampled, aes(x=location.long, y=location.lat),color='black'))
+Here, I added the argument theme(legend.position = **'none'**) to not include the ID names.
+
+I use this function to zoom-in and decide the new coordinates.
+
+.pull-left[
+```{r, fig.height=3, fig.width=4,eval=FALSE}
+ggplotly(Base_map + #<<
+    geom_path(data=my_tracking, 
+              aes(x=location.long, 
+                  y=location.lat,
+                  color=individual.local.identifier))+
+      theme(legend.position='none')
+    )
 ```
+]
+
+.pull-right[
+```{r,fig.height=3, fig.width=4,echo=FALSE}
+ggplotly(Base_map + #<<
+    geom_path(data=my_tracking, aes(x=location.long, y=location.lat,
+                                  color=individual.local.identifier))+
+      theme(legend.position='none')
+    )
+```
+]
 
 ---
 
-## 5.4. Static map
+## 5.5. Static map
 
 For the static map select different **coord_sf** to zoom-in. 
 
 Repeat the process until you are satisfied.
 
-```{r, fig.height=4, fig.width=6, warning=FALSE, message=FALSE}
+```{r, fig.height=3, fig.width=8, warning=FALSE, message=FALSE}
 Base_map + 
-  geom_path(data=my_individual_subsampled, aes(x=location.long, y=location.lat),color='black')+
-  coord_sf(xlim = c(7.7,7.9), ylim = c(53.65,53.8)) #<<
+  geom_path(data=my_tracking, aes(x=location.long, y=location.lat,color=individual.local.identifier))+
+  coord_sf(xlim = c(6.5,8.5), ylim = c(53.2,54.4)) #<<
 ```
 
+
+For instructions on how to export your maps go [here](https://miriamll.github.io/R_intro/Plotting_0606.html#89).
 
 ---
 
@@ -887,7 +999,7 @@ Base_map +
 
 **Advance topics**
 
-- Presentations in [Animove](https://animove.org/elearning-downloads/)
+- Presentations in [animove](https://animove.org/elearning-downloads/).
 
 ---
 
@@ -908,7 +1020,7 @@ In Spanish [here](https://miriamll.github.io/Curso_tracking/Parte2#1)<br>
 <br>
 [Visualise](#visualise)
 <br>
-<br>
+
 <br>
 <br>
 <br>
